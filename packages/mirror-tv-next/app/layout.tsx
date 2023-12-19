@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import MainHeader from '~/components/layout/header/main-header'
 
 export const metadata: Metadata = {
   title: '鏡新聞',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ch">
-      <body>{children}</body>
+      <body>
+        <MainHeader />
+        {children}
+      </body>
     </html>
   )
 }
