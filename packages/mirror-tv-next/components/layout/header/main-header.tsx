@@ -8,7 +8,11 @@ export default function MainHeader(): JSX.Element {
       <Link href="/">
         <Image src={logoSrc} alt="mnews logo" priority />
       </Link>
-      <p>Hi header</p>
+      <ul>
+        <li>
+          <Link href="/category/video">影音</Link>
+        </li>
+      </ul>
     </header>
   )
 }
