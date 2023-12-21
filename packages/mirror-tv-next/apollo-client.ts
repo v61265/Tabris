@@ -1,18 +1,26 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 
-import { API_ENDPOINT } from '~/constants/config'
 import { isServer } from '~/utils/common'
+import { API_ENDPOINT } from './constants/config'
 
-export const getGqlClient = () => {
-  // make apollo client support for both client-side and server-side
-  return new ApolloClient({
-    uri: isServer() ? API_ENDPOINT : `${window.location.origin}/api/graphql`,
-    cache: new InMemoryCache(),
-    defaultOptions: {
-      query: {
-        fetchPolicy: 'no-cache',
-        errorPolicy: 'all',
+let client: ApolloClient<any> | null = null
+
+export const getClient = () => {
+  // creat a new client if there's no existing one
+  // or if we are running on the server.
+  if (!client || isServer()) {
+    client = new ApolloClient({
+      link: new HttpLink({
+        uri: API_ENDPOINT,
+      }),
+      cache: new InMemoryCache(),
+      defaultOptions: {
+        query: {
+          fetchPolicy: 'no-cache',
+          errorPolicy: 'all',
+        },
       },
-    },
-  })
+    })
+  }
+  return client
 }
