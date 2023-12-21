@@ -45,7 +45,7 @@ switch (ENV) {
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 'no-store'
     HEADER_JSON_URL =
-      'https://storage.googleapis.com/statics-readr-tw-dev/json/header.json'
+      'https://storage.googleapis.com/static-mnews-tw-dev/json/featured_categories_post.json'
     FLASH_NEWS_JSON_URL =
       'https://storage.googleapis.com/static-mnews-tw-dev/json/flash_news.json'
 
