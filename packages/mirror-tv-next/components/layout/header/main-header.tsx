@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
+
 import {
   GLOBAL_CACHE_SETTING,
   HEADER_JSON_URL,
