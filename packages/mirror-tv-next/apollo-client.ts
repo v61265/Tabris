@@ -8,6 +8,7 @@ let client: ApolloClient<any> | null = null
 export const getClient = () => {
   // creat a new client if there's no existing one
   // or if we are running on the server.
+  // a workaround to fix the caching issue, reference : https://www.youtube.com/watch?v=buhHZksGM84
   if (!client || isServer()) {
     client = new ApolloClient({
       link: new HttpLink({

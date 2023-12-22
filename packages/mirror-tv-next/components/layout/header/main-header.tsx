@@ -1,67 +1,68 @@
-import gql from 'graphql-tag'
+import errors from '@twreporter/errors'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getClient } from '~/apollo-client'
+import type { Category } from '~/graphql/query/categories'
+import { categories } from '~/graphql/query/categories'
+import type { Show } from '~/graphql/query/shows'
+import { shows } from '~/graphql/query/shows'
+import type { Sponsor } from '~/graphql/query/sponsors'
+import { sponsors } from '~/graphql/query/sponsors'
 
-import axios, { AxiosResponse } from 'axios'
-import {
-  GLOBAL_CACHE_SETTING,
-  HEADER_JSON_URL,
-} from '~/constants/environment-variables'
 import logoSrc from '~/public/icons/mnews-logo.svg'
 import styles from './main-header.module.css'
 
-const GET_SPONSOR = gql`
-  query fetchSponsors {
-    allSponsors(
-      where: { state: published }
-      sortBy: [sortOrder_ASC, createdAt_DESC]
-    ) {
-      id
-      title
-      url
-      logo {
-        urlMobileSized
-      }
-      mobile {
-        urlMobileSized
-      }
-      tablet {
-        urlMobileSized
-      }
-      topic {
-        id
-        slug
-        name
-      }
-    }
-  }
-`
-
 export default async function MainHeader() {
-  try {
-    const response: AxiosResponse = await axios.get(HEADER_JSON_URL)
-    // Access the headers from Axios response
-    const headers = response.headers
-    // Set Cache-Control header in the headers object
-    headers['Cache-Control'] = GLOBAL_CACHE_SETTING
-
-    const headerData = response.data
-    console.log(headerData)
-  } catch (error) {
-    const err = error as Error
-    console.error(JSON.stringify({ severity: 'ERROR', message: err.stack }))
-  }
+  let sponsorsData: Sponsor[] = []
+  let categoriesData: Category[] = []
+  let showsData: Show[] = []
 
   const client = getClient()
   try {
-    const { data } = await client.query({ query: GET_SPONSOR }) // Make sure to pass the query object
-    console.log(data)
-    // Handle the received data as needed
-  } catch (error) {
-    console.error(error)
-    // Handle errors if necessary
+    // Fetch sponsors
+    const { data: sponsorsResponse } = await client.query<{
+      allSponsors: Sponsor[]
+    }>({
+      query: sponsors,
+    })
+    sponsorsData = sponsorsResponse.allSponsors
+
+    // Fetch categories
+    const { data: categoriesResponse } = await client.query<{
+      allCategories: Category[]
+    }>({
+      query: categories,
+    })
+    categoriesData = categoriesResponse.allCategories
+
+    // Fetch shows
+    const { data: showsResponse } = await client.query<{ allShows: Show[] }>({
+      query: shows,
+    })
+    showsData = showsResponse.allShows
+  } catch (err) {
+    const annotatingError = errors.helpers.wrap(
+      err,
+      'UnhandledError',
+      'Error occurs while fetching data for header'
+    )
+
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(annotatingError, {
+          withStack: false,
+          withPayload: true,
+        }),
+      })
+    )
+
+    throw new Error('Error occurs while fetching data.')
   }
+
+  console.log('Sponsors:', sponsorsData)
+  console.log('Categories:', categoriesData)
+  console.log('Shows:', showsData)
 
   return (
     <header className={styles.header}>
