@@ -1,6 +1,5 @@
 import errors from '@twreporter/errors'
-import Image from 'next/image'
-import Link from 'next/link'
+
 import { getClient } from '~/apollo-client'
 import type { Category } from '~/graphql/query/categories'
 import { categories } from '~/graphql/query/categories'
@@ -9,7 +8,9 @@ import { shows } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 import { sponsors } from '~/graphql/query/sponsors'
 
-import logoSrc from '~/public/icons/mnews-logo.svg'
+import HeaderBottom from './header-bottom'
+import HeaderNav from './header-nav'
+import HeaderTop from './header-top'
 import styles from './main-header.module.css'
 
 export default async function MainHeader() {
@@ -60,20 +61,11 @@ export default async function MainHeader() {
     throw new Error('Error occurs while fetching data.')
   }
 
-  console.log('Sponsors:', sponsorsData)
-  console.log('Categories:', categoriesData)
-  console.log('Shows:', showsData)
-
   return (
     <header className={styles.header}>
-      <Link href="/">
-        <Image src={logoSrc} alt="mnews logo" priority />
-      </Link>
-      <ul>
-        <li>
-          <Link href="/category/video">影音</Link>
-        </li>
-      </ul>
+      <HeaderTop sponsors={sponsorsData} />
+      <HeaderNav categories={categoriesData} shows={showsData} />
+      <HeaderBottom />
     </header>
   )
 }
