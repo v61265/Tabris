@@ -1,3 +1,4 @@
+import errors from '@twreporter/errors'
 import gql from 'graphql-tag'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -39,6 +40,7 @@ const GET_SPONSOR = gql`
 `
 
 export default async function MainHeader() {
+  // Get header data from json file
   try {
     const response: AxiosResponse = await axios.get(HEADER_JSON_URL)
     // Access the headers from Axios response
@@ -53,14 +55,34 @@ export default async function MainHeader() {
     console.error(JSON.stringify({ severity: 'ERROR', message: err.stack }))
   }
 
+  // Get sponsors data from gql
   const client = getClient()
   try {
-    const { data } = await client.query({ query: GET_SPONSOR }) // Make sure to pass the query object
+    const { data } = await client.query({
+      query: GET_SPONSOR,
+    })
     console.log(data)
-    // Handle the received data as needed
-  } catch (error) {
-    console.error(error)
-    // Handle errors if necessary
+  } catch (err) {
+    const annotatingError = errors.helpers.wrap(
+      err,
+      'UnhandledError',
+      'Error occurs while fetching sponsors data for header'
+    )
+
+    // All exceptions that include a stack trace will be
+    // integrated with Error Reporting.
+    // See https://cloud.google.com/run/docs/error-reporting
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(annotatingError, {
+          withStack: false,
+          withPayload: true,
+        }),
+      })
+    )
+
+    throw new Error('Error occurs while fetching data.')
   }
 
   return (
