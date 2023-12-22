@@ -2,6 +2,10 @@ import errors from '@twreporter/errors'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getClient } from '~/apollo-client'
+import type { Category } from '~/graphql/query/categories'
+import { categories } from '~/graphql/query/categories'
+import type { Show } from '~/graphql/query/shows'
+import { shows } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 import { sponsors } from '~/graphql/query/sponsors'
 
@@ -10,23 +14,39 @@ import styles from './main-header.module.css'
 
 export default async function MainHeader() {
   let sponsorsData: Sponsor[] = []
-  // Get sponsors data from gql
+  let categoriesData: Category[] = []
+  let showsData: Show[] = []
+
   const client = getClient()
   try {
-    const { data } = await client.query<{ allSponsors: Sponsor[] }>({
+    // Fetch sponsors
+    const { data: sponsorsResponse } = await client.query<{
+      allSponsors: Sponsor[]
+    }>({
       query: sponsors,
     })
-    sponsorsData = data.allSponsors
+    sponsorsData = sponsorsResponse.allSponsors
+
+    // Fetch categories
+    const { data: categoriesResponse } = await client.query<{
+      allCategories: Category[]
+    }>({
+      query: categories,
+    })
+    categoriesData = categoriesResponse.allCategories
+
+    // Fetch shows
+    const { data: showsResponse } = await client.query<{ allShows: Show[] }>({
+      query: shows,
+    })
+    showsData = showsResponse.allShows
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching sponsors data for header'
+      'Error occurs while fetching data for header'
     )
 
-    // All exceptions that include a stack trace will be
-    // integrated with Error Reporting.
-    // See https://cloud.google.com/run/docs/error-reporting
     console.error(
       JSON.stringify({
         severity: 'ERROR',
@@ -40,7 +60,10 @@ export default async function MainHeader() {
     throw new Error('Error occurs while fetching data.')
   }
 
-  console.log(sponsorsData)
+  console.log('Sponsors:', sponsorsData)
+  console.log('Categories:', categoriesData)
+  console.log('Shows:', showsData)
+
   return (
     <header className={styles.header}>
       <Link href="/">
