@@ -2,19 +2,21 @@ import errors from '@twreporter/errors'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getClient } from '~/apollo-client'
+import type { Sponsor } from '~/graphql/query/sponsors'
 import { sponsors } from '~/graphql/query/sponsors'
 
 import logoSrc from '~/public/icons/mnews-logo.svg'
 import styles from './main-header.module.css'
 
 export default async function MainHeader() {
+  let sponsorsData: Sponsor[] = []
   // Get sponsors data from gql
   const client = getClient()
   try {
-    const { data } = await client.query({
+    const { data } = await client.query<{ allSponsors: Sponsor[] }>({
       query: sponsors,
     })
-    console.log(data)
+    sponsorsData = data.allSponsors
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
@@ -38,6 +40,7 @@ export default async function MainHeader() {
     throw new Error('Error occurs while fetching data.')
   }
 
+  console.log(sponsorsData)
   return (
     <header className={styles.header}>
       <Link href="/">
