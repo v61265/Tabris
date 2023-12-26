@@ -1,0 +1,19 @@
+.itemWrapper {
+  background-color: yellowgreen;
+  display: flex;
+}
+
+.li {
+  padding: 0 8px;
+}
+
+.restOfCategories {
+    display: none;
+    background-color: black;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .show {
+    display: flex;
+  }
