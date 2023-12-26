@@ -8,6 +8,9 @@ const nextConfig = {
       ssr: true,
     },
   },
+  images: {
+    domains: ['www.mirrormedia.mg'],
+  },
 }
 
 module.exports = nextConfig

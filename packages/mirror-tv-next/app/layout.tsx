@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import MainHeader from '~/components/layout/header/main-header'
 import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
+import '../styles/global.css'
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
