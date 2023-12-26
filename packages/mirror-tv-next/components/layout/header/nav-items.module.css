@@ -1,19 +1,30 @@
 .itemWrapper {
   background-color: yellowgreen;
   display: flex;
+  flex-direction: column;
 }
 
 .li {
   padding: 0 8px;
 }
 
+.visibleCategories {
+  background-color: pink;
+  display: flex;
+  flex-wrap: wrap;
+  /* max-width: 320px; */
+  height: 28px;
+
+  @media (min-width: 1200px) {
+    /* max-width: 660px; */
+  }
+}
+
 .restOfCategories {
-    display: none;
-    background-color: black;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  
-  .show {
-    display: flex;
-  }
+  display: none;
+  background-color: black;
+}
+
+.show {
+  display: flex;
+}
