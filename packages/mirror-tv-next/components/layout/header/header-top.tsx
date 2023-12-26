@@ -28,6 +28,10 @@ export default function HeaderTop({ sponsors }: HeaderTopProps) {
                   width={100}
                   height={52}
                   priority
+                  style={{
+                    width: 100,
+                    height: 52,
+                  }}
                 />
               </Link>
             </div>
