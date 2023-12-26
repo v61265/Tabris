@@ -1,7 +1,41 @@
 .wrapper {
-  background-color: aqua;
+  background: #000;
+  height: 92px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: 768px) {
-    background-color: yellow;
+    background: #fff;
+    height: 64px;
+    padding: 0 16px;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 1024px) {
+    height: 73px;
+    padding: 0 44px;
+  }
+}
+
+.logo {
+  width: 192px;
+  height: 36px;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.sponsorsWrapper {
+  display: flex;
+  gap: 20px;
+  height: 52px;
+  align-items: center;
+  overflow: hidden;
+  @media (min-width: 768px) {
+    gap: 10px;
   }
 }

@@ -9,12 +9,31 @@ type HeaderTopProps = {
 }
 
 export default function HeaderTop({ sponsors }: HeaderTopProps) {
-  console.log(sponsors)
   return (
     <div className={styles.wrapper}>
-      <Link href="/">
-        <Image src={logoSrc} alt="mnews logo" priority />
-      </Link>
+      <div className={styles.logo}>
+        <Link href="/">
+          <Image src={logoSrc} alt="mnews logo" priority />
+        </Link>
+      </div>
+
+      <div className={styles.sponsorsWrapper}>
+        {sponsors.map((sponsor) => {
+          return (
+            <div key={sponsor.id}>
+              <Link href={`/topic/${sponsor.topic.slug}`}>
+                <Image
+                  src={sponsor.logo.urlMobileSized}
+                  alt="Sponsor Logo"
+                  width={100}
+                  height={52}
+                  priority
+                />
+              </Link>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
