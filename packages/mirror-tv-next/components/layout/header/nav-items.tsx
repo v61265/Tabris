@@ -64,7 +64,7 @@ export default function NavItems({ categories }: NavItemProps) {
         className={`${styles.restOfCategories} ${showRest ? styles.show : ''}`}
       >
         {categories.slice(totalVisibleCategories).map((category) => (
-          <li key={category.id} className={styles.li}>
+          <li key={category.id} className={styles.liRest}>
             <Link href={`/category/${category.slug}`}>{category.name}</Link>
           </li>
         ))}
