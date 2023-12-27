@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import type { Category } from '~/graphql/query/categories'
 import styles from './nav-items.module.css'
@@ -9,7 +10,7 @@ type NavItemProps = {
 }
 
 export default function NavItems({ categories }: NavItemProps) {
-  console.log(categories)
+  const path = usePathname()
 
   const [showRest, setShowRest] = useState(false)
   const [totalVisibleCategories, setTotalVisibleCategories] = useState(9)
@@ -46,14 +47,26 @@ export default function NavItems({ categories }: NavItemProps) {
     <div className={styles.itemWrapper}>
       <div className={styles.navWrapper}>
         <div className={styles.visibleItems}>
-          <li className={styles.li}>
+          <li
+            className={`${styles.li} ${
+              path === '/category/video' ? styles.active : ''
+            }`}
+          >
             <Link href="/category/video">影音</Link>
           </li>
-          {categories.slice(0, totalVisibleCategories).map((category) => (
-            <li key={category.id} className={styles.li}>
-              <Link href={`/category/${category.slug}`}>{category.name}</Link>
-            </li>
-          ))}
+          {categories.slice(0, totalVisibleCategories).map((category) => {
+            // Check if the category's slug matches the path
+            const isActive = path === `/category/${category.slug}`
+
+            return (
+              <li
+                key={category.id}
+                className={`${styles.li} ${isActive ? styles.active : ''}`}
+              >
+                <Link href={`/category/${category.slug}`}>{category.name}</Link>
+              </li>
+            )
+          })}
           <li className={styles.li}>節目列表</li>
           {categories.length > totalVisibleCategories && (
             <li
@@ -70,11 +83,18 @@ export default function NavItems({ categories }: NavItemProps) {
           showRest ? styles.showRest : ''
         }`}
       >
-        {categories.slice(totalVisibleCategories).map((category) => (
-          <li key={category.id} className={styles.liRest}>
-            <Link href={`/category/${category.slug}`}>{category.name}</Link>
-          </li>
-        ))}
+        {categories.slice(totalVisibleCategories).map((category) => {
+          const isActive = path === `/category/${category.slug}`
+
+          return (
+            <li
+              key={category.id}
+              className={`${styles.liRest} ${isActive ? styles.activeRe : ''}`}
+            >
+              <Link href={`/category/${category.slug}`}>{category.name}</Link>
+            </li>
+          )
+        })}
       </div>
     </div>
   )
