@@ -21,7 +21,6 @@ export default function NavItems({ categories }: NavItemProps) {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
-      // Define your threshold for tablet width here, for example, 768px
       const tabletWidthThreshold = 1200
 
       if (width <= tabletWidthThreshold) {
