@@ -13,7 +13,7 @@
     justify-content: space-between;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     height: 73px;
     padding: 0 44px;
   }
