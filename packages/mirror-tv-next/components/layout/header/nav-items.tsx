@@ -44,24 +44,31 @@ export default function NavItems({ categories }: NavItemProps) {
 
   return (
     <div className={styles.itemWrapper}>
-      <div className={styles.visibleCategories}>
-        <li className={styles.li}>
-          <Link href="/category/video">影音</Link>
-        </li>
-        {categories.slice(0, totalVisibleCategories).map((category) => (
-          <li key={category.id} className={styles.li}>
-            <Link href={`/category/${category.slug}`}>{category.name}</Link>
+      <div className={styles.navWrapper}>
+        <div className={styles.visibleItems}>
+          <li className={styles.li}>
+            <Link href="/category/video">影音</Link>
           </li>
-        ))}
-        <li className={styles.li}>節目列表</li>
-        {categories.length > totalVisibleCategories && (
-          <li onClick={handleSeeMoreClick} className={styles.li}>
-            看更多
-          </li>
-        )}
+          {categories.slice(0, totalVisibleCategories).map((category) => (
+            <li key={category.id} className={styles.li}>
+              <Link href={`/category/${category.slug}`}>{category.name}</Link>
+            </li>
+          ))}
+          <li className={styles.li}>節目列表</li>
+          {categories.length > totalVisibleCategories && (
+            <li
+              onClick={handleSeeMoreClick}
+              className={`${styles.li} ${styles.grey}`}
+            >
+              看更多
+            </li>
+          )}
+        </div>
       </div>
       <div
-        className={`${styles.restOfCategories} ${showRest ? styles.show : ''}`}
+        className={`${styles.restOfCategories} ${
+          showRest ? styles.showRest : ''
+        }`}
       >
         {categories.slice(totalVisibleCategories).map((category) => (
           <li key={category.id} className={styles.liRest}>
