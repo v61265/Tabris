@@ -9,10 +9,9 @@ type HeaderNavProps = {
 }
 
 export default function HeaderNav({ categories, shows }: HeaderNavProps) {
-  console.log(categories, shows)
   return (
     <ul className={styles.ul}>
-      <NavItems categories={categories} />
+      <NavItems categories={categories} shows={shows} />
     </ul>
   )
 }

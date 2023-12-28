@@ -3,17 +3,29 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import type { Category } from '~/graphql/query/categories'
+import type { Show } from '~/graphql/query/shows'
 import styles from './nav-items.module.css'
 
 type NavItemProps = {
   categories: Category[]
+  shows: Show[]
 }
 
-export default function NavItems({ categories }: NavItemProps) {
+export default function NavItems({ categories, shows }: NavItemProps) {
   const path = usePathname()
+  console.log(shows)
 
   const [showRest, setShowRest] = useState(false)
   const [totalVisibleCategories, setTotalVisibleCategories] = useState(9)
+  const [showBox, setShowBox] = useState(false)
+
+  const handleShowBox = () => {
+    setShowBox(true)
+  }
+
+  const handleHideBox = () => {
+    setShowBox(false)
+  }
 
   const handleSeeMoreClick = () => {
     setShowRest((prevState) => !prevState)
@@ -43,6 +55,14 @@ export default function NavItems({ categories }: NavItemProps) {
     }
   }, [])
 
+  // Splitting shows into multiple columns with 7 shows each
+  const columns = []
+  const showsPerColumn = 7
+
+  for (let i = 0; i < shows.length; i += showsPerColumn) {
+    columns.push(shows.slice(i, i + showsPerColumn))
+  }
+
   return (
     <div className={styles.itemWrapper}>
       <div className={styles.navWrapper}>
@@ -67,7 +87,33 @@ export default function NavItems({ categories }: NavItemProps) {
               </li>
             )
           })}
-          <li className={styles.li}>節目列表</li>
+          <div>
+            <li
+              onMouseEnter={handleShowBox}
+              onMouseLeave={handleHideBox}
+              className={styles.showLi}
+            >
+              節目列表
+            </li>
+            {showBox && (
+              <div
+                className={styles.showBox}
+                onMouseEnter={handleShowBox}
+                onMouseLeave={handleHideBox}
+              >
+                {columns.map((column, columnIndex) => (
+                  <ul key={columnIndex} className={styles.showColumn}>
+                    {column.map((show) => (
+                      <li key={show.id} className={styles.showItem}>
+                        <Link href={`/show/${show.slug}`}>{show.name}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                ))}
+              </div>
+            )}
+          </div>
+
           {categories.length > totalVisibleCategories && (
             <li
               onClick={handleSeeMoreClick}
