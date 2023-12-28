@@ -1,3 +1,19 @@
 .header {
   background: lightgoldenrodyellow;
 }
+
+.pcHeaderWrapper {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.mobHeaderWrapper {
+  display: block;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
