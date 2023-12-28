@@ -1,6 +1,7 @@
 import errors from '@twreporter/errors'
 
 import { getClient } from '~/apollo-client'
+import MobileNav from '~/components/layout/header/mobile-header/mobile-nav'
 import type { Category } from '~/graphql/query/categories'
 import { categories } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
@@ -63,9 +64,18 @@ export default async function MainHeader() {
 
   return (
     <header className={styles.header}>
-      <HeaderTop sponsors={sponsorsData} />
-      <HeaderNav categories={categoriesData} shows={showsData} />
-      <HeaderBottom />
+      <div className={styles.pcHeaderWrapper}>
+        <HeaderTop sponsors={sponsorsData} />
+        <HeaderNav categories={categoriesData} shows={showsData} />
+        <HeaderBottom />
+      </div>
+      <div className={styles.mobHeaderWrapper}>
+        <MobileNav
+          categories={categoriesData}
+          shows={showsData}
+          sponsors={sponsorsData}
+        />
+      </div>
     </header>
   )
 }
