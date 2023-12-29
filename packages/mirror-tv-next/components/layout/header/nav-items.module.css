@@ -58,12 +58,16 @@
   height: 44px;
   display: flex;
   align-items: center;
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .navWrapper {
     padding: 0 16px;
   }
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 1200px) {
+  .navWrapper {
     padding: 0 44px;
     font-size: 16px;
   }
@@ -77,8 +81,10 @@
 
   max-width: 560px;
   height: 28px;
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 1200px) {
+  .visibleItems {
     max-width: 960px;
   }
 }
@@ -92,12 +98,15 @@
   font-size: 14px;
   font-weight: 100;
   line-height: normal;
-
-  @media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+  .restOfCategories {
     padding: 0 16px;
   }
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 1200px) {
+  .restOfCategories {
     padding: 0 44px;
   }
 }
