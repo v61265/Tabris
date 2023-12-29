@@ -2,7 +2,7 @@
 const ENV = process.env.NEXT_PUBLIC_ENV || 'local'
 let SITE_URL: string
 let GTM_ID: string
-let GLOBAL_CACHE_SETTING: string
+let GLOBAL_CACHE_SETTING: number
 let HEADER_JSON_URL: string
 let FLASH_NEWS_JSON_URL: string
 
@@ -10,7 +10,7 @@ switch (ENV) {
   case 'prod':
     SITE_URL = 'www.mnews.tw'
     GTM_ID = 'GTM-PK7VRFX'
-    GLOBAL_CACHE_SETTING = 'public, max-age=300'
+    GLOBAL_CACHE_SETTING = 300
     HEADER_JSON_URL =
       'https://storage.googleapis.com/static-mnews-tw-prod/json/featured_categories_post.json'
     FLASH_NEWS_JSON_URL =
@@ -21,7 +21,7 @@ switch (ENV) {
   case 'staging':
     SITE_URL = 'staging.mnews.tw'
     GTM_ID = 'GTM-NFH6FDH'
-    GLOBAL_CACHE_SETTING = 'public, max-age=300'
+    GLOBAL_CACHE_SETTING = 300
     HEADER_JSON_URL =
       'https://storage.googleapis.com/static-mnews-tw-staging/json/featured_categories_post.json'
     FLASH_NEWS_JSON_URL =
@@ -32,7 +32,7 @@ switch (ENV) {
   case 'dev':
     SITE_URL = 'dev.mnews.tw'
     GTM_ID = 'GTM-TVZ26W8'
-    GLOBAL_CACHE_SETTING = 'no-store'
+    GLOBAL_CACHE_SETTING = 0
     HEADER_JSON_URL =
       'https://storage.googleapis.com/static-mnews-tw-dev/json/featured_categories_post.json'
     FLASH_NEWS_JSON_URL =
@@ -43,7 +43,7 @@ switch (ENV) {
   default:
     SITE_URL = 'localhost'
     GTM_ID = 'GTM-TVZ26W8'
-    GLOBAL_CACHE_SETTING = 'no-store'
+    GLOBAL_CACHE_SETTING = 0
     HEADER_JSON_URL =
       'https://storage.googleapis.com/static-mnews-tw-dev/json/featured_categories_post.json'
     FLASH_NEWS_JSON_URL =

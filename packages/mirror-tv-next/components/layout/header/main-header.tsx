@@ -9,12 +9,13 @@ import { shows } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 import { sponsors } from '~/graphql/query/sponsors'
 
+import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 import HeaderBottom from './header-bottom'
 import HeaderNav from './header-nav'
 import HeaderTop from './header-top'
 import styles from './main-header.module.css'
 
-export const revalidate = 0
+export const revalidate = GLOBAL_CACHE_SETTING
 
 export default async function MainHeader() {
   let sponsorsData: Sponsor[] = []
