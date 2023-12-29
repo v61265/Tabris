@@ -13,7 +13,6 @@ type NavItemProps = {
 
 export default function NavItems({ categories, shows }: NavItemProps) {
   const path = usePathname()
-  console.log(shows)
 
   const [showRest, setShowRest] = useState(false)
   const [totalVisibleCategories, setTotalVisibleCategories] = useState(9)
