@@ -4,16 +4,18 @@
 
 .pcHeaderWrapper {
   display: none;
-
-  @media (min-width: 768px) {
-    display: block;
-  }
 }
 
 .mobHeaderWrapper {
   display: block;
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .pcHeaderWrapper {
+    display: block;
+  }
+
+  .mobHeaderWrapper {
     display: none;
   }
 }
