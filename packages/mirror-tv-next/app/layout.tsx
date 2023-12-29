@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Noto_Sans } from 'next/font/google'
 import MainHeader from '~/components/layout/header/main-header'
 import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
+import StyledComponentsRegistry from '~/styled-components-registry'
 import '../styles/global.css'
 
 export const metadata: Metadata = {
@@ -24,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="ch" className={`${noto_sans.variable} ${noto_sans.variable}`}>
       <body>
-        <MainHeader />
-        {children}
+        <>
+          <MainHeader />
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </>
       </body>
     </html>
   )
