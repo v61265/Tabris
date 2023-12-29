@@ -14,6 +14,8 @@ import HeaderNav from './header-nav'
 import HeaderTop from './header-top'
 import styles from './main-header.module.css'
 
+export const revalidate = 0
+
 export default async function MainHeader() {
   let sponsorsData: Sponsor[] = []
   let categoriesData: Category[] = []
