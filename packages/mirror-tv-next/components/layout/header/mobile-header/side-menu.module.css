@@ -1,0 +1,55 @@
+.sidebarWrapper {
+  position: absolute;
+  width: 0;
+  transition: width 0.3s ease;
+  height: 100dvh;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  background: greenyellow;
+  z-index: 1000; /* Header */
+  display: none;
+  color: #fff;
+  overflow-y: scroll;
+}
+
+.sidebarOpen {
+  width: 100%;
+  display: block;
+}
+
+.sponsorsBlock {
+  background: #000;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsorsWrapper {
+  display: flex;
+  gap: 20px;
+  height: 52px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.categoriesBlock {
+  background: #153047;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 200% */
+  letter-spacing: 0.5px;
+  padding: 20px 42px;
+}
+
+.showsBlock {
+  background: #000;
+  padding: 20px 42px;
+}
+
+.bottomBlock {
+  background: #004ebc;
+  padding: 20px 42px;
+}

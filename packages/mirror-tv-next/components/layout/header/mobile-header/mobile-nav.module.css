@@ -1,0 +1,17 @@
+.navWrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background: #153047;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 2000; /* coverHeader */
+}
+
+.logoMob {
+  width: 163px;
+  height: 30px;
+}
