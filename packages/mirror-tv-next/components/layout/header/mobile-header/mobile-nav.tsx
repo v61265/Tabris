@@ -1,6 +1,12 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import type { Category } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
+import logoSrc from '~/public/icons/mnews-logo-white.svg'
+
+import styles from './mobile-nav.module.css'
+import SideMenu from './side-menu'
 
 type MobileNavProps = {
   categories: Category[]
@@ -13,6 +19,14 @@ export default function MobileNav({
   shows,
   sponsors,
 }: MobileNavProps) {
-  console.log(categories, shows, sponsors)
-  return <div>MobileNav</div>
+  return (
+    <div className={styles.navWrapper}>
+      <div className={styles.logo}>
+        <Link href="/">
+          <Image src={logoSrc} alt="mnews logo" priority />
+        </Link>
+      </div>
+      <SideMenu categories={categories} shows={shows} sponsors={sponsors} />
+    </div>
+  )
 }
