@@ -37,6 +37,7 @@ export default function SideMenu({
         <Image src={menuSrc} alt="menu icon" priority />
       </button>
       <div className={sidebarWrapperClasses}>
+        {/* Sponsors Block */}
         <div className={styles.sponsorsBlock}>
           <div className={styles.sponsorsWrapper}>
             {sponsors.map((sponsor) => {
@@ -60,12 +61,27 @@ export default function SideMenu({
             })}
           </div>
         </div>
-        {/* Sidebar content goes here */}
-        {/* You can map through categories, shows, sponsors, etc., to display content */}
-        {/* For example: */}
-        {categories.map((category) => (
-          <div key={category.id}>{category.name}</div>
-        ))}
+
+        {/* Categories Block */}
+        <div className={styles.categoriesBlock}>
+          {categories.map((category) => (
+            <div key={category.id}>{category.name}</div>
+          ))}
+        </div>
+
+        {/* Shows Block */}
+        <div className={styles.showsBlock}>
+          {shows.map((show) => (
+            <div key={show.id}>{show.name}</div>
+          ))}
+        </div>
+
+        {/* Bottom Block */}
+        <div className={styles.bottomBlock}>
+          <div>公評人專區</div>
+          <div>鏡主播</div>
+          <div>關於我們</div>
+        </div>
       </div>
     </div>
   )
