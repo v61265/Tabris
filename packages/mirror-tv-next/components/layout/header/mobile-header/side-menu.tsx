@@ -21,14 +21,14 @@ export default function SideMenu({
   sponsors,
 }: SideMenuProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const currentPathname = usePathname()
+  const path = usePathname()
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prevState) => !prevState)
   }
   useEffect(() => {
     setIsSidebarOpen(false) // Close sidebar when pathname changes
-  }, [currentPathname])
+  }, [path])
 
   // Conditionally set the class based on isSidebarOpen
   const sidebarWrapperClasses = `${styles.sidebarWrapper} ${
@@ -69,12 +69,30 @@ export default function SideMenu({
 
         {/* Categories Block */}
         <ul className={styles.categoriesBlock}>
-          <li className={styles.li}>
-            <Link href="/category/video">影音</Link>
-          </li>
-          {categories.map((category) => (
-            <li key={category.id}>{category.name}</li>
-          ))}
+          <div className={styles.categoriesWrapper}>
+            <li
+              className={`${styles.li} ${
+                path === '/category/video' ? styles.active : ''
+              }`}
+            >
+              <Link href="/category/video">影音</Link>
+            </li>
+            {categories.map((category) => {
+              // Check if the category's slug matches the path
+              const isActive = path === `/category/${category.slug}`
+
+              return (
+                <li
+                  key={category.id}
+                  className={`${styles.li} ${isActive ? styles.active : ''}`}
+                >
+                  <Link href={`/category/${category.slug}`}>
+                    {category.name}
+                  </Link>
+                </li>
+              )
+            })}
+          </div>
         </ul>
 
         {/* Shows Block */}

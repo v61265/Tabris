@@ -36,12 +36,16 @@
 
 .categoriesBlock {
   background: #153047;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 28px; /* 200% */
-  letter-spacing: 0.5px;
-  padding: 20px 42px;
+  display: flex;
+  justify-content: center;
+}
+
+.categoriesWrapper {
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 38px;
+  row-gap: 20px;
 }
 
 .showsBlock {
@@ -52,4 +56,30 @@
 .bottomBlock {
   background: #004ebc;
   padding: 20px 42px;
+}
+
+.li {
+  max-width: 58px;
+  height: fit-content;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 21px */
+  letter-spacing: 0.5px;
+}
+
+.active {
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  bottom: -3px;
+  height: 2px;
+  width: 100%;
+  background-color: #ffcc01;
 }
