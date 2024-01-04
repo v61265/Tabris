@@ -35,6 +35,14 @@ export default function SideMenu({
     isSidebarOpen ? styles.sidebarOpen : ''
   }`
 
+  // Splitting shows into multiple columns with 7 shows each
+  const columns = []
+  const showsPerColumn = 7
+
+  for (let i = 0; i < shows.length; i += showsPerColumn) {
+    columns.push(shows.slice(i, i + showsPerColumn))
+  }
+
   console.log(categories, shows, sponsors)
   return (
     <div>
@@ -97,8 +105,24 @@ export default function SideMenu({
 
         {/* Shows Block */}
         <div className={styles.showsBlock}>
-          {shows.map((show) => (
-            <div key={show.id}>{show.name}</div>
+          {columns.map((column, columnIndex) => (
+            <ul key={columnIndex} className={styles.showColumn}>
+              {column.map((show) => {
+                // Check if the show's slug matches the path
+                const isActive = path === `/show/${show.slug}`
+
+                return (
+                  <li
+                    key={show.id}
+                    className={`${styles.showItem} ${
+                      isActive ? styles.activeShow : ''
+                    }`}
+                  >
+                    <Link href={`/show/${show.slug}`}>{show.name}</Link>
+                  </li>
+                )
+              })}
+            </ul>
           ))}
         </div>
 

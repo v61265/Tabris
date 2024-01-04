@@ -38,19 +38,15 @@
   background: #153047;
   display: flex;
   justify-content: center;
+  padding: 20px 42px;
 }
 
 .categoriesWrapper {
-  padding: 20px 0;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 38px;
+  justify-items: center;
   row-gap: 20px;
-}
-
-.showsBlock {
-  background: #000;
-  padding: 20px 42px;
 }
 
 .bottomBlock {
@@ -82,4 +78,29 @@
   height: 2px;
   width: 100%;
   background-color: #ffcc01;
+}
+
+.showsBlock {
+  background: #000;
+  padding: 12px 52px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.showColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.showItem {
+  color: #e3e3e3;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.activeShow {
+  color: #ffcc01;
 }
