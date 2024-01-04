@@ -1,7 +1,8 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import type { Category } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
@@ -20,10 +21,14 @@ export default function SideMenu({
   sponsors,
 }: SideMenuProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const currentPathname = usePathname()
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
+    setIsSidebarOpen((prevState) => !prevState)
   }
+  useEffect(() => {
+    setIsSidebarOpen(false) // Close sidebar when pathname changes
+  }, [currentPathname])
 
   // Conditionally set the class based on isSidebarOpen
   const sidebarWrapperClasses = `${styles.sidebarWrapper} ${
@@ -63,11 +68,14 @@ export default function SideMenu({
         </div>
 
         {/* Categories Block */}
-        <div className={styles.categoriesBlock}>
+        <ul className={styles.categoriesBlock}>
+          <li className={styles.li}>
+            <Link href="/category/video">影音</Link>
+          </li>
           {categories.map((category) => (
-            <div key={category.id}>{category.name}</div>
+            <li key={category.id}>{category.name}</li>
           ))}
-        </div>
+        </ul>
 
         {/* Shows Block */}
         <div className={styles.showsBlock}>

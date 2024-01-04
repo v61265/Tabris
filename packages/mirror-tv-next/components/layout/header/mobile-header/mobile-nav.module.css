@@ -9,6 +9,7 @@
   justify-content: space-between;
   padding: 0 16px;
   z-index: 2000; /* coverHeader */
+  box-shadow: 0px 1px 1px rgba(65, 65, 65, 0.2);
 }
 
 .logoMob {
