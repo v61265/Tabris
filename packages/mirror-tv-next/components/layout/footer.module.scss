@@ -1,0 +1,11 @@
+.footerWrapper {
+  background-color: #004ebc;
+
+  @media (min-width: 1200px) {
+    background-color: aquamarine;
+  }
+
+  :hover {
+    background-color: black;
+  }
+}

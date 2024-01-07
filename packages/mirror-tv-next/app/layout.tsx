@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Noto_Sans } from 'next/font/google'
+import Footer from '~/components/layout/footer'
 import MainHeader from '~/components/layout/header/main-header'
 import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
 import StyledComponentsRegistry from '~/styled-components-registry'
@@ -28,6 +29,7 @@ export default function RootLayout({
         <>
           <MainHeader />
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          <Footer />
         </>
       </body>
     </html>
