@@ -1,11 +1,17 @@
+@import '/styles//theme/breakpoints';
+
 .footerWrapper {
   background-color: #004ebc;
 
-  @media (min-width: 1200px) {
+  @include breakpoint(md) {
     background-color: aquamarine;
   }
 
-  :hover {
-    background-color: black;
+  @include breakpoint(lg) {
+    background-color: pink;
+
+    :hover {
+      background-color: black;
+    }
   }
 }
