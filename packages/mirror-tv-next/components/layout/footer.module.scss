@@ -1,0 +1,17 @@
+@import '/styles/theme/breakpoints';
+
+.footerWrapper {
+  background-color: #004ebc;
+
+  @include breakpoint(md) {
+    background-color: aquamarine;
+  }
+
+  @include breakpoint(lg) {
+    background-color: pink;
+
+    :hover {
+      background-color: black;
+    }
+  }
+}
