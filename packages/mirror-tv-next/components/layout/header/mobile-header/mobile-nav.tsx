@@ -5,7 +5,7 @@ import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 import logoSrc from '~/public/icons/mnews-logo-white.svg'
 
-import styles from './mobile-nav.module.css'
+import styles from '~/styles/components/layout/header/mobile-header/mobile-nav.module.scss'
 import SideMenu from './side-menu'
 
 type MobileNavProps = {
