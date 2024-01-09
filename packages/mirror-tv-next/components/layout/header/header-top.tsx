@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Sponsor } from '~/graphql/query/sponsors'
 import logoSrc from '~/public/icons/mnews-logo.svg'
-import styles from './header-top.module.css'
+import styles from '~/styles/components/layout/header/header-top.module.scss'
 
 type HeaderTopProps = {
   sponsors: Sponsor[]

@@ -1,21 +1,18 @@
+@import '/styles/theme/breakpoints';
+
 .wrapper {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
 
-@media (min-width: 768px) {
-  .wrapper {
+  @include breakpoint(md) {
     background: #fff;
     height: 64px;
     padding: 0 16px;
     justify-content: space-between;
   }
-}
 
-@media (min-width: 1200px) {
-  .wrapper {
+  @include breakpoint(xl) {
     height: 73px;
     padding: 0 44px;
   }
@@ -25,10 +22,8 @@
   width: 192px;
   height: 36px;
   display: none;
-}
 
-@media (min-width: 768px) {
-  .logo {
+  @include breakpoint(md) {
     display: flex;
   }
 }
@@ -39,10 +34,8 @@
   height: 52px;
   align-items: center;
   overflow: hidden;
-}
 
-@media (min-width: 768px) {
-  .sponsorsWrapper {
+  @include breakpoint(md) {
     gap: 10px;
   }
 }
