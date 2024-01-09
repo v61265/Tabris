@@ -1,4 +1,5 @@
 @import '/styles/theme/breakpoints';
+@import '/styles/theme/z-index';
 
 .itemWrapper {
   display: flex;
@@ -176,7 +177,7 @@
 .showBox {
   position: absolute;
   top: 34px;
-  z-index: 1000; /* header */
+  z-index: $Z_INDEX-header;
   background-color: #004ebc;
   padding: 12px 16px;
   font-size: 14px;

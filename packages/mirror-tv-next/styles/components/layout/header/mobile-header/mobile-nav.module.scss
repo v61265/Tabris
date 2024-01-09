@@ -1,3 +1,5 @@
+@import '/styles/theme/z-index';
+
 .navWrapper {
   position: fixed;
   top: 0;
@@ -8,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  z-index: 2000; /* coverHeader */
+  z-index: $Z_INDEX-coverHeader;
   box-shadow: 0px 1px 1px rgba(65, 65, 65, 0.2);
 }
 
