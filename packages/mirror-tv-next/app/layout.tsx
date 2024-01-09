@@ -3,7 +3,6 @@ import { Noto_Sans } from 'next/font/google'
 import Footer from '~/components/layout/footer'
 import MainHeader from '~/components/layout/header/main-header'
 import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
-import StyledComponentsRegistry from '~/styled-components-registry'
 import '../styles/global.css'
 
 export const metadata: Metadata = {
@@ -28,7 +27,7 @@ export default function RootLayout({
       <body>
         <>
           <MainHeader />
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          {children}
           <Footer />
         </>
       </body>
