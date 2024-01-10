@@ -2,7 +2,6 @@
 
 .styles.mobWrapper {
   display: block;
-  background-color: blue;
 
   @include breakpoint(md) {
     display: none;

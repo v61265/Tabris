@@ -4,9 +4,7 @@ export default function UiMobFlashNews({ flashNews }: any) {
   console.log('Mobile', flashNews)
   return (
     <div>
-      <div className={styles.mobWrapper}>
-        Mob Flash News FIX: Why shows on PC?
-      </div>
+      <div className={styles.mobWrapper}>Mob Flash News</div>
     </div>
   )
 }
