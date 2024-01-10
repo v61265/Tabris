@@ -1,17 +1,9 @@
-'use client'
-import styled from 'styled-components'
-import styles from './page.module.css'
-
-const TestWrapper = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: pink;
-`
+import styles from '~/styles/pages/page.module.scss'
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <TestWrapper>Hello, world.</TestWrapper>
+      <p>Hello, world.</p>
     </main>
   )
 }

@@ -7,7 +7,7 @@ import type { Category } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 import menuSrc from '~/public/icons/side-menu-icon.svg'
-import styles from './side-menu.module.css'
+import styles from '~/styles/components/layout/header/mobile-header/side-menu.module.scss'
 
 type SideMenuProps = {
   categories: Category[]

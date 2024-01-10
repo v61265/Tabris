@@ -1,3 +1,5 @@
+@import '/styles/theme/z-index';
+
 .sidebarWrapper {
   position: absolute;
   width: 0;
@@ -7,7 +9,7 @@
   top: 50px;
   left: 0;
   background: #000;
-  z-index: 1000; /* Header */
+  z-index: $Z_INDEX-header;
   display: none;
   color: #fff;
   overflow-y: scroll;
@@ -68,16 +70,16 @@
 
 .active {
   position: relative;
-}
 
-.active::after {
-  content: '';
-  position: absolute;
-  left: 0px;
-  bottom: -3px;
-  height: 2px;
-  width: 100%;
-  background-color: #ffcc01;
+  ::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -3px;
+    height: 2px;
+    width: 100%;
+    background-color: #ffcc01;
+  }
 }
 
 .showsBlock {

@@ -1,0 +1,21 @@
+@import '/styles/theme/breakpoints';
+
+.header {
+  background: lemonchiffon;
+}
+
+.pcHeaderWrapper {
+  display: none;
+
+  @include breakpoint(md) {
+    display: block;
+  }
+}
+
+.mobHeaderWrapper {
+  display: block;
+
+  @include breakpoint(md) {
+    display: none;
+  }
+}

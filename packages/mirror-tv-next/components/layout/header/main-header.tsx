@@ -10,10 +10,10 @@ import type { Sponsor } from '~/graphql/query/sponsors'
 import { sponsors } from '~/graphql/query/sponsors'
 
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import styles from '~/styles/components/layout/header/main-header.module.scss'
 import HeaderBottom from './header-bottom'
 import HeaderNav from './header-nav'
 import HeaderTop from './header-top'
-import styles from './main-header.module.css'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 

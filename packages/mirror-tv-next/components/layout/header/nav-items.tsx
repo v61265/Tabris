@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import type { Category } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
-import styles from './nav-items.module.css'
+import styles from '~/styles/components/layout/header/nav-items.module.scss'
 
 type NavItemProps = {
   categories: Category[]
