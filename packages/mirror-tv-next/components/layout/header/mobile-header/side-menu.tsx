@@ -48,6 +48,20 @@ export default function SideMenu({
     columns.push(shows.slice(i, i + showsPerColumn))
   }
 
+  // Bottom Links
+  const bottomLinks = [
+    { href: HEADER_BOTTOM_LINKS.ombuds, text: '公評人專區' },
+    { href: HEADER_BOTTOM_LINKS.anchorperson, text: '鏡主播' },
+    { href: HEADER_BOTTOM_LINKS.about, text: '關於我們' },
+  ]
+
+  const socialLinks = [
+    { href: HEADER_BOTTOM_LINKS.fb, src: fbSrc, alt: 'facebook icon' },
+    { href: HEADER_BOTTOM_LINKS.line, src: lineSrc, alt: 'line icon' },
+    { href: HEADER_BOTTOM_LINKS.ig, src: igSrc, alt: 'instagram icon' },
+    { href: HEADER_BOTTOM_LINKS.x, src: xSrc, alt: 'x(former twitter) icon' },
+  ]
+
   return (
     <div>
       <button onClick={toggleSidebar} style={{ outline: 'none' }}>
@@ -133,53 +147,24 @@ export default function SideMenu({
         {/* Bottom Block */}
         <div className={styles.bottomBlock}>
           <ul className={styles.items}>
-            <li className={styles.otherLi}>
-              <Link href={HEADER_BOTTOM_LINKS.ombuds}>公評人專區</Link>
-            </li>
-            <li className={styles.otherLi}>
-              <Link href={HEADER_BOTTOM_LINKS.anchorperson}>鏡主播</Link>
-            </li>
-            <li className={styles.otherLi}>
-              <Link href={HEADER_BOTTOM_LINKS.about}>關於我們</Link>
-            </li>
+            {bottomLinks.map((link, index) => (
+              <li className={styles.otherLi} key={index}>
+                <Link href={link.href}>{link.text}</Link>
+              </li>
+            ))}
           </ul>
           <ul className={styles.iconsWrapper}>
-            <li className={styles.icon}>
-              <Link
-                href={HEADER_BOTTOM_LINKS.fb}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image src={fbSrc} alt="facebook icon" />
-              </Link>
-            </li>
-            <li className={styles.icon}>
-              <Link
-                href={HEADER_BOTTOM_LINKS.line}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image src={lineSrc} alt="line icon" />
-              </Link>
-            </li>
-            <li className={styles.icon}>
-              <Link
-                href={HEADER_BOTTOM_LINKS.ig}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image src={igSrc} alt="instagram icon" />
-              </Link>
-            </li>
-            <li className={styles.icon}>
-              <Link
-                href={HEADER_BOTTOM_LINKS.x}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image src={xSrc} alt="x(former twitter) icon" />
-              </Link>
-            </li>
+            {socialLinks.map((link, index) => (
+              <li className={styles.icon} key={index}>
+                <Link
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image src={link.src} alt={link.alt} />
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
