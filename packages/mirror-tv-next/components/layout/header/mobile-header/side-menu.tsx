@@ -43,7 +43,6 @@ export default function SideMenu({
     columns.push(shows.slice(i, i + showsPerColumn))
   }
 
-  console.log(categories, shows, sponsors)
   return (
     <div>
       <button onClick={toggleSidebar} style={{ outline: 'none' }}>

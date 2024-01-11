@@ -1,8 +1,20 @@
+@import '/styles/theme/breakpoints';
+
 .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6rem;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.mobFlashNewsWrapper {
+  background-color: aqua;
+  height: 100px;
+  padding-top: 60px;
+
+  @include breakpoint(md) {
+    display: none;
   }
+}

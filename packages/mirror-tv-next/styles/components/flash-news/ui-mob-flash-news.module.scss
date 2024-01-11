@@ -1,0 +1,9 @@
+@import '/styles/theme/breakpoints';
+
+.styles.mobWrapper {
+  display: block;
+
+  @include breakpoint(md) {
+    display: none;
+  }
+}

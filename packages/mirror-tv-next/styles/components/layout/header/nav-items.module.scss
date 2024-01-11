@@ -11,32 +11,32 @@
 .li {
   padding: 0 10px;
   position: relative;
+}
 
-  ::after {
-    content: '';
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-    width: 0%;
-    height: 2px;
-    background-color: transparent;
-    transition: width 0.4s ease-in-out;
-  }
+.li::after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 0%;
+  height: 2px;
+  background-color: transparent;
+  transition: width 0.4s ease-in-out;
+}
 
-  :hover::after {
-    width: 100%;
-    background-color: #ffcc01;
-  }
+.li:hover::after {
+  width: 100%;
+  background-color: #ffcc01;
+}
 
-  ::before {
-    content: '';
-    position: absolute;
-    top: 7px;
-    left: 0;
-    height: 16px;
-    width: 1px;
-    background-color: #979797;
-  }
+.li::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 0;
+  height: 16px;
+  width: 1px;
+  background-color: #979797;
 }
 
 .active::after {
@@ -108,16 +108,16 @@
 .liRest {
   padding: 0 10px;
   position: relative;
+}
 
-  ::before {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 0;
-    height: 16px;
-    width: 1px;
-    background-color: #a6a6a6;
-  }
+.liRest::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 16px;
+  width: 1px;
+  background-color: #a6a6a6;
 }
 
 .liRest::after {
@@ -129,11 +129,11 @@
   height: 2px;
   background-color: transparent;
   transition: width 0.4s ease-in-out;
+}
 
-  :hover::after {
-    width: 100%;
-    background-color: #ffcc01;
-  }
+.liRest:hover::after {
+  width: 100%;
+  background-color: #ffcc01;
 }
 
 .activeRe::after {
@@ -162,22 +162,22 @@
 .showLi {
   padding: 0 10px;
   position: relative;
+}
 
-  ::before {
-    content: '';
-    position: absolute;
-    top: 7px;
-    left: 0;
-    height: 16px;
-    width: 1px;
-    background-color: #a6a6a6;
-  }
+.showLi::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 0;
+  height: 16px;
+  width: 1px;
+  background-color: #a6a6a6;
 }
 
 .showBox {
   position: absolute;
   top: 34px;
-  z-index: $Z_INDEX-header;
+  z-index: 1000; /* header */
   background-color: #004ebc;
   padding: 12px 16px;
   font-size: 14px;
@@ -199,7 +199,8 @@
 
 .showItem {
   width: 70px;
-  :hover {
-    color: #ffcc01;
-  }
+}
+
+.showItem:hover {
+  color: #ffcc01;
 }
