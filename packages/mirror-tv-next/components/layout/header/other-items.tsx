@@ -21,22 +21,38 @@ export default function OtherItems(): JSX.Element {
           <Link href={HEADER_BOTTOM_LINKS.about}>關於我們</Link>
         </li>
         <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.fb}>
+          <Link
+            href={HEADER_BOTTOM_LINKS.fb}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image src={fbSrc} alt="facebook icon" />
           </Link>
         </li>
         <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.line}>
+          <Link
+            href={HEADER_BOTTOM_LINKS.line}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image src={lineSrc} alt="line icon" />
           </Link>
         </li>
         <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.ig}>
+          <Link
+            href={HEADER_BOTTOM_LINKS.ig}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image src={igSrc} alt="instagram icon" />
           </Link>
         </li>
         <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.x}>
+          <Link
+            href={HEADER_BOTTOM_LINKS.x}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image src={xSrc} alt="x(former twitter) icon" />
           </Link>
         </li>

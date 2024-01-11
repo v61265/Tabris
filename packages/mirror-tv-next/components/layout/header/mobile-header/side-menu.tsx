@@ -2,10 +2,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import xSrc from 'public/icons/icon-x.svg'
 import { useEffect, useState } from 'react'
+import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
 import type { Category } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
+import fbSrc from '~/public/icons/icon-fb.svg'
+import igSrc from '~/public/icons/icon-ig.svg'
+import lineSrc from '~/public/icons/icon-line.svg'
 import menuSrc from '~/public/icons/side-menu-icon.svg'
 import styles from '~/styles/components/layout/header/mobile-header/side-menu.module.scss'
 
@@ -127,9 +132,55 @@ export default function SideMenu({
 
         {/* Bottom Block */}
         <div className={styles.bottomBlock}>
-          <div>公評人專區</div>
-          <div>鏡主播</div>
-          <div>關於我們</div>
+          <ul className={styles.items}>
+            <li className={styles.otherLi}>
+              <Link href={HEADER_BOTTOM_LINKS.ombuds}>公評人專區</Link>
+            </li>
+            <li className={styles.otherLi}>
+              <Link href={HEADER_BOTTOM_LINKS.anchorperson}>鏡主播</Link>
+            </li>
+            <li className={styles.otherLi}>
+              <Link href={HEADER_BOTTOM_LINKS.about}>關於我們</Link>
+            </li>
+          </ul>
+          <ul className={styles.iconsWrapper}>
+            <li className={styles.icon}>
+              <Link
+                href={HEADER_BOTTOM_LINKS.fb}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={fbSrc} alt="facebook icon" />
+              </Link>
+            </li>
+            <li className={styles.icon}>
+              <Link
+                href={HEADER_BOTTOM_LINKS.line}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={lineSrc} alt="line icon" />
+              </Link>
+            </li>
+            <li className={styles.icon}>
+              <Link
+                href={HEADER_BOTTOM_LINKS.ig}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={igSrc} alt="instagram icon" />
+              </Link>
+            </li>
+            <li className={styles.icon}>
+              <Link
+                href={HEADER_BOTTOM_LINKS.x}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={xSrc} alt="x(former twitter) icon" />
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
