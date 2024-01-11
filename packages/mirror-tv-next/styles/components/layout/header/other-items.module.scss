@@ -25,3 +25,13 @@
   display: flex;
   justify-content: space-between;
 }
+
+.icon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+
+  @include breakpoint(xl) {
+    width: 20px;
+  }
+}
