@@ -11,13 +11,13 @@ export default function OtherItems(): JSX.Element {
   return (
     <div className={styles.otherItemsWrapper}>
       <ul className={styles.items}>
-        <li>
+        <li className={styles.li}>
           <Link href={HEADER_BOTTOM_LINKS.ombuds}>公評人專區</Link>
         </li>
-        <li>
+        <li className={styles.li}>
           <Link href={HEADER_BOTTOM_LINKS.anchorperson}>鏡主播</Link>
         </li>
-        <li>
+        <li className={styles.li}>
           <Link href={HEADER_BOTTOM_LINKS.about}>關於我們</Link>
         </li>
         <li className={styles.icon}>

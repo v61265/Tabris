@@ -34,4 +34,18 @@
   @include breakpoint(xl) {
     width: 20px;
   }
+
+  img {
+    &:hover {
+      path {
+        fill: #ffcc01;
+      }
+    }
+  }
+}
+
+.li {
+  &:hover {
+    color: #ffcc01;
+  }
 }

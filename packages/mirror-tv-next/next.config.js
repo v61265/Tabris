@@ -3,7 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['www.mirrormedia.mg'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.mirrormedia.mg',
+        pathname: '**',
+      },
+    ],
   },
 }
 
