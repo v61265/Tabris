@@ -1,0 +1,9 @@
+@import '/styles/theme/breakpoints';
+
+.styles.pcWrapper {
+  display: none;
+
+  @include breakpoint(md) {
+    display: block;
+  }
+}
