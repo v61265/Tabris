@@ -36,7 +36,8 @@ const flashNews = [
   },
 ]
 
-export default async function MainFlashNews() {
+export default function MainFlashNews() {
+  console.log('hi', flashNews)
   return (
     <>
       <UiPcFlashNews flashNews={flashNews} />
