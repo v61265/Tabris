@@ -1,3 +1,4 @@
+import styles from '~/styles/components/flash-news/main-flash-news.module.scss'
 import UiMobFlashNews from './ui-mob-flash-news'
 import UiPcFlashNews from './ui-pc-flash-news'
 
@@ -37,11 +38,14 @@ const flashNews = [
 ]
 
 export default function MainFlashNews() {
-  console.log('hi', flashNews)
   return (
     <>
-      <UiPcFlashNews flashNews={flashNews} />
-      <UiMobFlashNews flashNews={flashNews} />
+      <div className={styles.pcWrapper}>
+        <UiPcFlashNews flashNews={flashNews} />
+      </div>
+      <div className={styles.mobWrapper}>
+        <UiMobFlashNews flashNews={flashNews} />
+      </div>
     </>
   )
 }
