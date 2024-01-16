@@ -1,6 +1,11 @@
+import type { FlashNews } from '~/graphql/query/flash-news'
 import styles from '~/styles/components/flash-news/ui-mob-flash-news.module.scss'
 
-export default function UiMobFlashNews({ flashNews }: any) {
+type UiMobFlashNewsProps = {
+  flashNews: FlashNews[]
+}
+
+export default function UiMobFlashNews({ flashNews }: UiMobFlashNewsProps) {
   console.log('Mobile', flashNews)
   return (
     <div>

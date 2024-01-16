@@ -1,6 +1,11 @@
+import type { FlashNews } from '~/graphql/query/flash-news'
 import styles from '~/styles/components/flash-news/ui-pc-flash-news.module.scss'
 
-export default function UiPcFlashNews({ flashNews }: any) {
+type UiPcFlashNewsProps = {
+  flashNews: FlashNews[]
+}
+
+export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
   console.log('Pc', flashNews)
   return (
     <div>
