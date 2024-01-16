@@ -1,43 +1,29 @@
+import {
+  FLASH_NEWS_JSON_URL,
+  GLOBAL_CACHE_SETTING,
+} from '~/constants/environment-variables'
 import styles from '~/styles/components/flash-news/main-flash-news.module.scss'
 import UiMobFlashNews from './ui-mob-flash-news'
 import UiPcFlashNews from './ui-pc-flash-news'
 
-const flashNews = [
-  {
-    slug: 'mm-20230414ombuds016',
-    name: '中國外交部不認對台設「禁航區」　國台辦辯稱：保障飛安慣常做法',
-  },
-  {
-    slug: 'mm-20230706edi016',
-    name: '遭PLG代理執行長周崇偉強抱性騷　啦啦隊長還原經過：當下很錯愕',
-  },
-  {
-    slug: 'nini_test_20230617_01',
-    name: 'No hero image test',
-  },
-  {
-    slug: 'channel',
-    name: '頻道位置',
-  },
-  {
-    slug: 'adsales',
-    name: '整合行銷',
-  },
-  {
-    slug: 'webauthorization',
-    name: '內容授權',
-  },
-  {
-    slug: 'nini_test_20230509_01',
-    name: '測試搜尋修復',
-  },
-  {
-    slug: 'mm-20220127ent012',
-    name: '【張鈞甯祕錄獻聲3】張鈞甯與阮經天合作《野鬼》　不受疫情影響狂接戲',
-  },
-]
+async function getData() {
+  const res = await fetch(FLASH_NEWS_JSON_URL, {
+    next: { revalidate: GLOBAL_CACHE_SETTING },
+  })
 
-export default function MainFlashNews() {
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch flashNews data')
+  }
+
+  return res.json()
+}
+
+export default async function MainFlashNews() {
+  const { allPosts } = await getData()
+  const flashNews = allPosts
+  console.log(allPosts)
+
   return (
     <>
       <div className={styles.pcWrapper}>
