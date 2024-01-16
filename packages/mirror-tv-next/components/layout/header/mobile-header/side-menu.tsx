@@ -40,6 +40,10 @@ export default function SideMenu({
     isSidebarOpen ? styles.sidebarOpen : ''
   }`
 
+  const toggleButtonClasses = `${
+    isSidebarOpen ? styles.activeToggleButton : styles.toggleButton
+  }`
+
   // Splitting shows into multiple columns with 7 shows each
   const columns = []
   const showsPerColumn = 7
@@ -64,7 +68,11 @@ export default function SideMenu({
 
   return (
     <div>
-      <button onClick={toggleSidebar} style={{ outline: 'none' }}>
+      <button
+        onClick={toggleSidebar}
+        style={{ outline: 'none' }}
+        className={toggleButtonClasses}
+      >
         <Image src={menuSrc} alt="menu icon" priority />
       </button>
       <div className={sidebarWrapperClasses}>
