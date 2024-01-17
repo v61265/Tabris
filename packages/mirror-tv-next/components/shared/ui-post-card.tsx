@@ -1,5 +1,6 @@
 import styles from '~/styles/components/shared/ui-post-card.module.scss'
 import { formateDateAtTaipei, PostImage } from '~/utils'
+import ResponsiveImage from './responsive-image'
 
 type UiPostCardProps = {
   title: string
@@ -47,6 +48,8 @@ export default function UiPostCard({
       ? description
       : description.substring(0, limit).concat('...')
 
+  if (!mobileLayoutDirection) return <></>
+
   return (
     <a
       className={styles.card}
@@ -55,24 +58,20 @@ export default function UiPostCard({
       rel="noreferrer noopener"
     >
       <span className={styles.cardTop}>
-        <span className="post-img-wrapper stretch">
-          {/* // <LazyRenderer className="post-img--wrapper lazy">
-        //   <ResponsiveImageLoader
-        //     :alt="postTitle"
-        //     :images="postImgURLs"
-        //     className="post-img--wrapper"
-        //     sizes="(max-width: 767px) 100vw, 400px"
-        //     ><template #loading
-        //       ><img src="~assets/img/default/loading.svg" /></template
-        //   ></ResponsiveImageLoader>
-        // </LazyRenderer> */}
+        <figure className={styles.cardImage}>
+          <ResponsiveImage
+            images={images}
+            alt={title}
+            rwd={{ mobile: '500px', tablet: '500px', desktop: '500px' }}
+            priority={false}
+          />
           {isVideoNews && (
             <span className="g-video-news-img-icon-wrapper">
               <span className="g-video-news-img-icon" />
             </span>
           )}
-        </span>
-        <span className={styles.info}>
+        </figure>
+        <div className={styles.info}>
           <span
             className={styles.infoTitle}
             dangerouslySetInnerHTML={{ __html: postTitleProcessed }}
@@ -83,7 +82,7 @@ export default function UiPostCard({
           <span className={styles.infoDate}>
             {formateDateAtTaipei(date, 'YYYY.MM.DD HH:mm', '')}
           </span>
-        </span>
+        </div>
       </span>
     </a>
   )

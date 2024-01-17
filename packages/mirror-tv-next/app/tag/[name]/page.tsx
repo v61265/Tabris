@@ -88,6 +88,7 @@ export default async function TagPage({
                 </li>
               )
             })}
+            <div className={tagStyles.postsPosition} />
           </ol>
         )}
       </div>

@@ -71,4 +71,14 @@
       width: calc((100% - 48px) / 4);
     }
   }
+
+  &Position {
+    @include breakpoint(xl) {
+      width: calc((100% - 96px) / 4);
+      overflow: hidden;
+    }
+    @include breakpoint(xxl) {
+      width: calc((100% - 48px) / 4);
+    }
+  }
 }
