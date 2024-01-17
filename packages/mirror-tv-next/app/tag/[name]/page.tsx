@@ -21,6 +21,7 @@ export default async function TagPage({
     return {
       href: `/story/${post.slug}`,
       slug: post.slug,
+      style: post.style,
       name: post.name,
       images: formatePostImage(post),
       publishTime: new Date(post.publishTime),
@@ -75,10 +76,18 @@ export default async function TagPage({
           <ol className={tagStyles.posts}>
             {formattedPostsList.map((postItem) => {
               return (
-                <li key={postItem.slug} className={tagStyles.postsItem}></li>
+                <li key={postItem.slug} className={tagStyles.postsItem}>
+                  <UiPostCard
+                    href={postItem.href}
+                    images={postItem.images}
+                    title={postItem.name}
+                    date={postItem.publishTime}
+                    postStyle={postItem.style}
+                    mobileLayoutDirection="column"
+                  />
+                </li>
               )
             })}
-            <div className="position-correct" />
           </ol>
         )}
       </div>

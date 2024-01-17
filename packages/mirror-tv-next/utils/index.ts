@@ -1,3 +1,7 @@
 import { formatePostImage } from './image-handler'
+import type { PostImage } from './image-handler'
 
-export { formatePostImage }
+import { formateDateAtTaipei } from './date-handler'
+
+export { formatePostImage, formateDateAtTaipei }
+export type { PostImage }

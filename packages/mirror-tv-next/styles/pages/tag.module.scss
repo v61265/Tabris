@@ -47,19 +47,11 @@
       content: '';
       width: calc((100% - 96px) / 4);
     }
-    .position-correct {
-      width: calc((100% - 96px) / 4);
-      overflow: hidden;
-    }
   }
   @include breakpoint(xxl) {
     &::after {
       content: '';
       width: calc((100% - 48px) / 4);
-    }
-    .position-correct {
-      width: calc((100% - 48px) / 4);
-      overflow: hidden;
     }
   }
 

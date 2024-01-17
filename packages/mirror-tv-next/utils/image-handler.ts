@@ -2,7 +2,7 @@ import { PostByTagName } from '~/graphql/query/posts'
 
 type Post = PostByTagName
 
-type PostImage = {
+export type PostImage = {
   original: string
   w3200?: string
   w2400?: string
