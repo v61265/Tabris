@@ -6,7 +6,6 @@ type UiMobFlashNewsProps = {
 }
 
 export default function UiMobFlashNews({ flashNews }: UiMobFlashNewsProps) {
-  console.log('Mobile', flashNews)
   return (
     <div>
       <div className={styles.mobWrapper}>Mob Flash News</div>

@@ -1,0 +1,82 @@
+@import '/styles/theme/breakpoints';
+
+.tag {
+  min-height: calc(100vh - 50px);
+  padding: 86px 16px 48px;
+  @include breakpoint(md) {
+    min-height: calc(100vh - 152px);
+    padding: 28px 0 50px;
+  }
+
+  &Wrapper {
+    margin: 0 auto;
+    max-width: 688px;
+    @include breakpoint(md) {
+      max-width: 1200px;
+    }
+  }
+
+  &Name {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25px;
+    color: #014db8;
+    margin: 0 0 20px;
+    @include breakpoint(md) {
+      font-size: 20px;
+      line-height: 32px;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+.posts {
+  list-style: none;
+  @include breakpoint(md) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &::after {
+      content: '';
+      width: calc((100% - 40px) / 3);
+    }
+  }
+  @include breakpoint(xl) {
+    &::after {
+      content: '';
+      width: calc((100% - 96px) / 4);
+    }
+    .position-correct {
+      width: calc((100% - 96px) / 4);
+      overflow: hidden;
+    }
+  }
+  @include breakpoint(xxl) {
+    &::after {
+      content: '';
+      width: calc((100% - 48px) / 4);
+    }
+    .position-correct {
+      width: calc((100% - 48px) / 4);
+      overflow: hidden;
+    }
+  }
+
+  &Item {
+    max-height: calc((100vw - 32px) * 0.67 + 84px);
+    margin-bottom: 28px;
+    @include breakpoint(md) {
+      margin-bottom: 48px;
+      max-height: none;
+      width: calc((100% - 40px) / 3);
+    }
+    @include breakpoint(xl) {
+      margin-bottom: 40px;
+      width: calc((100% - 96px) / 4);
+    }
+    @include breakpoint(xxl) {
+      width: calc((100% - 48px) / 4);
+    }
+  }
+}

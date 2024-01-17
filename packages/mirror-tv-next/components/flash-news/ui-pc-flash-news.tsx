@@ -6,7 +6,6 @@ type UiPcFlashNewsProps = {
 }
 
 export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
-  console.log('Pc', flashNews)
   return (
     <div>
       <div className={styles.pcWrapper}>Pc Flash News</div>
