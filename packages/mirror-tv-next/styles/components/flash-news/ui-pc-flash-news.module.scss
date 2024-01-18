@@ -1,4 +1,5 @@
 @import '/styles/theme/breakpoints';
+
 .flashNews {
   background-color: #e3e3e3;
   display: flex;
@@ -43,44 +44,4 @@
     height: 28px;
     font-size: 16px;
   }
-}
-
-.container {
-  display: flex;
-  padding-right: 6px;
-  @include breakpoint(md) {
-    width: calc(100vw - 440px);
-    padding-right: 14px;
-  }
-  @include breakpoint(xl) {
-    width: calc(100vw - 540px);
-  }
-}
-
-.titles {
-  width: 100%;
-  color: #036;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-
-  @include breakpoint(xl) {
-    font-size: 16px;
-  }
-
-  &:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  &.transitioning {
-    transition: transform 0.3s ease-in-out;
-  }
-}
-
-.news {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
 }
