@@ -13,7 +13,7 @@ export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
   const [move, setMove] = useState(-1)
   const [shouldTransition, setShouldTransition] = useState(false)
 
-  let timeoutIdOfAuto
+  let timeoutIdOfAuto: NodeJS.Timeout
 
   useEffect(() => {
     autoToNext()
@@ -22,6 +22,7 @@ export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
     return () => {
       clearTimeout(timeoutIdOfAuto)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIdx, move, shouldTransition])
 
   const displayedArticles = () => {
@@ -30,6 +31,12 @@ export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
     if (len < 1) {
       return []
     }
+
+    /**
+     * When there are fewer than 3 articles, a problem (duplicate keys) may arise.
+     * However, since it is unlikely for flash news to have fewer than 3 articles,
+     * this case is currently not handled. Any future requirements will be addressed accordingly.
+     */
 
     const curIdxPositive = (currentIdx % len) + len
 
@@ -52,15 +59,15 @@ export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
     setMove((prevMove) => prevMove - 1)
   }
 
-  const toPrev = () => {
-    if (shouldTransition) {
-      return
-    }
+  // const toPrev = () => {
+  //   if (shouldTransition) {
+  //     return
+  //   }
 
-    cancelAutoToNext()
-    setShouldTransition(true)
-    setMove((prevMove) => prevMove + 1)
-  }
+  //   cancelAutoToNext()
+  //   setShouldTransition(true)
+  //   setMove((prevMove) => prevMove + 1)
+  // }
 
   const handleTransitionend = () => {
     setShouldTransition(false)
@@ -93,7 +100,7 @@ export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
 
   return (
     <div className={styles.flashNews}>
-      <p className={styles.p}>快訊</p>
+      <p className={styles.tag}>快訊</p>
 
       {doesHaveArticles && (
         <div className={styles.container}>
