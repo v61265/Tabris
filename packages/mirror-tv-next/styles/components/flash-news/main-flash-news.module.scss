@@ -2,7 +2,6 @@
 
 .pcWrapper {
   display: none;
-  color: blue;
 
   @include breakpoint(md) {
     display: block;
@@ -11,7 +10,6 @@
 
 .mobWrapper {
   display: block;
-  color: red;
 
   @include breakpoint(md) {
     display: none;

@@ -3,13 +3,11 @@ import styles from '~/styles/pages/page.module.scss'
 
 export default function Home() {
   return (
-    <>
+    <main className={styles.main}>
       <div className={styles.mobFlashNewsWrapper}>
         <MainFlashNews />
       </div>
-      <main className={styles.main}>
-        <p>Hello, world.</p>
-      </main>
-    </>
+      <p>Hello, world.</p>
+    </main>
   )
 }
