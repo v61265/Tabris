@@ -1,0 +1,37 @@
+@import '/styles/theme/breakpoints';
+
+.flashNews {
+  border-radius: 2px;
+  display: flex;
+  overflow: hidden;
+  height: 44px;
+  font-size: 16px;
+  line-height: 44px;
+  @include breakpoint(md) {
+    padding-left: 16px;
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
+    flex: 1;
+    justify-content: center;
+    width: 100%;
+  }
+  @include breakpoint(xl) {
+    padding-left: 44px;
+    font-size: 16px;
+  }
+}
+
+.tag {
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #036;
+  color: #ffcc00;
+  font-size: 16px;
+  font-weight: 500;
+  width: 52px;
+  height: 44px;
+  margin-right: 4px;
+}
