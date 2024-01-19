@@ -13,7 +13,7 @@ export type PostImage = {
 
 function formatePostImage(post: Post): PostImage {
   const defaultImage: PostImage = {
-    original: '/default/image-default.jpg',
+    original: '/images/image-default.jpg',
   }
 
   if (!post) {

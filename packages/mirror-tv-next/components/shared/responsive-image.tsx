@@ -31,8 +31,8 @@ export default function ResponsiveImage({
     <Image
       images={images}
       alt={alt}
-      loadingImage="/default/loading.svg"
-      defaultImage="/default/image-default.jpg"
+      loadingImage="/images/loading.svg"
+      defaultImage="/images/image-default.jpg"
       rwd={rwd}
       priority={priority}
     />
