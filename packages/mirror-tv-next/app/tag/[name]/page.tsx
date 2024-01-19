@@ -2,7 +2,7 @@ import { getClient } from '~/apollo-client'
 import errors from '@twreporter/errors'
 import { postsByTagName, PostByTagName } from '~/graphql/query/posts'
 import { FILTERED_SLUG } from '~/constants/constant'
-import tagStyles from '~/styles/pages/tag.module.scss'
+import styles from '~/styles/pages/tag.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formatePostImage } from '~/utils'
 
@@ -67,16 +67,16 @@ export default async function TagPage({
   const formattedPostsList = postsList.map((post) => formatArticleCard(post))
 
   return (
-    <section className={tagStyles.tag}>
-      <div className={tagStyles.tagWrapper}>
-        <h1 className={tagStyles.tagName}>{tagName}</h1>
+    <section className={styles.tag}>
+      <div className={styles.tagWrapper}>
+        <h1 className={styles.tagName}>{tagName}</h1>
         {postsCount === 0 ? (
           <p>目前沒有相關的文章</p>
         ) : (
-          <ol className={tagStyles.posts}>
+          <ol className={styles.posts}>
             {formattedPostsList.map((postItem) => {
               return (
-                <li key={postItem.slug} className={tagStyles.postsItem}>
+                <li key={postItem.slug} className={styles.postsItem}>
                   <UiPostCard
                     href={postItem.href}
                     images={postItem.images}
@@ -88,7 +88,7 @@ export default async function TagPage({
                 </li>
               )
             })}
-            <div className={tagStyles.postsPosition} />
+            <div className={styles.postsPosition} />
           </ol>
         )}
       </div>
