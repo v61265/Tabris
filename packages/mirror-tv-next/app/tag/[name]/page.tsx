@@ -5,6 +5,9 @@ import { FILTERED_SLUG } from '~/constants/constant'
 import styles from '~/styles/pages/tag.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formatePostImage } from '~/utils'
+import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+
+export const revalidate = GLOBAL_CACHE_SETTING
 
 export default async function TagPage({
   params,
