@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
-import { ListingPost, listingPost } from '../fragments/listingPost'
+import { ListingPost, listingPost } from '../fragments/listing-post'
 
 export type PostByTagName = ListingPost & {
   publishTime: string
 }
 
-const postsByTagName = gql`
+const getPostsByTagName = gql`
   query fetchPostsByTagName(
     $tagName: String!
     $first: Int = 12
@@ -41,4 +41,4 @@ const postsByTagName = gql`
   ${listingPost}
 `
 
-export { postsByTagName }
+export { getPostsByTagName }

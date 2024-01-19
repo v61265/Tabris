@@ -1,6 +1,6 @@
 import { getClient } from '~/apollo-client'
 import errors from '@twreporter/errors'
-import { postsByTagName, PostByTagName } from '~/graphql/query/posts'
+import { getPostsByTagName, PostByTagName } from '~/graphql/query/posts'
 import { FILTERED_SLUG } from '~/constants/constant'
 import styles from '~/styles/pages/tag.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
@@ -37,7 +37,7 @@ export default async function TagPage({
       allPosts: PostByTagName[]
       _allPostsMeta: number
     }>({
-      query: postsByTagName,
+      query: getPostsByTagName,
       variables: {
         tagName,
         first: PAGE_SIZE,
