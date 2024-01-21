@@ -2,7 +2,7 @@ import { getClient } from '~/apollo-client'
 import errors from '@twreporter/errors'
 import { getPostsByTagName, PostByTagName } from '~/graphql/query/posts'
 import { FILTERED_SLUG } from '~/constants/constant'
-import styles from '~/styles/pages/tag.module.scss'
+import styles from '~/styles/pages/tag-page.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formatePostImage } from '~/utils'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
@@ -79,7 +79,7 @@ export default async function TagPage({
           <ol className={styles.posts}>
             {formattedPostsList.map((postItem) => {
               return (
-                <li key={postItem.slug} className={styles.postsItem}>
+                <li key={postItem.slug}>
                   <UiPostCard
                     href={postItem.href}
                     images={postItem.images}
@@ -91,7 +91,6 @@ export default async function TagPage({
                 </li>
               )
             })}
-            <div className={styles.postsPosition} />
           </ol>
         )}
       </div>

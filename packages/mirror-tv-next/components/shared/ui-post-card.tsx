@@ -41,13 +41,6 @@ export default function UiPostCard({
     ? highlightTextProducer(title)
     : title
 
-  // 限制 brief 字數
-  const limit = 45
-  const postDescriptionTruncated =
-    description.length <= limit
-      ? description
-      : description.substring(0, limit).concat('...')
-
   if (!mobileLayoutDirection) return <></>
 
   return (
@@ -76,9 +69,7 @@ export default function UiPostCard({
             className={styles.infoTitle}
             dangerouslySetInnerHTML={{ __html: postTitleProcessed }}
           />
-          <span className={styles.infoDescription}>
-            {postDescriptionTruncated}
-          </span>
+          <span className={styles.infoDescription}>{description}</span>
           <span className={styles.infoDate}>
             {formateDateAtTaipei(date, 'YYYY.MM.DD HH:mm', '')}
           </span>
