@@ -1,4 +1,4 @@
-import type { FlashNews } from '~/graphql/query/flash-news'
+import type { FlashNews } from '~/types/common'
 import styles from '~/styles/components/flash-news/ui-pc-flash-news.module.scss'
 import NewsCarousel from './news-carousel'
 

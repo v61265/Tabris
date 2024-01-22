@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import type { FlashNews } from '~/graphql/query/flash-news'
+import type { FlashNews } from '~/types/common'
 import styles from '~/styles/components/flash-news/news-carousel.module.scss'
 
 type NewsCarouselProps = {
