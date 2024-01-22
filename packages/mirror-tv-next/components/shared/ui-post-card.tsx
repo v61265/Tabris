@@ -56,11 +56,7 @@ export default function UiPostCard({
             rwd={{ mobile: '500px', tablet: '500px', desktop: '500px' }}
             priority={false}
           />
-          {isVideoNews && (
-            <span className="g-video-news-img-icon-wrapper">
-              <span className="g-video-news-img-icon" />
-            </span>
-          )}
+          {isVideoNews && <span className={styles.videoIcon}></span>}
         </figure>
         <div className={styles.info}>
           <span
