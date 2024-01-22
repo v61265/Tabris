@@ -2,7 +2,7 @@ import {
   FLASH_NEWS_JSON_URL,
   GLOBAL_CACHE_SETTING,
 } from '~/constants/environment-variables'
-import type { FlashNews } from '~/graphql/query/flash-news'
+import type { FlashNews } from '~/types/common'
 import styles from '~/styles/components/flash-news/main-flash-news.module.scss'
 import UiMobFlashNews from './ui-mob-flash-news'
 import UiPcFlashNews from './ui-pc-flash-news'
