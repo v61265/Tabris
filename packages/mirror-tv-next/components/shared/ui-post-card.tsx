@@ -12,7 +12,6 @@ type UiPostCardProps = {
   // Differentiate two usages in / and /category/:name pages
   mobileLayoutDirection: 'row' | 'column'
   postTitleHighlightText?: string
-  description?: string
 }
 
 export default function UiPostCard({
@@ -23,7 +22,6 @@ export default function UiPostCard({
   postStyle = 'post',
   mobileLayoutDirection = 'column',
   postTitleHighlightText,
-  description = '',
 }: UiPostCardProps) {
   const isVideoNews = postStyle === 'videoNews'
 
@@ -69,7 +67,6 @@ export default function UiPostCard({
             className={styles.infoTitle}
             dangerouslySetInnerHTML={{ __html: postTitleProcessed }}
           />
-          <span className={styles.infoDescription}>{description}</span>
           <span className={styles.infoDate}>
             {formateDateAtTaipei(date, 'YYYY.MM.DD HH:mm', '')}
           </span>
