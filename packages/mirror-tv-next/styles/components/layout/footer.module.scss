@@ -14,7 +14,7 @@
 }
 
 .topWrapper {
-  background-color: yellowgreen;
+  // background-color: yellowgreen;
   padding: 20px 17px;
   display: flex;
   flex-direction: column;
@@ -32,13 +32,13 @@
   //   align-items: center;
   //   position: relative;
   // }
-  &Middle {
-    margin: 20px 0 0 0;
-    @include breakpoint(xl) {
-      margin: 0 0 0 48px;
-      flex: 1;
-    }
-  }
+  // &Middle {
+  //   margin: 20px 0 0 0;
+  //   @include breakpoint(xl) {
+  //     margin: 0 0 0 48px;
+  //     flex: 1;
+  //   }
+  // }
 }
 
 .iconsWrapper {
@@ -46,6 +46,7 @@
 }
 
 .left {
+  background-color: bisque;
   flex-direction: column;
   align-items: center;
   display: none;

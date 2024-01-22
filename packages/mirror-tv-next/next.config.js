@@ -9,6 +9,21 @@ const nextConfig = {
         hostname: 'www.mirrormedia.mg',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.mnews.tw',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dev.mnews.tw',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'staging.mnews.tw',
+        pathname: '**',
+      },
     ],
   },
 }
