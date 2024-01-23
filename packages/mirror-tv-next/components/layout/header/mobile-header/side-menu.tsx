@@ -79,10 +79,16 @@ export default function SideMenu({
         {/* Sponsors Block */}
         <div className={styles.sponsorsBlock}>
           <div className={styles.sponsorsWrapper}>
-            {sponsors.map((sponsor) => {
+            {sponsors.slice(0, 3).map((sponsor) => {
               return (
                 <div key={sponsor.id}>
-                  <Link href={`/topic/${sponsor.topic.slug}`}>
+                  <Link
+                    href={
+                      sponsor.url
+                        ? sponsor.url
+                        : `/topic/${sponsor.topic?.slug}`
+                    }
+                  >
                     <Image
                       src={sponsor.logo.urlMobileSized}
                       alt="Sponsor Logo"

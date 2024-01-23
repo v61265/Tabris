@@ -1,6 +1,7 @@
 @import '/styles/theme/breakpoints';
 
-.footerWrapper {
+.footer {
+  color: #fff;
   background-color: #004ebc;
 
   @include breakpoint(md) {
@@ -9,9 +10,175 @@
 
   @include breakpoint(lg) {
     background-color: pink;
+  }
+}
 
-    :hover {
-      background-color: black;
+.topWrapper {
+  // background-color: yellowgreen;
+  padding: 20px 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // @include breakpoint(md) {
+  //   padding: 32px 0;
+  //   padding-left: calc((100vw - 20px) / 2);
+  //   padding-right: calc((100vw - 20px) / 2);
+  // }
+  // @include breakpoint(xl) {
+  //   padding: 22px 0 30px 0;
+  //   padding-left: calc((100vw - 20px) / 2);
+  //   padding-right: calc((100vw - 20px) / 2);
+  //   flex-direction: row;
+  //   align-items: center;
+  //   position: relative;
+  // }
+  // &Middle {
+  //   margin: 20px 0 0 0;
+  //   @include breakpoint(xl) {
+  //     margin: 0 0 0 48px;
+  //     flex: 1;
+  //   }
+  // }
+}
+
+.iconsWrapper {
+  display: flex;
+}
+
+.left {
+  background-color: bisque;
+  flex-direction: column;
+  align-items: center;
+  display: none;
+  @include breakpoint(xl) {
+    display: flex;
+  }
+}
+
+.logo {
+  width: 150px;
+}
+
+.social-network-services-nav,
+.topWrapperMobileIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  a {
+    padding: 14px 8px;
+  }
+}
+
+.socialNetworkServiceImg,
+.topWrapperMobileIcons {
+  &[alt='facebook'],
+  &[alt='instagram'] {
+    height: 20px;
+  }
+  &[alt='twitter'],
+  &[alt='line'] {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.topWrapperMobileIcons {
+  margin-top: 4px;
+  @include breakpoint(xl) {
+    margin-top: 8px;
+  }
+  @include breakpoint(xl) {
+    display: none;
+  }
+}
+
+.infoWrapper {
+  color: white;
+  font-size: 14px;
+  line-height: 2;
+  letter-spacing: 0.5px;
+  &__info {
+    display: flex;
+    justify-content: center;
+    @include breakpoint(xl) {
+      justify-content: inherit;
+    }
+  }
+}
+
+.right {
+  padding: 20px 0 0 0;
+  color: white;
+  font-size: 14px;
+  line-height: 2;
+  letter-spacing: 0.5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  position: relative;
+  margin-top: 20px;
+  @include breakpoint(xl) {
+    margin: 0;
+    padding: 0 0 0 20px;
+    border-left: 1px solid white;
+    max-width: inherit;
+  }
+
+  &::before {
+    content: '';
+    background: white;
+    position: absolute;
+    max-width: 254px;
+    height: 1px;
+    width: 100vw;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    @include breakpoint(xl) {
+      display: none;
+    }
+  }
+}
+
+.bottomWrapper {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // @include breakpoint(md) {
+  //   padding: 32px 0;
+  //   padding-left: calc((100vw - 20px) / 2);
+  //   padding-right: calc((100vw - 20px) / 2);
+  // }
+  @include breakpoint(xl) {
+    padding: 20px 0;
+  }
+  .youtubeTos {
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #4a4a4a;
+    padding: 8px 21px 0 21px;
+    margin: 0 0 12px;
+    a {
+      color: #036;
+    }
+  }
+  .copyright {
+    color: #036;
+    font-size: 12px;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include breakpoint(xl) {
+      color: #036;
+      flex-direction: row;
+      span + span {
+        margin: 0 0 0 5px;
+      }
     }
   }
 }
