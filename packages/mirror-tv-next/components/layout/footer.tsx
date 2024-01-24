@@ -1,10 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import xSrc from 'public/icons/icon-x.svg'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import fbSrc from '~/public/icons/icon-fb.svg'
-import igSrc from '~/public/icons/icon-ig.svg'
-import lineSrc from '~/public/icons/icon-line-dark.svg'
 import logoSrc from '~/public/icons/mnews-logo-white.svg'
 import styles from '~/styles/components/layout/footer.module.scss'
 
@@ -29,64 +25,94 @@ const footerRightList = [
 ]
 
 const socialLinks = [
-  { href: HEADER_BOTTOM_LINKS.fb, src: fbSrc, alt: 'facebook icon' },
-  { href: HEADER_BOTTOM_LINKS.line, src: lineSrc, alt: 'line icon' },
-  { href: HEADER_BOTTOM_LINKS.ig, src: igSrc, alt: 'instagram icon' },
-  { href: HEADER_BOTTOM_LINKS.x, src: xSrc, alt: 'x(former twitter) icon' },
+  {
+    href: HEADER_BOTTOM_LINKS.fb,
+    src: '/icons/icon-fb.svg',
+    alt: 'facebook icon',
+  },
+  {
+    href: HEADER_BOTTOM_LINKS.line,
+    src: 'icons/icon-line-dark.svg',
+    alt: 'line icon',
+  },
+  {
+    href: HEADER_BOTTOM_LINKS.ig,
+    src: '/icons/icon-ig.svg',
+    alt: 'instagram icon',
+  },
+  {
+    href: HEADER_BOTTOM_LINKS.x,
+    src: 'icons/icon-x.svg',
+    alt: 'x(former twitter) icon',
+  },
 ]
 
 export default function Footer(): JSX.Element {
   return (
     <footer className={styles.footer}>
-      <div className={`${styles.topWrapper} ${styles.left}`}>
-        <div className={styles.logo}>
-          <Link href="/">
-            <Image src={logoSrc} alt="mnews logo" priority />
-          </Link>
+      <div className={styles.topWrapper}>
+        <div className={styles.topInnerWrapper}>
+          <div className={styles.left}>
+            <div className={styles.logo}>
+              <Link href="/">
+                <Image src={logoSrc} alt="mnews logo" priority />
+              </Link>
+            </div>
+            <ul className={styles.iconsWrapper}>
+              {socialLinks.map((link, index) => (
+                <li className={styles.icon} key={index}>
+                  <Link
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={link.src}
+                      alt={link.alt}
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.middleWrapper}>
+            <div className={styles.infoWrapper}>
+              <p className={styles.info}>
+                <span>客服專線: </span>
+                <span>(02)7752-5678 </span>
+              </p>
+              <p className={styles.info}>
+                <span>客服信箱: </span>
+                <a href="mailto:mnews.cs@mnews.com.tw">mnews.cs@mnews.com.tw</a>
+              </p>
+            </div>
+          </div>
         </div>
-        <ul className={styles.iconsWrapper}>
+        <div className={styles.right}>
+          {footerRightList.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {item.text}
+            </a>
+          ))}
+        </div>
+        <ul className={styles.mobileIconsWrapper}>
           {socialLinks.map((link, index) => (
             <li className={styles.icon} key={index}>
               <Link href={link.href} target="_blank" rel="noopener noreferrer">
-                <Image src={link.src} alt={link.alt} />
+                <Image src={link.src} alt={link.alt} width={20} height={20} />
               </Link>
             </li>
           ))}
         </ul>
       </div>
-      <div className={styles.topWrapperMiddle}>
-        <div className={styles.infoWrapper}>
-          <p className={styles.__info}>
-            <span>客服專線: </span>
-            <span>(02)7752-5678 </span>
-          </p>
-          <p className={styles.__info}>
-            <span>客服信箱: </span>
-            <a href="mailto:mnews.cs@mnews.com.tw">mnews.cs@mnews.com.tw</a>
-          </p>
-        </div>
-      </div>
-      <div className={styles.topWrapperRight}>
-        {footerRightList.map((item) => (
-          <a
-            key={item.href}
-            href={item.href}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            {item.text}
-          </a>
-        ))}
-      </div>
-      <ul className={styles.iconsWrapper}>
-        {socialLinks.map((link, index) => (
-          <li className={styles.icon} key={index}>
-            <Link href={link.href} target="_blank" rel="noopener noreferrer">
-              <Image src={link.src} alt={link.alt} />
-            </Link>
-          </li>
-        ))}
-      </ul>
       <div className={styles.bottomWrapper}>
         <div className={styles.texts}>
           <p className={styles.copyright}>
