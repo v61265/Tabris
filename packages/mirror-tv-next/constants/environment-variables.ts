@@ -11,7 +11,8 @@ switch (ENV) {
     SITE_URL = 'www.mnews.tw'
     GTM_ID = 'GTM-PK7VRFX'
     GLOBAL_CACHE_SETTING = 300
-    HEADER_JSON_URL = 'https://mnews.tw/json/featured_categories_post.json'
+    HEADER_JSON_URL =
+      'https://storage.googleapis.com/static-mnews-tw-prod/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://mnews.tw/json/flash_news.json'
 
     break
@@ -21,7 +22,7 @@ switch (ENV) {
     GTM_ID = 'GTM-NFH6FDH'
     GLOBAL_CACHE_SETTING = 300
     HEADER_JSON_URL =
-      'https://staging.mnews.tw/json/featured_categories_post.json'
+      'https://storage.googleapis.com/static-mnews-tw-staging/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://staging.mnews.tw/json/flash_news.json'
 
     break
@@ -30,7 +31,8 @@ switch (ENV) {
     SITE_URL = 'dev.mnews.tw'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
-    HEADER_JSON_URL = 'https://dev.mnews.tw/json/featured_categories_post.json'
+    HEADER_JSON_URL =
+      'https://storage.googleapis.com/static-mnews-tw-dev/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
 
     break
@@ -39,7 +41,8 @@ switch (ENV) {
     SITE_URL = 'localhost'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
-    HEADER_JSON_URL = 'https://dev.mnews.tw/json/featured_categories_post.json'
+    HEADER_JSON_URL =
+      'https://storage.googleapis.com/static-mnews-tw-dev/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
 
     break
