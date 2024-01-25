@@ -1,23 +1,42 @@
+import errors from '@twreporter/errors'
 import {
   FLASH_NEWS_JSON_URL,
   GLOBAL_CACHE_SETTING,
 } from '~/constants/environment-variables'
-import type { FlashNews } from '~/types/common'
 import styles from '~/styles/components/flash-news/main-flash-news.module.scss'
+import type { FlashNews } from '~/types/common'
 import UiMobFlashNews from './ui-mob-flash-news'
 import UiPcFlashNews from './ui-pc-flash-news'
 
 async function getData() {
-  const res = await fetch(FLASH_NEWS_JSON_URL, {
-    next: { revalidate: GLOBAL_CACHE_SETTING },
-  })
+  try {
+    const res = await fetch(FLASH_NEWS_JSON_URL, {
+      next: { revalidate: GLOBAL_CACHE_SETTING },
+    })
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch flashNews data')
+    if (!res.ok) {
+      console.error('Failed to fetch flash news data')
+      return { allPosts: [] }
+    }
+
+    return res.json()
+  } catch (err) {
+    const annotatingError = errors.helpers.wrap(
+      err,
+      'UnhandledError',
+      'Error occurs while fetching flash news'
+    )
+
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(annotatingError, {
+          withStack: false,
+          withPayload: true,
+        }),
+      })
+    )
   }
-
-  return res.json()
 }
 
 export default async function MainFlashNews() {
