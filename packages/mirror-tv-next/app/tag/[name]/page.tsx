@@ -3,9 +3,9 @@ import errors from '@twreporter/errors'
 import { getPostsByTagName, PostByTagName } from '~/graphql/query/posts'
 import { FILTERED_SLUG } from '~/constants/constant'
 import styles from '~/styles/pages/tag-page.module.scss'
-import UiPostCard from '~/components/shared/ui-post-card'
-import { formatePostImage } from '~/utils'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import MorePostsList from '~/components/tag/more-posts-list'
+import UiPostsList from '~/components/tag/posts-list'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -15,27 +15,15 @@ export default async function TagPage({
   params: { name: string }
 }) {
   const PAGE_SIZE = 12
-
   const tagName: string = decodeURIComponent(params.name)
   let postsList: PostByTagName[] = []
   let postsCount: number = 0
-
-  const formatArticleCard = (post: PostByTagName) => {
-    return {
-      href: `/story/${post.slug}`,
-      slug: post.slug,
-      style: post.style,
-      name: post.name,
-      images: formatePostImage(post),
-      publishTime: new Date(post.publishTime),
-    }
-  }
 
   const client = getClient()
   try {
     const { data: postsResponse } = await client.query<{
       allPosts: PostByTagName[]
-      _allPostsMeta: number
+      _allPostsMeta: { count: number }
     }>({
       query: getPostsByTagName,
       variables: {
@@ -46,7 +34,7 @@ export default async function TagPage({
       },
     })
     postsList = postsResponse?.allPosts ?? []
-    postsCount = postsResponse?._allPostsMeta ?? 0
+    postsCount = postsResponse?._allPostsMeta?.count ?? 0
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
@@ -67,8 +55,6 @@ export default async function TagPage({
     throw new Error('Error occurs while fetching data.')
   }
 
-  const formattedPostsList = postsList.map((post) => formatArticleCard(post))
-
   return (
     <section className={styles.tag}>
       <div className={styles.tagWrapper}>
@@ -76,22 +62,14 @@ export default async function TagPage({
         {postsCount === 0 ? (
           <p>目前沒有相關的文章</p>
         ) : (
-          <ol className={styles.posts}>
-            {formattedPostsList.map((postItem) => {
-              return (
-                <li key={postItem.slug}>
-                  <UiPostCard
-                    href={postItem.href}
-                    images={postItem.images}
-                    title={postItem.name}
-                    date={postItem.publishTime}
-                    postStyle={postItem.style}
-                    mobileLayoutDirection="column"
-                  />
-                </li>
-              )
-            })}
-          </ol>
+          <UiPostsList postsList={postsList} keyName="tag" />
+        )}
+        {PAGE_SIZE < postsCount && (
+          <MorePostsList
+            tagName={tagName}
+            pageSize={PAGE_SIZE}
+            postsCount={postsCount}
+          />
         )}
       </div>
     </section>

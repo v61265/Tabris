@@ -1,0 +1,29 @@
+@import '/styles/theme/breakpoints';
+
+.customButton {
+  width: 100%;
+  border: 1px solid #004dbc;
+  color: #014db8;
+  font-family: 'Noto Sans';
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 4px 0;
+  @include breakpoint(md) {
+    padding: 8px 0;
+    letter-spacing: 3px;
+    max-width: 400px;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    border: 2px solid #014db8;
+  }
+  &:active {
+    border: 2px solid #014db8;
+    background-color: rgba(0, 77, 188, 0.05);
+  }
+}
