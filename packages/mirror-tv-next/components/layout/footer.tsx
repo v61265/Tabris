@@ -115,13 +115,13 @@ export default function Footer(): JSX.Element {
       </div>
       <div className={styles.bottomWrapper}>
         <div className={styles.texts}>
-          <p className={styles.copyright}>
+          <div className={styles.copyright}>
             <span>©Mirror TV BROADCASTING LTD.</span>
             <span>All Rights Reserved.</span>
             <span>鏡電視股份有限公司 版權所有</span>
-          </p>
+          </div>
           <p className={styles.youtubeTos}>
-            本網頁使用
+            本網頁使用{' '}
             <a
               href="https://developers.google.com/youtube/terms/developer-policies#definition-youtube-api-services"
               target="_blank"
@@ -129,7 +129,7 @@ export default function Footer(): JSX.Element {
             >
               YouTube API 服務
             </a>
-            ，詳見
+            ，詳見{' '}
             <a
               href="https://www.youtube.com/t/terms"
               target="_blank"
