@@ -5,7 +5,7 @@ export const revalidate = GLOBAL_CACHE_SETTING
 
 type UiLoadMoreButtonProps = {
   title: string
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
+  onClick: () => void | Promise<void>
 }
 
 export default function UiLoadMoreButton({

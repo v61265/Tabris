@@ -2,15 +2,16 @@
 
 .customButton {
   width: 100%;
-  border: 1px solid #004dbc;
-  color: #014db8;
-  font-family: 'Noto Sans';
+  box-shadow: inset 0 0 0 1px #9b9b9b;
+  color: #9b9b9b;
+  font-family: var(--font-noto-sans);
   font-size: 20px;
   font-weight: 500;
   line-height: normal;
   letter-spacing: 0.5px;
   text-align: center;
   padding: 4px 0;
+  border-radius: 4px;
   @include breakpoint(md) {
     padding: 8px 0;
     letter-spacing: 3px;
@@ -19,11 +20,13 @@
   &:focus {
     outline: none;
   }
+
+  // 為了防止 layout shifting
   &:hover {
-    border: 2px solid #014db8;
+    box-shadow: inset 0 0 0 2px #9b9b9b;
   }
   &:active {
-    border: 2px solid #014db8;
+    box-shadow: inset 0 0 0 2px #9b9b9b;
     background-color: rgba(0, 77, 188, 0.05);
   }
 }
