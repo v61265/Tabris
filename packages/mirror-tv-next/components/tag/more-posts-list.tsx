@@ -3,7 +3,6 @@ import UiLoadMreButton from '../shared/ui-load-more-button'
 import { PostByTagName } from '~/graphql/query/posts'
 import { useState } from 'react'
 import { fetchMoreItems } from '~/components/tag/action'
-import errors from '@twreporter/errors'
 import styles from '~/styles/components/tag/more-posts-list.module.scss'
 import PostsList from './posts-list'
 
@@ -22,30 +21,10 @@ export default function MorePostsList({
   const [postsList, setPostsList] = useState<PostByTagName[]>([])
 
   const handleClickLoadMore = async () => {
-    try {
-      const newPosts = await fetchMoreItems(page, tagName, pageSize)
-      if (!newPosts) return
-      setPage((page) => page + 1)
-      setPostsList((oldPost) => [...oldPost, ...newPosts])
-    } catch (err) {
-      const annotatingError = errors.helpers.wrap(
-        err,
-        'UnhandledError',
-        'Error occurs while fetching data for header'
-      )
-
-      console.error(
-        JSON.stringify({
-          severity: 'ERROR',
-          message: errors.helpers.printAll(annotatingError, {
-            withStack: false,
-            withPayload: true,
-          }),
-        })
-      )
-
-      throw new Error('Error occurs while fetching data.')
-    }
+    const newPosts = await fetchMoreItems(page, tagName, pageSize)
+    if (!newPosts) return
+    setPage((page) => page + 1)
+    setPostsList((oldPost) => [...oldPost, ...newPosts])
   }
 
   return (
