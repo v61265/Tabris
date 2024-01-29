@@ -2,7 +2,7 @@
 import UiLoadMreButton from '../shared/ui-load-more-button'
 import { PostByTagName } from '~/graphql/query/posts'
 import { useState } from 'react'
-import { fetchMoreItems } from '~/components/tag/action'
+import { fetchPostsItems } from '~/components/tag/action'
 import styles from '~/styles/components/tag/more-posts-list.module.scss'
 import PostsList from './posts-list'
 
@@ -21,7 +21,12 @@ export default function MorePostsList({
   const [postsList, setPostsList] = useState<PostByTagName[]>([])
 
   const handleClickLoadMore = async () => {
-    const newPosts = await fetchMoreItems(page, tagName, pageSize)
+    const { allPosts: newPosts } = await fetchPostsItems({
+      page,
+      tagName,
+      pageSize,
+      isWithCount: false,
+    })
     if (!newPosts) return
     setPage((page) => page + 1)
     setPostsList((oldPost) => [...oldPost, ...newPosts])

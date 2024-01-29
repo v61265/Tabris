@@ -4,32 +4,43 @@ import errors from '@twreporter/errors'
 import { getPostsByTagName, PostByTagName } from '~/graphql/query/posts'
 import { getClient } from '~/apollo-client'
 
-async function fetchMoreItems(
-  page: number,
-  tagName: string,
+type FetchMoreItemsType = {
+  page: number
+  tagName: string
   pageSize: number
-): Promise<void | PostByTagName[]> {
+  isWithCount: boolean
+}
+
+async function fetchPostsItems({
+  page,
+  tagName,
+  pageSize,
+  isWithCount,
+}: FetchMoreItemsType): Promise<{
+  allPosts: PostByTagName[]
+  _allPostsMeta?: { count: number }
+}> {
   const client = getClient()
   try {
     const { data } = await client.query<{
       allPosts: PostByTagName[]
-      _allPostsMeta: number
+      _allPostsMeta?: { count: number }
     }>({
       query: getPostsByTagName,
       variables: {
         tagName,
         first: pageSize,
         skip: page * pageSize,
-        withCount: false,
+        withCount: isWithCount,
         filteredSlug: FILTERED_SLUG,
       },
     })
-    return data?.allPosts
+    return data
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching data for header'
+      'Error occurs while fetching data for tag posts data'
     )
 
     console.error(
@@ -45,4 +56,4 @@ async function fetchMoreItems(
   }
 }
 
-export { fetchMoreItems }
+export { fetchPostsItems }

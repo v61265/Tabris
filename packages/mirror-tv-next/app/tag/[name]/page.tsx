@@ -1,11 +1,11 @@
 import { getClient } from '~/apollo-client'
 import errors from '@twreporter/errors'
-import { getPostsByTagName, PostByTagName } from '~/graphql/query/posts'
-import { FILTERED_SLUG } from '~/constants/constant'
+import { PostByTagName } from '~/graphql/query/posts'
 import styles from '~/styles/pages/tag-page.module.scss'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 import MorePostsList from '~/components/tag/more-posts-list'
 import UiPostsList from '~/components/tag/posts-list'
+import { fetchPostsItems } from '~/components/tag/action'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -19,20 +19,14 @@ export default async function TagPage({
   let postsList: PostByTagName[] = []
   let postsCount: number = 0
 
-  const client = getClient()
   try {
-    const { data: postsResponse } = await client.query<{
-      allPosts: PostByTagName[]
-      _allPostsMeta: { count: number }
-    }>({
-      query: getPostsByTagName,
-      variables: {
-        tagName,
-        first: PAGE_SIZE,
-        withCount: true,
-        filteredSlug: FILTERED_SLUG,
-      },
+    const postsResponse = await fetchPostsItems({
+      page: 0,
+      tagName,
+      pageSize: PAGE_SIZE,
+      isWithCount: true,
     })
+    if (!postsResponse.allPosts) return
     postsList = postsResponse?.allPosts ?? []
     postsCount = postsResponse?._allPostsMeta?.count ?? 0
   } catch (err) {
