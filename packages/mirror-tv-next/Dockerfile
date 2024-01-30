@@ -12,7 +12,7 @@ RUN yarn install --frozen-lockfile --production
 FROM node:${NODE_VERSION} AS builder
 WORKDIR /next-app
 COPY --from=deps /next-app/node_modules ./node_modules
-COPY ./ ./
+COPY . .
 
 RUN yarn build
 
