@@ -28,6 +28,7 @@ const nextConfig = {
       },
     ],
   },
+  output: 'standalone',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
