@@ -27,9 +27,10 @@ const nextConfig = {
     ],
   },
   output: 'standalone',
-  webpack: (config) => {
-    config.resolve.alias['~/*']
-    return config
+  webpack(config) {
+    config.resolve.alias = {
+      ...config.resolve.alias['~'],
+    }
   },
 }
 
