@@ -31,6 +31,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias['~'],
     }
+	return config;
   },
 }
 
