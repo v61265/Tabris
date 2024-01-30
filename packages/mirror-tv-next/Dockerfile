@@ -14,6 +14,7 @@ WORKDIR /next-app
 COPY --from=deps /next-app/node_modules ./node_modules
 COPY . .
 
+RUN ls /next-app/
 RUN yarn build
 
 # Production image, copy all the files and run next
