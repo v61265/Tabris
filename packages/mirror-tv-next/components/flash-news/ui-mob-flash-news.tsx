@@ -1,10 +1,17 @@
+import type { FlashNews } from '~/types/common'
 import styles from '~/styles/components/flash-news/ui-mob-flash-news.module.scss'
+import NewsCarousel from './news-carousel'
 
-export default function UiMobFlashNews({ flashNews }: any) {
-  console.log('Mobile', flashNews)
+type UiMobFlashNewsProps = {
+  flashNews: FlashNews[]
+}
+
+export default function UiMobFlashNews({ flashNews }: UiMobFlashNewsProps) {
   return (
-    <div>
-      <div className={styles.mobWrapper}>Mob Flash News</div>
+    <div className={styles.flashNews}>
+      <p className={styles.tag}>快訊</p>
+
+      <NewsCarousel flashNews={flashNews} />
     </div>
   )
 }

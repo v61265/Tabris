@@ -1,9 +1,47 @@
 @import '/styles/theme/breakpoints';
 
-.styles.pcWrapper {
-  display: none;
+.flashNews {
+  background-color: #e3e3e3;
+  display: flex;
+  overflow: hidden;
+  height: 44px;
+  font-size: 16px;
+  line-height: 44px;
+  @include breakpoint(md) {
+    padding-left: 16px;
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
+    flex: 1;
+    justify-content: center;
+    width: 100%;
+  }
+  @include breakpoint(xl) {
+    padding-left: 44px;
+    font-size: 16px;
+  }
+}
+
+.tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #004ebc;
+  color: #ffcc00;
+  font-weight: 500;
 
   @include breakpoint(md) {
-    display: block;
+    width: 60px;
+    height: 24px;
+    margin-right: 12px;
+    border-radius: 12px;
+    line-height: normal;
+    align-self: center;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+  @include breakpoint(xl) {
+    height: 28px;
+    font-size: 16px;
   }
 }

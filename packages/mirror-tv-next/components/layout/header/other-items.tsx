@@ -11,35 +11,45 @@ export default function OtherItems(): JSX.Element {
   return (
     <div className={styles.otherItemsWrapper}>
       <ul className={styles.items}>
-        <li className={styles.li}>
-          <Link href={HEADER_BOTTOM_LINKS.ombuds}>公評人專區</Link>
-        </li>
-        <li className={styles.li}>
-          <Link href={HEADER_BOTTOM_LINKS.anchorperson}>鏡主播</Link>
-        </li>
-        <li className={styles.li}>
-          <Link href={HEADER_BOTTOM_LINKS.about}>關於我們</Link>
-        </li>
-        <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.fb}>
-            <Image src={fbSrc} alt="facebook icon" />
-          </Link>
-        </li>
-        <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.line}>
-            <Image src={lineSrc} alt="line icon" />
-          </Link>
-        </li>
-        <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.ig}>
-            <Image src={igSrc} alt="instagram icon" />
-          </Link>
-        </li>
-        <li className={styles.icon}>
-          <Link href={HEADER_BOTTOM_LINKS.x}>
-            <Image src={xSrc} alt="x(former twitter) icon" />
-          </Link>
-        </li>
+        {[
+          { href: HEADER_BOTTOM_LINKS.ombuds, text: '公評人專區' },
+          { href: HEADER_BOTTOM_LINKS.anchorperson, text: '鏡主播' },
+          { href: HEADER_BOTTOM_LINKS.about, text: '關於我們' },
+          {
+            href: HEADER_BOTTOM_LINKS.fb,
+            iconSrc: fbSrc,
+            alt: 'facebook icon',
+          },
+          {
+            href: HEADER_BOTTOM_LINKS.line,
+            iconSrc: lineSrc,
+            alt: 'line icon',
+          },
+          {
+            href: HEADER_BOTTOM_LINKS.ig,
+            iconSrc: igSrc,
+            alt: 'instagram icon',
+          },
+          {
+            href: HEADER_BOTTOM_LINKS.x,
+            iconSrc: xSrc,
+            alt: 'x(former twitter) icon',
+          },
+        ].map((item, index) => (
+          <li key={index} className={item.iconSrc ? styles.icon : styles.li}>
+            <Link
+              href={item.href}
+              target={item.iconSrc ? '_blank' : undefined}
+              rel={item.iconSrc ? 'noopener noreferrer' : undefined}
+            >
+              {item.iconSrc ? (
+                <Image src={item.iconSrc} alt={item.alt || ''} />
+              ) : (
+                item.text
+              )}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   )

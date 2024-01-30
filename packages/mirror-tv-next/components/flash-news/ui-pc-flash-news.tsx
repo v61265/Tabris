@@ -1,10 +1,17 @@
+import type { FlashNews } from '~/types/common'
 import styles from '~/styles/components/flash-news/ui-pc-flash-news.module.scss'
+import NewsCarousel from './news-carousel'
 
-export default function UiPcFlashNews({ flashNews }: any) {
-  console.log('Pc', flashNews)
+type UiPcFlashNewsProps = {
+  flashNews: FlashNews[]
+}
+
+export default function UiPcFlashNews({ flashNews }: UiPcFlashNewsProps) {
   return (
-    <div>
-      <div className={styles.pcWrapper}>Pc Flash News</div>
+    <div className={styles.flashNews}>
+      <p className={styles.tag}>快訊</p>
+
+      <NewsCarousel flashNews={flashNews} />
     </div>
   )
 }

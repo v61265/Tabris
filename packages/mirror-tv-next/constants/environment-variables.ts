@@ -5,16 +5,16 @@ let GTM_ID: string
 let GLOBAL_CACHE_SETTING: number
 let HEADER_JSON_URL: string
 let FLASH_NEWS_JSON_URL: string
+let SCHEDULE_JSON_URL: string
 
 switch (ENV) {
   case 'prod':
     SITE_URL = 'www.mnews.tw'
     GTM_ID = 'GTM-PK7VRFX'
     GLOBAL_CACHE_SETTING = 300
-    HEADER_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-prod/json/featured_categories_post.json'
-    FLASH_NEWS_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-prod/json/flash_news.json'
+    HEADER_JSON_URL = 'https://mnews.tw/json/header_v2.json'
+    FLASH_NEWS_JSON_URL = 'https://mnews.tw/json/flash_news.json'
+    SCHEDULE_JSON_URL = 'https://mnews.tw/json/tv-schedule.json'
 
     break
 
@@ -22,10 +22,9 @@ switch (ENV) {
     SITE_URL = 'staging.mnews.tw'
     GTM_ID = 'GTM-NFH6FDH'
     GLOBAL_CACHE_SETTING = 300
-    HEADER_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-staging/json/featured_categories_post.json'
-    FLASH_NEWS_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-staging/json/flash_news.json'
+    HEADER_JSON_URL = 'https://staging.mnews.tw/json/header_v2.json'
+    FLASH_NEWS_JSON_URL = 'https://staging.mnews.tw/json/flash_news.json'
+    SCHEDULE_JSON_URL = 'https://staging.mnews.tw/json/tv-schedule.json'
 
     break
 
@@ -33,10 +32,9 @@ switch (ENV) {
     SITE_URL = 'dev.mnews.tw'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
-    HEADER_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-dev/json/featured_categories_post.json'
-    FLASH_NEWS_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-dev/json/flash_news.json'
+    HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
+    FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
+    SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
 
     break
 
@@ -44,10 +42,9 @@ switch (ENV) {
     SITE_URL = 'localhost'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
-    HEADER_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-dev/json/featured_categories_post.json'
-    FLASH_NEWS_JSON_URL =
-      'https://storage.googleapis.com/static-mnews-tw-dev/json/flash_news.json'
+    HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
+    FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
+    SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
 
     break
 }
@@ -58,5 +55,6 @@ export {
   GLOBAL_CACHE_SETTING,
   GTM_ID,
   HEADER_JSON_URL,
+  SCHEDULE_JSON_URL,
   SITE_URL,
 }

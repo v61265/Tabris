@@ -84,7 +84,7 @@
 
 .showsBlock {
   background: #000;
-  padding: 12px 52px;
+  padding: 12px 42px;
   display: flex;
   justify-content: space-between;
 }
@@ -105,4 +105,34 @@
 
 .activeShow {
   color: #ffcc01;
+}
+
+.otherLi {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 28px; /* 200% */
+  letter-spacing: 0.5px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.iconsWrapper {
+  display: flex;
+  gap: 23px;
+  margin-top: 20px;
+}
+
+.toggleButton {
+  transform: rotate(0deg);
+  transition-duration: 0.15s;
+}
+
+.activeToggleButton {
+  transform: rotate(90deg);
+  transition-duration: 0.15s;
 }

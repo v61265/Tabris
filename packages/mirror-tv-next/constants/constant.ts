@@ -13,4 +13,12 @@ const HEADER_BOTTOM_LINKS = {
   x: 'https://twitter.com/mnews_tw',
 }
 
-export { HEADER_BOTTOM_LINKS, META_DESCRIPTION, SITE_TITLE }
+const FILTERED_SLUG = [
+  'privacy',
+  'ad-sales',
+  'press-self-regulation',
+  'webauthorization',
+  'aboutus',
+]
+
+export { HEADER_BOTTOM_LINKS, META_DESCRIPTION, SITE_TITLE, FILTERED_SLUG }

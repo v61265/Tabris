@@ -1,55 +1,35 @@
 import errors from '@twreporter/errors'
-
-import { getClient } from '~/apollo-client'
 import MobileNav from '~/components/layout/header/mobile-header/mobile-nav'
 import type { Category } from '~/graphql/query/categories'
-import { categories } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
-import { shows } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
-import { sponsors } from '~/graphql/query/sponsors'
 
-import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import {
+  GLOBAL_CACHE_SETTING,
+  HEADER_JSON_URL,
+} from '~/constants/environment-variables'
 import styles from '~/styles/components/layout/header/main-header.module.scss'
 import HeaderBottom from './header-bottom'
 import HeaderNav from './header-nav'
 import HeaderTop from './header-top'
 
-export const revalidate = GLOBAL_CACHE_SETTING
-
-export default async function MainHeader() {
-  let sponsorsData: Sponsor[] = []
-  let categoriesData: Category[] = []
-  let showsData: Show[] = []
-
-  const client = getClient()
+async function getData() {
   try {
-    // Fetch sponsors
-    const { data: sponsorsResponse } = await client.query<{
-      allSponsors: Sponsor[]
-    }>({
-      query: sponsors,
+    const res = await fetch(HEADER_JSON_URL, {
+      next: { revalidate: GLOBAL_CACHE_SETTING },
     })
-    sponsorsData = sponsorsResponse.allSponsors
 
-    // Fetch categories
-    const { data: categoriesResponse } = await client.query<{
-      allCategories: Category[]
-    }>({
-      query: categories,
-    })
-    categoriesData = categoriesResponse.allCategories
+    if (!res.ok) {
+      console.error('Failed to fetch header data')
+      return { allSponsors: [], allCategories: [], allShows: [] }
+    }
 
-    // Fetch shows
-    const { data: showsResponse } = await client.query<{ allShows: Show[] }>({
-      query: shows,
-    })
-    showsData = showsResponse.allShows
+    return res.json()
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching data for header'
+      'Error occurs while fetching header data'
     )
 
     console.error(
@@ -61,9 +41,20 @@ export default async function MainHeader() {
         }),
       })
     )
-
-    throw new Error('Error occurs while fetching data.')
+    throw new Error('Error occurs while fetching header data.')
   }
+}
+
+export default async function MainHeader() {
+  let sponsorsData: Sponsor[] = []
+  let categoriesData: Category[] = []
+  let showsData: Show[] = []
+
+  const { allCategories, allSponsors, allShows } = await getData()
+
+  categoriesData = allCategories
+  sponsorsData = allSponsors
+  showsData = allShows
 
   return (
     <header className={styles.header}>

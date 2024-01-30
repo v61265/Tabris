@@ -1,2 +1,17 @@
+@import '/styles/theme/breakpoints';
 
+.pcWrapper {
+  display: none;
 
+  @include breakpoint(md) {
+    display: block;
+  }
+}
+
+.mobWrapper {
+  display: block;
+
+  @include breakpoint(md) {
+    display: none;
+  }
+}
