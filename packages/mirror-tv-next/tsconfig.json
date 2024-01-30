@@ -20,7 +20,7 @@
       }
     ],
     "paths": {
-      "~/*": ["../../mirror-tv-next/*"]
+      "~/*": ["/next-app/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
