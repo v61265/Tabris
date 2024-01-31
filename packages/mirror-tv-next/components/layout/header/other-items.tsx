@@ -1,10 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import xSrc from 'public/icons/icon-x.svg'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import fbSrc from '~/public/icons/icon-fb.svg'
-import igSrc from '~/public/icons/icon-ig.svg'
-import lineSrc from '~/public/icons/icon-line.svg'
 import styles from '~/styles/components/layout/header/other-items.module.scss'
 
 export default function OtherItems(): JSX.Element {
@@ -17,22 +13,22 @@ export default function OtherItems(): JSX.Element {
           { href: HEADER_BOTTOM_LINKS.about, text: '關於我們' },
           {
             href: HEADER_BOTTOM_LINKS.fb,
-            iconSrc: fbSrc,
+            iconSrc: '/icons/icon-fb.svg',
             alt: 'facebook icon',
           },
           {
             href: HEADER_BOTTOM_LINKS.line,
-            iconSrc: lineSrc,
+            iconSrc: '/icons/icon-line.svg',
             alt: 'line icon',
           },
           {
             href: HEADER_BOTTOM_LINKS.ig,
-            iconSrc: igSrc,
+            iconSrc: '/icons/icon-ig.svg',
             alt: 'instagram icon',
           },
           {
             href: HEADER_BOTTOM_LINKS.x,
-            iconSrc: xSrc,
+            iconSrc: '/icons/icon-x.svg',
             alt: 'x(former twitter) icon',
           },
         ].map((item, index) => (
@@ -43,7 +39,12 @@ export default function OtherItems(): JSX.Element {
               rel={item.iconSrc ? 'noopener noreferrer' : undefined}
             >
               {item.iconSrc ? (
-                <Image src={item.iconSrc} alt={item.alt || ''} />
+                <Image
+                  src={item.iconSrc}
+                  alt={item.alt || ''}
+                  width={20}
+                  height={20}
+                />
               ) : (
                 item.text
               )}

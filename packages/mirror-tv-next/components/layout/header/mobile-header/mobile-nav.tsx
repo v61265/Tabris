@@ -3,7 +3,6 @@ import Link from 'next/link'
 import type { Category } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
-import logoSrc from '~/public/icons/mnews-logo-white.svg'
 
 import styles from '~/styles/components/layout/header/mobile-header/mobile-nav.module.scss'
 import SideMenu from './side-menu'
@@ -23,7 +22,13 @@ export default function MobileNav({
     <div className={styles.navWrapper}>
       <div className={styles.logo}>
         <Link href="/">
-          <Image src={logoSrc} alt="mnews logo" priority />
+          <Image
+            src="/icons/mnews-logo-white.svg"
+            alt="mnews logo"
+            width={162}
+            height={30}
+            priority
+          />
         </Link>
       </div>
       <SideMenu categories={categories} shows={shows} sponsors={sponsors} />

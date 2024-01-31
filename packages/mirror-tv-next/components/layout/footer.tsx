@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import logoSrc from '~/public/icons/mnews-logo-white.svg'
 import styles from '~/styles/components/layout/footer.module.scss'
 
 const footerRightList = [
@@ -55,7 +54,13 @@ export default function Footer(): JSX.Element {
           <div className={styles.left}>
             <div className={styles.logo}>
               <Link href="/">
-                <Image src={logoSrc} alt="mnews logo" priority />
+                <Image
+                  src="/icons/mnews-logo-white.svg"
+                  alt="mnews logo"
+                  priority
+                  width={150}
+                  height={27}
+                />
               </Link>
             </div>
             <ul className={styles.iconsWrapper}>
