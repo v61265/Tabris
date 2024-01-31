@@ -1,10 +1,8 @@
-import { getClient } from '~/apollo-client'
 import errors from '@twreporter/errors'
 import { PostByTagName } from '~/graphql/query/posts'
 import styles from '~/styles/pages/tag-page.module.scss'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
-import MorePostsList from '~/components/tag/more-posts-list'
-import UiPostsList from '~/components/tag/posts-list'
+import PostsListManager from '~/components/tag/posts-list-manager'
 import { fetchPostsItems } from '~/components/tag/action'
 
 export const revalidate = GLOBAL_CACHE_SETTING
@@ -56,13 +54,11 @@ export default async function TagPage({
         {postsCount === 0 ? (
           <p>目前沒有相關的文章</p>
         ) : (
-          <UiPostsList postsList={postsList} keyName="tag" />
-        )}
-        {PAGE_SIZE < postsCount && (
-          <MorePostsList
+          <PostsListManager
             tagName={tagName}
             pageSize={PAGE_SIZE}
             postsCount={postsCount}
+            initPostsList={postsList}
           />
         )}
       </div>
