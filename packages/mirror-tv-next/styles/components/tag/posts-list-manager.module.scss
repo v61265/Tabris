@@ -1,0 +1,41 @@
+@import '/styles/theme/breakpoints';
+
+.list,
+.btnWrapper {
+  margin-top: 28px;
+  @include breakpoint(md) {
+    margin: 48px 0 0 0;
+  }
+  @include breakpoint(xl) {
+    margin: 40px 0 0 0;
+  }
+  @include breakpoint(xxl) {
+    margin: 53px 0 0 0;
+  }
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.posts {
+  list-style: none;
+  display: grid;
+  row-gap: 28px;
+  @include breakpoint(md) {
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 48px;
+  }
+  @include breakpoint(xl) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 40px;
+  }
+  @include breakpoint(xxl) {
+    row-gap: 53px;
+    padding-top: 28px;
+  }
+}
