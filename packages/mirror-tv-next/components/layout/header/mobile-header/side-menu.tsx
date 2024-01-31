@@ -2,15 +2,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import xSrc from 'public/icons/icon-x.svg'
 import { useEffect, useState } from 'react'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
 import type { Category } from '~/graphql/query/categories'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
-import fbSrc from '~/public/icons/icon-fb.svg'
-import igSrc from '~/public/icons/icon-ig.svg'
-import lineSrc from '~/public/icons/icon-line.svg'
 import styles from '~/styles/components/layout/header/mobile-header/side-menu.module.scss'
 
 type SideMenuProps = {
@@ -59,10 +55,26 @@ export default function SideMenu({
   ]
 
   const socialLinks = [
-    { href: HEADER_BOTTOM_LINKS.fb, src: fbSrc, alt: 'facebook icon' },
-    { href: HEADER_BOTTOM_LINKS.line, src: lineSrc, alt: 'line icon' },
-    { href: HEADER_BOTTOM_LINKS.ig, src: igSrc, alt: 'instagram icon' },
-    { href: HEADER_BOTTOM_LINKS.x, src: xSrc, alt: 'x(former twitter) icon' },
+    {
+      href: HEADER_BOTTOM_LINKS.fb,
+      src: '/icons/icon-fb.svg',
+      alt: 'facebook icon',
+    },
+    {
+      href: HEADER_BOTTOM_LINKS.line,
+      src: '/icons/icon-line.svg',
+      alt: 'line icon',
+    },
+    {
+      href: HEADER_BOTTOM_LINKS.ig,
+      src: '/icons/icon-ig.svg',
+      alt: 'instagram icon',
+    },
+    {
+      href: HEADER_BOTTOM_LINKS.x,
+      src: '/icons/icon-x.svg',
+      alt: 'x(former twitter) icon',
+    },
   ]
 
   return (
@@ -180,7 +192,7 @@ export default function SideMenu({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Image src={link.src} alt={link.alt} />
+                  <Image src={link.src} alt={link.alt} width={20} height={20} />
                 </Link>
               </li>
             ))}
