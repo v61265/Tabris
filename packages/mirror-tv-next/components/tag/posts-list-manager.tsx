@@ -7,7 +7,7 @@ import styles from '~/styles/components/tag/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formatePostImage } from '~/utils'
 
-type UiMoreTagListProps = {
+type PostsListManagerProps = {
   tagName: string
   pageSize: number
   postsCount: number
@@ -19,7 +19,7 @@ export default function PostsListManager({
   pageSize,
   postsCount,
   initPostsList,
-}: UiMoreTagListProps) {
+}: PostsListManagerProps) {
   const [page, setPage] = useState(1)
   const [postsList, setPostsList] = useState<PostByTagName[]>([
     ...initPostsList,
@@ -52,26 +52,24 @@ export default function PostsListManager({
 
   return (
     <>
-      {
-        <section className={styles.list}>
-          <ol className={styles.posts}>
-            {formattedPostsList(postsList)?.map((postItem) => {
-              return (
-                <li key={postItem.slug}>
-                  <UiPostCard
-                    href={postItem.href}
-                    images={postItem.images}
-                    title={postItem.name}
-                    date={postItem.publishTime}
-                    postStyle={postItem.style}
-                    mobileLayoutDirection="column"
-                  />
-                </li>
-              )
-            })}
-          </ol>
-        </section>
-      }
+      <section className={styles.list}>
+        <ol className={styles.posts}>
+          {formattedPostsList(postsList)?.map((postItem) => {
+            return (
+              <li key={postItem.slug}>
+                <UiPostCard
+                  href={postItem.href}
+                  images={postItem.images}
+                  title={postItem.name}
+                  date={postItem.publishTime}
+                  postStyle={postItem.style}
+                  mobileLayoutDirection="column"
+                />
+              </li>
+            )
+          })}
+        </ol>
+      </section>
       {postsCount > pageSize * page && (
         <div className={styles.btnWrapper}>
           <UiLoadMreButton title="看更多" onClick={handleClickLoadMore} />
