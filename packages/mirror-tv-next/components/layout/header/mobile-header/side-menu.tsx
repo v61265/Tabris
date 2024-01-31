@@ -11,7 +11,6 @@ import type { Sponsor } from '~/graphql/query/sponsors'
 import fbSrc from '~/public/icons/icon-fb.svg'
 import igSrc from '~/public/icons/icon-ig.svg'
 import lineSrc from '~/public/icons/icon-line.svg'
-import menuSrc from '~/public/icons/side-menu-icon.svg'
 import styles from '~/styles/components/layout/header/mobile-header/side-menu.module.scss'
 
 type SideMenuProps = {
@@ -73,7 +72,13 @@ export default function SideMenu({
         style={{ outline: 'none' }}
         className={toggleButtonClasses}
       >
-        <Image src={menuSrc} alt="menu icon" priority />
+        <Image
+          src="/icons/side-menu-icon.svg"
+          alt="menu icon"
+          width={28}
+          height={26}
+          priority
+        />
       </button>
       <div className={sidebarWrapperClasses}>
         {/* Sponsors Block */}

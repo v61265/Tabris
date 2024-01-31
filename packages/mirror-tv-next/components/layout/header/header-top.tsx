@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Sponsor } from '~/graphql/query/sponsors'
-import logoSrc from '~/public/icons/mnews-logo.svg'
 import styles from '~/styles/components/layout/header/header-top.module.scss'
 
 type HeaderTopProps = {
@@ -13,7 +12,13 @@ export default function HeaderTop({ sponsors }: HeaderTopProps) {
     <div className={styles.wrapper}>
       <div className={styles.logo}>
         <Link href="/">
-          <Image src={logoSrc} alt="mnews logo" priority />
+          <Image
+            src="/icons/mnews-logo.svg"
+            alt="mnews logo"
+            priority
+            width={192}
+            height={36}
+          />
         </Link>
       </div>
 
