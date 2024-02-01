@@ -12,7 +12,7 @@ export type Show = {
   }
 }
 
-const shows = gql`
+const fetchShows = gql`
   query {
     allShows(sortBy: [sortOrder_ASC, createdAt_DESC]) {
       id
@@ -27,4 +27,4 @@ const shows = gql`
     }
   }
 `
-export { shows }
+export { fetchShows }

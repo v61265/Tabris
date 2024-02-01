@@ -7,7 +7,7 @@ export type Category = {
   id: string
 }
 
-const categories = gql`
+const fetchFeaturedCategories = gql`
   query {
     allCategories(
       where: { isFeatured: true }
@@ -20,4 +20,4 @@ const categories = gql`
     }
   }
 `
-export { categories }
+export { fetchFeaturedCategories }

@@ -20,7 +20,7 @@ export type Sponsor = {
   }
 }
 
-const sponsors = gql`
+const fetchSponsors = gql`
   query {
     allSponsors(
       where: { state: published }
@@ -46,4 +46,4 @@ const sponsors = gql`
     }
   }
 `
-export { sponsors }
+export { fetchSponsors }
