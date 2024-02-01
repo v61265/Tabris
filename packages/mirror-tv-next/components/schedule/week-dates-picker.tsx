@@ -1,8 +1,14 @@
+type WeekDate = {
+  date: string
+  dayOfWeek: string
+  year: number
+}
+
 type WeekDatesPickerProps = {
-  weekDates: string[]
+  weekDates: WeekDate[]
   selectedDate: string
   // eslint-disable-next-line no-unused-vars
-  onButtonClick: (date: string) => void
+  onButtonClick: (item: WeekDate) => void
 }
 
 export default function WeekDatesPicker({
@@ -12,13 +18,13 @@ export default function WeekDatesPicker({
 }: WeekDatesPickerProps): JSX.Element {
   return (
     <div>
-      {weekDates.map((date) => (
+      {weekDates.map((item) => (
         <button
-          key={date}
-          onClick={() => onButtonClick(date)}
-          style={{ fontWeight: date === selectedDate ? 'bold' : 'normal' }}
+          key={item.date}
+          onClick={() => onButtonClick(item)}
+          style={{ fontWeight: item.date === selectedDate ? 'bold' : 'normal' }}
         >
-          {date}
+          {item.date}
         </button>
       ))}
     </div>
