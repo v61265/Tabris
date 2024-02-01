@@ -1,10 +1,13 @@
 import errors from '@twreporter/errors'
+import ScheduleTable from '~/components/schedule/schedule-table'
 import {
   GLOBAL_CACHE_SETTING,
   SCHEDULE_JSON_URL,
 } from '~/constants/environment-variables'
 import styles from '~/styles/pages/schedule-page.module.scss'
 import type { Schedule } from '~/types/common'
+
+export const revalidate = GLOBAL_CACHE_SETTING
 
 async function getData() {
   try {
@@ -42,6 +45,10 @@ export default async function SchedulePage() {
   let schedule: Schedule[] = []
 
   schedule = await getData()
-  console.log(schedule)
-  return <main className={styles.main}>SchedulePage</main>
+
+  return (
+    <main className={styles.main}>
+      <ScheduleTable schedule={schedule} />
+    </main>
+  )
 }
