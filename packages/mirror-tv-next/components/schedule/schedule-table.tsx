@@ -3,6 +3,7 @@
 import dayjs from 'dayjs'
 import Image from 'next/image'
 import { useState } from 'react'
+import CustomDropDown from '~/components/schedule/custom-dropdown'
 import WeekDatesPicker from '~/components/schedule/week-dates-picker'
 import styles from '~/styles/components/schedule/schedule-table.module.scss'
 import type { Schedule } from '~/types/common'
@@ -29,6 +30,10 @@ export default function ScheduleTable({
     year: number
   }) => {
     setSelectedDate(selectedDateObj.date)
+  }
+
+  const handleDropDownSelect = (date: string) => {
+    setSelectedDate(date)
   }
 
   //get week days
@@ -77,6 +82,11 @@ export default function ScheduleTable({
         selectedDate={selectedDate}
         onButtonClick={handleButtonClick}
       />
+      <CustomDropDown
+        weekDates={weekDates}
+        selectedDate={selectedDate}
+        onDateChange={handleDropDownSelect}
+      />
 
       {/* Render schedule based on the selected date */}
       {doesHaveSchedules ? (
@@ -94,7 +104,7 @@ export default function ScheduleTable({
       ) : (
         <div className={styles.noSchedule}>
           <Image
-            src="/icon/magnifier-with-question-mark.png"
+            src="/images/magnifier-with-question-mark.png"
             alt="找不到當日節目表"
             width={128}
             height={128}
