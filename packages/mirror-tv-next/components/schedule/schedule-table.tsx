@@ -3,6 +3,7 @@
 import dayjs from 'dayjs'
 import Image from 'next/image'
 import { useState } from 'react'
+import WeekDatesPicker from '~/components/schedule/week-dates-picker'
 import styles from '~/styles/components/schedule/schedule-table.module.scss'
 import type { Schedule } from '~/types/common'
 
@@ -54,16 +55,12 @@ export default function ScheduleTable({
 
   return (
     <div>
-      {/* Render buttons for each day */}
-      {weekDates.map((date) => (
-        <button
-          key={date}
-          onClick={() => handleButtonClick(date)}
-          style={{ fontWeight: date === selectedDate ? 'bold' : 'normal' }}
-        >
-          {date}
-        </button>
-      ))}
+      <WeekDatesPicker
+        weekDates={weekDates}
+        selectedDate={selectedDate}
+        onButtonClick={handleButtonClick}
+      />
+
       {/* Render schedule based on the selected date */}
       {doesHaveSchedules ? (
         <div>
