@@ -1,0 +1,34 @@
+@import '/styles/theme/breakpoints';
+
+.topic {
+  min-height: calc(100vh - 50px);
+  padding: 86px 16px 48px;
+  @include breakpoint(md) {
+    min-height: calc(100vh - 152px);
+    padding: 28px 0 50px;
+  }
+
+  &Wrapper {
+    margin: 0 auto;
+    padding: 0 20px;
+    @include breakpoint(md) {
+      max-width: 728px;
+    }
+    @include breakpoint(xl) {
+      max-width: 1072px;
+    }
+  }
+
+  &Name {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25px;
+    color: #014db8;
+    margin: 0 0 20px;
+    @include breakpoint(md) {
+      font-size: 20px;
+      line-height: 32px;
+      letter-spacing: 0.5px;
+    }
+  }
+}

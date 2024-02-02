@@ -1,4 +1,5 @@
 import { PostByTagName } from '~/graphql/query/posts'
+import { Topic } from '~/graphql/query/topic'
 
 type Post = PostByTagName
 
@@ -11,7 +12,7 @@ export type PostImage = {
   w400?: string
 }
 
-function formatePostImage(post: Post): PostImage {
+function formatePostImage(post: Post | Topic): PostImage {
   const defaultImage: PostImage = {
     original: '/images/image-default.jpg',
   }
@@ -20,21 +21,15 @@ function formatePostImage(post: Post): PostImage {
     return defaultImage
   }
 
-  const {
-    urlDesktopSized,
-    urlTabletSized,
-    urlMobileSized,
-    urlTinySized,
-    urlOriginal,
-  } = post.heroImage || {}
+  const { heroImage } = post
 
   return {
     original: defaultImage.original,
-    w3200: urlOriginal || defaultImage.w3200,
-    w2400: urlDesktopSized || defaultImage.w2400,
-    w1600: urlTabletSized || defaultImage.w1600,
-    w800: urlMobileSized || defaultImage.w800,
-    w400: urlTinySized || defaultImage.w400,
+    w3200: heroImage?.urlOriginal || defaultImage.w3200,
+    w2400: heroImage?.urlDesktopSized || defaultImage.w2400,
+    w1600: heroImage?.urlTabletSized || defaultImage.w1600,
+    w800: heroImage?.urlMobileSized || defaultImage.w800,
+    w400: heroImage?.urlTinySized || defaultImage.w400,
   }
 }
 

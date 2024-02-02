@@ -1,0 +1,33 @@
+@import '/styles/theme/breakpoints';
+
+.list,
+.btnWrapper {
+  margin-top: 28px;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.topics {
+  list-style: none;
+  display: grid;
+  row-gap: 20px;
+  overflow: hidden;
+  max-width: 100%;
+  @include breakpoint(md) {
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 8px;
+  }
+  @include breakpoint(xl) {
+    column-gap: 48px;
+    row-gap: 40px;
+  }
+
+  li {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
