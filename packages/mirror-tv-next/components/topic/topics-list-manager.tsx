@@ -6,6 +6,7 @@ import { useState } from 'react'
 import styles from '~/styles/components/topic/topics-list-manager.module.scss'
 import UiTopicCard from '~/components/topic/ui-topic-card'
 import { formatePostImage } from '~/utils'
+import type { ApiData } from '~/types/api-data'
 
 type TopicsListManagerProps = {
   pageSize: number
@@ -21,21 +22,43 @@ export default function TopicsListManager({
   const [page, setPage] = useState(1)
   const [topicsList, setTopicsList] = useState<Topic[]>([...initTopicsList])
 
+  function handleApiData(apiData: string): ApiData[] {
+    try {
+      const rawString = apiData ?? ''
+      const content = JSON.parse(rawString)
+
+      return content?.filter((item: ApiData) => item) || []
+    } catch {
+      return []
+    }
+  }
+
+  function doesHaveBrief(data: ApiData[] = []) {
+    const validateArray = data.map((item) => {
+      return item?.content?.length > 1 || item?.content[0]?.length > 0
+    })
+    return validateArray.find((item) => {
+      return item
+    })
+  }
+
+  function transformBrief(briefApiData = '') {
+    const data: ApiData[] = briefApiData ? handleApiData(briefApiData) : []
+    return data.length && doesHaveBrief(data) ? data : []
+  }
+
   const formatArticleCard = (topic: Topic) => {
-    // function transformBrief(briefApiData = '') {
-    //   const data = briefApiData ? handleApiData(briefApiData) : []
-    //   return data.length && this.doesHaveBrief(data) ? data : []
-    // }
-    const { id = '', slug = '', name = '' } = topic || {}
+    const { id = '', slug = '', name = '', briefApiData } = topic || {}
 
     return {
       id,
       title: name,
       href: `/topic/${slug}`,
-      // brief: transformBrief(briefApiData),
+      brief: transformBrief(briefApiData),
       images: formatePostImage(topic),
     }
   }
+
   const formattedTopicsList = (list: Topic[]) =>
     list.map((topic) => formatArticleCard(topic))
 
@@ -63,7 +86,7 @@ export default function TopicsListManager({
                   href={postItem.href}
                   images={postItem.images}
                   title={postItem.title}
-                  formattedBrief=""
+                  formattedBrief={postItem.brief}
                 />
               </li>
             )

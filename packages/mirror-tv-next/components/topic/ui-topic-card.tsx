@@ -1,20 +1,24 @@
 import styles from '~/styles/components/topic/ui-topic-card.module.scss'
 import { PostImage } from '~/utils'
 import ResponsiveImage from '~/components/shared/responsive-image'
+import { ApiData } from '~/types/api-data'
 
 type UiPostCardProps = {
   title: string
   href: string
   images: PostImage
-  formattedBrief: string
+  formattedBrief: ApiData[]
 }
 
 export default function UiTopicCard({
   title = '',
   href = '',
   images,
-  formattedBrief = '',
+  formattedBrief,
 }: UiPostCardProps) {
+  const shownBrief =
+    formattedBrief?.map((item) => item?.content?.[0] || '').join('<br>') ?? ''
+
   return (
     <a
       className={styles.card}
@@ -33,11 +37,11 @@ export default function UiTopicCard({
         </figure>
         <span className={styles.cardTitle}>{title}</span>
       </div>
-      {formattedBrief && (
+      {shownBrief && (
         <div className={styles.mask}>
           <p
             className={styles.brief}
-            dangerouslySetInnerHTML={{ __html: formattedBrief }}
+            dangerouslySetInnerHTML={{ __html: shownBrief }}
           />
         </div>
       )}

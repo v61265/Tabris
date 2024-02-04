@@ -5,6 +5,7 @@ export type Topic = {
   slug: string
   name: string
   sortOrder: number
+  briefApiData: string
   heroImage: {
     urlMobileSized: string
     urlTabletSized: string

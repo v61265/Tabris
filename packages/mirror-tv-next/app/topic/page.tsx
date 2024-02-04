@@ -41,8 +41,6 @@ export default async function TagPage() {
     throw new Error('Error occurs while fetching data.')
   }
 
-  console.log(123)
-
   return (
     <section className={styles.topic}>
       <div className={styles.topicWrapper}>

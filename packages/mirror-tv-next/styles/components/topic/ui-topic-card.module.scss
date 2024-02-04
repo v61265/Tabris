@@ -6,6 +6,7 @@
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   padding: 11px;
   max-width: 100%;
+  position: relative;
   @include breakpoint(xl) {
     max-width: 100%;
   }
@@ -28,6 +29,7 @@
     margin: 0 0 11px;
     background-color: #e7e7e7;
     overflow: hidden;
+    border-radius: 4px;
   }
   img {
     position: absolute;
