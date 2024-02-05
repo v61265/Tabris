@@ -27,11 +27,11 @@ function formatePostImage(post: Post | Topic): PostImage {
   images.w1600 = heroImage?.urlTabletSized ?? ''
   images.w400 = heroImage?.urlMobileSized ?? ''
 
-  if ('urlDesktopSized' in heroImage) {
+  if (heroImage && 'urlDesktopSized' in heroImage) {
     images.w2400 = heroImage?.urlDesktopSized ?? ''
   }
 
-  if ('urlTinySized' in heroImage) {
+  if (heroImage && 'urlTinySized' in heroImage) {
     images.w2400 = heroImage?.urlTinySized ?? ''
   }
 
