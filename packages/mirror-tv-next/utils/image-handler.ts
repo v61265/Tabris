@@ -13,24 +13,29 @@ export type PostImage = {
 }
 
 function formatePostImage(post: Post | Topic): PostImage {
-  const defaultImage: PostImage = {
+  const images: PostImage = {
     original: '/images/image-default.jpg',
   }
 
   if (!post) {
-    return defaultImage
+    return images
   }
 
   const { heroImage } = post
 
-  return {
-    original: defaultImage.original,
-    w3200: heroImage?.urlOriginal || defaultImage.w3200,
-    w2400: heroImage?.urlDesktopSized || defaultImage.w2400,
-    w1600: heroImage?.urlTabletSized || defaultImage.w1600,
-    w800: heroImage?.urlMobileSized || defaultImage.w800,
-    w400: heroImage?.urlTinySized || defaultImage.w400,
+  images.w3200 = heroImage?.urlOriginal ?? ''
+  images.w1600 = heroImage?.urlTabletSized ?? ''
+  images.w400 = heroImage?.urlMobileSized ?? ''
+
+  if ('urlDesktopSized' in heroImage) {
+    images.w2400 = heroImage?.urlDesktopSized ?? ''
   }
+
+  if ('urlTinySized' in heroImage) {
+    images.w2400 = heroImage?.urlTinySized ?? ''
+  }
+
+  return images
 }
 
 export { formatePostImage }
