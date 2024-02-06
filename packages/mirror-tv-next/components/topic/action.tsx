@@ -26,7 +26,7 @@ async function fetchTopics({
       query: getTopics,
       variables: {
         first: pageSize,
-        skip: page * pageSize,
+        skip: (page - 1) * pageSize,
         withCount: isWithCount,
       },
     })

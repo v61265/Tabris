@@ -14,7 +14,7 @@ export default async function TagPage() {
 
   try {
     const topicsResponse = await fetchTopics({
-      page: 0,
+      page: 1,
       pageSize: PAGE_SIZE,
       isWithCount: true,
     })
