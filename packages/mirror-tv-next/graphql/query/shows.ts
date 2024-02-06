@@ -9,7 +9,7 @@ export type Show = {
     urlMobileSized: string
     urlTabletSized: string
     urlOriginal: string
-  }
+  } | null
 }
 
 const shows = gql`

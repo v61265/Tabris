@@ -10,7 +10,7 @@ export type Topic = {
     urlMobileSized: string
     urlTabletSized: string
     urlOriginal: string
-  }
+  } | null
 }
 
 const getTopics = gql`

@@ -10,7 +10,7 @@ export type ListingPost = {
     urlDesktopSized: string
     urlTabletSized: string
     urlTinySized: string
-  }
+  } | null
 }
 
 const listingPost = gql`
