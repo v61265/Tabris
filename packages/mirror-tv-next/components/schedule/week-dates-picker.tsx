@@ -1,3 +1,5 @@
+import styles from '~/styles/components/schedule/week-dates-picker.module.scss'
+
 type WeekDate = {
   date: string
   dayOfWeek: string
@@ -17,14 +19,18 @@ export default function WeekDatesPicker({
   onButtonClick,
 }: WeekDatesPickerProps): JSX.Element {
   return (
-    <div>
+    <div className={styles.datesPickerWrapper}>
       {weekDates.map((item) => (
         <button
           key={item.date}
           onClick={() => onButtonClick(item)}
-          style={{ fontWeight: item.date === selectedDate ? 'bold' : 'normal' }}
+          style={{ outline: 'none' }}
+          className={`${styles.weekDayButton} ${
+            item.date === selectedDate ? styles.active : ''
+          }`}
         >
-          {item.date}
+          <span className={styles.daysOfWeek}>{item.dayOfWeek}</span>
+          <span className={styles.date}>{item.date}</span>
         </button>
       ))}
     </div>

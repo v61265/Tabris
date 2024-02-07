@@ -21,7 +21,7 @@ type WeekDate = {
 export default function ScheduleTable({
   schedule,
 }: ScheduleProps): JSX.Element {
-  const [selectedDate, setSelectedDate] = useState(dayjs().format('D/M'))
+  const [selectedDate, setSelectedDate] = useState(dayjs().format('M/D'))
 
   // Function to handle button click and update the selected date
   const handleButtonClick = (selectedDateObj: {
@@ -37,12 +37,22 @@ export default function ScheduleTable({
   }
 
   //get week days
+  const dayOfWeekMap: { [key: string]: string } = {
+    Monday: '星期一',
+    Tuesday: '星期二',
+    Wednesday: '星期三',
+    Thursday: '星期四',
+    Friday: '星期五',
+    Saturday: '星期六',
+    Sunday: '星期日',
+  }
+
   const weekDates: WeekDate[] = []
   for (let i = 0; i < 7; i++) {
     const date = dayjs().add(i, 'day')
     const item: WeekDate = {
-      date: date.format('D/M'),
-      dayOfWeek: date.format('dddd'),
+      date: date.format('M/D'),
+      dayOfWeek: dayOfWeekMap[date.format('dddd')],
       year: date.year(),
     }
     weekDates.push(item)
@@ -60,10 +70,10 @@ export default function ScheduleTable({
   }
 
   const getSchedule = () => {
-    const formattedSelectedDate = dayjs(selectedDate, 'D/M')
+    const formattedSelectedDate = dayjs(selectedDate, 'M/D')
     const data = schedule?.filter((item) =>
       formattedSelectedDate.isSame(
-        dayjs(`${item.Day}/${item.Month}`, 'D/M'),
+        dayjs(`${item.Month}/${item.Day}`, 'M/D'),
         'day'
       )
     )
@@ -72,8 +82,6 @@ export default function ScheduleTable({
 
   const formatSchedules = getSchedule() ?? []
   const doesHaveSchedules = formatSchedules.length
-
-  console.log(formatSchedules, doesHaveSchedules)
 
   return (
     <div>
