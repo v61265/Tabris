@@ -1,0 +1,82 @@
+@import '/styles/theme/breakpoints';
+
+.customDropdownContainer {
+  display: block;
+  background-color: pink;
+  position: relative;
+  margin-top: 20px;
+  width: calc(100vw - 32px);
+
+  @include breakpoint(md) {
+    margin-top: 50px;
+    max-width: 600px;
+  }
+
+  @include breakpoint(xl) {
+    display: none;
+  }
+}
+
+.dropdownButton {
+  position: relative;
+  background: #014db8;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background: #0153c7;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    border: solid #fff;
+    border-radius: 1.5px;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    transform: rotate(45deg);
+    top: 18px;
+    right: 16px;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.dropdownButton.isOpen::before {
+  transform: translateY(50%) rotate(-135deg);
+  transition: transform 0.2s ease-in-out;
+}
+
+.dropdownMenu {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  color: #4a4a4a;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.option {
+  padding: 0 16px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background: #d8eaeb;
+  }
+}
