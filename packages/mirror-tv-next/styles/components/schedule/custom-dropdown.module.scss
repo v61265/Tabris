@@ -6,6 +6,8 @@
   position: relative;
   margin-top: 20px;
   width: calc(100vw - 32px);
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* Standard syntax */
 
   @include breakpoint(md) {
     margin-top: 50px;

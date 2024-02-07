@@ -1,3 +1,4 @@
+'use client'
 import styles from '~/styles/components/schedule/week-dates-picker.module.scss'
 
 type WeekDate = {

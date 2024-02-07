@@ -37,8 +37,8 @@ export default function ScheduleTable({
     year: dayjs().year(),
   })
 
-  const handleSelect = (selectedDateObj: WeekDate) => {
-    setSelectedDate(selectedDateObj)
+  const handleSelect = (selectedDate: WeekDate) => {
+    setSelectedDate(selectedDate)
   }
 
   //get week days
@@ -96,7 +96,7 @@ export default function ScheduleTable({
         <div>
           {formatSchedules.map((item, index) => (
             <div key={index}>
-              <p>{item.Programme}</p>
+              <p> {item.Programme}</p>
             </div>
           ))}
         </div>
