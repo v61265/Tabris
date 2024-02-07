@@ -1,0 +1,126 @@
+@import '/styles/theme/breakpoints';
+
+.customDropdownContainer {
+  display: block;
+  background-color: pink;
+  position: relative;
+  margin-top: 20px;
+
+  @include breakpoint(md) {
+    margin-top: 50px;
+  }
+
+  @include breakpoint(xl) {
+    display: none;
+  }
+}
+
+.dropdownButton {
+  background: #014db8;
+  display: flex;
+  align-items: center;
+  width: 600px;
+  height: 52px;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background: #0153c7;
+  }
+
+  ::before {
+    content: '';
+    position: absolute;
+    border: solid red;
+    border-radius: 1.5px;
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    transform: rotate(45deg);
+    top: 8px;
+    right: 8px;
+    width: 9px;
+    height: 9px;
+
+    // transition: transform 0.2s ease-in-out;
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  width: 600px;
+  background: #fff;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.5);
+}
+
+// const DropdownButton = styled.button`
+//   display: flex;
+//   width: 184px;
+//   height: 28px;
+//   color: rgba(0, 0, 0, 0.87);
+//   font-size: 14px;
+//   font-weight: 500;
+//   line-height: 200%; /* 28px */
+//   padding-left: 8px;
+//   background: #fff;
+//   border-radius: 4px;
+//   border: 1px solid #808080;
+//   cursor: pointer;
+
+//   :focus {
+//     outline: 0;
+//   }
+
+//   ::before {
+//     content: '';
+//     position: absolute;
+
+//     border: solid black;
+//     border-radius: 1.5px;
+//     border-width: 0 1.5px 1.5px 0;
+//     display: inline-block;
+//     transform: rotate(45deg);
+//     top: 8px;
+//     right: 8px;
+//     width: 9px;
+//     height: 9px;
+
+//     transition: transform 0.2s ease-in-out;
+
+//     ${
+//       /**
+//        * @param {Object} param
+//        * @param {boolean} param.isOpen
+//        */ ({ isOpen }) =>
+//         isOpen ? 'transform: translateY(50%) rotate(-135deg); ' : ''
+//     }
+//   }
+
+//   ::after {
+//     content: '';
+//     position: absolute;
+//     top: 100%;
+//     transform: translateY(-50%);
+//     right: 8px;
+//     width: 168px;
+//     height: 1px;
+//     background-color: transparent;
+
+//     ${({ isOpen }) => (isOpen ? 'background-color: #b8b8b8;' : '')}
+//   }
+
+//   /* Set top border to none and adjust border radius when isOpen is true */
+//   ${({ isOpen }) =>
+//     isOpen
+//       ? `
+//       border-bottom: none;
+//       border-bottom-left-radius: 0;
+//       border-bottom-right-radius: 0;
+//     `
+//       : ''}
+// `

@@ -1,3 +1,7 @@
+'use client'
+import { useState } from 'react'
+import styles from '~/styles/components/schedule/custom-dropdown.module.scss'
+
 type WeekDate = {
   date: string
   dayOfWeek: string
@@ -16,21 +20,51 @@ export default function CustomDropDown({
   selectedDate,
   onDateChange,
 }: WeekDatesPickerProps): JSX.Element {
-  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // Log the selected value for debugging
-    console.log('Selected Value:', e.target.value)
+  const [isOpen, setIsOpen] = useState(false)
 
-    // Call the provided onDateChange function to update the state
-    onDateChange(e.target.value)
+  const handleDateChange = (date: string) => {
+    setIsOpen(false) // Close the dropdown when a date is selected
+    onDateChange(date)
   }
 
+  console.log(selectedDate)
+
   return (
-    <select value={selectedDate} onChange={handleDateChange}>
-      {weekDates.map((date) => (
-        <option key={date.date} value={date.date}>
-          {date.date} ({date.dayOfWeek})
-        </option>
-      ))}
-    </select>
+    <div className={styles.customDropdownContainer}>
+      <div className={styles.dropdownButton} onClick={() => setIsOpen(!isOpen)}>
+        {selectedDate}
+      </div>
+
+      {isOpen && (
+        <div className={styles.dropdownMenu}>
+          {weekDates.map((date) => (
+            <div
+              key={date.date}
+              className={styles.option}
+              onClick={() => handleDateChange(date.date)}
+            >
+              {date.year}/{date.date}&ensp; ({date.dayOfWeek.slice(2)})
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
+}
+
+{
+  /* <CustomDropdownContainer ref={containerRef}>
+<DropdownButton isOpen={isOpen} onClick={toggleDropdown}>
+  {selectedOption ? selectedOption : '全部'}
+</DropdownButton>
+{isOpen && (
+  <OptionsList>
+    {authors.map((option, index) => (
+      <Option key={index} onClick={() => selectOption(option)}>
+        {option}
+      </Option>
+    ))}
+  </OptionsList>
+)}
+</CustomDropdownContainer> */
 }

@@ -37,6 +37,7 @@ export default function ScheduleTable({
   }
 
   //get week days
+
   const dayOfWeekMap: { [key: string]: string } = {
     Monday: '星期一',
     Tuesday: '星期二',
