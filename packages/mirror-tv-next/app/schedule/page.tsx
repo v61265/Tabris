@@ -1,4 +1,5 @@
 import errors from '@twreporter/errors'
+import dayjs from 'dayjs'
 import ScheduleTable from '~/components/schedule/schedule-table'
 import {
   GLOBAL_CACHE_SETTING,
@@ -8,6 +9,12 @@ import styles from '~/styles/pages/schedule-page.module.scss'
 import type { Schedule } from '~/types/common'
 
 export const revalidate = GLOBAL_CACHE_SETTING
+
+type WeekDate = {
+  date: string
+  dayOfWeek: string
+  year: number
+}
 
 async function getData() {
   try {
@@ -46,9 +53,33 @@ export default async function SchedulePage() {
 
   schedule = await getData()
 
+  const dayOfWeekMap: { [key: string]: string } = {
+    Monday: '星期一',
+    Tuesday: '星期二',
+    Wednesday: '星期三',
+    Thursday: '星期四',
+    Friday: '星期五',
+    Saturday: '星期六',
+    Sunday: '星期日',
+  }
+
+  //get week days
+  const weekDates: WeekDate[] = []
+  for (let i = 0; i < 7; i++) {
+    const date = dayjs().add(i, 'day')
+    const item: WeekDate = {
+      date: date.format('M/D'),
+      dayOfWeek: dayOfWeekMap[date.format('dddd')],
+      year: date.year(),
+    }
+    weekDates.push(item)
+  }
+
+  console.log(weekDates)
+
   return (
     <main className={styles.main}>
-      <ScheduleTable schedule={schedule} />
+      <ScheduleTable schedule={schedule} weekDates={weekDates} />
     </main>
   )
 }

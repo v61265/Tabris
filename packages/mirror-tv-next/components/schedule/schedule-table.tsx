@@ -10,6 +10,7 @@ import type { Schedule } from '~/types/common'
 
 type ScheduleProps = {
   schedule: Schedule[]
+  weekDates: WeekDate[]
 }
 
 type WeekDate = {
@@ -20,37 +21,18 @@ type WeekDate = {
 
 export default function ScheduleTable({
   schedule,
+  weekDates,
 }: ScheduleProps): JSX.Element {
-  const dayOfWeekMap: { [key: string]: string } = {
-    Monday: '星期一',
-    Tuesday: '星期二',
-    Wednesday: '星期三',
-    Thursday: '星期四',
-    Friday: '星期五',
-    Saturday: '星期六',
-    Sunday: '星期日',
-  }
+  const initialDay = weekDates[0]
 
   const [selectedDate, setSelectedDate] = useState<WeekDate>({
-    date: dayjs().format('M/D'),
-    dayOfWeek: dayOfWeekMap[dayjs().format('dddd')],
-    year: dayjs().year(),
+    date: initialDay.date,
+    dayOfWeek: initialDay.dayOfWeek,
+    year: initialDay.year,
   })
 
   const handleSelect = (selectedDate: WeekDate) => {
     setSelectedDate(selectedDate)
-  }
-
-  //get week days
-  const weekDates: WeekDate[] = []
-  for (let i = 0; i < 7; i++) {
-    const date = dayjs().add(i, 'day')
-    const item: WeekDate = {
-      date: date.format('M/D'),
-      dayOfWeek: dayOfWeekMap[date.format('dddd')],
-      year: date.year(),
-    }
-    weekDates.push(item)
   }
 
   const sortData = (data: Schedule[]) => {
