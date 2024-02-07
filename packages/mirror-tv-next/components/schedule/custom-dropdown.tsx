@@ -8,31 +8,31 @@ type WeekDate = {
   year: number
 }
 
-type WeekDatesPickerProps = {
+type CustomDropDownProps = {
   weekDates: WeekDate[]
-  selectedDate: string
+  selectedDate: WeekDate
   // eslint-disable-next-line no-unused-vars
-  onDateChange: (date: string) => void
+  onDateChange: (date: WeekDate) => void
 }
 
 export default function CustomDropDown({
   weekDates,
   selectedDate,
   onDateChange,
-}: WeekDatesPickerProps): JSX.Element {
+}: CustomDropDownProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleDateChange = (date: string) => {
-    setIsOpen(false) // Close the dropdown when a date is selected
+  const handleDateChange = (date: WeekDate) => {
+    setIsOpen(false)
     onDateChange(date)
   }
-
-  console.log(selectedDate)
 
   return (
     <div className={styles.customDropdownContainer}>
       <div className={styles.dropdownButton} onClick={() => setIsOpen(!isOpen)}>
-        {selectedDate}
+        {`${selectedDate.year}/${
+          selectedDate.date
+        } (${selectedDate.dayOfWeek.slice(2)})`}
       </div>
 
       {isOpen && (
@@ -41,7 +41,7 @@ export default function CustomDropDown({
             <div
               key={date.date}
               className={styles.option}
-              onClick={() => handleDateChange(date.date)}
+              onClick={() => handleDateChange(date)}
             >
               {date.year}/{date.date}&ensp; ({date.dayOfWeek.slice(2)})
             </div>
@@ -50,21 +50,4 @@ export default function CustomDropDown({
       )}
     </div>
   )
-}
-
-{
-  /* <CustomDropdownContainer ref={containerRef}>
-<DropdownButton isOpen={isOpen} onClick={toggleDropdown}>
-  {selectedOption ? selectedOption : '全部'}
-</DropdownButton>
-{isOpen && (
-  <OptionsList>
-    {authors.map((option, index) => (
-      <Option key={index} onClick={() => selectOption(option)}>
-        {option}
-      </Option>
-    ))}
-  </OptionsList>
-)}
-</CustomDropdownContainer> */
 }

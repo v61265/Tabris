@@ -8,7 +8,7 @@ type WeekDate = {
 
 type WeekDatesPickerProps = {
   weekDates: WeekDate[]
-  selectedDate: string
+  selectedDate: WeekDate
   // eslint-disable-next-line no-unused-vars
   onButtonClick: (item: WeekDate) => void
 }
@@ -26,7 +26,7 @@ export default function WeekDatesPicker({
           onClick={() => onButtonClick(item)}
           style={{ outline: 'none' }}
           className={`${styles.weekDayButton} ${
-            item.date === selectedDate ? styles.active : ''
+            item.date === selectedDate.date ? styles.active : ''
           }`}
         >
           <span className={styles.daysOfWeek}>{item.dayOfWeek}</span>

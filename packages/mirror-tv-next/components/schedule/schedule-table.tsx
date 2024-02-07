@@ -21,23 +21,6 @@ type WeekDate = {
 export default function ScheduleTable({
   schedule,
 }: ScheduleProps): JSX.Element {
-  const [selectedDate, setSelectedDate] = useState(dayjs().format('M/D'))
-
-  // Function to handle button click and update the selected date
-  const handleButtonClick = (selectedDateObj: {
-    date: string
-    dayOfWeek: string
-    year: number
-  }) => {
-    setSelectedDate(selectedDateObj.date)
-  }
-
-  const handleDropDownSelect = (date: string) => {
-    setSelectedDate(date)
-  }
-
-  //get week days
-
   const dayOfWeekMap: { [key: string]: string } = {
     Monday: '星期一',
     Tuesday: '星期二',
@@ -48,6 +31,17 @@ export default function ScheduleTable({
     Sunday: '星期日',
   }
 
+  const [selectedDate, setSelectedDate] = useState<WeekDate>({
+    date: dayjs().format('M/D'),
+    dayOfWeek: dayOfWeekMap[dayjs().format('dddd')],
+    year: dayjs().year(),
+  })
+
+  const handleSelect = (selectedDateObj: WeekDate) => {
+    setSelectedDate(selectedDateObj)
+  }
+
+  //get week days
   const weekDates: WeekDate[] = []
   for (let i = 0; i < 7; i++) {
     const date = dayjs().add(i, 'day')
@@ -71,7 +65,7 @@ export default function ScheduleTable({
   }
 
   const getSchedule = () => {
-    const formattedSelectedDate = dayjs(selectedDate, 'M/D')
+    const formattedSelectedDate = dayjs(selectedDate.date, 'M/D')
     const data = schedule?.filter((item) =>
       formattedSelectedDate.isSame(
         dayjs(`${item.Month}/${item.Day}`, 'M/D'),
@@ -89,12 +83,12 @@ export default function ScheduleTable({
       <WeekDatesPicker
         weekDates={weekDates}
         selectedDate={selectedDate}
-        onButtonClick={handleButtonClick}
+        onButtonClick={handleSelect}
       />
       <CustomDropDown
         weekDates={weekDates}
         selectedDate={selectedDate}
-        onDateChange={handleDropDownSelect}
+        onDateChange={handleSelect}
       />
 
       {/* Render schedule based on the selected date */}
