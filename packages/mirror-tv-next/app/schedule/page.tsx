@@ -75,8 +75,6 @@ export default async function SchedulePage() {
     weekDates.push(item)
   }
 
-  console.log(weekDates)
-
   return (
     <main className={styles.main}>
       <ScheduleTable schedule={schedule} weekDates={weekDates} />

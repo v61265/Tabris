@@ -1,6 +1,5 @@
 'use client'
 
-import dayjs from 'dayjs'
 import Image from 'next/image'
 import { useState } from 'react'
 import CustomDropDown from '~/components/schedule/custom-dropdown'
@@ -47,13 +46,14 @@ export default function ScheduleTable({
   }
 
   const getSchedule = () => {
-    const formattedSelectedDate = dayjs(selectedDate.date, 'M/D')
-    const data = schedule?.filter((item) =>
-      formattedSelectedDate.isSame(
-        dayjs(`${item.Month}/${item.Day}`, 'M/D'),
-        'day'
-      )
+    const filterDate = selectedDate.date
+
+    const data = schedule?.filter(
+      (item) =>
+        item.Month === filterDate.split('/')[0] &&
+        item.Day === filterDate.split('/')[1]
     )
+
     return sortData(data)
   }
 
