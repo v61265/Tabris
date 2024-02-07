@@ -29,7 +29,10 @@ export default function CustomDropDown({
 
   return (
     <div className={styles.customDropdownContainer}>
-      <div className={styles.dropdownButton} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={`${styles.dropdownButton} ${isOpen ? styles.isOpen : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {`${selectedDate.year}/${
           selectedDate.date
         } (${selectedDate.dayOfWeek.slice(2)})`}

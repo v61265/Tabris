@@ -96,11 +96,7 @@ export default function ScheduleTable({
         <div>
           {formatSchedules.map((item, index) => (
             <div key={index}>
-              <p>Programme: {item.Programme}</p>
-              <p>
-                Start Time: {item['Start Time(hh)']}:{item['Start Time(mm)']}
-              </p>
-              <p>Duration: {item.Duration}</p>
+              <p>{item.Programme}</p>
             </div>
           ))}
         </div>
