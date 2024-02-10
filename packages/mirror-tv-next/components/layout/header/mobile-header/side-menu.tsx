@@ -107,7 +107,10 @@ export default function SideMenu({
                     }
                   >
                     <Image
-                      src={sponsor.logo.urlMobileSized}
+                      src={
+                        sponsor.logo?.urlMobileSized ??
+                        '/images/image-default.jpg'
+                      }
                       alt="Sponsor Logo"
                       width={100}
                       height={52}
