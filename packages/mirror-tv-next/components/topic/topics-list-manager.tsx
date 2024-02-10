@@ -7,6 +7,7 @@ import { formatePostImage } from '~/utils'
 import type { PostImage } from '~/utils'
 import type { ApiData } from '~/types/api-data'
 import InfiniteScrollList from '~/components/shared/infinite-scroll-list'
+import Image from 'next/image'
 
 type TopicsListManagerProps = {
   pageSize: number
@@ -84,8 +85,13 @@ export default function TopicsListManager({
           fetchCount={topicsCount}
           fetchListInPage={fetchMoreTopics}
           loader={
-            <div style={{ margin: '0 auto', width: '100vw' }}>
-              <img src="/images/loading.svg" alt="loading page" />
+            <div className={styles.loading}>
+              <Image
+                src="/images/loading.svg"
+                alt="loading page"
+                width="200"
+                height="200"
+              />
             </div>
           }
         >
