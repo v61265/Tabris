@@ -81,8 +81,8 @@ export default function TopicsListManager({
       <section className={styles.list}>
         <InfiniteScrollList<FormatArticleCard>
           initialList={formattedTopicsList([...initTopicsList])}
-          renderAmount={pageSize}
-          fetchCount={topicsCount}
+          pageSize={pageSize}
+          totalCount={topicsCount}
           fetchListInPage={fetchMoreTopics}
           loader={
             <div className={styles.loading}>
