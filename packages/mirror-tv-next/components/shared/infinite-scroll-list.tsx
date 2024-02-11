@@ -1,25 +1,25 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import styles from '~/styles/components/shared/infinite-scroll-list.module.scss'
 
-type Children = (renderList: any[]) => JSX.Element
+type Children<ItemType> = (renderList: ItemType[]) => JSX.Element
 
-interface InfiniteScrollListProps {
-  initialList?: any[]
+interface InfiniteScrollListProps<ItemType> {
+  initialList?: ItemType[]
   renderAmount: number
-  fetchListInPage: (page: number) => Promise<any[]>
-  children: Children
+  fetchListInPage: (page: number) => Promise<ItemType[]>
+  children: Children<ItemType>
   loader: JSX.Element
   fetchCount: number
 }
 
-export default function InfiniteScrollList({
+export default function InfiniteScrollList<ItemType>({
   initialList = [],
   renderAmount,
   fetchListInPage,
   children,
   fetchCount,
   loader,
-}: InfiniteScrollListProps): JSX.Element {
+}: InfiniteScrollListProps<ItemType>): JSX.Element {
   const [dataList, setDataList] = useState([...initialList])
   const initialPage = initialList.length ? 1 : 0
   const [fetchPage, setFetchPage] = useState(initialPage)
