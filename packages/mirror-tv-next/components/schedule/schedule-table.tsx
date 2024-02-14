@@ -60,6 +60,31 @@ export default function ScheduleTable({
   const formatSchedules = getSchedule() ?? []
   const doesHaveSchedules = formatSchedules.length
 
+  // format schedule table
+  const formatHourTime = (time: string) => {
+    const stringTime = time.toString()
+    return stringTime.length > 1 ? stringTime : '0' + stringTime
+  }
+
+  const formatMinuteTime = (time: string) => {
+    const stringTime = time.toString()
+    return stringTime.length > 1 ? stringTime : stringTime + '0'
+  }
+
+  const getShowEndTime = (index: number) => {
+    const nextShowIndex = index + 1
+    if (nextShowIndex >= schedule.length) {
+      return '24:00'
+    }
+    return `${formatHourTime(
+      schedule[nextShowIndex]['Start Time(hh)']
+    )}:${formatMinuteTime(schedule[nextShowIndex]['Start Time(mm)'])}`
+  }
+
+  // const isReplay = (item) => {
+  //   return item?.TxCategory === 'Repeat'
+  // }
+
   return (
     <div>
       <WeekDatesPicker
@@ -76,11 +101,41 @@ export default function ScheduleTable({
       {/* Render schedule based on the selected date */}
       {doesHaveSchedules ? (
         <div>
-          {formatSchedules.map((item, index) => (
-            <div key={index}>
-              <p> {item.Programme}</p>
-            </div>
-          ))}
+          <table className={styles.scheduleTable}>
+            <thead>
+              <tr>
+                <th className={styles.show__time}>時間</th>
+                <th className={styles.show__name}>節目名稱</th>
+                <th className={styles.show__ep} />
+                <th className={styles.show__rating} />
+              </tr>
+            </thead>
+            <tbody>
+              {formatSchedules.map((item, index) => (
+                <tr
+                  key={`${item.Programme}-${item['Start Time(hh)']}-${index}`}
+                >
+                  <td className={styles.show__time}>
+                    {`${formatHourTime(
+                      item['Start Time(hh)']
+                    )}:${formatMinuteTime(
+                      item['Start Time(mm)']
+                    )}-${getShowEndTime(index)}`}
+                  </td>
+                  <td className={styles.show__name}>
+                    {item.Programme}
+                    {item['ep name'] && (
+                      <span className={styles.show__name_ep}>
+                        {item['ep name']}
+                      </span>
+                    )}
+                  </td>
+                  <td className={styles.show__ep}>{item['ep name']}</td>
+                  <td className={styles.show__rating}>{item.Class}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <div className={styles.noSchedule}>
