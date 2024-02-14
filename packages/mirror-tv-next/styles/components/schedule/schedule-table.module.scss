@@ -33,6 +33,7 @@
   .show {
     &__time {
       width: 100px;
+      line-height: normal;
       @include breakpoint(md) {
         width: 100px;
       }

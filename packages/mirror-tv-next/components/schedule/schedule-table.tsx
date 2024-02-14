@@ -73,12 +73,12 @@ export default function ScheduleTable({
 
   const getShowEndTime = (index: number) => {
     const nextShowIndex = index + 1
-    if (nextShowIndex >= schedule.length) {
+    if (nextShowIndex >= formatSchedules.length) {
       return '24:00'
     }
     return `${formatHourTime(
-      schedule[nextShowIndex]['Start Time(hh)']
-    )}:${formatMinuteTime(schedule[nextShowIndex]['Start Time(mm)'])}`
+      formatSchedules[nextShowIndex]['Start Time(hh)']
+    )}:${formatMinuteTime(formatSchedules[nextShowIndex]['Start Time(mm)'])}`
   }
 
   // const isReplay = (item) => {
