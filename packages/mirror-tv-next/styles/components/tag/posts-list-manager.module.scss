@@ -3,15 +3,6 @@
 .list,
 .btnWrapper {
   margin-top: 28px;
-  @include breakpoint(md) {
-    margin: 48px 0 0 0;
-  }
-  @include breakpoint(xl) {
-    margin: 40px 0 0 0;
-  }
-  @include breakpoint(xxl) {
-    margin: 53px 0 0 0;
-  }
 }
 
 .btnWrapper {
