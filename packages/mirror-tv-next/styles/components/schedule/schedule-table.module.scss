@@ -1,3 +1,99 @@
+@import '/styles/theme/breakpoints';
+
+.scheduleTable {
+  width: 100%;
+  margin: auto;
+  color: #4a4a4a;
+  @include breakpoint(xl) {
+    width: 600px;
+  }
+  color: #4a4a4a;
+  thead {
+    th {
+      text-align: left;
+    }
+    th.show__rating {
+      color: #4a4a4a;
+    }
+  }
+  tbody {
+    td {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+    }
+    tr + tr {
+      border-top: 1px solid #d8d8d8;
+    }
+    span.replay {
+      color: #9b9b9b;
+    }
+  }
+
+  .show {
+    &__time {
+      width: 100px;
+      line-height: normal;
+      @include breakpoint(md) {
+        width: 100px;
+      }
+      @include breakpoint(xl) {
+        width: 145px;
+        padding-left: 48px;
+      }
+    }
+    &__name {
+      padding-left: 30px;
+      @include breakpoint(md) {
+        width: 210px;
+        padding-left: 60px;
+      }
+      @include breakpoint(xl) {
+        padding-left: 50px;
+      }
+      a {
+        color: #014db8;
+      }
+      &_ep {
+        display: block;
+        font-size: 16px;
+        font-weight: 200;
+        line-height: 1.4;
+        color: #9b9b9b;
+        @include breakpoint(md) {
+          display: none;
+        }
+      }
+    }
+    &__ep {
+      display: none;
+      @include breakpoint(md) {
+        display: block;
+        width: 230px;
+        font-size: 16px;
+        font-weight: 200;
+        line-height: 1.4;
+        color: #9b9b9b;
+        padding-left: 40px;
+        padding-right: 40px;
+        @include breakpoint(xl) {
+          width: 186px;
+          padding-left: 16px;
+          padding-right: 20px;
+        }
+      }
+    }
+    &__rating {
+      display: none;
+      color: #9b9b9b;
+      @include breakpoint(md) {
+        display: table-cell;
+        min-width: 50px;
+      }
+    }
+  }
+}
+
 .noSchedule {
   color: #9b9b9b;
   font-weight: 400;

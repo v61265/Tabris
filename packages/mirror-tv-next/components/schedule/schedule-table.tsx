@@ -1,6 +1,5 @@
 'use client'
 
-import dayjs from 'dayjs'
 import Image from 'next/image'
 import { useState } from 'react'
 import CustomDropDown from '~/components/schedule/custom-dropdown'
@@ -10,6 +9,7 @@ import type { Schedule } from '~/types/common'
 
 type ScheduleProps = {
   schedule: Schedule[]
+  weekDates: WeekDate[]
 }
 
 type WeekDate = {
@@ -20,37 +20,18 @@ type WeekDate = {
 
 export default function ScheduleTable({
   schedule,
+  weekDates,
 }: ScheduleProps): JSX.Element {
-  const dayOfWeekMap: { [key: string]: string } = {
-    Monday: '星期一',
-    Tuesday: '星期二',
-    Wednesday: '星期三',
-    Thursday: '星期四',
-    Friday: '星期五',
-    Saturday: '星期六',
-    Sunday: '星期日',
-  }
+  const initialDay = weekDates[0]
 
   const [selectedDate, setSelectedDate] = useState<WeekDate>({
-    date: dayjs().format('M/D'),
-    dayOfWeek: dayOfWeekMap[dayjs().format('dddd')],
-    year: dayjs().year(),
+    date: initialDay.date,
+    dayOfWeek: initialDay.dayOfWeek,
+    year: initialDay.year,
   })
 
-  const handleSelect = (selectedDateObj: WeekDate) => {
-    setSelectedDate(selectedDateObj)
-  }
-
-  //get week days
-  const weekDates: WeekDate[] = []
-  for (let i = 0; i < 7; i++) {
-    const date = dayjs().add(i, 'day')
-    const item: WeekDate = {
-      date: date.format('M/D'),
-      dayOfWeek: dayOfWeekMap[date.format('dddd')],
-      year: date.year(),
-    }
-    weekDates.push(item)
+  const handleSelect = (selectedDate: WeekDate) => {
+    setSelectedDate(selectedDate)
   }
 
   const sortData = (data: Schedule[]) => {
@@ -65,18 +46,44 @@ export default function ScheduleTable({
   }
 
   const getSchedule = () => {
-    const formattedSelectedDate = dayjs(selectedDate.date, 'M/D')
-    const data = schedule?.filter((item) =>
-      formattedSelectedDate.isSame(
-        dayjs(`${item.Month}/${item.Day}`, 'M/D'),
-        'day'
-      )
+    const filterDate = selectedDate.date
+
+    const data = schedule?.filter(
+      (item) =>
+        item.Month === filterDate.split('/')[0] &&
+        item.Day === filterDate.split('/')[1]
     )
+
     return sortData(data)
   }
 
   const formatSchedules = getSchedule() ?? []
   const doesHaveSchedules = formatSchedules.length
+
+  // format schedule table
+  const formatHourTime = (time: string) => {
+    const stringTime = time.toString()
+    return stringTime.length > 1 ? stringTime : '0' + stringTime
+  }
+
+  const formatMinuteTime = (time: string) => {
+    const stringTime = time.toString()
+    return stringTime.length > 1 ? stringTime : stringTime + '0'
+  }
+
+  const getShowEndTime = (index: number) => {
+    const nextShowIndex = index + 1
+    if (nextShowIndex >= formatSchedules.length) {
+      return '24:00'
+    }
+    return `${formatHourTime(
+      formatSchedules[nextShowIndex]['Start Time(hh)']
+    )}:${formatMinuteTime(formatSchedules[nextShowIndex]['Start Time(mm)'])}`
+  }
+
+  // const isReplay = (item) => {
+  //   return item?.TxCategory === 'Repeat'
+  // }
 
   return (
     <div>
@@ -94,11 +101,41 @@ export default function ScheduleTable({
       {/* Render schedule based on the selected date */}
       {doesHaveSchedules ? (
         <div>
-          {formatSchedules.map((item, index) => (
-            <div key={index}>
-              <p>{item.Programme}</p>
-            </div>
-          ))}
+          <table className={styles.scheduleTable}>
+            <thead>
+              <tr>
+                <th className={styles.show__time}>時間</th>
+                <th className={styles.show__name}>節目名稱</th>
+                <th className={styles.show__ep} />
+                <th className={styles.show__rating} />
+              </tr>
+            </thead>
+            <tbody>
+              {formatSchedules.map((item, index) => (
+                <tr
+                  key={`${item.Programme}-${item['Start Time(hh)']}-${index}`}
+                >
+                  <td className={styles.show__time}>
+                    {`${formatHourTime(
+                      item['Start Time(hh)']
+                    )}:${formatMinuteTime(
+                      item['Start Time(mm)']
+                    )}-${getShowEndTime(index)}`}
+                  </td>
+                  <td className={styles.show__name}>
+                    {item.Programme}
+                    {item['ep name'] && (
+                      <span className={styles.show__name_ep}>
+                        {item['ep name']}
+                      </span>
+                    )}
+                  </td>
+                  <td className={styles.show__ep}>{item['ep name']}</td>
+                  <td className={styles.show__rating}>{item.Class}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <div className={styles.noSchedule}>

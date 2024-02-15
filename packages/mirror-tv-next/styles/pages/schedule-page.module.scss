@@ -6,8 +6,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 24px;
 
   @include breakpoint(md) {
     padding-top: 0;
+    padding-bottom: 48px;
+  }
+
+  @include breakpoint(xl) {
+    padding-bottom: 80px;
   }
 }
