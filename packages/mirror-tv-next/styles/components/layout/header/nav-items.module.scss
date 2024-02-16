@@ -62,11 +62,11 @@
   display: flex;
   align-items: center;
 
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     padding: 0 16px;
   }
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     font-size: 16px;
     width: 1232px;
     margin: auto;
@@ -82,7 +82,7 @@
   max-width: 560px;
   height: 28px;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     max-width: 960px;
   }
 }
@@ -97,11 +97,11 @@
   font-weight: 100;
   line-height: normal;
 
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     padding: 0 16px;
   }
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     padding: 0 44px;
   }
 }

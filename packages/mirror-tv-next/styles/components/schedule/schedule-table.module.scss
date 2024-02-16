@@ -4,7 +4,7 @@
   width: 100%;
   margin: auto;
   color: #4a4a4a;
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     width: 600px;
   }
   color: #4a4a4a;
@@ -34,21 +34,21 @@
     &__time {
       width: 100px;
       line-height: normal;
-      @include breakpoint(md) {
+      @include media-breakpoint-up(md) {
         width: 100px;
       }
-      @include breakpoint(xl) {
+      @include media-breakpoint-up(xl) {
         width: 145px;
         padding-left: 48px;
       }
     }
     &__name {
       padding-left: 30px;
-      @include breakpoint(md) {
+      @include media-breakpoint-up(md) {
         width: 210px;
         padding-left: 60px;
       }
-      @include breakpoint(xl) {
+      @include media-breakpoint-up(xl) {
         padding-left: 50px;
       }
       a {
@@ -60,14 +60,14 @@
         font-weight: 200;
         line-height: 1.4;
         color: #9b9b9b;
-        @include breakpoint(md) {
+        @include media-breakpoint-up(md) {
           display: none;
         }
       }
     }
     &__ep {
       display: none;
-      @include breakpoint(md) {
+      @include media-breakpoint-up(md) {
         display: block;
         width: 230px;
         font-size: 16px;
@@ -76,7 +76,7 @@
         color: #9b9b9b;
         padding-left: 40px;
         padding-right: 40px;
-        @include breakpoint(xl) {
+        @include media-breakpoint-up(xl) {
           width: 186px;
           padding-left: 16px;
           padding-right: 20px;
@@ -86,7 +86,7 @@
     &__rating {
       display: none;
       color: #9b9b9b;
-      @include breakpoint(md) {
+      @include media-breakpoint-up(md) {
         display: table-cell;
         min-width: 50px;
       }

@@ -14,7 +14,7 @@
   line-height: 28px; /* 200% */
   letter-spacing: 0.5px;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     padding: 4px 20px;
     width: 424px;
     margin-right: calc((100vw - 1232px) / 2);
@@ -32,7 +32,7 @@
   align-items: center;
   width: 16px;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     width: 20px;
   }
 

@@ -1,4 +1,4 @@
-@mixin breakpoint($point) {
+@mixin media-breakpoint-up($point) {
   @if $point == sm {
     @media (min-width: 576px) {
       @content;

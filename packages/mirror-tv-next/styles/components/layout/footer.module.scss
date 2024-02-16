@@ -13,7 +13,7 @@
   max-width: 1290px;
   margin: auto;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     flex-direction: row;
     justify-content: space-between;
     padding: 0 83px 0 45px;
@@ -36,7 +36,7 @@
   margin-top: 32px;
   text-align: center;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     margin-top: 0;
     text-align: start;
   }
@@ -52,7 +52,7 @@
   flex-direction: column;
   align-items: center;
   display: none;
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     display: flex;
     margin-right: 48px;
   }
@@ -70,7 +70,7 @@
   margin-top: 24px;
   margin-bottom: 30px;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     display: none;
   }
 }
@@ -82,7 +82,7 @@
   &info {
     display: flex;
     justify-content: center;
-    @include breakpoint(xl) {
+    @include media-breakpoint-up(xl) {
       justify-content: inherit;
     }
   }
@@ -99,7 +99,7 @@
   grid-column-gap: 30px;
   position: relative;
   margin-top: 20px;
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     margin: 0;
     padding: 0 0 0 20px;
     border-left: 1px solid white;
@@ -116,7 +116,7 @@
     top: 0;
     left: 50%;
     transform: translate(-50%, 0);
-    @include breakpoint(xl) {
+    @include media-breakpoint-up(xl) {
       display: none;
     }
   }
@@ -129,7 +129,7 @@
   align-items: center;
   background-color: #fff;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     padding: 20px 0;
   }
   .youtubeTos {
@@ -154,7 +154,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    @include breakpoint(xl) {
+    @include media-breakpoint-up(xl) {
       flex-direction: row;
       span {
         margin-right: 5px;

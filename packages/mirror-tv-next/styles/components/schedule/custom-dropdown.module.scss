@@ -9,12 +9,12 @@
   -webkit-user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
 
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     margin-top: 50px;
     max-width: 600px;
   }
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     display: none;
   }
 }
