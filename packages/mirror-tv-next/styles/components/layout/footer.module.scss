@@ -2,6 +2,7 @@
 
 .footer {
   color: #fff;
+  background-color: #036;
 }
 
 .topWrapper {
@@ -9,6 +10,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  max-width: 1290px;
+  margin: auto;
 
   @include breakpoint(xl) {
     flex-direction: row;
@@ -124,6 +127,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #fff;
 
   @include breakpoint(xl) {
     padding: 20px 0;

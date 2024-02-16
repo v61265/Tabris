@@ -17,6 +17,7 @@
   @include breakpoint(xl) {
     padding: 4px 20px;
     width: 424px;
+    margin-right: calc((100vw - 1232px) / 2);
   }
 }
 

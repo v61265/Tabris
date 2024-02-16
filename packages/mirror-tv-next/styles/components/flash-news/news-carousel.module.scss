@@ -14,7 +14,7 @@
     padding-left: 0px;
   }
   @include breakpoint(xl) {
-    width: calc(100vw - 540px);
+    width: 100%;
   }
 }
 

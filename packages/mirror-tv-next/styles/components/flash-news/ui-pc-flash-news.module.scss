@@ -17,8 +17,10 @@
     width: 100%;
   }
   @include breakpoint(xl) {
-    padding-left: 44px;
+    $paddingLeft: calc((100vw - 1232px) / 2);
     font-size: 16px;
+    padding-left: $paddingLeft;
+    width: calc(100vw - 424px - #{$paddingLeft});
   }
 }
 
@@ -43,5 +45,6 @@
   @include breakpoint(xl) {
     height: 28px;
     font-size: 16px;
+    margin-left: 20px;
   }
 }

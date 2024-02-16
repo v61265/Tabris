@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  margin: auto;
 
   @include breakpoint(md) {
     background: #fff;
@@ -14,7 +15,7 @@
 
   @include breakpoint(xl) {
     height: 73px;
-    padding: 0 44px;
+    max-width: 1232px;
   }
 }
 
