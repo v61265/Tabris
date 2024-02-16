@@ -4,14 +4,14 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     width: 100%;
   }
 
   &Top {
     display: flex;
     flex-direction: column;
-    @include breakpoint(xl) {
+    @include media-breakpoint-up(xl) {
       flex: 1 1 auto;
     }
   }
@@ -21,7 +21,7 @@
     width: 100%;
     padding-top: 66.66%;
     position: relative;
-    @include breakpoint(xl) {
+    @include media-breakpoint-up(xl) {
       min-width: 180px;
       min-height: 120px;
       overflow: hidden;
@@ -46,7 +46,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin: 11px 0 0 0;
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     flex: 1 1 auto;
   }
 
@@ -59,7 +59,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    @include breakpoint(xl) {
+    @include media-breakpoint-up(xl) {
       margin-top: 12px;
       -webkit-line-clamp: 3;
     }

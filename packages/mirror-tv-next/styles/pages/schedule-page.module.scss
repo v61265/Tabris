@@ -8,12 +8,12 @@
   align-items: center;
   padding-bottom: 24px;
 
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     padding-top: 0;
     padding-bottom: 48px;
   }
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     padding-bottom: 80px;
   }
 }

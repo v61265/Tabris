@@ -7,7 +7,7 @@
   gap: 4px;
   display: none;
 
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     display: flex;
   }
 }

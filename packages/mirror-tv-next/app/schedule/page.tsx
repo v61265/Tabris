@@ -10,6 +10,13 @@ import type { Schedule } from '~/types/common'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
+export const metadata = {
+  title: '節目表 - 鏡新聞',
+  openGraph: {
+    title: '節目表 - 鏡新聞',
+  },
+}
+
 type WeekDate = {
   date: string
   dayOfWeek: string

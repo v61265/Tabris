@@ -3,7 +3,7 @@
 .tag {
   min-height: calc(100vh - 50px);
   padding: 86px 16px 48px;
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     min-height: calc(100vh - 152px);
     padding: 28px 0 50px;
   }
@@ -11,10 +11,10 @@
   &Wrapper {
     margin: 0 auto;
     padding: 0 20px;
-    @include breakpoint(md) {
+    @include media-breakpoint-up(md) {
       max-width: 728px;
     }
-    @include breakpoint(xl) {
+    @include media-breakpoint-up(xl) {
       max-width: 1240px;
     }
   }
@@ -25,7 +25,7 @@
     line-height: 25px;
     color: #014db8;
     margin: 0 0 20px;
-    @include breakpoint(md) {
+    @include media-breakpoint-up(md) {
       font-size: 20px;
       line-height: 32px;
       letter-spacing: 0.5px;
@@ -37,18 +37,18 @@
   list-style: none;
   display: grid;
   row-gap: 28px;
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 20px;
     row-gap: 48px;
   }
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 24px;
     row-gap: 40px;
   }
-  @include breakpoint(xxl) {
+  @include media-breakpoint-up(xxl) {
     row-gap: 53px;
   }
 }
