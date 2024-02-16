@@ -4,6 +4,7 @@ import ScheduleTable from '~/components/schedule/schedule-table'
 import {
   GLOBAL_CACHE_SETTING,
   SCHEDULE_JSON_URL,
+  SITE_URL,
 } from '~/constants/environment-variables'
 import styles from '~/styles/pages/schedule-page.module.scss'
 import type { Schedule } from '~/types/common'
@@ -11,6 +12,7 @@ import type { Schedule } from '~/types/common'
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata = {
+  metadataBase: SITE_URL,
   title: '節目表 - 鏡新聞',
   openGraph: {
     title: '節目表 - 鏡新聞',
