@@ -67,8 +67,9 @@
   }
 
   @include breakpoint(xl) {
-    padding: 0 44px;
     font-size: 16px;
+    width: 1232px;
+    margin: auto;
   }
 }
 
