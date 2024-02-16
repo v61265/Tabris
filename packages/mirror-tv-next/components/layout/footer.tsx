@@ -58,8 +58,8 @@ export default function Footer(): JSX.Element {
                   src="/icons/mnews-logo-white.svg"
                   alt="mnews logo"
                   priority
-                  width={150}
-                  height={27}
+                  width={163}
+                  height={30}
                 />
               </Link>
             </div>
