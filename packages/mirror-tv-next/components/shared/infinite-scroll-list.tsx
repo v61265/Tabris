@@ -26,10 +26,7 @@ export default function InfiniteScrollList<ItemType>({
   const renderList = dataList.slice(0, renderCount)
   const [isLoading, setIsLoading] = useState(false)
 
-  const totalPage = useMemo(
-    () => Math.ceil(totalCount / pageSize),
-    [totalCount, pageSize]
-  )
+  const totalPage = Math.ceil(totalCount / pageSize)
 
   const hasUnFetchedData = useMemo(
     () => !(renderCount >= dataList.length && fetchedPage >= totalPage),
