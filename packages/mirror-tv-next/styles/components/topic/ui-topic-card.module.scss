@@ -7,7 +7,7 @@
   padding: 11px;
   max-width: 100%;
   position: relative;
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     max-width: 100%;
   }
   &:hover {
@@ -67,7 +67,7 @@
   right: 0;
   background-color: rgba(29, 29, 29, 0.75);
   padding: 12px;
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     padding: 24px;
   }
 }
@@ -84,12 +84,12 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  @include breakpoint(md) {
+  @include media-breakpoint-up(md) {
     font-size: 14px;
     font-weight: normal;
     line-height: 1.6;
   }
-  @include breakpoint(xl) {
+  @include media-breakpoint-up(xl) {
     font-size: 16px;
     line-height: 1.8;
   }
