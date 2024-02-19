@@ -35,7 +35,7 @@ export default function UiPostCard({
       return highlightTextProducer(matchedText)
     })
   }
-  let postTitleProcessed = postTitleHighlightText
+  const postTitleProcessed = postTitleHighlightText
     ? highlightTextProducer(title)
     : title
 

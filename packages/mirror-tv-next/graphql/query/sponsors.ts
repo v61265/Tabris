@@ -6,18 +6,18 @@ export type Sponsor = {
   url: string
   logo: {
     urlMobileSized: string
-  }
+  } | null
   mobile: {
     urlMobileSized: string
-  }
+  } | null
   tablet: {
     urlMobileSized: string
-  }
+  } | null
   topic: {
     id: string
     slug: string
     name: string
-  }
+  } | null
 }
 
 const fetchSponsors = gql`
