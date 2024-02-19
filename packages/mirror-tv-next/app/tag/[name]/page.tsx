@@ -1,11 +1,32 @@
 import errors from '@twreporter/errors'
 import { PostByTagName } from '~/graphql/query/posts'
 import styles from '~/styles/pages/tag-page.module.scss'
-import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import {
+  GLOBAL_CACHE_SETTING,
+  SITE_URL,
+} from '~/constants/environment-variables'
 import PostsListManager from '~/components/tag/posts-list-manager'
 import { fetchPostsItems } from '~/components/tag/action'
+import type { Metadata } from 'next'
 
 export const revalidate = GLOBAL_CACHE_SETTING
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { name: string }
+}): Promise<Metadata> {
+  const { name } = params
+  const tagName: string = decodeURIComponent(name)
+
+  return {
+    metadataBase: new URL(`https://${SITE_URL}`),
+    title: `${tagName} - 鏡新聞`,
+    openGraph: {
+      title: `${tagName} - 鏡新聞`,
+    },
+  }
+}
 
 export default async function TagPage({
   params,
