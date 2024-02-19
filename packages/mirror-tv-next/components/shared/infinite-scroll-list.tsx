@@ -57,7 +57,7 @@ export default function InfiniteScrollList<ItemType>({
   const loaderRef = useRef(null)
 
   useEffect(() => {
-    let callback: IntersectionObserverCallback = (entries, observer) => {
+    const callback: IntersectionObserverCallback = (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           if (hasUnFetchedData) {
