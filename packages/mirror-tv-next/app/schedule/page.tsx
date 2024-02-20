@@ -1,5 +1,6 @@
 import errors from '@twreporter/errors'
 import dayjs from 'dayjs'
+import type { Metadata } from 'next'
 import ScheduleTable from '~/components/schedule/schedule-table'
 import {
   GLOBAL_CACHE_SETTING,
@@ -11,7 +12,7 @@ import type { Schedule } from '~/types/common'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(`https://${SITE_URL}`),
   title: '節目表 - 鏡新聞',
   openGraph: {
