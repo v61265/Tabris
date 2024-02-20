@@ -1,6 +1,6 @@
 import errors from '@twreporter/errors'
 import MobileNav from '~/components/layout/header/mobile-header/mobile-nav'
-import type { Category } from '~/graphql/query/categories'
+import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 

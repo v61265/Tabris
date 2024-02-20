@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Category } from '~/graphql/query/categories'
+import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 

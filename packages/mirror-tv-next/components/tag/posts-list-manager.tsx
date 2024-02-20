@@ -1,6 +1,6 @@
 'use client'
 import UiLoadMreButton from '../shared/ui-load-more-button'
-import { PostByTagName } from '~/graphql/query/posts'
+import { PostCardItem } from '~/graphql/query/posts'
 import { useState } from 'react'
 import { fetchPostsItems } from '~/components/tag/action'
 import styles from '~/styles/components/tag/posts-list-manager.module.scss'
@@ -11,7 +11,7 @@ type PostsListManagerProps = {
   tagName: string
   pageSize: number
   postsCount: number
-  initPostsList: PostByTagName[]
+  initPostsList: PostCardItem[]
 }
 
 export default function PostsListManager({
@@ -21,11 +21,9 @@ export default function PostsListManager({
   initPostsList,
 }: PostsListManagerProps) {
   const [page, setPage] = useState(1)
-  const [postsList, setPostsList] = useState<PostByTagName[]>([
-    ...initPostsList,
-  ])
+  const [postsList, setPostsList] = useState<PostCardItem[]>([...initPostsList])
 
-  const formatArticleCard = (post: PostByTagName) => {
+  const formatArticleCard = (post: PostCardItem) => {
     return {
       href: `/story/${post.slug}`,
       slug: post.slug,
@@ -35,7 +33,7 @@ export default function PostsListManager({
       publishTime: new Date(post.publishTime),
     }
   }
-  const formattedPostsList = (list: PostByTagName[]) =>
+  const formattedPostsList = (list: PostCardItem[]) =>
     list.map((post) => formatArticleCard(post))
 
   const handleClickLoadMore = async () => {

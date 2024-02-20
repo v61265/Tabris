@@ -1,19 +1,19 @@
 'use server'
 import { FILTERED_SLUG } from '~/constants/constant'
 import errors from '@twreporter/errors'
-import { getPostsByTagName, PostCardItem } from '~/graphql/query/posts'
+import { getPostsByCategorySlug, PostCardItem } from '~/graphql/query/posts'
 import { getClient } from '~/apollo-client'
 
 type FetchMoreItemsType = {
   page: number
-  tagName: string
+  categorySlug: string
   pageSize: number
   isWithCount: boolean
 }
 
 async function fetchPostsItems({
   page,
-  tagName,
+  categorySlug,
   pageSize,
   isWithCount,
 }: FetchMoreItemsType): Promise<{
@@ -26,11 +26,11 @@ async function fetchPostsItems({
       allPosts: PostCardItem[]
       _allPostsMeta?: { count: number }
     }>({
-      query: getPostsByTagName,
+      query: getPostsByCategorySlug,
       variables: {
-        tagName,
-        first: pageSize,
-        skip: page * pageSize,
+        categorySlug,
+        first: page === 0 ? pageSize + 1 : pageSize,
+        skip: page === 0 ? 0 : page * pageSize + 1,
         withCount: isWithCount,
         filteredSlug: FILTERED_SLUG,
       },

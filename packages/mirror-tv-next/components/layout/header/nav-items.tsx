@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import type { Category } from '~/graphql/query/categories'
+import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
 import styles from '~/styles/components/layout/header/nav-items.module.scss'
 

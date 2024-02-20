@@ -1,7 +1,7 @@
-import { PostByTagName } from '~/graphql/query/posts'
+import { PostCardItem } from '~/graphql/query/posts'
 import { Topic } from '~/graphql/query/topic'
 
-type Post = PostByTagName
+type Post = PostCardItem
 
 export type PostImage = {
   original: string
