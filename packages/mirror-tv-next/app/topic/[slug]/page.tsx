@@ -48,6 +48,8 @@ export default async function SingleTopicPage({
     redirect('/404')
   }
 
+  console.log(singleTopic)
+
   return (
     <section>
       <div>{singleTopic.title}</div>
