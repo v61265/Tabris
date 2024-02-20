@@ -12,7 +12,7 @@ import type { Schedule } from '~/types/common'
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata = {
-  metadataBase: SITE_URL,
+  metadataBase: new URL(`https://${SITE_URL}`),
   title: '節目表 - 鏡新聞',
   openGraph: {
     title: '節目表 - 鏡新聞',
