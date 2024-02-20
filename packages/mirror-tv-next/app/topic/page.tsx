@@ -1,11 +1,23 @@
 import errors from '@twreporter/errors'
 import { Topic } from '~/graphql/query/topic'
 import styles from '~/styles/pages/topic-page.module.scss'
-import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import {
+  GLOBAL_CACHE_SETTING,
+  SITE_URL,
+} from '~/constants/environment-variables'
 import TopicsListManager from '~/components/topic/topics-list-manager'
 import { fetchTopics } from '~/components/topic/action'
+import type { Metadata } from 'next'
 
 export const revalidate = GLOBAL_CACHE_SETTING
+
+export const metadata: Metadata = {
+  metadataBase: new URL(`https://${SITE_URL}`),
+  title: '專題 - 鏡新聞',
+  openGraph: {
+    title: '專題 - 鏡新聞',
+  },
+}
 
 export default async function TagPage() {
   const PAGE_SIZE = 12
