@@ -1,9 +1,10 @@
 import errors from '@twreporter/errors'
-import { redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 import type { SingleTopic } from '~/graphql/query/topic'
 import { fetchPostsByTopicSlug } from '~/graphql/query/topic'
+import styles from '~/styles/pages/single-topic-page.module.scss'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -45,14 +46,15 @@ export default async function SingleTopicPage({
         }),
       })
     )
-    redirect('/404')
+    notFound()
   }
 
   console.log(singleTopic)
 
   return (
-    <section>
+    <main className={styles.mainWrapper}>
+      <section></section>
       <div>{singleTopic.title}</div>
-    </section>
+    </main>
   )
 }
