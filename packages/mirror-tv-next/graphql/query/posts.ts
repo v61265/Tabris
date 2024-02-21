@@ -53,9 +53,10 @@ const getLatestPosts = gql`
       sortBy: publishTime_DESC
     ) {
       publishTime
-      ...listingPost
+      ...listingPostFragment
     }
   }
+  ${listingPost}
 `
 
 const getPostsByCategorySlug = gql`
@@ -77,7 +78,7 @@ const getPostsByCategorySlug = gql`
       sortBy: publishTime_DESC
     ) {
       publishTime
-      ...listingPost
+      ...listingPostFragment
     }
 
     _allPostsMeta(
@@ -90,6 +91,7 @@ const getPostsByCategorySlug = gql`
       count
     }
   }
+  ${listingPost}
 `
 
 export { getPostsByTagName, getLatestPosts, getPostsByCategorySlug }

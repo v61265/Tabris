@@ -10,6 +10,9 @@ import { getLatestPosts, PostCardItem } from '~/graphql/query/posts'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import styles from '~/styles/pages/category.module.scss'
 import { fetchPostsItems } from '~/components/category/action'
+import { formatePostImage } from '~/utils'
+import type { FormatePostCard } from '~/types/common'
+import UiFeaturePost from '~/components/category/ui-feature-post'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -37,7 +40,10 @@ export default async function CategoryPage({
 }) {
   const PAGE_SIZE = 12
   let categoryData: Category = { name: '', slug: '' }
-  let latestPosts: PostCardItem[] = []
+  let latestPosts: FormatePostCard[] = []
+  let postsCount: number = 0
+  let categoryPosts: FormatePostCard[] = []
+
   const client = getClient()
   try {
     const { data } = await client.query<{
@@ -68,41 +74,107 @@ export default async function CategoryPage({
     // throw new Error('Error occurs while fetching data.')
   }
 
-  // try {
-  //   const { data } = await client.query<{
-  //     allPosts: PostCardItem[]
-  //   }>({
-  //     query: getLatestPosts,
-  //     variables: {
-  //       first: 5,
-  //     },
-  //   })
-  //   latestPosts = data?.allPosts
-  // } catch (err) {
-  //   const annotatingError = errors.helpers.wrap(
-  //     err,
-  //     'UnhandledError',
-  //     'Error occurs while fetching data for category for category page'
-  //   )
+  const formatArticleCard = (post: PostCardItem) => {
+    return {
+      href: `/story/${post.slug}`,
+      articleImgURLs: formatePostImage(post),
+      articleTitle: post.name,
+      articleStyle: post.style,
+      articleDate: new Date(post.publishTime),
+    }
+  }
 
-  //   console.error(
-  //     JSON.stringify({
-  //       severity: 'ERROR',
-  //       message: errors.helpers.printAll(annotatingError, {
-  //         withStack: false,
-  //         withPayload: true,
-  //       }),
-  //     })
-  //   )
-  //   throw new Error('Error occurs while fetching data.')
-  // }
+  const fetchInitPostsList = () => {
+    return fetchPostsItems({
+      page: 0,
+      categorySlug: categoryData.slug,
+      pageSize: PAGE_SIZE,
+      isWithCount: true,
+    })
+  }
+
+  const fetchLatestPosts = () =>
+    client.query<{
+      allPosts: PostCardItem[]
+    }>({
+      query: getLatestPosts,
+      variables: {
+        first: 5,
+      },
+    })
+
+  const responses = await Promise.allSettled([
+    fetchInitPostsList(),
+    fetchLatestPosts(),
+  ])
+
+  const handledResponses = responses.map((response, index) => {
+    if (response.status === 'fulfilled') {
+      if ('data' in response.value) {
+        // handle gql requests
+        return response.value.data
+      }
+      return response.value
+    } else if (response.status === 'rejected') {
+      const { graphQLErrors, clientErrors, networkError } = response.reason
+      const annotatingError = errors.helpers.wrap(
+        response.reason,
+        'UnhandledError',
+        'Error occurs while fetching data for category page'
+      )
+
+      console.log(
+        JSON.stringify({
+          severity: 'ERROR',
+          message: errors.helpers.printAll(
+            annotatingError,
+            {
+              withStack: true,
+              withPayload: true,
+            },
+            0,
+            0
+          ),
+          debugPayload: {
+            graphQLErrors,
+            clientErrors,
+            networkError,
+          },
+        })
+      )
+      throw new Error('Error occurs while fetching data.')
+    }
+  })
+
+  const categoryPostsData = handledResponses[0] ?? {
+    allPosts: [],
+    _allPostsMeta: 0,
+  }
+  postsCount =
+    '_allPostsMeta' in categoryPostsData ? categoryPostsData?._allPostsMeta : 0
+  categoryPosts =
+    'allPosts' in categoryPostsData
+      ? categoryPostsData?.allPosts.map((post) => formatArticleCard(post))
+      : []
+
+  const latestPostsData = handledResponses[1] ?? { allPosts: [] }
+  latestPosts =
+    'allPosts' in latestPostsData
+      ? latestPostsData.allPosts.map((post) => formatArticleCard(post))
+      : []
 
   return (
     <section className={styles.category}>
       <main className={styles.main}>
         <UiHeadingBordered title={categoryData.name} />
+        {postsCount !== 0 && (
+          <>
+            <UiFeaturePost post={categoryPosts[0]} />
+            {/* <PostsListManager /> */}
+          </>
+        )}
       </main>
-      <aside></aside>
+      <aside>{/* <UiPostsListAside /> */}</aside>
     </section>
   )
 }
