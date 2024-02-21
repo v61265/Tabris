@@ -1,6 +1,7 @@
 import errors from '@twreporter/errors'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
+import HeroVideo from '~/components/topic/single-topic/hero-video'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 import type { SingleTopic } from '~/graphql/query/topic'
 import { fetchPostsByTopicSlug } from '~/graphql/query/topic'
@@ -53,8 +54,14 @@ export default async function SingleTopicPage({
 
   return (
     <main className={styles.mainWrapper}>
-      <section></section>
-      <div>{singleTopic.title}</div>
+      {/* Conditionally render HeroVideo if singleTopic.leading is 'video' */}
+      {singleTopic.leading === 'video' && (
+        <HeroVideo videoSrc={singleTopic.heroVideo.url} />
+      )}
+      <div>
+        {singleTopic.title}
+        {singleTopic.leading}
+      </div>
     </main>
   )
 }
