@@ -1,4 +1,3 @@
-'use client'
 import Image from 'next/image'
 import type { HeroImage } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/single-topic/hero-image.module.scss'
