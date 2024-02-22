@@ -1,4 +1,6 @@
+'use client'
 import Image from 'next/image'
+import { useState } from 'react'
 import type { HeroImage } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/single-topic/hero-image.module.scss'
 
@@ -8,8 +10,19 @@ type HeroImageProps = {
 }
 
 export default function HeroImage({ heroImage, alt }: HeroImageProps) {
+  const [isLoading, setIsLoading] = useState(true)
+
+  const handleImageLoad = () => {
+    setIsLoading(false)
+  }
+
   return (
     <section className={styles.sectionWrapper}>
+      {isLoading && (
+        <div className={styles.loading}>
+          <img src="/images/loading.svg" alt="Loading" />
+        </div>
+      )}
       <Image
         src={
           heroImage?.urlDesktopSized ||
@@ -23,6 +36,8 @@ export default function HeroImage({ heroImage, alt }: HeroImageProps) {
         height={0}
         sizes="100vw"
         style={{ width: '100%', height: 'auto' }}
+        onLoad={handleImageLoad}
+        priority
       />
     </section>
   )
