@@ -6,5 +6,12 @@ import { formateDateAtTaipei } from './date-handler'
 import { formatArticleCard } from './post-handler'
 import type { FormattedPostCard } from './post-handler'
 
-export { formatePostImage, formateDateAtTaipei, formatArticleCard }
+import { getGcsJsonUrl } from './common'
+
+export {
+  formatePostImage,
+  formateDateAtTaipei,
+  formatArticleCard,
+  getGcsJsonUrl,
+}
 export type { PostImage, FormattedPostCard }

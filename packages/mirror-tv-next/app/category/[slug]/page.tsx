@@ -13,6 +13,8 @@ import { fetchPostsItems } from '~/components/category/action'
 import UiFeaturePost from '~/components/category/ui-feature-post'
 import PostsListManager from '~/components/category/posts-list-manager'
 import { formatArticleCard, FormattedPostCard } from '~/utils/post-handler'
+import { getGcsJsonUrl } from '~/utils'
+import axios from 'axios'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -43,6 +45,7 @@ export default async function CategoryPage({
   let latestPosts: FormattedPostCard[] = []
   let postsCount: number = 0
   let categoryPosts: FormattedPostCard[] = []
+  let popularPosts: FormattedPostCard[] = []
 
   const client = getClient()
   try {
@@ -93,9 +96,12 @@ export default async function CategoryPage({
       },
     })
 
+  const fetchPopularPosts = () => axios.get(getGcsJsonUrl('/popularlist'))
+
   const responses = await Promise.allSettled([
     fetchInitPostsList(),
     fetchLatestPosts(),
+    fetchPopularPosts(),
   ])
 
   const handledResponses = responses.map((response, index) => {
@@ -146,13 +152,25 @@ export default async function CategoryPage({
       : 0
   categoryPosts =
     'allPosts' in categoryPostsData
-      ? categoryPostsData?.allPosts.map((post) => formatArticleCard(post))
+      ? categoryPostsData?.allPosts.map((post: PostCardItem) =>
+          formatArticleCard(post)
+        )
       : []
 
   const latestPostsData = handledResponses[1] ?? { allPosts: [] }
   latestPosts =
     'allPosts' in latestPostsData
-      ? latestPostsData.allPosts.map((post) => formatArticleCard(post))
+      ? latestPostsData.allPosts.map((post: PostCardItem) =>
+          formatArticleCard(post)
+        )
+      : []
+
+  const popularPostsData = handledResponses[2] ?? { report: [] }
+  popularPosts =
+    'report' in popularPostsData
+      ? popularPostsData.report.map((post: PostCardItem) =>
+          formatArticleCard(post)
+        )
       : []
 
   return (
