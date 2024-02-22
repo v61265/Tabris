@@ -10,9 +10,9 @@ import { getLatestPosts, PostCardItem } from '~/graphql/query/posts'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import styles from '~/styles/pages/category.module.scss'
 import { fetchPostsItems } from '~/components/category/action'
-import { formatePostImage } from '~/utils'
-import type { FormatePostCard } from '~/types/common'
 import UiFeaturePost from '~/components/category/ui-feature-post'
+import PostsListManager from '~/components/category/posts-list-manager'
+import { formatArticleCard, FormattedPostCard } from '~/utils/post-handler'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -40,9 +40,9 @@ export default async function CategoryPage({
 }) {
   const PAGE_SIZE = 12
   let categoryData: Category = { name: '', slug: '' }
-  let latestPosts: FormatePostCard[] = []
+  let latestPosts: FormattedPostCard[] = []
   let postsCount: number = 0
-  let categoryPosts: FormatePostCard[] = []
+  let categoryPosts: FormattedPostCard[] = []
 
   const client = getClient()
   try {
@@ -72,16 +72,6 @@ export default async function CategoryPage({
       })
     )
     // throw new Error('Error occurs while fetching data.')
-  }
-
-  const formatArticleCard = (post: PostCardItem) => {
-    return {
-      href: `/story/${post.slug}`,
-      articleImgURLs: formatePostImage(post),
-      articleTitle: post.name,
-      articleStyle: post.style,
-      articleDate: new Date(post.publishTime),
-    }
   }
 
   const fetchInitPostsList = () => {
@@ -148,10 +138,12 @@ export default async function CategoryPage({
 
   const categoryPostsData = handledResponses[0] ?? {
     allPosts: [],
-    _allPostsMeta: 0,
+    _allPostsMeta: { count: 0 },
   }
   postsCount =
-    '_allPostsMeta' in categoryPostsData ? categoryPostsData?._allPostsMeta : 0
+    '_allPostsMeta' in categoryPostsData
+      ? categoryPostsData?._allPostsMeta?.count
+      : 0
   categoryPosts =
     'allPosts' in categoryPostsData
       ? categoryPostsData?.allPosts.map((post) => formatArticleCard(post))
@@ -170,7 +162,12 @@ export default async function CategoryPage({
         {postsCount !== 0 && (
           <>
             <UiFeaturePost post={categoryPosts[0]} />
-            {/* <PostsListManager /> */}
+            <PostsListManager
+              categorySlug={categoryData.slug}
+              pageSize={PAGE_SIZE}
+              postsCount={postsCount}
+              initPostsList={categoryPosts.slice(1)}
+            />
           </>
         )}
       </main>

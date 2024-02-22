@@ -1,5 +1,3 @@
-import type { PostImage } from '~/utils/image-handler'
-
 export type FlashNews = {
   slug: string
   name: string
@@ -21,12 +19,4 @@ export type Schedule = {
   TxCategory: string
   Month: string
   Day: string
-}
-
-export type FormatePostCard = {
-  href: string
-  articleImgURLs: PostImage
-  articleTitle: string
-  articleStyle: string
-  articleDate: Date
 }

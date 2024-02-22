@@ -3,5 +3,8 @@ import type { PostImage } from './image-handler'
 
 import { formateDateAtTaipei } from './date-handler'
 
-export { formatePostImage, formateDateAtTaipei }
-export type { PostImage }
+import { formatArticleCard } from './post-handler'
+import type { FormattedPostCard } from './post-handler'
+
+export { formatePostImage, formateDateAtTaipei, formatArticleCard }
+export type { PostImage, FormattedPostCard }

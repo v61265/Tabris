@@ -9,14 +9,14 @@
     flex-direction: row;
   }
   @include media-breakpoint-up(xl) {
-    width: 581px;
+    // width: 581px;
   }
 }
 
 .imageWrapper {
   display: block;
   width: 100%;
-  padding-top: 66.66%;
+  padding-top: 44.435556%;
   position: relative;
   @include media-breakpoint-up(xl) {
     min-width: 180px;

@@ -39,16 +39,17 @@ export default function UiPostCard({
     ? highlightTextProducer(title)
     : title
 
-  if (!mobileLayoutDirection) return <></>
-
   return (
     <a
-      className={styles.card}
+      className={[
+        styles.card,
+        mobileLayoutDirection === 'row' ? styles.row : '',
+      ].join(' ')}
       href={href}
       target="_blank"
       rel="noreferrer noopener"
     >
-      <span className={styles.cardTop}>
+      <span className={styles.cardWrapper}>
         <figure className={styles.cardImage}>
           <ResponsiveImage
             images={images}
