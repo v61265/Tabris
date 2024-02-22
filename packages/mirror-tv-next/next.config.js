@@ -26,6 +26,11 @@ const nextConfig = {
         hostname: 'staging.mnews.tw',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        pathname: '**',
+      },
     ],
   },
   output: 'standalone',
