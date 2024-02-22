@@ -1,6 +1,6 @@
 'use client'
-import { PostImage } from '~/utils'
 import Image from '@readr-media/react-image'
+import { PostImage } from '~/utils'
 
 type UiPostCardProps = {
   images: PostImage

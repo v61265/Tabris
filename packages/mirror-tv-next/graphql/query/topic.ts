@@ -13,7 +13,7 @@ export type Topic = {
   } | null
 }
 
-type HeroImage = {
+export type HeroImage = {
   urlDesktopSized: string
   urlTabletSized: string
   urlMobileSized: string
