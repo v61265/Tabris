@@ -5,11 +5,19 @@ export const revalidate = GLOBAL_CACHE_SETTING
 
 type UiHeadingBorderedProps = {
   title: string
+  className?: string
 }
 
-export default function UiHeadingBordered({ title }: UiHeadingBorderedProps) {
+export default function UiHeadingBordered({
+  title,
+  className = '',
+}: UiHeadingBorderedProps) {
   return (
-    <div className={['heading-bordered-wrapper', styles.wrapper].join(' ')}>
+    <div
+      className={['heading-bordered-wrapper', styles.wrapper, className].join(
+        ' '
+      )}
+    >
       <h1>{title}</h1>
     </div>
   )

@@ -12,41 +12,14 @@ import styles from '~/styles/pages/category.module.scss'
 import { fetchPostsItems } from '~/components/category/action'
 import UiFeaturePost from '~/components/category/ui-feature-post'
 import PostsListManager from '~/components/category/posts-list-manager'
-import { formatArticleCard, FormattedPostCard } from '~/utils/post-handler'
+import { formatArticleCard, FormattedPostCard } from '~/utils'
 import { getGcsJsonUrl } from '~/utils'
 import axios from 'axios'
+import UiListPostsAside from '~/components/shared/ui-list-posts-aside'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { name: string }
-// }): Promise<Metadata> {
-//   const { slug } = params
-//   const tagName: string = decodeURIComponent(name)
-
-//   return {
-//     metadataBase: new URL(`https://${SITE_URL}`),
-//     title: `${tagName} - 鏡新聞`,
-//     openGraph: {
-//       title: `${tagName} - 鏡新聞`,
-//     },
-//   }
-// }
-
-export default async function CategoryPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const PAGE_SIZE = 12
-  let categoryData: Category = { name: '', slug: '' }
-  let latestPosts: FormattedPostCard[] = []
-  let postsCount: number = 0
-  let categoryPosts: FormattedPostCard[] = []
-  let popularPosts: FormattedPostCard[] = []
-
+async function fetchCategoryData(slug: string): Promise<Category> {
   const client = getClient()
   try {
     const { data } = await client.query<{
@@ -54,10 +27,10 @@ export default async function CategoryPage({
     }>({
       query: fetchCategoryBySlug,
       variables: {
-        slug: params?.slug,
+        slug,
       },
     })
-    categoryData = data?.allCategories?.[0]
+    return data?.allCategories?.[0] ?? { name: '', slug: '' }
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
@@ -74,8 +47,42 @@ export default async function CategoryPage({
         }),
       })
     )
-    // throw new Error('Error occurs while fetching data.')
+    return { name: '', slug: '' }
   }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const { slug } = params
+  const categoryData = await fetchCategoryData(slug)
+
+  return {
+    metadataBase: new URL(`https://${SITE_URL}`),
+    title: `${categoryData.name} - 鏡新聞`,
+    openGraph: {
+      title: `${categoryData.name} - 鏡新聞`,
+    },
+  }
+}
+
+export default async function CategoryPage({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const PAGE_SIZE = 12
+  let categoryData: Category = { name: '', slug: '' }
+  let latestPosts: FormattedPostCard[] = []
+  let postsCount: number = 0
+  let categoryPosts: FormattedPostCard[] = []
+  let popularPosts: FormattedPostCard[] = []
+
+  const client = getClient()
+
+  categoryData = await fetchCategoryData(params.slug)
 
   const fetchInitPostsList = () => {
     return fetchPostsItems({
@@ -189,7 +196,18 @@ export default async function CategoryPage({
           </>
         )}
       </main>
-      <aside>{/* <UiPostsListAside /> */}</aside>
+      <aside className={styles.aside}>
+        <UiListPostsAside
+          listTitle="熱門新聞"
+          page="category"
+          listData={popularPosts}
+        />
+        <UiListPostsAside
+          listTitle="最新新聞"
+          page="category"
+          listData={latestPosts}
+        />
+      </aside>
     </section>
   )
 }

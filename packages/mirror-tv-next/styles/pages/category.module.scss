@@ -28,3 +28,23 @@
     width: calc(100% - 384px - 48px);
   }
 }
+
+.aside {
+  @include media-breakpoint-up(md) {
+    width: 688px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+  @include media-breakpoint-up(xl) {
+    width: 384px;
+    display: block;
+    padding: 0;
+    margin-top: 60px;
+    > * {
+      + * {
+        margin-top: 16px;
+      }
+    }
+  }
+}
