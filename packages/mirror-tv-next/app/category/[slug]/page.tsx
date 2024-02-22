@@ -16,6 +16,7 @@ import { formatArticleCard, FormattedPostCard } from '~/utils'
 import { getGcsJsonUrl } from '~/utils'
 import axios from 'axios'
 import UiListPostsAside from '~/components/shared/ui-list-posts-aside'
+import { notFound } from 'next/navigation'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -83,6 +84,7 @@ export default async function CategoryPage({
   const client = getClient()
 
   categoryData = await fetchCategoryData(params.slug)
+  if (!categoryData.name) return notFound()
 
   const fetchInitPostsList = () => {
     return fetchPostsItems({
