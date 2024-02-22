@@ -1,4 +1,6 @@
 import errors from '@twreporter/errors'
+import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
 import HeroImage from '~/components/topic/single-topic/hero-image'
@@ -51,19 +53,60 @@ export default async function SingleTopicPage({
     notFound()
   }
 
+  const socialMediaLinks = [
+    {
+      platform: 'facebook',
+      icon: '/icons/icon-fb-grey.svg',
+      alt: 'facebook icon',
+      url: singleTopic.facebook,
+    },
+    {
+      platform: 'instagram',
+      icon: '/icons/icon-ig-grey.svg',
+      alt: 'instagram icon',
+      url: singleTopic.instagram,
+    },
+    {
+      platform: 'line',
+      icon: '/icons/icon-line-grey.svg',
+      alt: 'line icon',
+      url: singleTopic.line,
+    },
+  ]
+
   console.log(singleTopic)
 
   return (
     <main className={styles.mainWrapper}>
-      {/* Conditionally render HeroVideo if singleTopic.leading is 'video' */}
       {singleTopic.leading === 'video' && (
         <HeroVideo videoSrc={singleTopic.heroVideo.url} />
       )}
-      {singleTopic.leading === 'image' && <HeroImage heroImage = {singleTopic.heroImage} alt={singleTopic.title} />}
-      <div>
-        {singleTopic.title}
-        {singleTopic.leading}
-      </div>
+      {singleTopic.leading === 'image' && (
+        <HeroImage heroImage={singleTopic.heroImage} alt={singleTopic.title} />
+      )}
+      <section className={styles.sectionWrapper}>
+        <div className={styles.titleWrapper}>
+          <div className={styles.title}>{singleTopic.title}</div>
+          <div className={styles.socialIcons}>
+            {socialMediaLinks.map(
+              ({ platform, icon, alt, url }) =>
+                url && (
+                  <Link key={platform} href={url}>
+                    <Image
+                      src={icon}
+                      alt={alt}
+                      priority
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
+                )
+            )}
+          </div>
+        </div>
+
+        <div>{singleTopic.leading}</div>
+      </section>
     </main>
   )
 }
