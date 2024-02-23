@@ -1,5 +1,6 @@
 'use client'
 import Image from '@readr-media/react-image'
+import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { HeroImage, Slideshow } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/single-topic/hero-slideshow.module.scss'
@@ -31,8 +32,6 @@ export default function HeroSlideshow({
   title,
   slideshow,
 }: HeroSlideshowProps) {
-  console.log(heroImage, title, slideshow)
-
   const formattedHeroImage = formateHeroImage(heroImage)
 
   return (
@@ -57,27 +56,37 @@ export default function HeroSlideshow({
             modules={[Autoplay, Navigation, Pagination, Mousewheel, Keyboard]}
             className={styles.swiper}
           >
-            <SwiperSlide className={styles.swiperSlide}>
-              <div className={styles.slideImageContainer}>
-                <Image
-                  images={formattedHeroImage}
-                  alt={title}
-                  loadingImage="/images/loading.svg"
-                  defaultImage="/images/image-default.jpg"
-                  rwd={{
-                    mobile: '100vw',
-                    tablet: '100vw',
-                    laptop: '100vw',
-                    desktop: '100vw',
-                    default: '100vw',
-                  }}
-                  priority
-                />
-                <div className={styles.articleTitle}>一些字一些字</div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className={styles.swiperSlide}>Slide 2</SwiperSlide>
-            <SwiperSlide className={styles.swiperSlide}>Slide 3</SwiperSlide>
+            {slideshow.map((slide, index) => {
+              const formattedSlideImage = formateHeroImage(slide.heroImage)
+
+              return (
+                <SwiperSlide key={slide.id} className={styles.swiperSlide}>
+                  <div className={styles.slideImageContainer}>
+                    <Link
+                      href={`/story/${slide.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Image
+                        images={formattedSlideImage}
+                        alt={slide.name}
+                        loadingImage="/images/loading.svg"
+                        defaultImage="/images/image-default.jpg"
+                        rwd={{
+                          mobile: '100vw',
+                          tablet: '100vw',
+                          laptop: '100vw',
+                          desktop: '100vw',
+                          default: '100vw',
+                        }}
+                        priority
+                      />
+                      <div className={styles.articleTitle}>{slide.name}</div>
+                    </Link>
+                  </div>
+                </SwiperSlide>
+              )
+            })}
           </Swiper>
         </div>
         <Image
