@@ -1,4 +1,4 @@
-const path = require('path')
+import path from 'path'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -24,6 +24,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'staging.mnews.tw',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
         pathname: '**',
       },
     ],

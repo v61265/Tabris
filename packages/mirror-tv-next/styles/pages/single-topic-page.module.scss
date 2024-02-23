@@ -1,0 +1,53 @@
+@import '/styles/theme/breakpoints';
+
+.mainWrapper {
+  padding-top: 50px; /* the height of mobile nav*/
+
+  @include media-breakpoint-up(md) {
+    padding-top: 0;
+  }
+}
+
+.sectionWrapper {
+  margin: auto;
+  padding: 28px 16px;
+
+  @include media-breakpoint-up(md) {
+    padding: 28px 0;
+    max-width: 728px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    max-width: 1072px;
+  }
+}
+
+.titleWrapper {
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  color: #014db8;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 32px */
+  letter-spacing: 0.5px;
+  max-width: 250px;
+
+  @include media-breakpoint-up(md) {
+    max-width: 632px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    max-width: 976px;
+  }
+}
+
+.socialIcons {
+  display: flex;
+  gap: 12px;
+}
