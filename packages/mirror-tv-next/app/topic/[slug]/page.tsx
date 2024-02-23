@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
 import HeroImage from '~/components/topic/single-topic/hero-image'
+import HeroSlideshow from '~/components/topic/single-topic/hero-slideshow'
 import HeroVideo from '~/components/topic/single-topic/hero-video'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 import type { SingleTopic } from '~/graphql/query/topic'
@@ -82,7 +83,17 @@ export default async function SingleTopicPage({
         <HeroVideo videoSrc={singleTopic.heroVideo.url} />
       )}
       {singleTopic.leading === 'image' && (
-        <HeroImage heroImage={singleTopic.heroImage} alt={singleTopic.title} />
+        <HeroImage
+          heroImage={singleTopic.heroImage}
+          title={singleTopic.title}
+        />
+      )}
+      {singleTopic.leading === 'slideshow' && (
+        <HeroSlideshow
+          heroImage={singleTopic.heroImage}
+          title={singleTopic.title}
+          slideshow={singleTopic.slideshow}
+        />
       )}
       <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>

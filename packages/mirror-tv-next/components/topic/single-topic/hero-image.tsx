@@ -6,10 +6,10 @@ import styles from '~/styles/components/topic/single-topic/hero-image.module.scs
 
 type HeroImageProps = {
   heroImage: HeroImage
-  alt: string
+  title: string
 }
 
-export default function HeroImage({ heroImage, alt }: HeroImageProps) {
+export default function HeroImage({ heroImage, title }: HeroImageProps) {
   const [isLoading, setIsLoading] = useState(true)
 
   const handleImageLoad = () => {
@@ -20,7 +20,12 @@ export default function HeroImage({ heroImage, alt }: HeroImageProps) {
     <section className={styles.sectionWrapper}>
       {isLoading && (
         <div className={styles.loading}>
-          <img src="/images/loading.svg" alt="Loading" />
+          <Image
+            src="/images/loading.svg"
+            alt="Loading"
+            width={200}
+            height={200}
+          />
         </div>
       )}
       <Image
@@ -31,7 +36,7 @@ export default function HeroImage({ heroImage, alt }: HeroImageProps) {
           heroImage?.urlOriginal ||
           '/images/image-default.jpg'
         }
-        alt={alt}
+        alt={title}
         width={0}
         height={0}
         sizes="100vw"

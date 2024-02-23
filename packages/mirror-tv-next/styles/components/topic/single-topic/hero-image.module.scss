@@ -1,6 +1,7 @@
+@import '/styles/theme/breakpoints';
+
 .sectionWrapper {
   width: 100vw;
-  object-fit: 'cover';
 }
 
 .loading {
@@ -8,5 +9,9 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  min-height: 100dvh;
+  min-height: calc(100dvh - 50px);
+
+  @include media-breakpoint-up(md) {
+    min-height: calc(100dvh - 144px);
+  }
 }
