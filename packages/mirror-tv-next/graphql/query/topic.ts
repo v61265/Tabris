@@ -24,7 +24,7 @@ type HeroVideo = {
   url: string
 }
 
-type Slideshow = {
+export type Slideshow = {
   id: string
   slug: string
   name: string
