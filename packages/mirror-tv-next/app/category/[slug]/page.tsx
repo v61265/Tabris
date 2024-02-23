@@ -113,7 +113,7 @@ export default async function CategoryPage({
     fetchPopularPosts(),
   ])
 
-  const handledResponses = responses.map((response, index) => {
+  const handledResponses = responses.map((response) => {
     if (response.status === 'fulfilled') {
       if ('data' in response.value) {
         // handle gql requests
