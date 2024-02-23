@@ -1,3 +1,77 @@
+@import '/styles/theme/z-index';
+@import '/styles/theme/breakpoints';
+
 .sectionWrapper {
   width: 100vw;
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.imageContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.swiperContainer {
+  position: absolute;
+  z-index: $Z_INDEX-coverContent;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper {
+  width: 85%;
+  height: 95%;
+
+  @include media-breakpoint-up(md) {
+    width: 426px;
+    height: 55%;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 656px;
+    height: 55%;
+  }
+}
+
+.swiperSlide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  @include media-breakpoint-up(md) {
+    align-items: center;
+  }
+}
+
+.slideImageContainer {
+  width: 100%;
+  height: 85%;
+
+  @include media-breakpoint-up(md) {
+    width: 352px;
+    height: auto;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 566px;
+  }
+}
+
+.articleTitle {
+  position: absolute;
+  top: 60%;
+  background-color: pink;
+  z-index: 99999;
 }
