@@ -24,7 +24,15 @@ export default function HeroVideo({ videoSrc }: HeroVideoProps) {
     if (isYoutubeUrl(src)) {
       const youtubeId = extractYoutubeId(src)
       if (youtubeId) {
-        return <YoutubeEmbed youtubeId={youtubeId} />
+        return (
+          <YoutubeEmbed
+            youtubeId={youtubeId}
+            autoplay={true}
+            muted={true}
+            loop={true}
+            controls={false}
+          />
+        )
       }
     }
     return <ArticleContentVideo videoSrc={src} />

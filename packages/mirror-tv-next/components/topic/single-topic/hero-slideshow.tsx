@@ -60,7 +60,7 @@ export default function HeroSlideshow({
               const formattedSlideImage = formateHeroImage(slide.heroImage)
 
               return (
-                <SwiperSlide key={slide.id} className={styles.swiperSlide}>
+                <SwiperSlide key={index} className={styles.swiperSlide}>
                   <div className={styles.slideImageContainer}>
                     <Link
                       href={`/story/${slide.slug}`}
