@@ -35,7 +35,17 @@ export default function HeroVideo({ videoSrc }: HeroVideoProps) {
         )
       }
     }
-    return <ArticleContentVideo videoSrc={src} />
+    return (
+      <ArticleContentVideo
+        videoSrc={src}
+        preload="metadata"
+        autoPlay={true}
+        loop={true}
+        playsInline={true}
+        muted={true}
+        controls={false}
+      />
+    )
   }
 
   return <section>{handleVideoSrc(videoSrc)}</section>
