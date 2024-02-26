@@ -2,10 +2,10 @@
 
 .category {
   margin: 0 auto;
-  min-height: calc(100vh - 50px); // header height
+  min-height: calc(100dvh - 50px); // header height
   padding: 86px 16px 48px;
   @include media-breakpoint-up(md) {
-    min-height: calc(100vh - 152px); // header height
+    min-height: calc(100dvh - 152px); // header height
     max-width: 688px;
     padding: 28px 0 50px;
   }

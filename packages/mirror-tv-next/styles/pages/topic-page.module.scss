@@ -1,10 +1,10 @@
 @import '/styles/theme/breakpoints';
 
 .topic {
-  min-height: calc(100vh - 50px);
+  min-height: calc(100dvh - 50px);
   padding: 86px 16px 48px;
   @include media-breakpoint-up(md) {
-    min-height: calc(100vh - 152px);
+    min-height: calc(100dvh - 152px);
     padding: 28px 0 50px;
   }
 

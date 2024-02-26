@@ -16,7 +16,7 @@
 }
 
 .bordered {
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(md) {
     border: 1px solid #979797;
     padding: 24px;
   }
