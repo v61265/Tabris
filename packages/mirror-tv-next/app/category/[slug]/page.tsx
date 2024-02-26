@@ -125,7 +125,7 @@ export default async function CategoryPage({
       const annotatingError = errors.helpers.wrap(
         response.reason,
         'UnhandledError',
-        'Error occurs while fetching data for category page'
+        'Error occurs while fetching category data in category page'
       )
 
       console.log(
@@ -147,7 +147,7 @@ export default async function CategoryPage({
           },
         })
       )
-      throw new Error('Error occurs while fetching data.')
+      return []
     }
   })
 

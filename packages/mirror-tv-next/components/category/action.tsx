@@ -52,7 +52,7 @@ async function fetchPostsItems({
         }),
       })
     )
-    throw new Error('Error occurs while fetching data.')
+    throw new Error(annotatingError)
   }
 }
 
