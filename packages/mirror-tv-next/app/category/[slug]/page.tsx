@@ -13,10 +13,10 @@ import { fetchPostsItems } from '~/components/category/action'
 import UiFeaturePost from '~/components/category/ui-feature-post'
 import PostsListManager from '~/components/category/posts-list-manager'
 import { formatArticleCard, FormattedPostCard } from '~/utils'
-import { getGcsJsonUrl } from '~/utils'
 import axios from 'axios'
 import UiListPostsAside from '~/components/shared/ui-list-posts-aside'
 import { notFound } from 'next/navigation'
+import { POPULAR_POSTS_URL } from '~/constants/environment-variables'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -105,7 +105,7 @@ export default async function CategoryPage({
       },
     })
 
-  const fetchPopularPosts = () => axios.get(getGcsJsonUrl('/popularlist'))
+  const fetchPopularPosts = () => axios.get(POPULAR_POSTS_URL)
 
   const responses = await Promise.allSettled([
     fetchInitPostsList(),
