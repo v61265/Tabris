@@ -81,7 +81,12 @@ export default async function SingleTopicPage({
       {(() => {
         switch (singleTopic.leading) {
           case 'video':
-            return <HeroVideo videoSrc={singleTopic.heroVideo.url} />
+            return (
+              <HeroVideo
+                videoSrc={singleTopic.heroVideo.url}
+                controls={false}
+              />
+            )
           case 'image':
             return (
               <HeroImage
@@ -106,7 +111,7 @@ export default async function SingleTopicPage({
               />
             )
           default:
-            return null // Or any fallback component or logic
+            return null
         }
       })()}
 
