@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
 import HeroImage from '~/components/topic/single-topic/hero-image'
+import HeroMultiVideo from '~/components/topic/single-topic/hero-multivideo'
 import HeroSlideshow from '~/components/topic/single-topic/hero-slideshow'
 import HeroVideo from '~/components/topic/single-topic/hero-video'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
@@ -75,26 +76,40 @@ export default async function SingleTopicPage({
     },
   ]
 
-  console.log(singleTopic)
-
   return (
     <main className={styles.mainWrapper}>
-      {singleTopic.leading === 'video' && (
-        <HeroVideo videoSrc={singleTopic.heroVideo.url} />
-      )}
-      {singleTopic.leading === 'image' && (
-        <HeroImage
-          heroImage={singleTopic.heroImage}
-          title={singleTopic.title}
-        />
-      )}
-      {singleTopic.leading === 'slideshow' && (
-        <HeroSlideshow
-          heroImage={singleTopic.heroImage}
-          title={singleTopic.title}
-          slideshow={singleTopic.slideshow}
-        />
-      )}
+      {(() => {
+        switch (singleTopic.leading) {
+          case 'video':
+            return <HeroVideo videoSrc={singleTopic.heroVideo.url} />
+          case 'image':
+            return (
+              <HeroImage
+                heroImage={singleTopic.heroImage}
+                title={singleTopic.title}
+              />
+            )
+          case 'slideshow':
+            return (
+              <HeroSlideshow
+                heroImage={singleTopic.heroImage}
+                title={singleTopic.title}
+                slideshow={singleTopic.slideshow}
+              />
+            )
+          case 'multivideo':
+            return (
+              <HeroMultiVideo
+                heroImage={singleTopic.heroImage}
+                title={singleTopic.title}
+                multivideo={singleTopic.multivideo}
+              />
+            )
+          default:
+            return null // Or any fallback component or logic
+        }
+      })()}
+
       <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>
           <div className={styles.title}>{singleTopic.title}</div>
@@ -115,7 +130,6 @@ export default async function SingleTopicPage({
             )}
           </div>
         </div>
-
         <div>{singleTopic.leading}</div>
       </section>
     </main>

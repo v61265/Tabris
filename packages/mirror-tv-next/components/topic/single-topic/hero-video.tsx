@@ -1,19 +1,12 @@
 import ArticleContentVideo from '~/components/shared/article-content-video'
 import YoutubeEmbed from '~/components/shared/youtube-embed'
+import { extractYoutubeId } from '~/utils'
 
 type HeroVideoProps = {
   videoSrc: string
 }
 
 export default function HeroVideo({ videoSrc }: HeroVideoProps) {
-  // Extract YouTube video ID from URL
-  const extractYoutubeId = (url: string) => {
-    const match = url.match(
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
-    )
-    return match ? match[1] : null
-  }
-
   // Check if the videoSrc is a YouTube URL
   const isYoutubeUrl = (url: string) => {
     return url.includes('youtube.com') || url.includes('youtu.be')
@@ -24,10 +17,28 @@ export default function HeroVideo({ videoSrc }: HeroVideoProps) {
     if (isYoutubeUrl(src)) {
       const youtubeId = extractYoutubeId(src)
       if (youtubeId) {
-        return <YoutubeEmbed youtubeId={youtubeId} />
+        return (
+          <YoutubeEmbed
+            youtubeId={youtubeId}
+            autoplay={true}
+            muted={true}
+            loop={true}
+            controls={false}
+          />
+        )
       }
     }
-    return <ArticleContentVideo videoSrc={src} />
+    return (
+      <ArticleContentVideo
+        videoSrc={src}
+        preload="metadata"
+        autoPlay={true}
+        loop={true}
+        playsInline={true}
+        muted={true}
+        controls={false}
+      />
+    )
   }
 
   return <section>{handleVideoSrc(videoSrc)}</section>

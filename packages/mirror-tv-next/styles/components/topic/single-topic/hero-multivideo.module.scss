@@ -32,20 +32,20 @@
 
 .swiper {
   width: 85%;
-  height: 95%;
+  height: 98%;
 
   @include media-breakpoint-up(md) {
-    width: 426px;
-    height: 315px;
+    width: 526px;
+    height: 325px;
   }
 
   @include media-breakpoint-up(xl) {
-    width: 646px;
+    width: 784px;
     height: 455px;
   }
 
   @include media-breakpoint-up(xxl) {
-    width: 808px;
+    width: 960px;
     height: 555px;
   }
 }
@@ -60,21 +60,21 @@
   }
 }
 
-.slideImageContainer {
+.slideVideoContainer {
   width: 100%;
   height: 85%;
 
   @include media-breakpoint-up(md) {
-    width: 352px;
+    width: 458px;
     height: auto;
   }
 
   @include media-breakpoint-up(xl) {
-    width: 566px;
+    width: 704px;
   }
 
   @include media-breakpoint-up(xxl) {
-    width: 748px;
+    width: 880px;
   }
 }
 
