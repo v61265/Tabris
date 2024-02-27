@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
 import HeroImage from '~/components/topic/single-topic/hero-image'
+import HeroMultiVideo from '~/components/topic/single-topic/hero-multivideo'
 import HeroSlideshow from '~/components/topic/single-topic/hero-slideshow'
 import HeroVideo from '~/components/topic/single-topic/hero-video'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
@@ -93,6 +94,13 @@ export default async function SingleTopicPage({
           heroImage={singleTopic.heroImage}
           title={singleTopic.title}
           slideshow={singleTopic.slideshow}
+        />
+      )}
+      {singleTopic.leading === 'multivideo' && (
+        <HeroMultiVideo
+          heroImage={singleTopic.heroImage}
+          title={singleTopic.title}
+          multivideo={singleTopic.multivideo}
         />
       )}
       <section className={styles.sectionWrapper}>

@@ -1,7 +1,7 @@
 import styles from '~/styles/components/shared/youtube-embed.module.scss'
 
 type YoutubeEmbedProps = {
-  youtubeId: string
+  youtubeId: string | null
   muted?: boolean
   autoplay?: boolean
   controls?: boolean
