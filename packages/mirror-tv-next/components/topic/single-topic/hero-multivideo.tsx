@@ -61,7 +61,7 @@ export default function HeroMultiVideo({
               return (
                 <SwiperSlide key={index} className={styles.swiperSlide}>
                   <div className={styles.slideVideoContainer}>
-                    <HeroVideo videoSrc={videoUrl} />
+                    <HeroVideo videoSrc={videoUrl} controls={true} />
                   </div>
                 </SwiperSlide>
               )

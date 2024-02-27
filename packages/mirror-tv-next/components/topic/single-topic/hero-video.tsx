@@ -4,16 +4,20 @@ import { extractYoutubeId } from '~/utils'
 
 type HeroVideoProps = {
   videoSrc: string
+  controls?: boolean
 }
 
-export default function HeroVideo({ videoSrc }: HeroVideoProps) {
+export default function HeroVideo({
+  videoSrc,
+  controls = true,
+}: HeroVideoProps) {
   // Check if the videoSrc is a YouTube URL
   const isYoutubeUrl = (url: string) => {
     return url.includes('youtube.com') || url.includes('youtu.be')
   }
 
   // Handle the videoSrc based on its type
-  const handleVideoSrc = (src: string) => {
+  const handleVideoSrc = (src: string, controls: boolean) => {
     if (isYoutubeUrl(src)) {
       const youtubeId = extractYoutubeId(src)
       if (youtubeId) {
@@ -23,7 +27,7 @@ export default function HeroVideo({ videoSrc }: HeroVideoProps) {
             autoplay={true}
             muted={true}
             loop={true}
-            controls={false}
+            controls={controls}
           />
         )
       }
@@ -36,10 +40,10 @@ export default function HeroVideo({ videoSrc }: HeroVideoProps) {
         loop={true}
         playsInline={true}
         muted={true}
-        controls={false}
+        controls={controls}
       />
     )
   }
 
-  return <section>{handleVideoSrc(videoSrc)}</section>
+  return <section>{handleVideoSrc(videoSrc, controls)}</section>
 }
