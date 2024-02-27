@@ -41,7 +41,7 @@ async function getData() {
         }),
       })
     )
-    throw new Error('Error occurs while fetching header data.')
+    return
   }
 }
 

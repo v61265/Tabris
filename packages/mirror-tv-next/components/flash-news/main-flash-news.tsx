@@ -36,7 +36,7 @@ async function getData() {
         }),
       })
     )
-    throw new Error('Error occurs while fetching flash news data.')
+    return
   }
 }
 
