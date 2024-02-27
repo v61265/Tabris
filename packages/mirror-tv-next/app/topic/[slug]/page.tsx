@@ -76,8 +76,6 @@ export default async function SingleTopicPage({
     },
   ]
 
-  console.log(singleTopic)
-
   return (
     <main className={styles.mainWrapper}>
       {singleTopic.leading === 'video' && (
