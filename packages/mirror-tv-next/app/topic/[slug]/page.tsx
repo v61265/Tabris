@@ -78,29 +78,38 @@ export default async function SingleTopicPage({
 
   return (
     <main className={styles.mainWrapper}>
-      {singleTopic.leading === 'video' && (
-        <HeroVideo videoSrc={singleTopic.heroVideo.url} />
-      )}
-      {singleTopic.leading === 'image' && (
-        <HeroImage
-          heroImage={singleTopic.heroImage}
-          title={singleTopic.title}
-        />
-      )}
-      {singleTopic.leading === 'slideshow' && (
-        <HeroSlideshow
-          heroImage={singleTopic.heroImage}
-          title={singleTopic.title}
-          slideshow={singleTopic.slideshow}
-        />
-      )}
-      {singleTopic.leading === 'multivideo' && (
-        <HeroMultiVideo
-          heroImage={singleTopic.heroImage}
-          title={singleTopic.title}
-          multivideo={singleTopic.multivideo}
-        />
-      )}
+      {(() => {
+        switch (singleTopic.leading) {
+          case 'video':
+            return <HeroVideo videoSrc={singleTopic.heroVideo.url} />
+          case 'image':
+            return (
+              <HeroImage
+                heroImage={singleTopic.heroImage}
+                title={singleTopic.title}
+              />
+            )
+          case 'slideshow':
+            return (
+              <HeroSlideshow
+                heroImage={singleTopic.heroImage}
+                title={singleTopic.title}
+                slideshow={singleTopic.slideshow}
+              />
+            )
+          case 'multivideo':
+            return (
+              <HeroMultiVideo
+                heroImage={singleTopic.heroImage}
+                title={singleTopic.title}
+                multivideo={singleTopic.multivideo}
+              />
+            )
+          default:
+            return null // Or any fallback component or logic
+        }
+      })()}
+
       <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>
           <div className={styles.title}>{singleTopic.title}</div>
@@ -121,7 +130,6 @@ export default async function SingleTopicPage({
             )}
           </div>
         </div>
-
         <div>{singleTopic.leading}</div>
       </section>
     </main>
