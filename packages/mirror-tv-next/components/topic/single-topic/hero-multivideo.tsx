@@ -1,11 +1,11 @@
 'use client'
 import Image from '@readr-media/react-image'
-import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import type { HeroImage, Slideshow } from '~/graphql/query/topic'
-import styles from '~/styles/components/topic/single-topic/hero-slideshow.module.scss'
+import type { HeroImage, Multivideo } from '~/graphql/query/topic'
+import styles from '~/styles/components/topic/single-topic/hero-multivideo.module.scss'
 import '~/styles/components/topic/single-topic/swiper-custom-styles.scss'
 import { formateHeroImage } from '~/utils'
+import HeroVideo from './hero-video'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -21,17 +21,17 @@ import {
   Pagination,
 } from 'swiper/modules'
 
-type HeroSlideshowProps = {
+type HeroMultiVideoProps = {
   heroImage: HeroImage
   title: string
-  slideshow: Slideshow[]
+  multivideo: Multivideo[]
 }
 
-export default function HeroSlideshow({
+export default function HeroMultiVideo({
   heroImage,
   title,
-  slideshow,
-}: HeroSlideshowProps) {
+  multivideo,
+}: HeroMultiVideoProps) {
   const formattedHeroImage = formateHeroImage(heroImage)
 
   return (
@@ -56,33 +56,12 @@ export default function HeroSlideshow({
             modules={[Autoplay, Navigation, Pagination, Mousewheel, Keyboard]}
             className={styles.swiper}
           >
-            {slideshow.map((slide, index) => {
-              const formattedSlideImage = formateHeroImage(slide.heroImage)
-
+            {multivideo.map((video, index) => {
+              const videoUrl = video.youtubeUrl ? video.youtubeUrl : video.url
               return (
                 <SwiperSlide key={index} className={styles.swiperSlide}>
-                  <div className={styles.slideImageContainer}>
-                    <Link
-                      href={`/story/${slide.slug}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Image
-                        images={formattedSlideImage}
-                        alt={slide.name}
-                        loadingImage="/images/loading.svg"
-                        defaultImage="/images/image-default.jpg"
-                        rwd={{
-                          mobile: '100vw',
-                          tablet: '100vw',
-                          laptop: '100vw',
-                          desktop: '100vw',
-                          default: '100vw',
-                        }}
-                        priority
-                      />
-                      <div className={styles.articleTitle}>{slide.name}</div>
-                    </Link>
+                  <div className={styles.slideVideoContainer}>
+                    <HeroVideo videoSrc={videoUrl} controls={true} />
                   </div>
                 </SwiperSlide>
               )

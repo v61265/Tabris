@@ -3,15 +3,3 @@
 .sectionWrapper {
   width: 100vw;
 }
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  min-height: calc(100dvh - 50px);
-
-  @include media-breakpoint-up(md) {
-    min-height: calc(100dvh - 144px);
-  }
-}

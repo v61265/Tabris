@@ -1,8 +1,8 @@
 'use client'
-import Image from 'next/image'
-import { useState } from 'react'
+import Image from '@readr-media/react-image'
 import type { HeroImage } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/single-topic/hero-image.module.scss'
+import { formateHeroImage } from '~/utils'
 
 type HeroImageProps = {
   heroImage: HeroImage
@@ -10,38 +10,21 @@ type HeroImageProps = {
 }
 
 export default function HeroImage({ heroImage, title }: HeroImageProps) {
-  const [isLoading, setIsLoading] = useState(true)
-
-  const handleImageLoad = () => {
-    setIsLoading(false)
-  }
+  const formattedHeroImage = formateHeroImage(heroImage)
 
   return (
     <section className={styles.sectionWrapper}>
-      {isLoading && (
-        <div className={styles.loading}>
-          <Image
-            src="/images/loading.svg"
-            alt="Loading"
-            width={200}
-            height={200}
-          />
-        </div>
-      )}
       <Image
-        src={
-          heroImage?.urlDesktopSized ||
-          heroImage?.urlTabletSized ||
-          heroImage?.urlMobileSized ||
-          heroImage?.urlOriginal ||
-          '/images/image-default.jpg'
-        }
+        images={formattedHeroImage}
         alt={title}
-        width={0}
-        height={0}
-        sizes="100vw"
-        style={{ width: '100%', height: 'auto' }}
-        onLoad={handleImageLoad}
+        defaultImage="/images/image-default.jpg"
+        rwd={{
+          mobile: '100vw',
+          tablet: '100vw',
+          laptop: '100vw',
+          desktop: '100vw',
+          default: '100vw',
+        }}
         priority
       />
     </section>

@@ -31,9 +31,10 @@ export type Slideshow = {
   heroImage: HeroImage
 }
 
-type Multivideo = {
+export type Multivideo = {
   id: string
   youtubeUrl: string
+  url: string
 }
 
 type Category = {
@@ -135,6 +136,7 @@ const fetchPostsByTopicSlug = gql`
       multivideo {
         id
         youtubeUrl
+        url
       }
       items: post(
         where: { state: published }

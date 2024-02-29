@@ -45,7 +45,7 @@ function formateHeroImage(heroImage: HeroImage) {
   } = {}
 
   images.w3200 = heroImage?.urlOriginal ?? ''
-  images.w2400 = heroImage.urlDesktopSized ?? ''
+  images.w2400 = heroImage?.urlDesktopSized ?? ''
   images.w1600 = heroImage?.urlTabletSized ?? ''
   images.w400 = heroImage?.urlMobileSized ?? ''
 
