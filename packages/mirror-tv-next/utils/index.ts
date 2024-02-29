@@ -11,6 +11,6 @@ export {
   formateDateAtTaipei,
   formateHeroImage,
   formatePostImage,
+  formatArticleCard,
 }
 export type { PostImage, FormattedPostCard }
-

@@ -32,7 +32,7 @@ async function fetchCategoryData(slug: string): Promise<Category> {
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching data for category for category page'
+      'Error occurs while fetching category data in category page'
     )
 
     console.error(
@@ -91,7 +91,7 @@ export default async function CategoryPage({
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching data for category for category page'
+      'Error occurs while fetching category data in category page'
     )
 
     console.error(

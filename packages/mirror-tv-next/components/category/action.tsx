@@ -40,7 +40,7 @@ async function fetchPostsItems({
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching data for posts for tag page'
+      'Error occurs while fetching category posts data in category page'
     )
 
     console.error(

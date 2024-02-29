@@ -58,7 +58,7 @@ export default async function CategoryPageLayout({
         'Error occurs while fetching category data in category page'
       )
 
-      console.log(
+      console.error(
         JSON.stringify({
           severity: 'ERROR',
           message: errors.helpers.printAll(
