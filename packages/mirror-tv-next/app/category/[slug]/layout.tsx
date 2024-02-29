@@ -8,7 +8,25 @@ import {
   POPULAR_POSTS_URL,
   GLOBAL_CACHE_SETTING,
 } from '~/constants/environment-variables'
-import { ApolloQueryResult } from '@apollo/client'
+
+type RawPopularPost = {
+  id: string
+  name: string
+  slug: string
+  source: string
+  heroImage: {
+    urlMobileSized: string
+    urlOriginal: string
+    urlDesktopSized: string
+    urlTabletSized: string
+    urlTinySized: string
+  }
+  publishTime: string
+}
+
+type RawPopularPostData = {
+  report: RawPopularPost[]
+}
 
 export default async function CategoryPageLayout({
   children,
@@ -33,21 +51,24 @@ export default async function CategoryPageLayout({
   const fetchPopularPosts = () =>
     fetch(POPULAR_POSTS_URL, {
       next: { revalidate: GLOBAL_CACHE_SETTING },
-    }).then((res) => res.json())
+    }).then((res) => {
+      // use type assertion to eliminate any
+      return res.json() as unknown as RawPopularPostData
+    })
 
   const responses = await Promise.allSettled([
     fetchLatestPosts(),
     fetchPopularPosts(),
   ])
 
-  const handledResponse = <
+  const handleResponse = <
     T extends Record<string, unknown>,
-    U extends PromiseSettledResult<unknown>,
+    U extends PromiseSettledResult<T>,
     V
   >(
     response: U,
     callback: (value: T | undefined) => V
-  ): V | undefined => {
+  ): V => {
     if (response.status === 'fulfilled') {
       return callback(response.value)
     } else if (response.status === 'rejected') {
@@ -77,47 +98,34 @@ export default async function CategoryPageLayout({
           },
         })
       )
-      return callback(undefined)
     }
+    return callback(undefined)
   }
 
-  latestPosts =
-    handledResponse<
-      { data: { allPosts: PostCardItem[] } },
-      PromiseSettledResult<ApolloQueryResult<{ allPosts: PostCardItem[] }>>,
-      FormattedPostCard[]
-    >(responses[0], (latestPostsData) => {
-      return (
-        latestPostsData?.data?.allPosts?.map((post) =>
-          formatArticleCard(post)
-        ) ?? []
-      )
-    }) ?? []
+  latestPosts = handleResponse(
+    responses[0],
+    (
+      latestPostsData: Awaited<ReturnType<typeof fetchLatestPosts>> | undefined
+    ) => {
+      return latestPostsData?.data.allPosts.map(formatArticleCard) ?? []
+    }
+  )
 
-  popularPosts =
-    handledResponse<
-      {
-        report: PostCardItem[]
-        start_date: string
-        end_date: string
-        generate_time: string
-      },
-      PromiseSettledResult<
-        () => Promise<{
-          report: PostCardItem[]
-          start_date: string
-          end_date: string
-          generate_time: string
-        }>
-      >,
-      FormattedPostCard[]
-    >(responses[1], (popularPostsData) => {
+  popularPosts = handleResponse(
+    responses[1],
+    (
+      popularPostsData:
+        | Awaited<ReturnType<typeof fetchPopularPosts>>
+        | undefined
+    ) => {
+      // TODO: post in json doesn't have 'style' attribute
       return (
-        popularPostsData?.report.map((post: PostCardItem) =>
-          formatArticleCard(post)
+        popularPostsData?.report?.map((post) =>
+          formatArticleCard({ ...post, style: 'article' })
         ) ?? []
       )
-    }) ?? []
+    }
+  )
 
   return (
     <main className={styles.category}>
