@@ -17,21 +17,3 @@
     max-width: 1200px;
   }
 }
-
-.aside {
-  display: flex;
-  @include media-breakpoint-up(md) {
-    width: 688px;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 16px;
-  }
-  @include media-breakpoint-up(xl) {
-    flex-direction: column;
-    width: 384px;
-    display: block;
-    padding: 0;
-    margin-top: 60px;
-  }
-}
