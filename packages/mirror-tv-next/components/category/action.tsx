@@ -29,6 +29,7 @@ async function fetchPostsItems({
       query: getPostsByCategorySlug,
       variables: {
         categorySlug,
+        // 第一頁因為有置頂文章，因此要多抓一篇
         first: page === 0 ? pageSize + 1 : pageSize,
         skip: page === 0 ? 0 : page * pageSize + 1,
         withCount: isWithCount,
@@ -52,7 +53,7 @@ async function fetchPostsItems({
         }),
       })
     )
-    throw new Error(annotatingError)
+    throw annotatingError
   }
 }
 

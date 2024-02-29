@@ -114,7 +114,7 @@ export default async function CategoryPageLayoutAside() {
         | Awaited<ReturnType<typeof fetchPopularPosts>>
         | undefined
     ) => {
-      // TODO: post in json doesn't have 'style' attribute
+      // post in json doesn't have 'style' attribute
       return (
         popularPostsData?.report?.map((post) =>
           formatArticleCard({ ...post, style: 'article' })
