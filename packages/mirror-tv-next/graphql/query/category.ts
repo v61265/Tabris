@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 
 export type Category = {
+  id?: string
   name: string
   slug: string
 }
