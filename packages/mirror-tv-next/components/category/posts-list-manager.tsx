@@ -2,26 +2,28 @@
 import UiLoadMreButton from '../shared/ui-load-more-button'
 import { PostCardItem } from '~/graphql/query/posts'
 import { useState } from 'react'
-import { fetchPostsItems } from '~/components/tag/action'
-import styles from '~/styles/components/tag/posts-list-manager.module.scss'
+import { fetchPostsItems } from '~/components/category/action'
+import styles from '~/styles/components/category/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
-import { formatArticleCard } from '~/utils'
+import { formatArticleCard, FormattedPostCard } from '~/utils'
 
 type PostsListManagerProps = {
-  tagName: string
+  categorySlug: string
   pageSize: number
   postsCount: number
-  initPostsList: PostCardItem[]
+  initPostsList: FormattedPostCard[]
 }
 
 export default function PostsListManager({
-  tagName,
+  categorySlug,
   pageSize,
   postsCount,
   initPostsList,
 }: PostsListManagerProps) {
   const [page, setPage] = useState(1)
-  const [postsList, setPostsList] = useState<PostCardItem[]>([...initPostsList])
+  const [postsList, setPostsList] = useState<FormattedPostCard[]>([
+    ...initPostsList,
+  ])
 
   const formattedPostsList = (list: PostCardItem[]) =>
     list.map((post) => formatArticleCard(post))
@@ -29,20 +31,20 @@ export default function PostsListManager({
   const handleClickLoadMore = async () => {
     const { allPosts: newPosts } = await fetchPostsItems({
       page,
-      tagName,
+      categorySlug,
       pageSize,
       isWithCount: false,
     })
     if (!newPosts) return
     setPage((page) => page + 1)
-    setPostsList((oldPost) => [...oldPost, ...newPosts])
+    setPostsList((oldPost) => [...oldPost, ...formattedPostsList(newPosts)])
   }
 
   return (
     <>
       <section className={styles.list}>
         <ol className={styles.posts}>
-          {formattedPostsList(postsList)?.map((postItem) => {
+          {postsList?.map((postItem) => {
             return (
               <li key={postItem.slug}>
                 <UiPostCard
@@ -51,14 +53,14 @@ export default function PostsListManager({
                   title={postItem.name}
                   date={postItem.publishTime}
                   postStyle={postItem.style}
-                  mobileLayoutDirection="column"
+                  mobileLayoutDirection="row"
                 />
               </li>
             )
           })}
         </ol>
       </section>
-      {postsCount > pageSize * page && (
+      {postsCount - 1 > pageSize * page && (
         <div className={styles.btnWrapper}>
           <UiLoadMreButton title="看更多" onClick={handleClickLoadMore} />
         </div>

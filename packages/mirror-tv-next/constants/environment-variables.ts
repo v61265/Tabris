@@ -6,6 +6,7 @@ let GLOBAL_CACHE_SETTING: number
 let HEADER_JSON_URL: string
 let FLASH_NEWS_JSON_URL: string
 let SCHEDULE_JSON_URL: string
+let POPULAR_POSTS_URL: string
 
 switch (ENV) {
   case 'prod':
@@ -15,6 +16,7 @@ switch (ENV) {
     HEADER_JSON_URL = 'https://mnews.tw/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://mnews.tw/json/flash_news.json'
     SCHEDULE_JSON_URL = 'https://mnews.tw/json/tv-schedule.json'
+    POPULAR_POSTS_URL = 'https://mnews.tw/json/popularlist.json'
 
     break
 
@@ -25,6 +27,7 @@ switch (ENV) {
     HEADER_JSON_URL = 'https://staging.mnews.tw/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://staging.mnews.tw/json/flash_news.json'
     SCHEDULE_JSON_URL = 'https://staging.mnews.tw/json/tv-schedule.json'
+    POPULAR_POSTS_URL = 'https://staging.mnews.tw/json/popularlist.json'
 
     break
 
@@ -35,6 +38,7 @@ switch (ENV) {
     HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
     SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
+    POPULAR_POSTS_URL = 'https://dev.mnews.tw/json/popularlist.json'
 
     break
 
@@ -45,6 +49,7 @@ switch (ENV) {
     HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
     FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
     SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
+    POPULAR_POSTS_URL = 'https://dev.mnews.tw/json/popularlist.json'
 
     break
 }
@@ -57,4 +62,5 @@ export {
   HEADER_JSON_URL,
   SCHEDULE_JSON_URL,
   SITE_URL,
+  POPULAR_POSTS_URL,
 }

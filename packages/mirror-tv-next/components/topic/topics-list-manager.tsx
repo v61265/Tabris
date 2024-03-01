@@ -15,7 +15,7 @@ type TopicsListManagerProps = {
   initTopicsList: Topic[]
 }
 
-type FormatArticleCard = {
+type FormatTopicCard = {
   id: string
   title: string
   href: string
@@ -53,7 +53,7 @@ export default function TopicsListManager({
     return data.length && doesHaveBrief(data) ? data : []
   }
 
-  const formatArticleCard = (topic: Topic): FormatArticleCard => {
+  const formatTopicCard = (topic: Topic): FormatTopicCard => {
     const { id = '', slug = '', name = '', briefApiData } = topic || {}
     return {
       id,
@@ -65,7 +65,7 @@ export default function TopicsListManager({
   }
 
   const formattedTopicsList = (list: Topic[]) =>
-    list.map((topic) => formatArticleCard(topic))
+    list.map((topic) => formatTopicCard(topic))
 
   const fetchMoreTopics = async (page: number) => {
     const { allTopics: newTopics } = await fetchTopics({
@@ -79,7 +79,7 @@ export default function TopicsListManager({
   return (
     <>
       <section className={styles.list}>
-        <InfiniteScrollList<FormatArticleCard>
+        <InfiniteScrollList<FormatTopicCard>
           initialList={formattedTopicsList([...initTopicsList])}
           pageSize={pageSize}
           totalCount={topicsCount}

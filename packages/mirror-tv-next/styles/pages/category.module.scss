@@ -1,0 +1,12 @@
+@import '/styles/theme/breakpoints';
+
+.postsList {
+  margin: 0 auto;
+  @include media-breakpoint-up(xl) {
+    margin-left: 0;
+    width: calc(100% - 384px - 40px);
+  }
+  @include media-breakpoint-up(xxl) {
+    width: calc(100% - 384px - 48px);
+  }
+}

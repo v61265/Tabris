@@ -1,5 +1,5 @@
 import errors from '@twreporter/errors'
-import { PostByTagName } from '~/graphql/query/posts'
+import { PostCardItem } from '~/graphql/query/posts'
 import styles from '~/styles/pages/tag-page.module.scss'
 import {
   GLOBAL_CACHE_SETTING,
@@ -35,7 +35,7 @@ export default async function TagPage({
 }) {
   const PAGE_SIZE = 12
   const tagName: string = decodeURIComponent(params.name)
-  let postsList: PostByTagName[] = []
+  let postsList: PostCardItem[] = []
   let postsCount: number = 0
 
   try {
