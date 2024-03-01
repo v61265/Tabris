@@ -1,13 +1,13 @@
 'use client'
-import { Topic } from '~/graphql/query/topic'
-import { fetchTopics } from '~/components/topic/action'
-import styles from '~/styles/components/topic/topics-list-manager.module.scss'
-import UiTopicCard from '~/components/topic/ui-topic-card'
-import { formatePostImage } from '~/utils'
-import type { PostImage } from '~/utils'
-import type { ApiData } from '~/types/api-data'
-import InfiniteScrollList from '~/components/shared/infinite-scroll-list'
 import Image from 'next/image'
+import InfiniteScrollList from '~/components/shared/infinite-scroll-list'
+import { fetchTopics } from '~/components/topic/action'
+import UiTopicCard from '~/components/topic/ui-topic-card'
+import { Topic } from '~/graphql/query/topic'
+import styles from '~/styles/components/topic/topics-list-manager.module.scss'
+import type { ApiData } from '~/types/api-data'
+import type { PostImage } from '~/utils'
+import { formatePostImage } from '~/utils'
 
 type TopicsListManagerProps = {
   pageSize: number
@@ -91,6 +91,7 @@ export default function TopicsListManager({
                 alt="loading page"
                 width="200"
                 height="200"
+                priority
               />
             </div>
           }

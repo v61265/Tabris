@@ -1,5 +1,5 @@
 'use client'
-import UiLoadMreButton from '../shared/ui-load-more-button'
+import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { PostCardItem } from '~/graphql/query/posts'
 import { useState } from 'react'
 import { fetchPostsItems } from '~/components/category/action'
@@ -62,7 +62,7 @@ export default function PostsListManager({
       </section>
       {postsCount - 1 > pageSize * page && (
         <div className={styles.btnWrapper}>
-          <UiLoadMreButton title="看更多" onClick={handleClickLoadMore} />
+          <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
         </div>
       )}
     </>

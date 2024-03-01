@@ -1,6 +1,6 @@
 import { fetchTopicItems } from '~/components/topic/single-topic/action'
+import MoreItemsManager from '~/components/topic/single-topic/more-items-manager'
 import type { Post } from '~/graphql/query/topic'
-import styles from '~/styles/components/topic/single-topic/topic-post-items.module.scss'
 
 type Props = {
   slug: string
@@ -28,8 +28,10 @@ export default async function TopicPostItems({ slug, itemsCount }: Props) {
   }
 
   return (
-    <ul className={styles.postItemWrapper}>
-      <li>Post item</li>
-    </ul>
+    <MoreItemsManager
+      initialPostItems={itemsList}
+      slug={slug}
+      itemsCount={itemsCount}
+    />
   )
 }
