@@ -41,7 +41,7 @@ type Category = {
   name: string
 }
 
-type Post = {
+export type Post = {
   id: string
   slug: string
   title: string
@@ -66,7 +66,6 @@ export type SingleTopic = {
   heroVideo: HeroVideo
   slideshow: Slideshow[]
   multivideo: Multivideo[]
-  items: Post[]
   meta: {
     count: number
   }
@@ -96,14 +95,8 @@ const getTopics = gql`
   }
 `
 
-const fetchPostsByTopicSlug = gql`
-  query (
-    $topicSlug: String!
-    $first: Int = 12
-    $skip: Int
-    $withCount: Boolean = true
-    $postDir: [SortPostsBy!] = publishTime_DESC
-  ) {
+const fetchSingleTopicByTopicSlug = gql`
+  query ($topicSlug: String!, $withCount: Boolean = true) {
     topic: allTopics(where: { state: published, slug: $topicSlug }) {
       id
       title: name
@@ -138,6 +131,21 @@ const fetchPostsByTopicSlug = gql`
         youtubeUrl
         url
       }
+      meta: _postMeta(where: { state: published }) @include(if: $withCount) {
+        count
+      }
+    }
+  }
+`
+
+const fetchPostItemsByTopicSlug = gql`
+  query (
+    $topicSlug: String!
+    $first: Int = 12
+    $skip: Int
+    $postDir: [SortPostsBy!] = publishTime_DESC
+  ) {
+    topic: allTopics(where: { state: published, slug: $topicSlug }) {
       items: post(
         where: { state: published }
         first: $first
@@ -156,19 +164,8 @@ const fetchPostsByTopicSlug = gql`
           name
         }
       }
-      meta: _postMeta(where: { state: published }) @include(if: $withCount) {
-        count
-      }
     }
   }
 `
 
-const fetchPostSortDirBySlug = gql`
-  query ($topicSlug: String!) {
-    topic: allTopics(where: { state: published, slug: $topicSlug }) {
-      sortDir
-    }
-  }
-`
-
-export { fetchPostSortDirBySlug, fetchPostsByTopicSlug, getTopics }
+export { fetchPostItemsByTopicSlug, fetchSingleTopicByTopicSlug, getTopics }
