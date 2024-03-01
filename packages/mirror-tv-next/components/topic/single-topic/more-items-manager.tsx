@@ -19,7 +19,7 @@ export default function MoreItemsManager({
   const pageSize = 12
 
   const [page, setPage] = useState(2)
-  const [morePostItems, setMorePostItems] = useState<Post[]>([])
+  const [postsList, setPostsList] = useState<Post[]>([...initialPostItems])
 
   const handleClickLoadMore = async () => {
     const { items: newPosts } = await fetchTopicItems({
@@ -29,19 +29,17 @@ export default function MoreItemsManager({
     })
     if (!newPosts) return
     setPage((page) => page + 1)
-    setMorePostItems((prevPosts) => [...prevPosts, ...newPosts])
+    setPostsList((prevPosts) => [...prevPosts, ...newPosts])
   }
 
-  console.log(itemsCount)
+  console.log(itemsCount, postsList)
 
   return (
     <ul className={styles.postItemWrapper}>
-      {initialPostItems.map((item, index) => (
+      {postsList.map((item, index) => (
         <li key={index}> {item.title} </li>
       ))}
-      {morePostItems.map((item, index) => (
-        <li key={index}> {item.title} </li>
-      ))}
+
       {itemsCount > pageSize * (page - 1) && (
         <div className={styles.btnWrapper}>
           <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />

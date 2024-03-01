@@ -11,8 +11,6 @@ export default async function TopicPostItems({ slug, itemsCount }: Props) {
   const PAGE_SIZE = 12
   let itemsList: Post[] = []
 
-  console.log(itemsCount)
-
   try {
     const data = await fetchTopicItems({
       page: 1,
