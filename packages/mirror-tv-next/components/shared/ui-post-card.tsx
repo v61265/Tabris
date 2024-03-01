@@ -6,7 +6,7 @@ type UiPostCardProps = {
   title: string
   date: Date
   href: string
-  postStyle: string
+  postStyle: string | undefined
   images: PostImage
 
   // Differentiate two usages in / and /category/:name pages
@@ -19,7 +19,7 @@ export default function UiPostCard({
   date,
   href = '',
   images,
-  postStyle = 'post',
+  postStyle = 'article',
   mobileLayoutDirection = 'column',
   postTitleHighlightText,
 }: UiPostCardProps) {
