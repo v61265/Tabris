@@ -9,12 +9,14 @@ type Props = {
   slug: string
   itemsCount: number
   initialPostItems: Post[]
+  sortBy: string
 }
 
 export default function MoreItemsManager({
   slug,
   itemsCount,
   initialPostItems,
+  sortBy,
 }: Props) {
   const pageSize = 12
 
@@ -26,6 +28,7 @@ export default function MoreItemsManager({
       page,
       pageSize,
       slug,
+      sortBy,
     })
     if (!newPosts) return
     setPage((page) => page + 1)

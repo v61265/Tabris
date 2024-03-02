@@ -1,4 +1,7 @@
-import { fetchTopicItems } from '~/components/topic/single-topic/action'
+import {
+  fetchSortDir,
+  fetchTopicItems,
+} from '~/components/topic/single-topic/action'
 import MoreItemsManager from '~/components/topic/single-topic/more-items-manager'
 import type { Post } from '~/graphql/query/topic'
 
@@ -10,19 +13,33 @@ type Props = {
 export default async function TopicPostItems({ slug, itemsCount }: Props) {
   const PAGE_SIZE = 12
   let itemsList: Post[] = []
+  let sortingString: string = ''
 
   try {
-    const data = await fetchTopicItems({
-      page: 1,
-      pageSize: PAGE_SIZE,
+    const data = await fetchSortDir({
       slug: slug,
     })
 
-    itemsList = data.items
+    const sortDir = data.sortDir
 
-    console.log(itemsList)
+    sortingString = sortDir === 'asc' ? 'publishTime_ASC' : 'publishTime_DESC'
+
+    try {
+      const topicItemsData = await fetchTopicItems({
+        page: 1,
+        pageSize: PAGE_SIZE,
+        slug: slug,
+        sortBy: sortingString,
+      })
+
+      itemsList = topicItemsData.items
+
+      //   console.log('Fetched items:', itemsList)
+    } catch (error) {
+      console.error('Error fetching topic items:', error)
+    }
   } catch (error) {
-    console.error('Error fetching data:', error)
+    console.error('Error fetching sort direction:', error)
   }
 
   return (
@@ -30,6 +47,7 @@ export default async function TopicPostItems({ slug, itemsCount }: Props) {
       initialPostItems={itemsList}
       slug={slug}
       itemsCount={itemsCount}
+      sortBy={sortingString}
     />
   )
 }

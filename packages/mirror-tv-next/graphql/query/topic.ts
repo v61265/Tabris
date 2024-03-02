@@ -168,4 +168,17 @@ const fetchPostItemsByTopicSlug = gql`
   }
 `
 
-export { fetchPostItemsByTopicSlug, fetchSingleTopicByTopicSlug, getTopics }
+const fetchPostSortDirBySlug = gql`
+  query ($topicSlug: String!) {
+    topic: allTopics(where: { state: published, slug: $topicSlug }) {
+      sortDir
+    }
+  }
+`
+
+export {
+  fetchPostItemsByTopicSlug,
+  fetchPostSortDirBySlug,
+  fetchSingleTopicByTopicSlug,
+  getTopics,
+}
