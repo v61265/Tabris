@@ -47,8 +47,10 @@ export type Post = {
   title: string
   publishTime: string
   heroImage: {
-    urlMobileSized: string
+    urlDesktopSized: string
     urlTabletSized: string
+    urlMobileSized: string
+    urlOriginal: string
   }
   categories: Category[]
 }
@@ -157,8 +159,10 @@ const fetchPostItemsByTopicSlug = gql`
         title: name
         publishTime
         heroImage {
-          urlMobileSized
+          urlDesktopSized
           urlTabletSized
+          urlMobileSized
+          urlOriginal
         }
         categories {
           name

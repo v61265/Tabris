@@ -2,20 +2,19 @@
 
 .postItemWrapper {
   display: grid;
-  row-gap: 16px;
+  row-gap: 24px;
   @include media-breakpoint-up(md) {
     width: 100%;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
-    row-gap: 25px;
+    row-gap: 28px;
   }
   @include media-breakpoint-up(xl) {
     column-gap: 24px;
-    row-gap: 24px;
+    row-gap: 40px;
   }
 
   li {
-    background-color: aqua;
     min-height: 248px;
     width: 100%;
 
@@ -31,12 +30,12 @@
 .btnWrapper {
   display: flex;
   justify-content: center;
-  margin-top: 36px;
+  margin: 36px;
 
   @include media-breakpoint-up(md) {
-    margin-top: 28px;
+    margin: 28px;
   }
   @include media-breakpoint-up(xl) {
-    margin-top: 40px;
+    margin: 40px;
   }
 }

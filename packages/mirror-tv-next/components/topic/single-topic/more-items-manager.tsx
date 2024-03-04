@@ -36,8 +36,6 @@ export default function MoreItemsManager({
     setPostsList((prevPosts) => [...prevPosts, ...newPosts])
   }
 
-  console.log(itemsCount, postsList)
-
   return (
     <>
       <ul className={styles.postItemWrapper}>
