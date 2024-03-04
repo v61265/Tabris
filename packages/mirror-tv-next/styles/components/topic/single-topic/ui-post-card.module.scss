@@ -15,7 +15,9 @@
 
   .imageWrapper {
     position: relative;
+    aspect-ratio: 5 / 3;
     @include media-breakpoint-up(md) {
+      aspect-ratio: auto;
       height: 132px;
     }
     @include media-breakpoint-up(xl) {
