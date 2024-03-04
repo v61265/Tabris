@@ -33,8 +33,6 @@ export default async function TopicPostItems({ slug, itemsCount }: Props) {
       })
 
       itemsList = topicItemsData.items
-
-      //   console.log('Fetched items:', itemsList)
     } catch (error) {
       console.error('Error fetching topic items:', error)
     }

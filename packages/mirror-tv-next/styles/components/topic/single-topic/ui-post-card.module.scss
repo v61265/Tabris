@@ -1,0 +1,33 @@
+ul {
+  width: 100%;
+  @include media-breakpoint-up(md) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  &::after {
+    content: '';
+  }
+  li,
+  .skeleton-item,
+  .position-correct,
+  &::after {
+    width: 100%;
+    height: calc((100vw - 52px) * 0.667 + 82px);
+    @include media-breakpoint-up(md) {
+      width: calc((100% - 16px) / 3);
+      height: 204px;
+    }
+    @include media-breakpoint-up(xl) {
+      width: calc((100% - 96px) / 3);
+      height: 310px;
+    }
+  }
+  li,
+  .skeleton-item {
+    margin: 0 0 28px;
+    @include media-breakpoint-up(xl) {
+      margin: 0 0 48px;
+    }
+  }
+}

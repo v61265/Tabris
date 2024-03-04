@@ -4,6 +4,7 @@ import UiLoadMoreButton from '~/components/shared/ui-load-more-button'
 import { fetchTopicItems } from '~/components/topic/single-topic/action'
 import type { Post } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/single-topic/more-items-manager.module.scss'
+import UiPostCard from './ui-post-card'
 
 type Props = {
   slug: string
@@ -38,16 +39,19 @@ export default function MoreItemsManager({
   console.log(itemsCount, postsList)
 
   return (
-    <ul className={styles.postItemWrapper}>
-      {postsList.map((item, index) => (
-        <li key={index}> {item.title} </li>
-      ))}
-
+    <>
+      <ul className={styles.postItemWrapper}>
+        {postsList.map((item, index) => (
+          <li key={index}>
+            <UiPostCard item={item} />
+          </li>
+        ))}
+      </ul>
       {itemsCount > pageSize * (page - 1) && (
         <div className={styles.btnWrapper}>
           <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
         </div>
       )}
-    </ul>
+    </>
   )
 }
