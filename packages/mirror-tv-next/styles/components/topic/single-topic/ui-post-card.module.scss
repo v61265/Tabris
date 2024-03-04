@@ -30,7 +30,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    height: 62px;
+    height: 64px;
     text-align: left;
     word-wrap: break-word;
     -webkit-line-clamp: 3;
@@ -40,13 +40,13 @@
 
     @include media-breakpoint-up(md) {
       margin-top: 8px;
-      hight: 31px;
+      height: 37px;
       -webkit-line-clamp: 2;
       font-size: 13px;
     }
     @include media-breakpoint-up(xl) {
       margin-top: 12px;
-      hight: 41px;
+      height: 41px;
       font-size: 16px;
     }
   }
@@ -55,7 +55,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #fff;
+    background-color: #f4f5f6;
     color: #036;
     font-size: 14px;
     font-style: normal;
