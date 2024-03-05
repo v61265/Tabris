@@ -1,7 +1,7 @@
 'use client'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { PostCardItem } from '~/graphql/query/posts'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { fetchPostsItems } from '~/components/category/action'
 import styles from '~/styles/components/category/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
@@ -12,6 +12,7 @@ type PostsListManagerProps = {
   pageSize: number
   postsCount: number
   initPostsList: FormattedPostCard[]
+  salePostsList: FormattedPostCard[]
 }
 
 export default function PostsListManager({
@@ -19,11 +20,24 @@ export default function PostsListManager({
   pageSize,
   postsCount,
   initPostsList,
+  salePostsList,
 }: PostsListManagerProps) {
   const [page, setPage] = useState(1)
   const [postsList, setPostsList] = useState<FormattedPostCard[]>([
     ...initPostsList,
   ])
+  const salesLength = salePostsList?.length || 0
+  const salesPostsInsertIndex = [3, 5, 9, 11].slice(0, salesLength)
+  const renderedPostsList: FormattedPostCard[] = useMemo(() => {
+    if (!salesLength) {
+      return postsList
+    }
+    const postsListAfterInserted = [...postsList]
+    salesPostsInsertIndex.forEach((position, index) => {
+      postsListAfterInserted.splice(position, 0, salePostsList[index])
+    })
+    return postsListAfterInserted
+  }, [postsList])
 
   const formattedPostsList = (list: PostCardItem[]) =>
     list.map((post) => formatArticleCard(post))
@@ -34,6 +48,7 @@ export default function PostsListManager({
       categorySlug,
       pageSize,
       isWithCount: false,
+      salePostsCount: salesLength,
     })
     if (!newPosts) return
     setPage((page) => page + 1)
@@ -44,7 +59,7 @@ export default function PostsListManager({
     <>
       <section className={styles.list}>
         <ol className={styles.posts}>
-          {postsList?.map((postItem) => {
+          {renderedPostsList?.map((postItem) => {
             return (
               <li key={postItem.slug}>
                 <UiPostCard

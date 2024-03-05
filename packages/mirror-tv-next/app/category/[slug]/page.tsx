@@ -13,6 +13,8 @@ import UiFeaturePost from '~/components/category/ui-feature-post'
 import PostsListManager from '~/components/category/posts-list-manager'
 import { formatArticleCard, FormattedPostCard } from '~/utils'
 import { notFound } from 'next/navigation'
+import { getSales } from '~/graphql/query/sales'
+import type { Sale } from '~/graphql/query/sales'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -74,13 +76,45 @@ export default async function CategoryPage({
   let categoryData: Category = { name: '', slug: '' }
   let postsCount: number = 0
   let categoryPosts: FormattedPostCard[] = []
+  let salePosts: FormattedPostCard[] = []
 
   categoryData = await fetchCategoryData(params.slug)
   if (!categoryData.name) return notFound()
 
+  const client = getClient()
+  try {
+    const { data } = await client.query<{
+      allSales: Sale[]
+    }>({
+      query: getSales,
+      variables: {
+        first: 4,
+      },
+    })
+    salePosts =
+      data?.allSales?.map((sale) => formatArticleCard(sale?.adPost)) ?? []
+  } catch (err) {
+    const annotatingError = errors.helpers.wrap(
+      err,
+      'UnhandledError',
+      'Error occurs while fetching sale posts data in category page'
+    )
+
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(annotatingError, {
+          withStack: false,
+          withPayload: true,
+        }),
+      })
+    )
+  }
+
   try {
     const { allPosts, _allPostsMeta } = await fetchPostsItems({
       page: 0,
+      salePostsCount: salePosts?.length ?? 0,
       categorySlug: categoryData.slug,
       pageSize: PAGE_SIZE,
       isWithCount: true,
@@ -112,6 +146,7 @@ export default async function CategoryPage({
         <>
           <UiFeaturePost post={categoryPosts[0]} />
           <PostsListManager
+            salePostsList={salePosts}
             categorySlug={categoryData.slug}
             pageSize={PAGE_SIZE}
             postsCount={postsCount}
