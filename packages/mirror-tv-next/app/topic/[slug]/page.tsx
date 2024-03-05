@@ -7,9 +7,10 @@ import HeroImage from '~/components/topic/single-topic/hero-image'
 import HeroMultiVideo from '~/components/topic/single-topic/hero-multivideo'
 import HeroSlideshow from '~/components/topic/single-topic/hero-slideshow'
 import HeroVideo from '~/components/topic/single-topic/hero-video'
+import TopicPostItems from '~/components/topic/single-topic/topic-post-items'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 import type { SingleTopic } from '~/graphql/query/topic'
-import { fetchPostsByTopicSlug } from '~/graphql/query/topic'
+import { fetchSingleTopicByTopicSlug } from '~/graphql/query/topic'
 import styles from '~/styles/pages/single-topic-page.module.scss'
 
 export const revalidate = GLOBAL_CACHE_SETTING
@@ -24,7 +25,7 @@ export default async function SingleTopicPage({
 
   try {
     const response = await client.query({
-      query: fetchPostsByTopicSlug,
+      query: fetchSingleTopicByTopicSlug,
       variables: {
         topicSlug: params.slug,
       },
@@ -135,7 +136,10 @@ export default async function SingleTopicPage({
             )}
           </div>
         </div>
-        <div>{singleTopic.leading}</div>
+        <TopicPostItems
+          slug={params.slug}
+          itemsCount={singleTopic.meta.count}
+        />
       </section>
     </main>
   )

@@ -1,11 +1,11 @@
 'use client'
-import UiLoadMreButton from '../shared/ui-load-more-button'
-import { PostCardItem } from '~/graphql/query/posts'
 import { useState } from 'react'
-import { fetchPostsItems } from '~/components/tag/action'
-import styles from '~/styles/components/tag/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
+import { fetchPostsItems } from '~/components/tag/action'
+import { PostCardItem } from '~/graphql/query/posts'
+import styles from '~/styles/components/tag/posts-list-manager.module.scss'
 import { formatArticleCard } from '~/utils'
+import UiLoadMoreButton from '../shared/ui-load-more-button'
 
 type PostsListManagerProps = {
   tagName: string
@@ -60,7 +60,7 @@ export default function PostsListManager({
       </section>
       {postsCount > pageSize * page && (
         <div className={styles.btnWrapper}>
-          <UiLoadMreButton title="看更多" onClick={handleClickLoadMore} />
+          <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
         </div>
       )}
     </>

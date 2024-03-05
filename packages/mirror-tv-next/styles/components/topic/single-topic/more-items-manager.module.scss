@@ -1,0 +1,41 @@
+@import '/styles/theme/breakpoints';
+
+.postItemWrapper {
+  display: grid;
+  row-gap: 24px;
+  @include media-breakpoint-up(md) {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    row-gap: 28px;
+  }
+  @include media-breakpoint-up(xl) {
+    column-gap: 24px;
+    row-gap: 40px;
+  }
+
+  li {
+    min-height: 248px;
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+      min-height: 186px;
+    }
+    @include media-breakpoint-up(xl) {
+      min-height: 241px;
+    }
+  }
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 36px;
+
+  @include media-breakpoint-up(md) {
+    margin: 28px;
+  }
+  @include media-breakpoint-up(xl) {
+    margin: 40px;
+  }
+}

@@ -41,14 +41,16 @@ type Category = {
   name: string
 }
 
-type Post = {
+export type Post = {
   id: string
   slug: string
   title: string
   publishTime: string
   heroImage: {
-    urlMobileSized: string
+    urlDesktopSized: string
     urlTabletSized: string
+    urlMobileSized: string
+    urlOriginal: string
   }
   categories: Category[]
 }
@@ -66,7 +68,6 @@ export type SingleTopic = {
   heroVideo: HeroVideo
   slideshow: Slideshow[]
   multivideo: Multivideo[]
-  items: Post[]
   meta: {
     count: number
   }
@@ -96,14 +97,8 @@ const getTopics = gql`
   }
 `
 
-const fetchPostsByTopicSlug = gql`
-  query (
-    $topicSlug: String!
-    $first: Int = 12
-    $skip: Int
-    $withCount: Boolean = true
-    $postDir: [SortPostsBy!] = publishTime_DESC
-  ) {
+const fetchSingleTopicByTopicSlug = gql`
+  query ($topicSlug: String!, $withCount: Boolean = true) {
     topic: allTopics(where: { state: published, slug: $topicSlug }) {
       id
       title: name
@@ -138,6 +133,21 @@ const fetchPostsByTopicSlug = gql`
         youtubeUrl
         url
       }
+      meta: _postMeta(where: { state: published }) @include(if: $withCount) {
+        count
+      }
+    }
+  }
+`
+
+const fetchPostItemsByTopicSlug = gql`
+  query (
+    $topicSlug: String!
+    $first: Int = 12
+    $skip: Int
+    $postDir: [SortPostsBy!] = publishTime_DESC
+  ) {
+    topic: allTopics(where: { state: published, slug: $topicSlug }) {
       items: post(
         where: { state: published }
         first: $first
@@ -149,15 +159,14 @@ const fetchPostsByTopicSlug = gql`
         title: name
         publishTime
         heroImage {
-          urlMobileSized
+          urlDesktopSized
           urlTabletSized
+          urlMobileSized
+          urlOriginal
         }
         categories {
           name
         }
-      }
-      meta: _postMeta(where: { state: published }) @include(if: $withCount) {
-        count
       }
     }
   }
@@ -171,4 +180,9 @@ const fetchPostSortDirBySlug = gql`
   }
 `
 
-export { fetchPostSortDirBySlug, fetchPostsByTopicSlug, getTopics }
+export {
+  fetchPostItemsByTopicSlug,
+  fetchPostSortDirBySlug,
+  fetchSingleTopicByTopicSlug,
+  getTopics,
+}
