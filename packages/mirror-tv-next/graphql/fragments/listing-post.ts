@@ -1,16 +1,11 @@
 import gql from 'graphql-tag'
+import type { HeroImage } from '~/types/common'
 
 export type ListingPost = {
   slug: string
   style: string
   name: string
-  heroImage: {
-    urlMobileSized: string
-    urlOriginal: string
-    urlDesktopSized: string
-    urlTabletSized: string
-    urlTinySized: string
-  } | null
+  heroImage: HeroImage
 }
 
 const listingPost = gql`

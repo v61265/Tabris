@@ -3,6 +3,14 @@ export type FlashNews = {
   name: string
 }
 
+export type HeroImage = {
+  urlDesktopSized?: string
+  urlTabletSized?: string
+  urlMobileSized?: string
+  urlTinySized?: string
+  urlOriginal?: string
+}
+
 export type Schedule = {
   'Channel ID': string
   Year: string

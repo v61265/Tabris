@@ -1,4 +1,6 @@
 import gql from 'graphql-tag'
+import type { HeroImage } from '~/types/common'
+import { ListingPost } from '../fragments/listing-post'
 
 export type Topic = {
   id: string
@@ -6,18 +8,7 @@ export type Topic = {
   name: string
   sortOrder: number
   briefApiData: string
-  heroImage: {
-    urlMobileSized: string
-    urlTabletSized: string
-    urlOriginal: string
-  } | null
-}
-
-export type HeroImage = {
-  urlDesktopSized: string
-  urlTabletSized: string
-  urlMobileSized: string
-  urlOriginal: string
+  heroImage: HeroImage
 }
 
 type HeroVideo = {
@@ -41,23 +32,14 @@ type Category = {
   name: string
 }
 
-export type Post = {
+export type Post = ListingPost & {
   id: string
-  slug: string
   title: string
   publishTime: string
-  heroImage: {
-    urlDesktopSized: string
-    urlTabletSized: string
-    urlMobileSized: string
-    urlOriginal: string
-  }
   categories: Category[]
 }
 
-export type SingleTopic = {
-  id: string
-  title: string
+export type SingleTopic = Topic & {
   sortDir: string
   leading: string
   facebook: string
