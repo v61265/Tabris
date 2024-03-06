@@ -4,10 +4,11 @@ export type FlashNews = {
 }
 
 export type HeroImage = {
-  urlDesktopSized: string
-  urlTabletSized: string
-  urlMobileSized: string
-  urlOriginal: string
+  urlDesktopSized?: string
+  urlTabletSized?: string
+  urlMobileSized?: string
+  urlTinySized?: string
+  urlOriginal?: string
 }
 
 export type Schedule = {
