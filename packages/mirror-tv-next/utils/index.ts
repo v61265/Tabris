@@ -1,4 +1,4 @@
-import { extractYoutubeId } from './common'
+import { extractYoutubeId, handleResponse } from './common'
 import type { PostImage } from './image-handler'
 import { formateHeroImage, formatePostImage } from './image-handler'
 
@@ -12,5 +12,6 @@ export {
   formateHeroImage,
   formatePostImage,
   formatArticleCard,
+  handleResponse,
 }
 export type { PostImage, FormattedPostCard }
