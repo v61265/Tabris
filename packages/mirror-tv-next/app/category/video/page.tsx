@@ -8,6 +8,7 @@ import { handleResponse, formatArticleCard } from '~/utils'
 import type { Category } from '~/graphql/query/category'
 import { fetchFeatureCategories } from '~/graphql/query/categories'
 import { getClient } from '~/apollo-client'
+import { fetchVideoPostsItems } from '~/components/category/video/action'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -36,8 +37,9 @@ type RowPopularVideoData = {
 }
 
 export default async function CategoryPage() {
+  const PAGE_SIZE = 12
   let popularVideos = []
-  // let categoryPosts = []
+  let categoryPosts = []
   let allCategories: Category[] = []
 
   const client = getClient()
@@ -67,7 +69,6 @@ export default async function CategoryPage() {
     (
       latestPostsData: Awaited<ReturnType<typeof fetchAllCategory>> | undefined
     ) => {
-      console.log(latestPostsData?.data)
       return latestPostsData?.data?.allCategories ?? []
     }
   )
@@ -82,20 +83,42 @@ export default async function CategoryPage() {
       // post in json doesn't have 'style' attribute
       return (
         popularPostsData?.report?.map((post) =>
-          formatArticleCard({ ...post, style: 'article' })
+          formatArticleCard({ ...post, style: 'videoNews' })
         ) ?? []
       )
     }
   )
 
-  console.log(allCategories, popularVideos)
+  const fetchVideoPostsByCategory = (slug: string) =>
+    fetchVideoPostsItems({
+      page: 0,
+      categorySlug: slug,
+      isWithCount: true,
+      pageSize: PAGE_SIZE,
+    })
 
-  // const fetchVideoPostsByCategory = () =>
-  //   client.query<{
-  //     allPosts: Category[]
-  //   }>({
-  //     query: fetchFeatureCategories,
-  //   })
+  const videoPostsResponses = await Promise.allSettled(
+    allCategories.map((category) => fetchVideoPostsByCategory(category.slug))
+  )
+
+  categoryPosts = videoPostsResponses.map((res) => {
+    return handleResponse(
+      res,
+      (
+        videoPostsData:
+          | Awaited<ReturnType<typeof fetchVideoPostsByCategory>>
+          | undefined
+      ) => {
+        return {
+          posts: videoPostsData?.allPosts?.map(formatArticleCard),
+          count: videoPostsData?._allPostsMeta?.count,
+        }
+      }
+    )
+  })
+  categoryPosts = categoryPosts.filter((item) => item.count)
+
+  console.log(popularVideos, categoryPosts, allCategories)
 
   return <main>VideoPage</main>
 }
