@@ -40,6 +40,7 @@ export type Post = ListingPost & {
 }
 
 export type SingleTopic = Topic & {
+  title: string
   sortDir: string
   leading: string
   facebook: string

@@ -10,4 +10,14 @@ const extractYoutubeId = (url: string) => {
   return match ? match[1] : null
 }
 
-export { extractYoutubeId, isServer }
+function handleMetaDesc(str: string) {
+  if (!str || typeof str !== 'string') {
+    return ''
+  }
+  // remove html tags and set length limit for meta descripton
+  const pureStr = str?.replace(/<[^>]*>?/gm, '')
+  const formatedStr = pureStr?.slice(0, 124) ?? ''
+  return formatedStr.length > 123 ? formatedStr + '...' : formatedStr
+}
+
+export { extractYoutubeId, handleMetaDesc, isServer }
