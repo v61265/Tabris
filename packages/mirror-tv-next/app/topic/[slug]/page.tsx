@@ -1,4 +1,5 @@
 import errors from '@twreporter/errors'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -8,12 +9,74 @@ import HeroMultiVideo from '~/components/topic/single-topic/hero-multivideo'
 import HeroSlideshow from '~/components/topic/single-topic/hero-slideshow'
 import HeroVideo from '~/components/topic/single-topic/hero-video'
 import TopicPostItems from '~/components/topic/single-topic/topic-post-items'
-import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
+import {
+  GLOBAL_CACHE_SETTING,
+  SITE_URL,
+} from '~/constants/environment-variables'
 import type { SingleTopic } from '~/graphql/query/topic'
 import { fetchSingleTopicByTopicSlug } from '~/graphql/query/topic'
 import styles from '~/styles/pages/single-topic-page.module.scss'
+import { handleMetaDesc } from '~/utils'
 
 export const revalidate = GLOBAL_CACHE_SETTING
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const client = getClient()
+  let singleTopic: SingleTopic | null = null
+
+  try {
+    const response = await client.query({
+      query: fetchSingleTopicByTopicSlug,
+      variables: {
+        topicSlug: params.slug,
+      },
+    })
+    const { topic }: { topic: SingleTopic[] } = response.data
+    singleTopic = topic[0] ?? undefined
+
+    // Throw an error if singleTopic is undefined
+    if (!singleTopic) {
+      throw new Error('Topic not found')
+    }
+  } catch (err) {
+    const annotatingError = errors.helpers.wrap(
+      err,
+      'UnhandledError',
+      'Error occurs while fetching posts data for single topic page'
+    )
+
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(annotatingError, {
+          withStack: false,
+          withPayload: true,
+        }),
+      })
+    )
+    throw annotatingError
+  }
+
+  const description = handleMetaDesc(singleTopic?.briefHtml ?? '')
+
+  return {
+    metadataBase: new URL(`https://${SITE_URL}`),
+    title: `${singleTopic?.title} - 鏡新聞`,
+    description: description !== '' ? description : META_DESCRIPTION,
+    openGraph: {
+      title: `${singleTopic?.title} - 鏡新聞`,
+      description: description !== '' ? description : META_DESCRIPTION,
+      siteName: SITE_TITLE,
+      images:
+        singleTopic?.heroImage?.urlMobileSized ?? '/images/image-default.jpg',
+    },
+  }
+}
 
 export default async function SingleTopicPage({
   params,
