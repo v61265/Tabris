@@ -1,9 +1,10 @@
 'use client'
 import Image from '@readr-media/react-image'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import type { HeroImage, Multivideo } from '~/graphql/query/topic'
+import type { Multivideo } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/single-topic/hero-multivideo.module.scss'
 import '~/styles/components/topic/single-topic/swiper-custom-styles.scss'
+import type { HeroImage } from '~/types/common'
 import { formateHeroImage } from '~/utils'
 import HeroVideo from './hero-video'
 
