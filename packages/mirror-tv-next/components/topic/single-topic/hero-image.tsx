@@ -1,6 +1,6 @@
 'use client'
 import Image from '@readr-media/react-image'
-import type { HeroImage } from '~/graphql/query/topic'
+import type { HeroImage } from '~/types/common'
 import styles from '~/styles/components/topic/single-topic/hero-image.module.scss'
 import { formateHeroImage } from '~/utils'
 
