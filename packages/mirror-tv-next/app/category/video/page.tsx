@@ -4,11 +4,13 @@ import {
   SITE_URL,
   POPULAR_VIDEOS_JSON_URL,
 } from '~/constants/environment-variables'
-import { handleResponse, formatArticleCard } from '~/utils'
+import { handleResponse, formatArticleCard, FormattedPostCard } from '~/utils'
 import type { Category } from '~/graphql/query/category'
 import { fetchFeatureCategories } from '~/graphql/query/categories'
 import { getClient } from '~/apollo-client'
 import { fetchVideoPostsItems } from '~/components/category/video/action'
+import styles from '~/styles/pages/category-video-page.module.scss'
+import VideoPostsList from '~/components/category/video/video-posts-list'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -38,8 +40,10 @@ type RowPopularVideoData = {
 
 export default async function CategoryPage() {
   const PAGE_SIZE = 12
-  let popularVideos = []
-  let categoryPosts = []
+  let popularVideos: FormattedPostCard[] = []
+  let categoryPosts:
+    | { posts: FormattedPostCard[]; count: number; categorySlug: string }[]
+    | never[] = []
   let allCategories: Category[] = []
 
   const client = getClient()
@@ -110,15 +114,47 @@ export default async function CategoryPage() {
           | undefined
       ) => {
         return {
-          posts: videoPostsData?.allPosts?.map(formatArticleCard),
-          count: videoPostsData?._allPostsMeta?.count,
+          categorySlug: videoPostsData?.categorySlug ?? '',
+          posts: videoPostsData?.data?.allPosts?.map(formatArticleCard) ?? [],
+          count: videoPostsData?.data?._allPostsMeta?.count ?? 0,
         }
       }
     )
   })
   categoryPosts = categoryPosts.filter((item) => item.count)
 
-  console.log(popularVideos, categoryPosts, allCategories)
+  const getCategoryNameBySlug = (slug: string) => {
+    const category = allCategories.find((category) => category.slug === slug)
+    return category ? category.name : ''
+  }
 
-  return <main>VideoPage</main>
+  return (
+    <main className={styles.main}>
+      <section className={styles.left}>
+        {popularVideos.length && (
+          <VideoPostsList
+            initPostsList={popularVideos}
+            categorySlug=""
+            categoryName="熱門新聞"
+            pageSize={PAGE_SIZE}
+            postsCount={popularVideos.length}
+          />
+        )}
+
+        {categoryPosts.map((list) => {
+          return (
+            <VideoPostsList
+              initPostsList={list.posts}
+              categorySlug={list.categorySlug}
+              categoryName={getCategoryNameBySlug(list.categorySlug)}
+              pageSize={PAGE_SIZE}
+              postsCount={list.count}
+              key={list.categorySlug}
+            />
+          )
+        })}
+      </section>
+      <aside className={styles.aside}></aside>
+    </main>
+  )
 }

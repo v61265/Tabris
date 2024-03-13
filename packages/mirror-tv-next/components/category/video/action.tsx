@@ -20,8 +20,11 @@ async function fetchVideoPostsItems({
   pageSize,
   isWithCount,
 }: FetchMoreItemsType): Promise<{
-  allPosts: PostCardItem[]
-  _allPostsMeta?: { count: number }
+  categorySlug: string
+  data: {
+    allPosts: PostCardItem[]
+    _allPostsMeta?: { count: number }
+  }
 }> {
   const client = getClient()
   try {
@@ -39,7 +42,7 @@ async function fetchVideoPostsItems({
         style: 'videoNews',
       },
     })
-    return data
+    return { data, categorySlug }
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
