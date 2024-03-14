@@ -131,7 +131,7 @@ export default async function CategoryPage() {
   return (
     <main className={styles.main}>
       <section className={styles.left}>
-        {popularVideos.length && (
+        {!!popularVideos.length && (
           <VideoPostsList
             initPostsList={popularVideos}
             categorySlug=""

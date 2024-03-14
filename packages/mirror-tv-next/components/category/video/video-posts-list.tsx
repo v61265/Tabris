@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styles from '~/styles/components/category/video/video-posts-list.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react'
@@ -36,6 +36,10 @@ export default function VideoPostsList({
     ...initPostsList,
   ])
   const [slidesPerView, setSlidesPerView] = useState(2)
+  const placeholder = useMemo<number[]>(() => {
+    const placeholderCount = 3 - (postsList.length % 3)
+    return Array(placeholderCount).fill(null)
+  }, [postsList])
 
   const sliderRef = useRef<SwiperRef>(null)
   const handlePrev = useCallback(() => {
@@ -45,7 +49,6 @@ export default function VideoPostsList({
   }, [])
 
   const handleLoadMore = async () => {
-    console.log('fetch')
     const {
       data: { allPosts: newPosts },
     } = await fetchVideoPostsItems({
@@ -60,18 +63,15 @@ export default function VideoPostsList({
 
   const handleNext = useCallback(async () => {
     if (!sliderRef.current) return
-    setTimeout(() => {
-      sliderRef.current?.swiper?.slideNext()
-    }, 0)
-
+    sliderRef.current?.swiper?.slideNext()
     setPage((page) => page + 1)
   }, [])
 
   useEffect(() => {
     if (
-      (page + 1) * slidesPerView > postsList.length &&
-      (page + 1) * slidesPerView < postsCount &&
-      (page + 1) * slidesPerView < POSTS_LIST_LENGTH_MAX
+      (page + 2) * slidesPerView > postsList.length &&
+      (page + 2) * slidesPerView < postsCount &&
+      (page + 2) * slidesPerView < POSTS_LIST_LENGTH_MAX
     ) {
       handleLoadMore()
     }
@@ -137,11 +137,20 @@ export default function VideoPostsList({
               </SwiperSlide>
             )
           })}
+          {placeholder.map((item, index) => {
+            return (
+              <SwiperSlide
+                key={index}
+                className={styles.swiperSlide}
+              ></SwiperSlide>
+            )
+          })}
         </Swiper>
         {page !== 1 && (
           <div className={styles.prevArrow} onClick={handlePrev}></div>
         )}
-        {page * slidesPerView - 2 <= postsCount && (
+        {page * slidesPerView !==
+          Math.min(postsCount + placeholder.length, POSTS_LIST_LENGTH_MAX) && (
           <div className={styles.nextArrow} onClick={handleNext}></div>
         )}
       </ol>
