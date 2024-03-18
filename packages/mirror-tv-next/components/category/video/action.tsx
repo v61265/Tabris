@@ -47,7 +47,7 @@ async function fetchVideoPostsItems({
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching category posts data in category page'
+      'Error occurs while fetching video posts data in category video page'
     )
 
     console.error(

@@ -11,6 +11,7 @@ import { getClient } from '~/apollo-client'
 import { fetchVideoPostsItems } from '~/components/category/video/action'
 import styles from '~/styles/pages/category-video-page.module.scss'
 import VideoPostsList from '~/components/category/video/video-posts-list'
+import type { HeroImage } from '~/types/common'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -24,26 +25,27 @@ export const metadata: Metadata = {
   },
 }
 
-type RowPopularVideoData = {
-  report: {
-    id: string
-    name: string
-    publishTime: string
-    slug: string
-    source?: string
-    heroImage: {
-      urlMobileSized: string
-      urlTinySized: string
-    }
-  }[]
+type ReportItem = {
+  id: string
+  name: string
+  publishTime: string
+  slug: string
+  source?: string
+  heroImage: HeroImage
 }
 
-export default async function CategoryPage() {
+type RowPopularVideoData = {
+  report: ReportItem[]
+}
+
+export default async function VideoCategoryPage() {
   const PAGE_SIZE = 12
   let popularVideos: FormattedPostCard[] = []
-  let categoryPosts:
-    | { posts: FormattedPostCard[]; count: number; categorySlug: string }[]
-    | never[] = []
+  let categoryPosts: {
+    posts: FormattedPostCard[]
+    count: number
+    categorySlug: string
+  }[] = []
   let allCategories: Category[] = []
 
   const client = getClient()
@@ -74,7 +76,8 @@ export default async function CategoryPage() {
       latestPostsData: Awaited<ReturnType<typeof fetchAllCategory>> | undefined
     ) => {
       return latestPostsData?.data?.allCategories ?? []
-    }
+    },
+    'Error occurs while fetching category data in video category page'
   )
 
   popularVideos = handleResponse(
@@ -90,7 +93,8 @@ export default async function CategoryPage() {
           formatArticleCard({ ...post, style: 'videoNews' })
         ) ?? []
       )
-    }
+    },
+    'Error occurs while fetching popular videos in video category page'
   )
 
   const fetchVideoPostsByCategory = (slug: string) =>
@@ -105,6 +109,11 @@ export default async function CategoryPage() {
     allCategories.map((category) => fetchVideoPostsByCategory(category.slug))
   )
 
+  const getCategoryNameBySlug = (slug: string) => {
+    const category = allCategories.find((category) => category.slug === slug)
+    return category ? category.name : ''
+  }
+
   categoryPosts = videoPostsResponses.map((res) => {
     return handleResponse(
       res,
@@ -115,18 +124,17 @@ export default async function CategoryPage() {
       ) => {
         return {
           categorySlug: videoPostsData?.categorySlug ?? '',
+          categoryName: getCategoryNameBySlug(
+            videoPostsData?.categorySlug ?? ''
+          ),
           posts: videoPostsData?.data?.allPosts?.map(formatArticleCard) ?? [],
           count: videoPostsData?.data?._allPostsMeta?.count ?? 0,
         }
-      }
+      },
+      'Error occurs while fetching video posts in video category page'
     )
   })
   categoryPosts = categoryPosts.filter((item) => item.count)
-
-  const getCategoryNameBySlug = (slug: string) => {
-    const category = allCategories.find((category) => category.slug === slug)
-    return category ? category.name : ''
-  }
 
   return (
     <main className={styles.main}>

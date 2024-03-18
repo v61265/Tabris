@@ -18,7 +18,8 @@ const handleResponse = <
   V
 >(
   response: U,
-  callback: (value: T | undefined) => V
+  callback: (value: T | undefined) => V,
+  errorMessage: string
 ): V => {
   if (response.status === 'fulfilled') {
     return callback(response.value)
@@ -27,7 +28,7 @@ const handleResponse = <
     const annotatingError = errors.helpers.wrap(
       response.reason,
       'UnhandledError',
-      'Error occurs while fetching category data in category page'
+      errorMessage
     )
 
     console.error(
