@@ -4,7 +4,7 @@ import type { HeroImage } from '~/types/common'
 export type Contact = {
   name: string
   slug: string
-  anchorImg: HeroImage | null
+  anchorImg: HeroImage
 }
 
 const fetchContactBySlug = gql`
@@ -39,6 +39,7 @@ const fetchContactsByAnchorPerson = gql`
       anchorImg {
         urlTabletSized
         urlMobileSized
+        urlOriginal
       }
     }
   }

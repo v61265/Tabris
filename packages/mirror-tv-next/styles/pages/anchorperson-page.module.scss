@@ -1,0 +1,66 @@
+@import '/styles/theme/breakpoints';
+
+.main {
+  background: #303030;
+  min-height: 100dvh;
+  padding-top: 50px; /* the height of mobile nav*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+
+  @include media-breakpoint-up(md) {
+    padding-top: 0;
+    padding-bottom: 48px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-bottom: 80px;
+  }
+}
+
+.section {
+  background-color: rgb(152, 132, 136);
+  width: 288px;
+  margin-top: 48px;
+  @include media-breakpoint-up(md) {
+    margin-top: 80px;
+    width: 688px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 1120px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    width: 1200px;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  color: #fc0;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-right: 20px;
+  white-space: nowrap; /* Prevent text from wrapping */
+
+  @include media-breakpoint-up(md) {
+    font-size: 30px;
+  }
+}
+
+.line {
+  width: calc(100% - 74px);
+  height: 3px;
+  background-color: #fc0;
+  @include media-breakpoint-up(md) {
+    width: calc(100% - 110px);
+  }
+}

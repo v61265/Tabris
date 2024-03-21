@@ -1,6 +1,7 @@
 import errors from '@twreporter/errors'
 import type { Metadata } from 'next'
 import { getClient } from '~/apollo-client'
+import UiContactCard from '~/components/anchorperson/ui-contact-card'
 import {
   GLOBAL_CACHE_SETTING,
   SITE_URL,
@@ -10,6 +11,7 @@ import {
   fetchContactsByAnchorPerson,
   fetchContactsByHost,
 } from '~/graphql/query/contact'
+import styles from '~/styles/pages/anchorperson-page.module.scss'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -23,17 +25,17 @@ export const metadata: Metadata = {
 
 export default async function Anchorperson() {
   const client = getClient()
+  let anchorData: Contact[] = []
+  let hostData: Contact[] = []
+
   try {
     const [anchorResponse, hostResponse] = await Promise.allSettled([
       client.query({ query: fetchContactsByAnchorPerson }),
       client.query({ query: fetchContactsByHost }),
     ])
 
-    let anchorData: Contact[] = []
-    let hostData: Contact[] = []
-
     if (anchorResponse.status === 'fulfilled') {
-      anchorData = anchorResponse.value.data
+      anchorData = anchorResponse.value.data.allContacts
       console.log(anchorData)
     } else {
       const annotatingError = errors.helpers.wrap(
@@ -55,7 +57,7 @@ export default async function Anchorperson() {
     }
 
     if (hostResponse.status === 'fulfilled') {
-      hostData = hostResponse.value.data
+      hostData = hostResponse.value.data.allContacts
       console.log(hostData)
     } else {
       const annotatingError = errors.helpers.wrap(
@@ -79,5 +81,19 @@ export default async function Anchorperson() {
     console.error(err)
   }
 
-  return <div>Anchorperson</div>
+  return (
+    <main className={styles.main}>
+      <section className={styles.section}>
+        <div className={styles.titleWrapper}>
+          <span className={styles.title}>鏡主播</span>
+          <span className={styles.line} />
+        </div>
+        <ul className={styles.cardsList}>
+          {anchorData.map((item) => {
+            return <UiContactCard item={item} key={item.name} />
+          })}
+        </ul>
+      </section>
+    </main>
+  )
 }

@@ -1,0 +1,40 @@
+'use client'
+import Image from '@readr-media/react-image'
+import Link from 'next/link'
+import type { Contact } from '~/graphql/query/contact'
+import styles from '~/styles/components/anchorperson/ui-contact-card.module.scss'
+import { formateHeroImage } from '~/utils'
+
+type Props = {
+  item: Contact
+}
+
+export default function UiContactCard({ item }: Props) {
+  const formattedHeroImage = formateHeroImage(item.anchorImg)
+  return (
+    <Link
+      href={`/story/${item.slug}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <li className={styles.card}>
+        <figure>
+          <Image
+            images={formattedHeroImage}
+            alt={item.name}
+            loadingImage="/images/loading.svg"
+            defaultImage="/images/image-default.jpg"
+            rwd={{
+              mobile: '500px',
+              tablet: '500px',
+              laptop: '500px',
+              desktop: '500px',
+              default: '500px',
+            }}
+          />
+          <figcaption>{item.name}</figcaption>
+        </figure>
+      </li>
+    </Link>
+  )
+}
