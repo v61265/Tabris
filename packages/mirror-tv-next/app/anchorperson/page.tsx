@@ -1,0 +1,79 @@
+import errors from '@twreporter/errors'
+import type { Metadata } from 'next'
+import { getClient } from '~/apollo-client'
+import {
+  GLOBAL_CACHE_SETTING,
+  SITE_URL,
+} from '~/constants/environment-variables'
+import {
+  fetchContactsByAnchorPerson,
+  fetchContactsByHost,
+} from '~/graphql/query/contact'
+
+export const revalidate = GLOBAL_CACHE_SETTING
+
+export const metadata: Metadata = {
+  metadataBase: new URL(`https://${SITE_URL}`),
+  title: '鏡主播 - 鏡新聞',
+  openGraph: {
+    title: '鏡主播 - 鏡新聞',
+  },
+}
+
+export default async function Anchorperson() {
+  const client = getClient()
+  try {
+    const [anchorResponse, hostResponse] = await Promise.allSettled([
+      client.query({ query: fetchContactsByAnchorPerson }),
+      client.query({ query: fetchContactsByHost }),
+    ])
+
+    if (anchorResponse.status === 'fulfilled') {
+      const anchorData = anchorResponse.value.data
+      console.log(anchorData)
+    } else {
+      const annotatingError = errors.helpers.wrap(
+        anchorResponse.reason,
+        'UnhandledError',
+        'Error occurs while fetching anchorData'
+      )
+
+      console.error(
+        JSON.stringify({
+          severity: 'ERROR',
+          message: errors.helpers.printAll(annotatingError, {
+            withStack: false,
+            withPayload: true,
+          }),
+        })
+      )
+      throw annotatingError
+    }
+
+    if (hostResponse.status === 'fulfilled') {
+      const hostData = hostResponse.value.data
+      console.log(hostData)
+    } else {
+      const annotatingError = errors.helpers.wrap(
+        hostResponse.reason,
+        'UnhandledError',
+        'Error occurs while fetching hostData'
+      )
+
+      console.error(
+        JSON.stringify({
+          severity: 'ERROR',
+          message: errors.helpers.printAll(annotatingError, {
+            withStack: false,
+            withPayload: true,
+          }),
+        })
+      )
+      throw annotatingError
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
+  return <div>Anchorperson</div>
+}
