@@ -13,25 +13,27 @@ export default function UiContactCard({ item }: Props) {
   const formattedHeroImage = formateHeroImage(item.anchorImg)
   return (
     <Link
-      href={`/story/${item.slug}`}
+      href={`/anchorperson/${item.slug}`}
       target="_blank"
       rel="noopener noreferrer"
     >
       <li className={styles.card}>
         <figure>
-          <Image
-            images={formattedHeroImage}
-            alt={item.name}
-            loadingImage="/images/loading.svg"
-            defaultImage="/images/image-default.jpg"
-            rwd={{
-              mobile: '500px',
-              tablet: '500px',
-              laptop: '500px',
-              desktop: '500px',
-              default: '500px',
-            }}
-          />
+          <div className={styles.imageWrapper}>
+            <Image
+              images={formattedHeroImage}
+              alt={item.name}
+              loadingImage="/images/loading.svg"
+              defaultImage="/images/image-default.jpg"
+              rwd={{
+                mobile: '500px',
+                tablet: '500px',
+                laptop: '500px',
+                desktop: '500px',
+                default: '500px',
+              }}
+            />
+          </div>
           <figcaption>{item.name}</figcaption>
         </figure>
       </li>

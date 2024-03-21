@@ -20,7 +20,6 @@
 }
 
 .section {
-  background-color: rgb(152, 132, 136);
   width: 288px;
   margin-top: 48px;
   @include media-breakpoint-up(md) {
@@ -40,6 +39,10 @@
 .titleWrapper {
   display: flex;
   align-items: center;
+  margin-bottom: 16px;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 24px;
+  }
 }
 
 .title {
@@ -62,5 +65,26 @@
   background-color: #fc0;
   @include media-breakpoint-up(md) {
     width: calc(100% - 110px);
+  }
+}
+
+.cardsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 16px;
+  row-gap: 16px;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 32px;
+    row-gap: 24px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include media-breakpoint-up(xxl) {
+    column-gap: 40px;
   }
 }

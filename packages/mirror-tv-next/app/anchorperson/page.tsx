@@ -81,19 +81,29 @@ export default async function Anchorperson() {
     console.error(err)
   }
 
+  type SectionProps = {
+    title: string
+    data: Contact[]
+  }
+
+  const Section = ({ title, data }: SectionProps) => (
+    <section className={styles.section}>
+      <div className={styles.titleWrapper}>
+        <span className={styles.title}>{title}</span>
+        <span className={styles.line} />
+      </div>
+      <ul className={styles.cardsList}>
+        {data.map((item) => (
+          <UiContactCard item={item} key={item.name} />
+        ))}
+      </ul>
+    </section>
+  )
+
   return (
     <main className={styles.main}>
-      <section className={styles.section}>
-        <div className={styles.titleWrapper}>
-          <span className={styles.title}>鏡主播</span>
-          <span className={styles.line} />
-        </div>
-        <ul className={styles.cardsList}>
-          {anchorData.map((item) => {
-            return <UiContactCard item={item} key={item.name} />
-          })}
-        </ul>
-      </section>
+      <Section title="鏡主播" data={anchorData} />
+      <Section title="鏡主持" data={hostData} />
     </main>
   )
 }
