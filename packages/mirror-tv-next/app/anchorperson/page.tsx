@@ -36,7 +36,6 @@ export default async function Anchorperson() {
 
     if (anchorResponse.status === 'fulfilled') {
       anchorData = anchorResponse.value.data.allContacts
-      console.log(anchorData)
     } else {
       const annotatingError = errors.helpers.wrap(
         anchorResponse.reason,
@@ -58,7 +57,6 @@ export default async function Anchorperson() {
 
     if (hostResponse.status === 'fulfilled') {
       hostData = hostResponse.value.data.allContacts
-      console.log(hostData)
     } else {
       const annotatingError = errors.helpers.wrap(
         hostResponse.reason,
