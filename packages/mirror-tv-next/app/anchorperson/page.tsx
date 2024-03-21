@@ -5,6 +5,7 @@ import {
   GLOBAL_CACHE_SETTING,
   SITE_URL,
 } from '~/constants/environment-variables'
+import type { Contact } from '~/graphql/query/contact'
 import {
   fetchContactsByAnchorPerson,
   fetchContactsByHost,
@@ -28,8 +29,11 @@ export default async function Anchorperson() {
       client.query({ query: fetchContactsByHost }),
     ])
 
+    let anchorData: Contact[] = []
+    let hostData: Contact[] = []
+
     if (anchorResponse.status === 'fulfilled') {
-      const anchorData = anchorResponse.value.data
+      anchorData = anchorResponse.value.data
       console.log(anchorData)
     } else {
       const annotatingError = errors.helpers.wrap(
@@ -51,7 +55,7 @@ export default async function Anchorperson() {
     }
 
     if (hostResponse.status === 'fulfilled') {
-      const hostData = hostResponse.value.data
+      hostData = hostResponse.value.data
       console.log(hostData)
     } else {
       const annotatingError = errors.helpers.wrap(

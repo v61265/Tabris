@@ -1,4 +1,11 @@
 import gql from 'graphql-tag'
+import type { HeroImage } from '~/types/common'
+
+export type Contact = {
+  name: string
+  slug: string
+  anchorImg: HeroImage | null
+}
 
 const fetchContactBySlug = gql`
   query ($slug: String!, $shouldFetchRelatedShows: Boolean = false) {
