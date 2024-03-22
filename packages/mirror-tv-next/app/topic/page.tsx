@@ -50,7 +50,7 @@ export default async function TagPage() {
       })
     )
 
-    throw new Error('Error occurs while fetching data.')
+    throw annotatingError
   }
 
   return (
