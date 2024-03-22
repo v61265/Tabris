@@ -39,27 +39,27 @@ export async function generateMetadata({
     const { topic }: { topic: SingleTopic[] } = response.data
     singleTopic = topic[0] ?? undefined
 
-    // Throw an error if singleTopic is undefined
     if (!singleTopic) {
-      throw new Error('Topic not found')
+      const annotatingError = errors.helpers.wrap(
+        new Error('Single Topic not found'),
+        'UnhandledError',
+        'Error occurs while fetching posts data for single topic page'
+      )
+
+      console.error(
+        JSON.stringify({
+          severity: 'ERROR',
+          message: errors.helpers.printAll(annotatingError, {
+            withStack: false,
+            withPayload: true,
+          }),
+        })
+      )
+      throw annotatingError
     }
   } catch (err) {
-    const annotatingError = errors.helpers.wrap(
-      err,
-      'UnhandledError',
-      'Error occurs while fetching posts data for single topic page'
-    )
-
-    console.error(
-      JSON.stringify({
-        severity: 'ERROR',
-        message: errors.helpers.printAll(annotatingError, {
-          withStack: false,
-          withPayload: true,
-        }),
-      })
-    )
-    throw annotatingError
+    console.error(err)
+    notFound()
   }
 
   const description = handleMetaDesc(singleTopic?.briefHtml ?? '')
