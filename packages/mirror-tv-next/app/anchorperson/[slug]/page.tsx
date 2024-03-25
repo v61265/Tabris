@@ -1,8 +1,10 @@
 import errors from '@twreporter/errors'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
+import AnchorImg from '~/components/anchorperson/anchor-img'
 import type { SingleAnchor } from '~/graphql/query/contact'
 import { fetchContactBySlug } from '~/graphql/query/contact'
+import styles from '~/styles/pages/single-anchorperson-page.module.scss'
 
 export default async function singleAnchor({
   params,
@@ -47,5 +49,12 @@ export default async function singleAnchor({
     notFound()
   }
 
-  return <div>{singleAnchor.name}</div>
+  return (
+    <main className={styles.main}>
+      <section className={styles.section}>
+        <AnchorImg heroImage={singleAnchor.showhostImg} />
+        <div>{singleAnchor.name}</div>
+      </section>
+    </main>
+  )
 }
