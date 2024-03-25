@@ -1,6 +1,7 @@
 import errors from '@twreporter/errors'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
+import type { SingleAnchor } from '~/graphql/query/contact'
 import { fetchContactBySlug } from '~/graphql/query/contact'
 
 export default async function singleAnchor({
@@ -9,7 +10,7 @@ export default async function singleAnchor({
   params: { slug: string }
 }) {
   const client = getClient()
-  let singleAnchor
+  let singleAnchor: SingleAnchor
 
   try {
     const response = await client.query({
@@ -46,5 +47,5 @@ export default async function singleAnchor({
     notFound()
   }
 
-  return <div>主播</div>
+  return <div>{singleAnchor.name}</div>
 }
