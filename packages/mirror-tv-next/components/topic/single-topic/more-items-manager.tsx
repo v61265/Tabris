@@ -37,7 +37,7 @@ export default function MoreItemsManager({
   }
 
   return (
-    <>
+    <div className="topic-listing__content">
       <ul className={styles.postItemWrapper}>
         {postsList.map((item, index) => (
           <li key={index}>
@@ -50,6 +50,6 @@ export default function MoreItemsManager({
           <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
         </div>
       )}
-    </>
+    </div>
   )
 }
