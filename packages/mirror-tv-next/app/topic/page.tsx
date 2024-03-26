@@ -55,7 +55,9 @@ export default async function TagPage() {
 
   return (
     <section className={styles.topic}>
-      <div className={styles.topicWrapper}>
+      <div
+        className={[styles.topicWrapper, 'topic-listing__content'].join(' ')}
+      >
         <h1 className={styles.topicName}>推薦專題</h1>
         <TopicsListManager
           pageSize={PAGE_SIZE}
