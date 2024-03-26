@@ -7,6 +7,15 @@ export type Contact = {
   anchorImg: HeroImage
 }
 
+export type SingleAnchor = Contact & {
+  facebook: string | null
+  instagram: string | null
+  twitter: string | null
+  bioApiData: string
+  showhostImg: HeroImage
+  __typename: string
+}
+
 const fetchContactBySlug = gql`
   query ($slug: String!, $shouldFetchRelatedShows: Boolean = false) {
     allContacts(where: { slug: $slug }) {

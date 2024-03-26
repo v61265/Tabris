@@ -1,3 +1,5 @@
+import type { ApiData } from '~/types/api-data'
+
 function isServer(): boolean {
   return typeof window === 'undefined'
 }
@@ -20,4 +22,15 @@ function handleMetaDesc(str: string) {
   return formatedStr.length > 123 ? formatedStr + '...' : formatedStr
 }
 
-export { extractYoutubeId, handleMetaDesc, isServer }
+function handleApiData(apiData: string) {
+  try {
+    const rawString = apiData ?? ''
+    const content = JSON.parse(rawString)
+
+    return content?.filter((item: ApiData) => item) || []
+  } catch {
+    return []
+  }
+}
+
+export { extractYoutubeId, handleApiData, handleMetaDesc, isServer }
