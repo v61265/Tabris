@@ -53,7 +53,9 @@ export default async function singleAnchor({
     <main className={styles.main}>
       <section className={styles.section}>
         <AnchorImg heroImage={singleAnchor.showhostImg} />
-        <div>{singleAnchor.name}</div>
+        <div className={styles.contentWrapper}>
+          <div className={styles.title}>{singleAnchor.name}</div>
+        </div>
       </section>
     </main>
   )
