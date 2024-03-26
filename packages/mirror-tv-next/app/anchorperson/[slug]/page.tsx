@@ -6,6 +6,7 @@ import SocialIcon from '~/components/anchorperson/social-icon'
 import type { SingleAnchor } from '~/graphql/query/contact'
 import { fetchContactBySlug } from '~/graphql/query/contact'
 import styles from '~/styles/pages/single-anchorperson-page.module.scss'
+import { handleApiData } from '~/utils'
 
 export default async function singleAnchor({
   params,
@@ -24,8 +25,6 @@ export default async function singleAnchor({
     })
     const data = response.data
     singleAnchor = data.allContacts[0]
-
-    console.log(singleAnchor)
 
     if (!singleAnchor) {
       const annotatingError = errors.helpers.wrap(
@@ -64,6 +63,8 @@ export default async function singleAnchor({
     },
   ]
 
+  const bio = handleApiData(singleAnchor.bioApiData)
+
   return (
     <main className={styles.main}>
       <section className={styles.section}>
@@ -84,6 +85,11 @@ export default async function singleAnchor({
                   )
               )}
             </div>
+          </div>
+          <div className={styles.bio}>
+            {bio.map((item: { id: string; content: string }) => (
+              <div key={item.id}>{item.content && <p>{item.content}</p>}</div>
+            ))}
           </div>
         </div>
       </section>
