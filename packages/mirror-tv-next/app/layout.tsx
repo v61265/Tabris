@@ -1,9 +1,10 @@
+import { GoogleTagManager } from '@next/third-parties/google'
 import type { Metadata } from 'next'
 import { Noto_Sans } from 'next/font/google'
 import Footer from '~/components/layout/footer'
 import MainHeader from '~/components/layout/header/main-header'
 import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
-import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import { GLOBAL_CACHE_SETTING, GTM_ID } from '~/constants/environment-variables'
 import '../styles/global.css'
 
 export const revalidate = GLOBAL_CACHE_SETTING
@@ -27,6 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ch" className={`${noto_sans.variable} ${noto_sans.variable}`}>
+      <GoogleTagManager gtmId={GTM_ID} />
       <body>
         <>
           <MainHeader />
