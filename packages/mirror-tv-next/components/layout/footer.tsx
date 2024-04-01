@@ -48,8 +48,8 @@ const socialLinks = [
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.topWrapper}>
+    <footer className={[styles.footer, 'footer'].join(' ')}>
+      <div className={[styles.topWrapper, 'top-wrapper'].join(' ')}>
         <div className={styles.topInnerWrapper}>
           <div className={styles.left}>
             <div className={styles.logo}>
@@ -96,7 +96,9 @@ export default function Footer(): JSX.Element {
             </div>
           </div>
         </div>
-        <div className={styles.right}>
+        <div
+          className={[styles.right, 'top-wrapper__right', 'right'].join(' ')}
+        >
           {footerRightList.map((item) => (
             <a
               key={item.href}
@@ -108,7 +110,13 @@ export default function Footer(): JSX.Element {
             </a>
           ))}
         </div>
-        <ul className={styles.mobileIconsWrapper}>
+        <div
+          className={[
+            styles.mobileIconsWrapper,
+            'footer__top-wrapper',
+            'top-wrapper',
+          ].join(' ')}
+        >
           {socialLinks.map((link, index) => (
             <li className={styles.icon} key={index}>
               <Link href={link.href} target="_blank" rel="noopener noreferrer">
@@ -116,7 +124,7 @@ export default function Footer(): JSX.Element {
               </Link>
             </li>
           ))}
-        </ul>
+        </div>
       </div>
       <div className={styles.bottomWrapper}>
         <div className={styles.texts}>
