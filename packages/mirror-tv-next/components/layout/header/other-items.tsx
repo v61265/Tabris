@@ -5,7 +5,9 @@ import styles from '~/styles/components/layout/header/other-items.module.scss'
 
 export default function OtherItems(): JSX.Element {
   return (
-    <div className={styles.otherItemsWrapper}>
+    <nav
+      className={[styles.otherItemsWrapper, 'bottom-wrapper__bottom'].join(' ')}
+    >
       <ul className={styles.items}>
         {[
           { href: HEADER_BOTTOM_LINKS.ombuds, text: '公評人專區' },
@@ -53,6 +55,6 @@ export default function OtherItems(): JSX.Element {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   )
 }
