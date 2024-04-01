@@ -37,6 +37,7 @@ export default function OtherItems(): JSX.Element {
               href={item.href}
               target={item.iconSrc ? '_blank' : undefined}
               rel={item.iconSrc ? 'noopener noreferrer' : undefined}
+              className="category-nav__link"
             >
               {item.iconSrc ? (
                 <Image
