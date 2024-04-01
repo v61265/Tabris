@@ -16,12 +16,13 @@ export default function UiFeaturePost({ post }: UiFeaturePostProps) {
       rel="noreferrer noopener"
       className={styles.featureCard}
     >
-      <span className={styles.imageWrapper}>
+      <span className={[styles.imageWrapper, 'article-img-wrapper'].join(' ')}>
         <ResponsiveImage
           images={images}
           alt={name}
           rwd={{ mobile: '500px', tablet: '500px', desktop: '500px' }}
           priority={false}
+          imgClassName="article-img"
         />
         {style === 'videoNews' && <span className={styles.videoIcon}></span>}
       </span>
