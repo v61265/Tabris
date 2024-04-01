@@ -90,11 +90,11 @@ export default async function Anchorperson() {
         <span className={styles.title}>{title}</span>
         <span className={styles.line} />
       </div>
-      <ul className={styles.cardsList}>
+      <ol className={[styles.cardsList, 'anchor__list'].join(' ')}>
         {data.map((item) => (
           <UiContactCard item={item} key={item.name} />
         ))}
-      </ul>
+      </ol>
     </section>
   )
 

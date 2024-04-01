@@ -121,12 +121,19 @@ export default async function singleAnchor({
       href: singleAnchor.facebook,
       src: '/icons/icon-fb.svg',
       alt: 'facebook icon',
+      name: 'facebook',
     },
-    { href: singleAnchor.twitter, src: '/icons/icon-x.svg', alt: 'x icon' },
+    {
+      href: singleAnchor.twitter,
+      src: '/icons/icon-x.svg',
+      alt: 'x icon',
+      name: 'twitter',
+    },
     {
       href: singleAnchor.instagram,
       src: '/icons/icon-ig.svg',
       alt: 'instagram icon',
+      name: 'instagram',
     },
   ]
 
@@ -148,6 +155,7 @@ export default async function singleAnchor({
                       href={icon.href}
                       src={icon.src}
                       alt={icon.alt}
+                      name={icon.name}
                     />
                   )
               )}
