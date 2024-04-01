@@ -143,7 +143,7 @@ export default async function CategoryPage({
     <section className={styles.postsList}>
       <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
-        <>
+        <div className="list-latest-wrapper">
           <UiFeaturePost post={categoryPosts[0]} />
           <PostsListManager
             salePostsList={salePosts}
@@ -152,7 +152,7 @@ export default async function CategoryPage({
             postsCount={postsCount}
             initPostsList={categoryPosts.slice(1)}
           />
-        </>
+        </div>
       )}
     </section>
   )
