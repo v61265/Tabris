@@ -12,7 +12,18 @@
  *   position.toUpperCase(),
  * ].join('_')
  */
-const GPT_UNITS = {
+
+// Define GPT_UNITS type
+type SingleSizeArray = [number, number]
+interface GPTUnits {
+  [pageKey: string]: {
+    [adKey: string]: {
+      adUnit: string
+      adSize: SingleSizeArray[]
+    }
+  }
+}
+const GPT_UNITS: GPTUnits = {
   // page key: fs，蓋版廣告
   fs: {
     // ad key
@@ -369,4 +380,13 @@ const GPT_UNITS = {
 
 const GPT_AD_NETWORK = '22699107359'
 
-export { GPT_AD_NETWORK, GPT_UNITS }
+const mediaSize = {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1440,
+}
+
+export { GPT_AD_NETWORK, GPT_UNITS, mediaSize }
