@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import styles from '~/styles/components/category/video/video-posts-list.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react'
@@ -30,25 +30,22 @@ export default function VideoPostsList({
   postsCount,
   initPostsList,
 }: VideoPostsListProps) {
-  const POSTS_LIST_LENGTH_MAX = 24
-  const [page, setPage] = useState(1)
+  const [activeIndex, setActiveIndex] = useState(3)
   const [postsList, setPostsList] = useState<FormattedPostCard[]>([
     ...initPostsList,
   ])
-  const [slidesPerView, setSlidesPerView] = useState(2)
-  const placeholder = useMemo<number[]>(() => {
-    const placeholderCount = 3 - (postsList.length % 3)
-    return Array(placeholderCount).fill(null)
-  }, [postsList])
+  const [swiperStatus, setSwiperStatus] = useState<'start' | 'middle' | 'end'>(
+    'start'
+  )
 
   const sliderRef = useRef<SwiperRef>(null)
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return
     sliderRef.current?.swiper?.slidePrev()
-    setPage((page) => page - 1)
   }, [])
 
   const handleLoadMore = async () => {
+    console.log('load more')
     const {
       data: { allPosts: newPosts },
     } = await fetchVideoPostsItems({
@@ -64,41 +61,13 @@ export default function VideoPostsList({
   const handleNext = useCallback(async () => {
     if (!sliderRef.current) return
     sliderRef.current?.swiper?.slideNext()
-    setPage((page) => page + 1)
   }, [])
 
   useEffect(() => {
-    if (
-      (page + 2) * slidesPerView > postsList.length &&
-      (page + 2) * slidesPerView < postsCount &&
-      (page + 2) * slidesPerView < POSTS_LIST_LENGTH_MAX
-    ) {
+    if (activeIndex + 6 > postsList.length && activeIndex + 1 < postsCount) {
       handleLoadMore()
     }
-  }, [page])
-
-  const [gapPx, setGapPx] = useState(16)
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth
-      const tabletWidthThreshold = 768
-      const desktopWidthThreshold = 1200
-      if (width >= tabletWidthThreshold) {
-        setGapPx(20)
-        setSlidesPerView(3)
-      } else if (width >= desktopWidthThreshold) {
-        setGapPx(24)
-      }
-    }
-    // Add event listener for resize to detect changes in viewport width
-    window.addEventListener('resize', handleResize)
-    // Call handleResize once initially to set the correct value on component mount
-    handleResize()
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+  }, [activeIndex])
 
   return (
     <div className={styles.list}>
@@ -118,13 +87,34 @@ export default function VideoPostsList({
         <Swiper
           ref={sliderRef}
           cssMode={true}
-          slidesPerView={slidesPerView}
-          spaceBetween={gapPx}
-          slidesPerGroup={slidesPerView}
+          slidesPerView={2}
+          spaceBetween={16}
+          slidesPerGroup={2}
           loop={false}
           mousewheel={true}
+          slidesOffsetAfter={0}
+          loopAddBlankSlides={true}
           keyboard={true}
           modules={[Mousewheel, Keyboard, Navigation]}
+          onSlideChange={(swiperCore) => {
+            const { activeIndex } = swiperCore
+            setSwiperStatus('middle')
+            setActiveIndex(activeIndex)
+          }}
+          onReachBeginning={() => setSwiperStatus('start')}
+          onReachEnd={() => setSwiperStatus('end')}
+          breakpoints={{
+            768: {
+              slidesPerGroup: 3,
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1200: {
+              slidesPerGroup: 3,
+              slidesPerView: 3,
+              spaceBetween: 24,
+            },
+          }}
         >
           {postsList.map((post, index) => {
             return (
@@ -137,20 +127,11 @@ export default function VideoPostsList({
               </SwiperSlide>
             )
           })}
-          {placeholder.map((item, index) => {
-            return (
-              <SwiperSlide
-                key={index}
-                className={styles.swiperSlide}
-              ></SwiperSlide>
-            )
-          })}
         </Swiper>
-        {page !== 1 && (
+        {swiperStatus !== 'start' && (
           <div className={styles.prevArrow} onClick={handlePrev}></div>
         )}
-        {page * slidesPerView !==
-          Math.min(postsCount + placeholder.length, POSTS_LIST_LENGTH_MAX) && (
+        {swiperStatus !== 'end' && (
           <div className={styles.nextArrow} onClick={handleNext}></div>
         )}
       </ol>
