@@ -143,7 +143,7 @@ export default async function VideoCategoryPage() {
           <VideoPostsList
             initPostsList={popularVideos}
             categorySlug=""
-            categoryName="熱門新聞"
+            categoryName="熱門影音"
             pageSize={PAGE_SIZE}
             postsCount={popularVideos.length}
           />

@@ -45,7 +45,6 @@ export default function VideoPostsList({
   }, [])
 
   const handleLoadMore = async () => {
-    console.log('load more')
     const {
       data: { allPosts: newPosts },
     } = await fetchVideoPostsItems({
