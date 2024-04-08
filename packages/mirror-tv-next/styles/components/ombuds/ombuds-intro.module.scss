@@ -1,7 +1,13 @@
 @import 'styles/theme/breakpoints';
 
 .ombudsIntroContent {
-  margin-top: 24px;
+  margin: 24px auto;
+  @include media-breakpoint-up(md) {
+    width: 696px;
+  }
+  @include media-breakpoint-up(xl) {
+    width: 1120px;
+  }
 }
 
 .ombudsTitle {
@@ -9,13 +15,13 @@
   font-weight: 500;
   color: #004dbc;
   line-height: 28px;
-  margin-left: 16px;
   margin-bottom: 12px;
+  padding-left: 16px;
   @include media-breakpoint-up(md) {
     font-size: 30px;
     line-height: 42px;
-    margin-left: 40px;
     margin-bottom: 24px;
+    padding: 0px;
   }
 }
 
@@ -28,7 +34,7 @@
 .videoWrapper {
   margin-bottom: 24px;
   @include media-breakpoint-up(md) {
-    margin-left: 40px;
+    margin-right: 24px;
     min-width: 384px;
     max-width: 384px;
     height: 216px;
@@ -40,12 +46,12 @@
   padding: 0px 16px;
   @include media-breakpoint-up(md) {
     margin-top: 0px;
+    padding: 0px;
   }
 }
 
 .para {
   font-size: 16px;
-  font-weight: 400;
   line-height: 1.8;
   margin-bottom: 8px;
 }
