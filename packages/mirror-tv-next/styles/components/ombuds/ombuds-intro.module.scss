@@ -1,0 +1,79 @@
+@import 'styles/theme/breakpoints';
+
+.ombudsIntroContent {
+  margin-top: 24px;
+}
+
+.ombudsTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #004dbc;
+  line-height: 28px;
+  margin-left: 16px;
+  margin-bottom: 12px;
+  @include media-breakpoint-up(md) {
+    font-size: 30px;
+    line-height: 42px;
+    margin-left: 40px;
+    margin-bottom: 24px;
+  }
+}
+
+.ombudsIntroWrapper {
+  @include media-breakpoint-up(md) {
+    display: flex;
+  }
+}
+
+.videoWrapper {
+  margin-bottom: 24px;
+  @include media-breakpoint-up(md) {
+    margin-left: 40px;
+    min-width: 384px;
+    max-width: 384px;
+    height: 216px;
+  }
+}
+
+.introArticle {
+  margin-top: 24px;
+  padding: 0px 16px;
+  @include media-breakpoint-up(md) {
+    margin-top: 0px;
+  }
+}
+
+.para {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.linkWrapper {
+  position: relative;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 28px;
+  margin-left: calc(100% - 80px);
+
+  ::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: -3px;
+    height: 1px;
+    background-color: #000;
+  }
+  ::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(-45deg);
+  }
+}
