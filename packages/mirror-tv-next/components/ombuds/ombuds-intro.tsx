@@ -24,7 +24,11 @@ export default function ombudsIntro() {
               翁秀琪是德國曼茵茲大學大眾傳播學博士，在傳播學術界擔任教職逾三十年。2021年1月1日起，擔任鏡電視新聞台外部公評人。主要工作在確保新聞內容符合正確、平衡、公平和好的品味，並代表閱聽人的利益，處理公眾申訴案件，扮演閱聽眾和電視台之間的溝通橋梁。外部公評人獨立於鏡電視新聞台，直接向董事會負責，任期三年，得連任。
             </p>
             <div className={styles.linkWrapper}>
-              <Link href="/story/biography" target="_blank">
+              <Link
+                href="/story/biography"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 了解更多
               </Link>
             </div>
@@ -41,6 +45,7 @@ export default function ombudsIntro() {
               <Link
                 href="/story/complaint"
                 target="_blank"
+                rel="noreferrer noopener"
                 className={styles.reportLink}
               >
                 向公評人申訴
