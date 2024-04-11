@@ -81,7 +81,10 @@ const getTopics = gql`
 `
 
 const fetchSingleTopicByTopicSlug = gql`
-  query ($topicSlug: String!, $withCount: Boolean = true) {
+  query fetchSingleTopicByTopicSlug(
+    $topicSlug: String!
+    $withCount: Boolean = true
+  ) {
     topic: allTopics(where: { state: published, slug: $topicSlug }) {
       id
       title: name
@@ -124,7 +127,7 @@ const fetchSingleTopicByTopicSlug = gql`
 `
 
 const fetchPostItemsByTopicSlug = gql`
-  query (
+  query fetchPostItemsByTopicSlug(
     $topicSlug: String!
     $first: Int = 12
     $skip: Int
@@ -156,7 +159,7 @@ const fetchPostItemsByTopicSlug = gql`
 `
 
 const fetchPostSortDirBySlug = gql`
-  query ($topicSlug: String!) {
+  query fetchPostSortDirBySlug($topicSlug: String!) {
     topic: allTopics(where: { state: published, slug: $topicSlug }) {
       sortDir
     }
