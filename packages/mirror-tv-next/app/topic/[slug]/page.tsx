@@ -1,5 +1,6 @@
 import errors from '@twreporter/errors'
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -18,6 +19,7 @@ import type { SingleTopic } from '~/graphql/query/topic'
 import { fetchSingleTopicByTopicSlug } from '~/graphql/query/topic'
 import styles from '~/styles/pages/single-topic-page.module.scss'
 import { handleMetaDesc } from '~/utils'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -142,6 +144,10 @@ export default async function SingleTopicPage({
 
   return (
     <main className={styles.mainWrapper}>
+      <div className={styles.gptAdContainerPc}>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </div>
       {(() => {
         switch (singleTopic.leading) {
           case 'video':

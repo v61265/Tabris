@@ -1,13 +1,15 @@
 import errors from '@twreporter/errors'
-import { Topic } from '~/graphql/query/topic'
-import styles from '~/styles/pages/topic-page.module.scss'
+import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
+import { fetchTopics } from '~/components/topic/action'
+import TopicsListManager from '~/components/topic/topics-list-manager'
 import {
   GLOBAL_CACHE_SETTING,
   SITE_URL,
 } from '~/constants/environment-variables'
-import TopicsListManager from '~/components/topic/topics-list-manager'
-import { fetchTopics } from '~/components/topic/action'
-import type { Metadata } from 'next'
+import { Topic } from '~/graphql/query/topic'
+import styles from '~/styles/pages/topic-page.module.scss'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -55,6 +57,10 @@ export default async function TagPage() {
 
   return (
     <section className={styles.topic}>
+      <div className={styles.gptAdContainerPc}>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </div>
       <div
         className={[styles.topicWrapper, 'topic-listing__content'].join(' ')}
       >
