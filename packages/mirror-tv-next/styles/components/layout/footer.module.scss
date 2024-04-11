@@ -70,6 +70,10 @@
   margin-top: 24px;
   margin-bottom: 30px;
 
+  li {
+    list-style: none;
+  }
+
   @include media-breakpoint-up(xl) {
     display: none;
   }
