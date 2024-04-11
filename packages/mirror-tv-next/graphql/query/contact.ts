@@ -17,7 +17,10 @@ export type SingleAnchor = Contact & {
 }
 
 const fetchContactBySlug = gql`
-  query ($slug: String!, $shouldFetchRelatedShows: Boolean = false) {
+  query fetchContactBySlug(
+    $slug: String!
+    $shouldFetchRelatedShows: Boolean = false
+  ) {
     allContacts(where: { slug: $slug }) {
       name
       facebook
@@ -38,7 +41,7 @@ const fetchContactBySlug = gql`
   }
 `
 const fetchContactsByAnchorPerson = gql`
-  query {
+  query fetchContactsByAnchorPerson {
     allContacts(
       where: { anchorperson: true }
       sortBy: [sortOrder_ASC, updatedAt_DESC]
@@ -55,7 +58,7 @@ const fetchContactsByAnchorPerson = gql`
 `
 
 const fetchContactsByHost = gql`
-  query {
+  query fetchContactsByHost {
     allContacts(
       where: { host: true }
       sortBy: [sortOrder_ASC, updatedAt_DESC]
