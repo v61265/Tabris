@@ -1,10 +1,11 @@
 'use client'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import styles from '~/styles/components/category/video/video-posts-list.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react'
 import { fetchVideoPostsItems } from '~/components/category/video/action'
 import { formatArticleCard, FormattedPostCard } from '~/utils'
+import useWindowDimensions from '~/hooks/use-window-dimensions'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -30,7 +31,6 @@ export default function VideoPostsList({
   postsCount,
   initPostsList,
 }: VideoPostsListProps) {
-  const [activeIndex, setActiveIndex] = useState(3)
   const [postsList, setPostsList] = useState<FormattedPostCard[]>([
     ...initPostsList,
   ])
@@ -38,35 +38,45 @@ export default function VideoPostsList({
     'start'
   )
 
-  const sliderRef = useRef<SwiperRef>(null)
-  const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return
-    sliderRef.current?.swiper?.slidePrev()
-  }, [])
+  const { width: viewportWidth = 0 } = useWindowDimensions()
+  const slidesPerView = useMemo(() => {
+    return viewportWidth >= 768 ? 3 : 2
+  }, [viewportWidth])
+  const placeholders = useMemo(() => {
+    const placeholdersCount = slidesPerView - (postsCount % slidesPerView)
+    return Array(placeholdersCount).fill('_')
+  }, [slidesPerView, postsCount])
 
+  // about load more and fetch
+  const [isFetching, setIsFetching] = useState(false)
+  const [fetchedTime, setFetchedTime] = useState(0)
   const handleLoadMore = async () => {
+    if (isFetching) return
+    setIsFetching(true)
     const {
       data: { allPosts: newPosts },
     } = await fetchVideoPostsItems({
-      page: 1,
+      // fetch next page
+      page: fetchedTime + 1,
       categorySlug: categorySlug,
       isWithCount: false,
       pageSize,
     })
     if (!newPosts) return
+    setFetchedTime((prev) => prev + 1)
     setPostsList((oldPost) => [...oldPost, ...newPosts.map(formatArticleCard)])
+    setIsFetching(false)
   }
 
+  const sliderRef = useRef<SwiperRef>(null)
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return
+    sliderRef.current?.swiper?.slidePrev()
+  }, [])
   const handleNext = useCallback(async () => {
     if (!sliderRef.current) return
     sliderRef.current?.swiper?.slideNext()
   }, [])
-
-  useEffect(() => {
-    if (activeIndex + 6 > postsList.length && activeIndex + 1 < postsCount) {
-      handleLoadMore()
-    }
-  }, [activeIndex])
 
   return (
     <div className={styles.list}>
@@ -98,7 +108,13 @@ export default function VideoPostsList({
           onSlideChange={(swiperCore) => {
             const { activeIndex } = swiperCore
             setSwiperStatus('middle')
-            setActiveIndex(activeIndex)
+            if (
+              !(activeIndex % slidesPerView) &&
+              activeIndex + (slidesPerView + 1) >= postsList.length &&
+              postsList.length < postsCount
+            ) {
+              handleLoadMore()
+            }
           }}
           onReachBeginning={() => setSwiperStatus('start')}
           onReachEnd={() => setSwiperStatus('end')}
@@ -126,8 +142,14 @@ export default function VideoPostsList({
               </SwiperSlide>
             )
           })}
+          {placeholders.map((_, index) => (
+            <SwiperSlide
+              key={`placeholder-${index}`}
+              className={styles.swiperSlide}
+            ></SwiperSlide>
+          ))}
         </Swiper>
-        {swiperStatus !== 'start' && (
+        {swiperStatus !== 'start' && postsCount > slidesPerView && (
           <div className={styles.prevArrow} onClick={handlePrev}></div>
         )}
         {swiperStatus !== 'end' && (
