@@ -18,3 +18,43 @@
     display: none;
   }
 }
+
+.gptAdContainerPc {
+  display: none;
+  @include media-breakpoint-up(xl) {
+    min-height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 28px 0;
+
+    background-color: #f4f5f6;
+  }
+
+  p {
+    color: #d2d2d2;
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+.gptAdContainerMb {
+  min-height: 258px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 12px 0;
+
+  background-color: #f4f5f6;
+
+  p {
+    color: #d2d2d2;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  @include media-breakpoint-up(xl) {
+    display: none;
+  }
+}
