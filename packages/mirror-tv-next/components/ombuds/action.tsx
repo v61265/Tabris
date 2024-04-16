@@ -12,11 +12,9 @@ type FetchOmbudsPostsProps = {
 }
 
 type OmbudsResponse = {
-  data: {
-    allPosts: Post[]
-    _allPostsMeta?: {
-      count: number
-    }
+  allPosts: Post[]
+  _allPostsMeta?: {
+    count: number
   }
 }
 
@@ -37,7 +35,7 @@ async function fetchOmbudsPosts({
         withCount: isWithCount,
       },
     })
-    return { items: data.data.allPosts }
+    return { items: data.allPosts }
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,

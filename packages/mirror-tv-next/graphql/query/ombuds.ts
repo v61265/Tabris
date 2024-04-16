@@ -23,7 +23,7 @@ const fetchOmbudsPostsByCategorySlug = gql`
       sortBy: publishTime_DESC
     ) {
       publishTime
-      ...listingPost
+      ...listingPostFragment
     }
     _allPostsMeta(
       where: {

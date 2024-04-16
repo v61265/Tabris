@@ -22,7 +22,6 @@ export default async function OmbudsArticleContainer() {
       slug: filteredSlugArr,
       isWithCount: countOrNot,
     })
-    console.log(postsData)
 
     postsList = postsData.items
   } catch (error) {
