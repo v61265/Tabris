@@ -10,11 +10,14 @@ export default function Home() {
       <div className={styles.mobFlashNewsWrapper}>
         <MainFlashNews />
       </div>
-      <p>Hello, world.</p>
-      {/* Test GPT ADs */}
-      <div>
-        <GPTAd pageKey="story" adKey="PC_R2" />
+      {/* GPT ADs */}
+      <div className={styles.gptAdContainerPc}>
+        <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
+      </div>
+      <div className={styles.gptAdContainerMb}>
+        <p>廣告</p>
+        <GPTAd pageKey="home" adKey="MB_M1" />
       </div>
     </main>
   )
