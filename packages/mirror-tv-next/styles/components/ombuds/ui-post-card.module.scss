@@ -2,13 +2,35 @@
 
 .cardWrapper {
   display: flex;
-  height: 100%;
+  margin: 0 0 16px;
 }
 
 .imageWrapper {
   position: relative;
+  height: 132px;
+  width: 132px;
+  min-width: 132px;
+  min-height: 132px;
 }
 
 .infoWrapper {
   margin: 0 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 16px;
+  height: 88px;
+  line-height: 140%;
+  color: #4a4a4a;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.date {
+  margin: 11px 0 0 0;
+  font-size: 14px;
+  color: #9b9b9b;
 }

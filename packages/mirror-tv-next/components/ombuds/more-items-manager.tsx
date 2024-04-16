@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react'
-import UiLoadMoreButton from '~/components/shared/ui-load-more-button'
 import UiPostCard from './ui-post-card'
 import type { Post } from '~/graphql/query/ombuds'
 import { fetchOmbudsPosts } from './action'
+import styles from '~/styles/components/ombuds/more-items-manager.module.scss'
 
 type Props = {
   slug: string[]
@@ -41,9 +41,9 @@ export default function MoreItemsManager({
           </li>
         ))}
       </ul>
-      <div>
-        <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
-      </div>
+      <button className={styles.loadMoreButton} onClick={handleClickLoadMore}>
+        看更多
+      </button>
     </div>
   )
 }

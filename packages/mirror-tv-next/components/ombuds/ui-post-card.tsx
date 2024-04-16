@@ -3,12 +3,17 @@ import Link from 'next/link'
 import { formateHeroImage } from '~/utils'
 import type { Post } from '~/graphql/query/ombuds'
 import styles from '~/styles/components/ombuds/ui-post-card.module.scss'
+import dayjs from 'dayjs'
 
 type Props = {
   item: Post
 }
 
 export default function UiPostCard({ item }: Props) {
+  function formatDate(date: string): string {
+    return dayjs(date).format('YYYY/MM/DD HH:mm')
+  }
+
   const formattedHeroImage = formateHeroImage(item.heroImage)
   return (
     <Link
@@ -32,10 +37,10 @@ export default function UiPostCard({ item }: Props) {
           }}
         />
       </div>
-      <div className={styles.infoWrapper}>
-        <div>{item.name}</div>
-        <div>{item.publishTime}</div>
-      </div>
+      <span className={styles.infoWrapper}>
+        <span className={styles.title}>{item.name}</span>
+        <span className={styles.date}>{formatDate(item.publishTime)}</span>
+      </span>
     </Link>
   )
 }
