@@ -15,6 +15,7 @@ export default async function OmbudsArticleContainer() {
   ]
   const countOrNot: boolean = true
   let postsList: Post[] = []
+  let nextPageDependment: number = 0
 
   try {
     const postsData = await fetchOmbudsPosts({
@@ -24,7 +25,8 @@ export default async function OmbudsArticleContainer() {
       isWithCount: countOrNot,
     })
 
-    postsList = postsData.items
+    postsList = postsData.allPosts
+    nextPageDependment = postsData._allPostsMeta.count
   } catch (error) {
     console.error('Error fetching Ombuds Articles:', error)
   }
@@ -36,6 +38,7 @@ export default async function OmbudsArticleContainer() {
         initialPostItems={postsList}
         slug={filteredSlugArr}
         isWithCount={countOrNot}
+        countNumber={nextPageDependment}
       />
     </div>
   )

@@ -13,7 +13,7 @@ type FetchOmbudsPostsProps = {
 
 type OmbudsResponse = {
   allPosts: Post[]
-  _allPostsMeta?: {
+  _allPostsMeta: {
     count: number
   }
 }
@@ -23,7 +23,7 @@ async function fetchOmbudsPosts({
   pageSize,
   slug,
   isWithCount,
-}: FetchOmbudsPostsProps): Promise<{ items: Post[] }> {
+}: FetchOmbudsPostsProps): Promise<OmbudsResponse> {
   const client = getClient()
   try {
     const { data } = await client.query<OmbudsResponse>({
@@ -35,7 +35,7 @@ async function fetchOmbudsPosts({
         withCount: isWithCount,
       },
     })
-    return { items: data.allPosts }
+    return data
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,

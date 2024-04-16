@@ -9,12 +9,14 @@ type Props = {
   slug: string[]
   isWithCount: boolean
   initialPostItems: Post[]
+  countNumber: number
 }
 
 export default function MoreItemsManager({
   initialPostItems,
   slug,
   isWithCount,
+  countNumber,
 }: Props) {
   const pageSize = 5
 
@@ -22,15 +24,18 @@ export default function MoreItemsManager({
   const [postsList, setPostsList] = useState<Post[]>([...initialPostItems])
 
   const handleClickLoadMore = async () => {
-    const { items: newPosts } = await fetchOmbudsPosts({
+    const nextPagedata = await fetchOmbudsPosts({
       page,
       pageSize,
       slug,
       isWithCount,
     })
-    if (!newPosts) return
+
+    const nextPagePosts = nextPagedata.allPosts
+
+    if (!nextPagePosts) return
     setPage((page) => page + 1)
-    setPostsList((prevPosts) => [...prevPosts, ...newPosts])
+    setPostsList((prevPosts) => [...prevPosts, ...nextPagePosts])
   }
   return (
     <div>
@@ -41,9 +46,11 @@ export default function MoreItemsManager({
           </li>
         ))}
       </ul>
-      <button className={styles.loadMoreButton} onClick={handleClickLoadMore}>
-        看更多
-      </button>
+      {countNumber > pageSize * (page - 1) && (
+        <button className={styles.loadMoreButton} onClick={handleClickLoadMore}>
+          看更多
+        </button>
+      )}
     </div>
   )
 }
