@@ -66,6 +66,8 @@ export async function generateMetadata({
 
   const description = handleMetaDesc(singleTopic?.briefHtml ?? '')
 
+  console.log(singleTopic?.heroImage?.urlMobileSized)
+
   return {
     metadataBase: new URL(`https://${SITE_URL}`),
     title: `${singleTopic?.title} - 鏡新聞`,
