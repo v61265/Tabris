@@ -16,7 +16,7 @@ import styles from '~/styles/pages/anchorperson-page.module.scss'
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${SITE_URL}`),
+  metadataBase: new URL(SITE_URL),
   title: '鏡主播 - 鏡新聞',
   openGraph: {
     title: '鏡主播 - 鏡新聞',
