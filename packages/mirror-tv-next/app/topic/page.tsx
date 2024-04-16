@@ -14,7 +14,7 @@ const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${SITE_URL}`),
+  metadataBase: new URL(SITE_URL),
   title: '專題 - 鏡新聞',
   openGraph: {
     title: '專題 - 鏡新聞',

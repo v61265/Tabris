@@ -59,7 +59,7 @@ export async function generateMetadata({
   const categoryData = await fetchCategoryData(slug)
 
   return {
-    metadataBase: new URL(`https://${SITE_URL}`),
+    metadataBase: new URL(SITE_URL),
     title: `${categoryData.name} - 鏡新聞`,
     openGraph: {
       title: `${categoryData.name} - 鏡新聞`,
