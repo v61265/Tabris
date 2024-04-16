@@ -75,7 +75,7 @@ export async function generateMetadata({
       description: description !== '' ? description : META_DESCRIPTION,
       siteName: SITE_TITLE,
       images:
-        singleTopic?.heroImage?.urlMobileSized ?? '/images/image-default.jpg',
+        singleTopic?.heroImage?.urlMobileSized ?? '/images/default-og-img.jpg',
     },
   }
 }

@@ -1,20 +1,20 @@
+import errors from '@twreporter/errors'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getClient } from '~/apollo-client'
+import { fetchPostsItems } from '~/components/category/action'
+import PostsListManager from '~/components/category/posts-list-manager'
+import UiFeaturePost from '~/components/category/ui-feature-post'
+import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import {
   GLOBAL_CACHE_SETTING,
   SITE_URL,
 } from '~/constants/environment-variables'
-import type { Metadata } from 'next'
-import { getClient } from '~/apollo-client'
-import errors from '@twreporter/errors'
-import { fetchCategoryBySlug, Category } from '~/graphql/query/category'
-import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
-import styles from '~/styles/pages/category.module.scss'
-import { fetchPostsItems } from '~/components/category/action'
-import UiFeaturePost from '~/components/category/ui-feature-post'
-import PostsListManager from '~/components/category/posts-list-manager'
-import { formatArticleCard, FormattedPostCard } from '~/utils'
-import { notFound } from 'next/navigation'
-import { getSales } from '~/graphql/query/sales'
+import { Category, fetchCategoryBySlug } from '~/graphql/query/category'
 import type { Sale } from '~/graphql/query/sales'
+import { getSales } from '~/graphql/query/sales'
+import styles from '~/styles/pages/category.module.scss'
+import { FormattedPostCard, formatArticleCard } from '~/utils'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -63,6 +63,9 @@ export async function generateMetadata({
     title: `${categoryData.name} - 鏡新聞`,
     openGraph: {
       title: `${categoryData.name} - 鏡新聞`,
+      images: {
+        url: '/images/default-og-img.jpg',
+      },
     },
   }
 }

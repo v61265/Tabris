@@ -24,6 +24,9 @@ export async function generateMetadata({
     title: `${tagName} - 鏡新聞`,
     openGraph: {
       title: `${tagName} - 鏡新聞`,
+      images: {
+        url: '/images/default-og-img.jpg',
+      },
     },
   }
 }

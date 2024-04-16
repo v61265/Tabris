@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: '鏡主播 - 鏡新聞',
   openGraph: {
     title: '鏡主播 - 鏡新聞',
+    images: {
+      url: '/images/default-og-img.jpg',
+    },
   },
 }
 
