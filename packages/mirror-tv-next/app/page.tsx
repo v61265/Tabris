@@ -7,9 +7,6 @@ const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.mobFlashNewsWrapper}>
-        <MainFlashNews />
-      </div>
       {/* GPT ADs */}
       <div className={styles.gptAdContainerPc}>
         <p>廣告</p>
@@ -18,6 +15,9 @@ export default function Home() {
       <div className={styles.gptAdContainerMb}>
         <p>廣告</p>
         <GPTAd pageKey="home" adKey="MB_M1" />
+      </div>
+      <div className={styles.mobFlashNewsWrapper}>
+        <MainFlashNews />
       </div>
     </main>
   )
