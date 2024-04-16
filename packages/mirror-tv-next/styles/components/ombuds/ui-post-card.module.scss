@@ -1,0 +1,14 @@
+@import '/styles/theme/breakpoints';
+
+.cardWrapper {
+  display: flex;
+  height: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.infoWrapper {
+  margin: 0 0 0 20px;
+}
