@@ -67,7 +67,7 @@ export async function generateMetadata({
   const description = handleMetaDesc(singleTopic?.briefHtml ?? '')
 
   return {
-    metadataBase: new URL(`https://${SITE_URL}`),
+    metadataBase: new URL(SITE_URL),
     title: `${singleTopic?.title} - 鏡新聞`,
     description: description !== '' ? description : META_DESCRIPTION,
     openGraph: {

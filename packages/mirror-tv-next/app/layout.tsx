@@ -15,7 +15,7 @@ import '../styles/global.css'
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${SITE_URL}`),
+  metadataBase: new URL(SITE_URL),
   title: SITE_TITLE,
   description: META_DESCRIPTION,
   openGraph: {

@@ -61,7 +61,7 @@ export async function generateMetadata({
   const description = bio[0]?.content[0]?.slice(0, 20)
 
   return {
-    metadataBase: new URL(`https://${SITE_URL}`),
+    metadataBase: new URL(SITE_URL),
     title: `${singleAnchor?.name} - 鏡新聞`,
     description: description !== '' ? description : META_DESCRIPTION,
     openGraph: {
