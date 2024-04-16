@@ -32,7 +32,7 @@ switch (ENV) {
     break
 
   case 'dev':
-    SITE_URL = 'dev.mnews.tw'
+    SITE_URL = 'https://tabris-mirror-tv-next-dev-ugq4qlmzra-de.a.run.app/'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
     HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
