@@ -5,14 +5,22 @@ import Script from 'next/script'
 import Footer from '~/components/layout/footer'
 import MainHeader from '~/components/layout/header/main-header'
 import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
-import { GLOBAL_CACHE_SETTING, GTM_ID } from '~/constants/environment-variables'
+import {
+  GLOBAL_CACHE_SETTING,
+  GTM_ID,
+  SITE_URL,
+} from '~/constants/environment-variables'
 import '../styles/global.css'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://${SITE_URL}`),
   title: SITE_TITLE,
   description: META_DESCRIPTION,
+  openGraph: {
+    images: ['/images/default-og-img.jpg'],
+  },
 }
 
 const noto_sans = Noto_Sans({
