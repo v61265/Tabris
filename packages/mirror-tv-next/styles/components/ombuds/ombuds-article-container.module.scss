@@ -10,7 +10,10 @@
     letter-spacing: 0.5px;
     margin-bottom: 10px;
     @include media-breakpoint-up(md) {
-      display: none;
+      margin-bottom: 16px;
     }
+  }
+  @include media-breakpoint-up(md) {
+    display: none;
   }
 }
