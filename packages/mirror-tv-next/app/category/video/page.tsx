@@ -45,6 +45,7 @@ export default async function VideoCategoryPage() {
     posts: FormattedPostCard[]
     count: number
     categorySlug: string
+    categoryName: string
   }[] = []
   let allCategories: Category[] = []
 
@@ -154,7 +155,7 @@ export default async function VideoCategoryPage() {
             <VideoPostsList
               initPostsList={list.posts}
               categorySlug={list.categorySlug}
-              categoryName={getCategoryNameBySlug(list.categorySlug)}
+              categoryName={list.categoryName}
               pageSize={PAGE_SIZE}
               postsCount={list.count}
               key={list.categorySlug}
