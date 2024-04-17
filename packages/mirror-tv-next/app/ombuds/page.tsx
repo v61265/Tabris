@@ -10,7 +10,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: '公評人專區 - 鏡新聞',
   openGraph: {
-    title: '公評人專區 - 鏡新聞',
+    title: '節目表 - 鏡新聞',
+    images: {
+      url: '/images/default-og-img.jpg',
+    },
   },
 }
 
