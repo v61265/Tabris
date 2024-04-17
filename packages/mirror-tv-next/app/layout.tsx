@@ -38,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ch" className={`${noto_sans.variable} ${noto_sans.variable}`}>
+    <html lang="zh-Hant" className={`${noto_sans.variable} `}>
       <GoogleTagManager gtmId={GTM_ID} />
       <Script
         async
