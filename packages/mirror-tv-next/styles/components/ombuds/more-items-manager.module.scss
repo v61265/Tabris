@@ -1,0 +1,24 @@
+@import 'styles/theme/breakpoints';
+
+.loadMoreButton {
+  padding: 8px 0;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-align: center;
+  line-height: 28px;
+  color: #014db8;
+  border: 1px solid #014db8;
+  outline: none;
+  margin: 8px auto 23px;
+  width: 100%;
+  &:hover {
+    padding: 7px 0;
+    border: 2px solid #014db8;
+  }
+  &:active {
+    padding: 7px 0;
+    border: 2px solid #014db8;
+    background-color: rgba(0, 77, 188, 0.05);
+  }
+}
