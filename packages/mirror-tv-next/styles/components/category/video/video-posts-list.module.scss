@@ -1,0 +1,121 @@
+@import '/styles/theme/breakpoints';
+
+.list {
+  & + & {
+    margin-top: 24px;
+    @include media-breakpoint-up(md) {
+      margin-top: 40px;
+    }
+    @include media-breakpoint-up(xxl) {
+      margin-top: 80px;
+    }
+  }
+}
+
+.categoryTitle {
+  width: 110px;
+  margin-left: 20px;
+  @include media-breakpoint-up(md) {
+    margin-left: 4px;
+  }
+}
+
+.categoryLink {
+  display: inline;
+  &::before,
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #014db8;
+    border-color: #014db8 #014db8 transparent transparent;
+    transform: rotate(45deg);
+  }
+}
+
+.postsList {
+  position: relative;
+  margin-top: 12px;
+  width: calc(100vw - 16px);
+  overflow: hidden;
+  @include media-breakpoint-up(md) {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  // ref: https://stackoverflow.com/a/69916201
+  :global .swiper-button-disabled {
+    display: none;
+  }
+}
+
+.prevArrow,
+.nextArrow {
+  position: absolute;
+  z-index: 10;
+  top: calc((100vw - 16px - 16px * 1) * (9 / 16) / 2 / 2);
+  width: 36px;
+  height: 33px;
+  outline: none;
+  background-color: #f4f5f6;
+  transform: translate(0, -50%);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  @include media-breakpoint-up(md) {
+    top: 60px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #2c585e;
+    border-color: transparent transparent #2c585e #2c585e;
+    transform: translate(calc(-50% + 3px), -50%) rotate(45deg);
+  }
+  &:hover {
+    background-color: #4a4a4a;
+    opacity: 0.8;
+    cursor: pointer;
+    &::after {
+      border: 2px solid #fff;
+      border-color: transparent transparent #fff #fff;
+    }
+  }
+  &:active {
+    background-color: #4a4a4a;
+    opacity: 0.8;
+    &::after {
+      border: 2px solid #fff;
+      border-color: transparent transparent #fff #fff;
+    }
+  }
+}
+
+.nextArrow {
+  right: 0;
+  left: auto;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  &::after {
+    border-color: #2c585e #2c585e transparent transparent;
+    transform: translate(calc(-50% - 3px), -50%) rotate(45deg);
+  }
+  &:hover {
+    &::after {
+      border-color: #fff #fff transparent transparent;
+    }
+  }
+  &:active {
+    &::after {
+      border-color: #fff #fff transparent transparent;
+    }
+  }
+}
+
+.placeholder {
+  width: 100%;
+  background: red;
+}

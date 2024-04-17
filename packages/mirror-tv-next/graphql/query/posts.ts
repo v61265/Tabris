@@ -94,4 +94,47 @@ const getPostsByCategorySlug = gql`
   ${listingPost}
 `
 
-export { getPostsByTagName, getLatestPosts, getPostsByCategorySlug }
+const getVideoPostsByCategorySlug = gql`
+  query fetchVideoPostsByCategorySlug(
+    $category: String!
+    $first: Int = 10
+    $skip: Int = 0
+    $style: PostStyleType
+    $withCount: Boolean = false
+    $filteredSlug: [String] = [""]
+  ) {
+    allPosts(
+      where: {
+        categories_some: { slug: $category }
+        state: published
+        slug_not_in: $filteredSlug
+        categories_every: { slug_not_in: "ombuds" }
+        style: $style
+      }
+      first: $first
+      skip: $skip
+      sortBy: publishTime_DESC
+    ) {
+      ...listingPostFragment
+    }
+    _allPostsMeta(
+      where: {
+        categories_some: { slug: $category }
+        state: published
+        slug_not_in: $filteredSlug
+        categories_every: { slug_not_in: "ombuds" }
+        style: $style
+      }
+    ) @include(if: $withCount) {
+      count
+    }
+  }
+  ${listingPost}
+`
+
+export {
+  getPostsByTagName,
+  getLatestPosts,
+  getPostsByCategorySlug,
+  getVideoPostsByCategorySlug,
+}

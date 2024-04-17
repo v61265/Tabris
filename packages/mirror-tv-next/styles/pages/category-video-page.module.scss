@@ -1,0 +1,35 @@
+@import '/styles/theme/breakpoints';
+
+.main {
+  margin: 0 auto;
+  min-height: calc(100dvh - 50px); // header height
+  padding: 86px 16px 48px;
+  @include media-breakpoint-up(md) {
+    min-height: calc(100dvh - 152px); // header height
+    max-width: 688px;
+    padding: 28px 0 50px;
+  }
+  @include media-breakpoint-up(xl) {
+    max-width: 1120px;
+    display: flex;
+  }
+  @include media-breakpoint-up(xxl) {
+    max-width: 1200px;
+  }
+}
+
+.left {
+  @include media-breakpoint-up(xl) {
+    width: calc(100% - 384px - 64px);
+    margin-bottom: 60px;
+  }
+}
+
+.aside {
+  @include media-breakpoint-up(xl) {
+    padding-top: 0;
+    margin-left: 64px;
+    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+  }
+}

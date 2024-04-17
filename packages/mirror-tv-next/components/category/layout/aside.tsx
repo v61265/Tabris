@@ -1,8 +1,7 @@
 import { getClient } from '~/apollo-client'
-import errors from '@twreporter/errors'
 import styles from '~/styles/components/category/layout/aside.module.scss'
 import { getLatestPosts, PostCardItem } from '~/graphql/query/posts'
-import { formatArticleCard, FormattedPostCard } from '~/utils'
+import { formatArticleCard, FormattedPostCard, handleResponse } from '~/utils'
 import UiListPostsAside from '~/components/shared/ui-list-posts-aside'
 import {
   POPULAR_POSTS_URL,
@@ -57,54 +56,14 @@ export default async function CategoryPageLayoutAside() {
     fetchPopularPosts(),
   ])
 
-  const handleResponse = <
-    T extends Record<string, unknown>,
-    U extends PromiseSettledResult<T>,
-    V
-  >(
-    response: U,
-    callback: (value: T | undefined) => V
-  ): V => {
-    if (response.status === 'fulfilled') {
-      return callback(response.value)
-    } else if (response.status === 'rejected') {
-      const { graphQLErrors, clientErrors, networkError } = response.reason
-      const annotatingError = errors.helpers.wrap(
-        response.reason,
-        'UnhandledError',
-        'Error occurs while fetching category data in category page'
-      )
-
-      console.error(
-        JSON.stringify({
-          severity: 'ERROR',
-          message: errors.helpers.printAll(
-            annotatingError,
-            {
-              withStack: true,
-              withPayload: true,
-            },
-            0,
-            0
-          ),
-          debugPayload: {
-            graphQLErrors,
-            clientErrors,
-            networkError,
-          },
-        })
-      )
-    }
-    return callback(undefined)
-  }
-
   latestPosts = handleResponse(
     responses[0],
     (
       latestPostsData: Awaited<ReturnType<typeof fetchLatestPosts>> | undefined
     ) => {
       return latestPostsData?.data.allPosts.map(formatArticleCard) ?? []
-    }
+    },
+    'Error occurs while fetching latest posts in category page'
   )
 
   popularPosts = handleResponse(
@@ -120,7 +79,8 @@ export default async function CategoryPageLayoutAside() {
           formatArticleCard({ ...post, style: 'article' })
         ) ?? []
       )
-    }
+    },
+    'Error occurs while fetching popular posts in category page'
   )
 
   return (

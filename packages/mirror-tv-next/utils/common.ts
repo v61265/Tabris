@@ -1,4 +1,6 @@
+import errors from '@twreporter/errors'
 import type { ApiData } from '~/types/api-data'
+
 
 function isServer(): boolean {
   return typeof window === 'undefined'
@@ -10,6 +12,49 @@ const extractYoutubeId = (url: string) => {
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
   )
   return match ? match[1] : null
+}
+
+
+const handleResponse = <
+  T extends Record<string, unknown>,
+  U extends PromiseSettledResult<T>,
+  V
+>(
+  response: U,
+  callback: (value: T | undefined) => V,
+  errorMessage: string
+): V => {
+  if (response.status === 'fulfilled') {
+    return callback(response.value)
+  } else if (response.status === 'rejected') {
+    const { graphQLErrors, clientErrors, networkError } = response.reason
+    const annotatingError = errors.helpers.wrap(
+      response.reason,
+      'UnhandledError',
+      errorMessage
+    )
+
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(
+          annotatingError,
+          {
+            withStack: true,
+            withPayload: true,
+          },
+          0,
+          0
+        ),
+        debugPayload: {
+          graphQLErrors,
+          clientErrors,
+          networkError,
+        },
+      })
+    )
+  }
+  return callback(undefined)
 }
 
 function handleMetaDesc(str: string) {
@@ -33,4 +78,4 @@ function handleApiData(apiData: string) {
   }
 }
 
-export { extractYoutubeId, handleApiData, handleMetaDesc, isServer }
+export { extractYoutubeId, isServer, handleResponse, handleApiData, handleMetaDesc }

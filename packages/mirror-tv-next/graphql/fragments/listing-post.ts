@@ -5,7 +5,7 @@ export type ListingPost = {
   slug: string
   style: string
   name: string
-  heroImage: HeroImage
+  heroImage: HeroImage | null
 }
 
 const listingPost = gql`
