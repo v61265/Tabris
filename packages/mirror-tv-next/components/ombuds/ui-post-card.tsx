@@ -14,7 +14,7 @@ export default function UiPostCard({ item }: Props) {
     return dayjs(date).format('YYYY/MM/DD HH:mm')
   }
 
-  const formattedHeroImage = formateHeroImage(item.heroImage)
+  const formattedHeroImage = formateHeroImage(item.heroImage ?? {})
   return (
     <Link
       href={`/story/${item.slug}`}
