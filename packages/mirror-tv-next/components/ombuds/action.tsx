@@ -1,7 +1,7 @@
 'use server'
 import { getClient } from '~/apollo-client'
 import { fetchOmbudsPostsByCategorySlug } from '~/graphql/query/ombuds'
-import { Post } from '~/graphql/query/ombuds'
+import type { Post } from '~/graphql/query/ombuds'
 import errors from '@twreporter/errors'
 
 type FetchOmbudsPostsProps = {
