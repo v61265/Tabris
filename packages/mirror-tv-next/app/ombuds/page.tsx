@@ -1,6 +1,6 @@
 import HeroImg from '~/components/ombuds/hero-img'
 import OmbudsIntro from '~/components/ombuds/ombuds-intro'
-import OmbudsArticleContainer from '~/components/ombuds/ombuds-article-container'
+import OmbudsArticleContainer from '~/components/ombuds/ombuds-article-container-md'
 import IconLinkList from '~/components/ombuds/iconLinkList'
 import styles from '~/styles/pages/ombuds-page.module.scss'
 
