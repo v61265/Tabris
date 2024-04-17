@@ -10,7 +10,10 @@ export default function UiLoadMoreButton({
   onClick,
 }: UiLoadMoreButtonProps) {
   return (
-    <button onClick={onClick} className={styles.customButton}>
+    <button
+      onClick={onClick}
+      className={[styles.customButton, 'g-button-load-more'].join(' ')}
+    >
       {title}
     </button>
   )

@@ -20,10 +20,13 @@ export async function generateMetadata({
   const tagName: string = decodeURIComponent(name)
 
   return {
-    metadataBase: new URL(`https://${SITE_URL}`),
+    metadataBase: new URL(SITE_URL),
     title: `${tagName} - 鏡新聞`,
     openGraph: {
       title: `${tagName} - 鏡新聞`,
+      images: {
+        url: '/images/default-og-img.jpg',
+      },
     },
   }
 }

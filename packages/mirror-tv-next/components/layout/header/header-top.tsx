@@ -10,8 +10,8 @@ type HeaderTopProps = {
 export default function HeaderTop({ sponsors }: HeaderTopProps) {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.logo}>
-        <Link href="/">
+      <div className={[styles.logo, 'top-wrapper__left'].join(' ')}>
+        <Link href="/" className="logo">
           <Image
             src="/icons/mnews-logo.svg"
             alt="mnews logo"

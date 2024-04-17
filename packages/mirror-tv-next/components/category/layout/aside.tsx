@@ -89,11 +89,13 @@ export default async function CategoryPageLayoutAside() {
         listTitle="熱門新聞"
         page="category"
         listData={popularPosts}
+        className="aside__list-popular"
       />
       <UiListPostsAside
-        listTitle="最新新聞"
+        listTitle="即時新聞"
         page="category"
         listData={latestPosts}
+        className="aside__list-latest"
       />
     </aside>
   )

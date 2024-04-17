@@ -2,9 +2,10 @@
 import Image from '@readr-media/react-image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import type { HeroImage, Slideshow } from '~/graphql/query/topic'
+import type { Slideshow } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/single-topic/hero-slideshow.module.scss'
 import '~/styles/components/topic/single-topic/swiper-custom-styles.scss'
+import type { HeroImage } from '~/types/common'
 import { formateHeroImage } from '~/utils'
 
 // Import Swiper styles

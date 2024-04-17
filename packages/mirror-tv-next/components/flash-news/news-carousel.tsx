@@ -104,14 +104,14 @@ export default function NewsCarousel({ flashNews }: NewsCarouselProps) {
           <div
             className={`${styles.titles} ${
               shouldTransition ? styles.transitioning : ''
-            }`}
+            } flash-news flash-news-wrapper`}
             style={{ transform: `translateY(${move * 100}%)` }}
             onTransitionEnd={handleTransitionend}
           >
             {displayedArticles().map((article) => (
               <a
                 key={`flash-${article.slug}`}
-                className={styles.news}
+                className={[styles.news, 'truncate-text-one-line'].join(' ')}
                 href={`/story/${article.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -14,18 +14,27 @@ export default function UiFeaturePost({ post }: UiFeaturePostProps) {
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className={styles.featureCard}
+      className={[
+        styles.featureCard,
+        'article-card list-latest-list-item__featured',
+      ].join(' ')}
     >
-      <span className={styles.imageWrapper}>
+      <span className={[styles.imageWrapper, 'article-img-wrapper'].join(' ')}>
         <ResponsiveImage
           images={images}
           alt={name}
           rwd={{ mobile: '500px', tablet: '500px', desktop: '500px' }}
           priority={false}
+          imgClassName="article-img"
         />
         {style === 'videoNews' && <span className={styles.videoIcon}></span>}
       </span>
-      <span className={styles.info}>
+      <span
+        className={[
+          styles.info,
+          'article-card__info-wrapper info-wrapper',
+        ].join(' ')}
+      >
         <span className={styles.title}>{name}</span>
         <span className={styles.date}>
           {formateDateAtTaipei(publishTime, 'YYYY/MM/DD HH:mm', '')}

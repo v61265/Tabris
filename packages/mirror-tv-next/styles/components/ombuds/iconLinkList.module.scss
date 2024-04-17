@@ -1,0 +1,42 @@
+@import '/styles/theme/breakpoints';
+
+.infoList {
+  margin: 0 16px 48px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 8px;
+  row-gap: 16px;
+  @include media-breakpoint-up(md) {
+    width: 696px;
+    margin: 0 auto 50px;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 16px;
+  }
+  @include media-breakpoint-up(xl) {
+    width: 1120px;
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.infoListItem {
+  width: 100%;
+}
+
+.iconWrapper {
+  background-color: #003366;
+  padding: 8px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.infoListTitle {
+  padding: 8px;
+  background-color: #f4f5f6;
+  text-align: center;
+  p {
+    color: #003366;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+  }
+}

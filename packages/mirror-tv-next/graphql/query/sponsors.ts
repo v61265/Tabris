@@ -21,7 +21,7 @@ export type Sponsor = {
 }
 
 const fetchSponsors = gql`
-  query {
+  query fetchSponsors {
     allSponsors(
       where: { state: published }
       sortBy: [sortOrder_ASC, createdAt_DESC]

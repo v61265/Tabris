@@ -1,4 +1,6 @@
 import errors from '@twreporter/errors'
+import type { ApiData } from '~/types/api-data'
+
 
 function isServer(): boolean {
   return typeof window === 'undefined'
@@ -11,6 +13,7 @@ const extractYoutubeId = (url: string) => {
   )
   return match ? match[1] : null
 }
+
 
 const handleResponse = <
   T extends Record<string, unknown>,
@@ -54,4 +57,25 @@ const handleResponse = <
   return callback(undefined)
 }
 
-export { extractYoutubeId, isServer, handleResponse }
+function handleMetaDesc(str: string) {
+  if (!str || typeof str !== 'string') {
+    return ''
+  }
+  // remove html tags and set length limit for meta descripton
+  const pureStr = str?.replace(/<[^>]*>?/gm, '')
+  const formatedStr = pureStr?.slice(0, 124) ?? ''
+  return formatedStr.length > 123 ? formatedStr + '...' : formatedStr
+}
+
+function handleApiData(apiData: string) {
+  try {
+    const rawString = apiData ?? ''
+    const content = JSON.parse(rawString)
+
+    return content?.filter((item: ApiData) => item) || []
+  } catch {
+    return []
+  }
+}
+
+export { extractYoutubeId, isServer, handleResponse, handleApiData, handleMetaDesc }

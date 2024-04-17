@@ -13,7 +13,7 @@ export type Show = {
 }
 
 const fetchShows = gql`
-  query {
+  query fetchShows {
     allShows(sortBy: [sortOrder_ASC, createdAt_DESC]) {
       id
       slug

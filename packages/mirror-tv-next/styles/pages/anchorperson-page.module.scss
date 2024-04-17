@@ -1,0 +1,90 @@
+@import '/styles/theme/breakpoints';
+
+.main {
+  background: #303030;
+  min-height: 100dvh;
+  padding-top: 50px; /* the height of mobile nav*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+
+  @include media-breakpoint-up(md) {
+    padding-top: 0;
+    padding-bottom: 48px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-bottom: 80px;
+  }
+}
+
+.section {
+  width: 288px;
+  margin-top: 48px;
+  @include media-breakpoint-up(md) {
+    margin-top: 80px;
+    width: 688px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 1120px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    width: 1200px;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 24px;
+  }
+}
+
+.title {
+  color: #fc0;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-right: 20px;
+  white-space: nowrap; /* Prevent text from wrapping */
+
+  @include media-breakpoint-up(md) {
+    font-size: 30px;
+  }
+}
+
+.line {
+  width: calc(100% - 74px);
+  height: 3px;
+  background-color: #fc0;
+  @include media-breakpoint-up(md) {
+    width: calc(100% - 110px);
+  }
+}
+
+.cardsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 16px;
+  row-gap: 16px;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 32px;
+    row-gap: 24px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include media-breakpoint-up(xxl) {
+    column-gap: 40px;
+  }
+}

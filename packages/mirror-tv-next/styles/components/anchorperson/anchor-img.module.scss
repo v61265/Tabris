@@ -1,0 +1,10 @@
+@import '/styles/theme/breakpoints';
+.imageWrapper {
+  width: 288px;
+  height: 288px;
+
+  @include media-breakpoint-up(xl) {
+    width: 480px;
+    height: 480px;
+  }
+}

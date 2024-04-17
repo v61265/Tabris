@@ -7,18 +7,21 @@ type UiListPostsAsideProps = {
   listTitle: string
   listData: FormattedPostCard[]
   page: 'category' | 'stroy' // 目前這兩個頁面會用共基本部分，但有些細微樣式不同
+  className: string // for gtm
 }
 
 export default function UiListPostsAside({
   listTitle,
   listData,
   page,
+  className,
 }: UiListPostsAsideProps) {
   return (
     <div
       className={[
         styles.wrapper,
         page === 'category' ? styles.bordered : '',
+        className,
       ].join(' ')}
     >
       <UiHeadingBordered title={listTitle} className={styles.listTitle} />
@@ -26,6 +29,7 @@ export default function UiListPostsAside({
         className={[
           styles.list,
           page === 'category' ? styles.listBordered : '',
+          'list',
         ].join(' ')}
       >
         {listData?.map((item) => {

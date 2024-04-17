@@ -1,21 +1,26 @@
 import errors from '@twreporter/errors'
-import { Topic } from '~/graphql/query/topic'
-import styles from '~/styles/pages/topic-page.module.scss'
+import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
+import { fetchTopics } from '~/components/topic/action'
+import TopicsListManager from '~/components/topic/topics-list-manager'
 import {
   GLOBAL_CACHE_SETTING,
   SITE_URL,
 } from '~/constants/environment-variables'
-import TopicsListManager from '~/components/topic/topics-list-manager'
-import { fetchTopics } from '~/components/topic/action'
-import type { Metadata } from 'next'
+import { Topic } from '~/graphql/query/topic'
+import styles from '~/styles/pages/topic-page.module.scss'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${SITE_URL}`),
+  metadataBase: new URL(SITE_URL),
   title: '專題 - 鏡新聞',
   openGraph: {
     title: '專題 - 鏡新聞',
+    images: {
+      url: '/images/default-og-img.jpg',
+    },
   },
 }
 
@@ -50,12 +55,18 @@ export default async function TagPage() {
       })
     )
 
-    throw new Error('Error occurs while fetching data.')
+    throw annotatingError
   }
 
   return (
     <section className={styles.topic}>
-      <div className={styles.topicWrapper}>
+      <div className={styles.gptAdContainerPc}>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </div>
+      <div
+        className={[styles.topicWrapper, 'topic-listing__content'].join(' ')}
+      >
         <h1 className={styles.topicName}>推薦專題</h1>
         <TopicsListManager
           pageSize={PAGE_SIZE}

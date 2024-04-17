@@ -1,0 +1,26 @@
+.wrapper {
+  /**
+ * 廣告有時會替換掉原本 <Ad> 元件裡頭的根元素 <div>
+ * 因此不限定所指定的元素類型（*）
+ * 以確保能選擇到 Wrapper 的直接子元素
+ */
+  & > * {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    iframe {
+      display: block;
+    }
+  }
+}
+
+.ad {
+  max-width: 100%;
+  text-align: center;
+
+  /* don't use 'align-items: center;' to prevent gpt layout issue */
+  iframe {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

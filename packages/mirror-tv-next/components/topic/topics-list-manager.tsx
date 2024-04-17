@@ -7,7 +7,7 @@ import { Topic } from '~/graphql/query/topic'
 import styles from '~/styles/components/topic/topics-list-manager.module.scss'
 import type { ApiData } from '~/types/api-data'
 import type { PostImage } from '~/utils'
-import { formatePostImage } from '~/utils'
+import { formatePostImage, handleApiData } from '~/utils'
 
 type TopicsListManagerProps = {
   pageSize: number
@@ -28,17 +28,6 @@ export default function TopicsListManager({
   topicsCount,
   initTopicsList,
 }: TopicsListManagerProps) {
-  function handleApiData(apiData: string): ApiData[] {
-    try {
-      const rawString = apiData ?? ''
-      const content = JSON.parse(rawString)
-
-      return content?.filter((item: ApiData) => item) || []
-    } catch {
-      return []
-    }
-  }
-
   function doesHaveBrief(data: ApiData[] = []) {
     const validateArray = data.map((item) => {
       return item?.content?.length > 1 || item?.content[0]?.length > 0

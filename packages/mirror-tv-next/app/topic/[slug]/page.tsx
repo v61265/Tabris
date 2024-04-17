@@ -1,4 +1,6 @@
 import errors from '@twreporter/errors'
+import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -8,12 +10,75 @@ import HeroMultiVideo from '~/components/topic/single-topic/hero-multivideo'
 import HeroSlideshow from '~/components/topic/single-topic/hero-slideshow'
 import HeroVideo from '~/components/topic/single-topic/hero-video'
 import TopicPostItems from '~/components/topic/single-topic/topic-post-items'
-import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
+import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
+import {
+  GLOBAL_CACHE_SETTING,
+  SITE_URL,
+} from '~/constants/environment-variables'
 import type { SingleTopic } from '~/graphql/query/topic'
 import { fetchSingleTopicByTopicSlug } from '~/graphql/query/topic'
 import styles from '~/styles/pages/single-topic-page.module.scss'
+import { handleMetaDesc } from '~/utils'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const client = getClient()
+  let singleTopic: SingleTopic | null = null
+
+  try {
+    const response = await client.query({
+      query: fetchSingleTopicByTopicSlug,
+      variables: {
+        topicSlug: params.slug,
+      },
+    })
+    const { topic }: { topic: SingleTopic[] } = response.data
+    singleTopic = topic[0] ?? undefined
+
+    if (!singleTopic) {
+      const annotatingError = errors.helpers.wrap(
+        new Error('Single Topic not found'),
+        'UnhandledError',
+        'Error occurs while fetching posts data for single topic page'
+      )
+
+      console.error(
+        JSON.stringify({
+          severity: 'ERROR',
+          message: errors.helpers.printAll(annotatingError, {
+            withStack: false,
+            withPayload: true,
+          }),
+        })
+      )
+      throw annotatingError
+    }
+  } catch (err) {
+    console.error(err)
+    notFound()
+  }
+
+  const description = handleMetaDesc(singleTopic?.briefHtml ?? '')
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: `${singleTopic?.title} - 鏡新聞`,
+    description: description !== '' ? description : META_DESCRIPTION,
+    openGraph: {
+      title: `${singleTopic?.title} - 鏡新聞`,
+      description: description !== '' ? description : META_DESCRIPTION,
+      siteName: SITE_TITLE,
+      images:
+        singleTopic?.heroImage?.urlMobileSized ?? '/images/default-og-img.jpg',
+    },
+  }
+}
 
 export default async function SingleTopicPage({
   params,
@@ -79,6 +144,10 @@ export default async function SingleTopicPage({
 
   return (
     <main className={styles.mainWrapper}>
+      <div className={styles.gptAdContainerPc}>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </div>
       {(() => {
         switch (singleTopic.leading) {
           case 'video':

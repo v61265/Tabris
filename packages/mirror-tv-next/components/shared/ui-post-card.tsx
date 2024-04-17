@@ -44,6 +44,7 @@ export default function UiPostCard({
       className={[
         styles.card,
         mobileLayoutDirection === 'row' ? styles.row : '',
+        'article-card',
       ].join(' ')}
       href={href}
       target="_blank"
