@@ -29,11 +29,11 @@ export default function UiPostCard({ item }: Props) {
           loadingImage="/images/loading.svg"
           defaultImage="/images/image-default.jpg"
           rwd={{
-            mobile: '100vw',
-            tablet: '100vw',
-            laptop: '100vw',
-            desktop: '100vw',
-            default: '100vw',
+            mobile: '500px',
+            tablet: '500px',
+            laptop: '500px',
+            desktop: '500px',
+            default: '500px',
           }}
         />
       </div>
