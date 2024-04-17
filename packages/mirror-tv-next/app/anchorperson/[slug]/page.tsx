@@ -70,7 +70,7 @@ export async function generateMetadata({
       siteName: SITE_TITLE,
       images:
         singleAnchor?.showhostImg?.urlMobileSized ??
-        '/images/image-default.jpg',
+        '/images/default-og-img.jpg',
     },
   }
 }

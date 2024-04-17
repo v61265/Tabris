@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: '節目表 - 鏡新聞',
   openGraph: {
     title: '節目表 - 鏡新聞',
+    images: {
+      url: '/images/default-og-img.jpg',
+    },
   },
 }
 
