@@ -12,6 +12,9 @@ import { fetchVideoPostsItems } from '~/components/category/video/action'
 import styles from '~/styles/pages/category-video-page.module.scss'
 import VideoPostsList from '~/components/category/video/video-posts-list'
 import type { HeroImage } from '~/types/common'
+import { fetchShows } from '~/graphql/query/shows'
+import type { Show } from '~/graphql/query/shows'
+import UiShowsList from '~/components/category/video/ui-shows-list'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -48,6 +51,7 @@ export default async function VideoCategoryPage() {
     categoryName: string
   }[] = []
   let allCategories: Category[] = []
+  let allShows: Show[] = []
 
   const client = getClient()
 
@@ -66,9 +70,15 @@ export default async function VideoCategoryPage() {
       return res.json() as unknown as RowPopularVideoData
     })
 
+  const fetchAllShows = () =>
+    client.query<{ allShows: Show[] }>({
+      query: fetchShows,
+    })
+
   const responses = await Promise.allSettled([
     fetchAllCategory(),
     fetchPopularPosts(),
+    fetchAllShows(),
   ])
 
   allCategories = handleResponse(
@@ -96,6 +106,15 @@ export default async function VideoCategoryPage() {
       )
     },
     'Error occurs while fetching popular videos in video category page'
+  )
+
+  allShows = handleResponse(
+    responses[2],
+    (data: Awaited<ReturnType<typeof fetchAllShows>> | undefined) => {
+      console.log(data?.data?.allShows)
+      return data?.data?.allShows ?? []
+    },
+    'Error occurs while fetching all shows in video category page'
   )
 
   const fetchVideoPostsByCategory = (slug: string) =>
@@ -163,7 +182,9 @@ export default async function VideoCategoryPage() {
           )
         })}
       </section>
-      <aside className={styles.aside}></aside>
+      <aside className={styles.aside}>
+        <UiShowsList title="節目" showsList={allShows} />
+      </aside>
     </main>
   )
 }

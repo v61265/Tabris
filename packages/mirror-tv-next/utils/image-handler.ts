@@ -40,9 +40,9 @@ function formatePostImage(post: Post | Topic): PostImage {
 }
 
 function formateHeroImage(heroImage: HeroImage) {
-  const images: {
-    [key: string]: string
-  } = {}
+  const images: PostImage = {
+    original: '/images/image-default.jpg',
+  }
 
   images.w3200 = heroImage?.urlOriginal ?? ''
   images.w2400 = heroImage?.urlDesktopSized ?? ''
