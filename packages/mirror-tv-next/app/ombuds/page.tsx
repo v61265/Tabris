@@ -1,6 +1,7 @@
 import HeroImg from '~/components/ombuds/hero-img'
 import OmbudsIntro from '~/components/ombuds/ombuds-intro'
-import OmbudsArticleContainer from '~/components/ombuds/ombuds-article-container-md'
+import OmbudsArticleContainerMd from '~/components/ombuds/ombuds-article-container-md'
+import FetchArticleDataXl from '~/components/ombuds/fetchArticleData-xl'
 import IconLinkList from '~/components/ombuds/iconLinkList'
 import styles from '~/styles/pages/ombuds-page.module.scss'
 import type { Metadata } from 'next'
@@ -22,7 +23,8 @@ export default function Ombuds() {
     <main className={styles.main}>
       <HeroImg />
       <OmbudsIntro />
-      <OmbudsArticleContainer />
+      <OmbudsArticleContainerMd />
+      <FetchArticleDataXl />
       <IconLinkList />
     </main>
   )
