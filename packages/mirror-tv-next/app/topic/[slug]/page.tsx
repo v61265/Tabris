@@ -42,24 +42,24 @@ export async function generateMetadata({
     singleTopic = topic[0] ?? undefined
 
     if (!singleTopic) {
-      const annotatingError = errors.helpers.wrap(
-        new Error('Single Topic not found'),
-        'UnhandledError',
-        'Error occurs while fetching posts data for single topic page'
-      )
-
-      console.error(
-        JSON.stringify({
-          severity: 'ERROR',
-          message: errors.helpers.printAll(annotatingError, {
-            withStack: false,
-            withPayload: true,
-          }),
-        })
-      )
       notFound()
     }
   } catch (err) {
+    const annotatingError = errors.helpers.wrap(
+      new Error('Single Topic not found'),
+      'UnhandledError',
+      'Error occurs while fetching posts data for single topic page'
+    )
+
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(annotatingError, {
+          withStack: false,
+          withPayload: true,
+        }),
+      })
+    )
     console.error(err)
   }
 
