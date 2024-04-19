@@ -21,7 +21,7 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <div>{error.message === 'NEXT_NOT_FOUND' ? <Ui404 /> : <Ui500 />}</div>
+        <div>{error.digest === 'NEXT_NOT_FOUND' ? <Ui404 /> : <Ui500 />}</div>
       </body>
     </html>
   )
