@@ -14,5 +14,5 @@ export default function Error({
     console.error(error)
   }, [error])
 
-  return <div>{error.message === 'NEXT_NOT_FOUND' ? <Ui404 /> : <Ui500 />}</div>
+  return <div>{error.digest === 'NEXT_NOT_FOUND' ? <Ui404 /> : <Ui500 />}</div>
 }
