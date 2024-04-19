@@ -1,9 +1,31 @@
+'use client'
+
 import { Varela_Round } from 'next/font/google'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
+
 import styles from '~/styles/components/errors/ui-404.module.scss'
+import { fetchPopularPosts } from './action'
+
 const font = Varela_Round({ subsets: ['latin'], weight: '400' })
 
 export default function Ui404() {
+  const [popularPosts, setPopularPosts] = useState([])
+  useEffect(() => {
+    const fetchDataAndSetState = async () => {
+      try {
+        const { data } = await fetchPopularPosts()
+        setPopularPosts(data.report)
+      } catch (error) {
+        console.error('Error fetching popular posts:', error)
+      }
+    }
+
+    fetchDataAndSetState()
+  }, [])
+
+  console.log(popularPosts)
+
   return (
     <div className={`${font.className} ${styles.error}`}>
       <div className={styles.container}>
