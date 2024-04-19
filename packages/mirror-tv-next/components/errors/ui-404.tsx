@@ -4,7 +4,11 @@ import { Varela_Round } from 'next/font/google'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
+import Link from 'next/link'
+import ResponsiveImage from '~/components/shared/responsive-image'
 import styles from '~/styles/components/errors/ui-404.module.scss'
+import type { FormattedPostCard } from '~/utils'
+import { formatArticleCard } from '~/utils'
 import { fetchPopularPosts } from './action'
 
 const font = Varela_Round({ subsets: ['latin'], weight: '400' })
@@ -24,7 +28,8 @@ export default function Ui404() {
     fetchDataAndSetState()
   }, [])
 
-  console.log(popularPosts)
+  const formattedPosts: FormattedPostCard[] =
+    popularPosts.map(formatArticleCard)
 
   return (
     <div className={`${font.className} ${styles.error}`}>
@@ -38,7 +43,35 @@ export default function Ui404() {
 
         <div className={styles.article_container}>
           <h3>熱門新聞</h3>
-          <div className={styles.article_list}></div>
+          <div className={styles.article_list}>
+            {formattedPosts.slice(0, 3).map((article) => {
+              return (
+                <Link
+                  key={article.slug}
+                  href={article.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <div className={styles.img}>
+                    <ResponsiveImage
+                      images={article.images}
+                      alt={article.name}
+                      priority={false}
+                      rwd={{
+                        mobile: '500px',
+                        tablet: '500px',
+                        laptop: '500px',
+                        desktop: '500px',
+                        default: '500px',
+                      }}
+                    />
+                  </div>
+
+                  <p>{article.name}</p>
+                </Link>
+              )
+            })}
+          </div>
         </div>
 
         <div className={styles.error__wire_left}>
