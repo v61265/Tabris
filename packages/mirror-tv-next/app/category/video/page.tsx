@@ -16,12 +16,15 @@ import type { HeroImage } from '~/types/common'
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${SITE_URL}`),
+  metadataBase: new URL(SITE_URL),
   title: '影音 - 鏡新聞',
   description: '最新最熱門，深入淺出的影音新聞。',
   openGraph: {
     title: '影音 - 鏡新聞',
     description: '最新最熱門，深入淺出的影音新聞。',
+    images: {
+      url: '/images/default-og-img.jpg',
+    },
   },
 }
 
