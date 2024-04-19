@@ -11,7 +11,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error)
+    console.error({ error })
   }, [error])
 
   return <div>{error.message === 'NEXT_NOT_FOUND' ? <Ui404 /> : <Ui500 />}</div>
