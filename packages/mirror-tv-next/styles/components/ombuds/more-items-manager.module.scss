@@ -16,6 +16,9 @@
     padding: 7px 0;
     border: 2px solid #014db8;
   }
+  &:focus {
+    outline: none;
+  }
   &:active {
     padding: 7px 0;
     border: 2px solid #014db8;
