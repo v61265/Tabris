@@ -57,11 +57,10 @@ export async function generateMetadata({
           }),
         })
       )
-      throw annotatingError
+      notFound()
     }
   } catch (err) {
     console.error(err)
-    notFound()
   }
 
   const description = handleMetaDesc(singleTopic?.briefHtml ?? '')
