@@ -15,6 +15,7 @@ import type { HeroImage } from '~/types/common'
 import { fetchShows } from '~/graphql/query/shows'
 import type { Show } from '~/graphql/query/shows'
 import UiShowsList from '~/components/category/video/ui-shows-list'
+import UiLinksList from '~/components/category/video/ui-links-list'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -183,7 +184,8 @@ export default async function VideoCategoryPage() {
         })}
       </section>
       <aside className={styles.aside}>
-        <UiShowsList title="節目" showsList={allShows} />
+        {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
+        <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
       </aside>
     </main>
   )
