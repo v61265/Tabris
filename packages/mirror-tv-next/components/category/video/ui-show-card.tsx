@@ -6,7 +6,7 @@ import type { HeroImage } from '~/types/common'
 type UiShowCardProps = {
   slug: string
   bannerImg: HeroImage
-  isArtShow: boolean | null
+  isArtShow: boolean
   name: string
 }
 

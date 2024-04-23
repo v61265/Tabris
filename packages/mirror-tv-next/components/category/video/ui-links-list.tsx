@@ -1,19 +1,10 @@
 import styles from '~/styles/components/category/video/ui-links-list.module.scss'
 import UiLinkCard from './ui-link-card'
 import FacebookPlugin from '~/components/shared/facebook-plugin'
+import type { LinkInfo } from './ui-link-card'
 
 type UiLinkListsProps = {
   fbHref: string
-}
-
-export type LinkInfo = {
-  href: string
-  leftIcon: { src: string; width: number; height: number }
-  rightIcon?: string
-  leftText: string
-  rightText: string
-  themeColor: string
-  idForGaTarget: string
 }
 
 export default function UiLinksList({ fbHref }: UiLinkListsProps) {

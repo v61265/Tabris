@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 
 interface FacebookPagePluginProps {
   href: string
@@ -10,8 +10,6 @@ const FacebookPagePlugin: React.FC<FacebookPagePluginProps> = ({
   href = 'https://www.facebook.com/mnewstw/',
   pageName = '鏡新聞',
 }) => {
-  const fbRootRef = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
     const insertRootDiv = () => {
       if (!document.getElementById('fb-root')) {
@@ -51,7 +49,6 @@ const FacebookPagePlugin: React.FC<FacebookPagePluginProps> = ({
       data-adapt-container-width="true"
       data-hide-cover="false"
       data-show-facepile="false"
-      ref={fbRootRef}
       hide_cta="true"
     >
       <blockquote cite={href} className="fb-xfbml-parse-ignore">

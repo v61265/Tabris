@@ -5,7 +5,7 @@ export type Show = {
   slug: string
   name: string
   sortOrder: number
-  isArtShow: boolean
+  isArtShow: boolean | null
   bannerImg: {
     urlMobileSized: string
     urlTabletSized: string
@@ -19,7 +19,6 @@ const fetchShows = gql`
       id
       slug
       name
-      sortOrder
       isArtShow
       bannerImg {
         urlMobileSized

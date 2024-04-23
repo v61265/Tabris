@@ -112,7 +112,6 @@ export default async function VideoCategoryPage() {
   allShows = handleResponse(
     responses[2],
     (data: Awaited<ReturnType<typeof fetchAllShows>> | undefined) => {
-      console.log(data?.data?.allShows)
       return data?.data?.allShows ?? []
     },
     'Error occurs while fetching all shows in video category page'

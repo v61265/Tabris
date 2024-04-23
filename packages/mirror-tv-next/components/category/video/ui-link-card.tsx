@@ -1,9 +1,19 @@
 import styles from '~/styles/components/category/video/ui-link-card.module.scss'
-import type { LinkInfo } from './ui-links-list'
+
 import Image from 'next/image'
 
 type UiLinkCardProps = {
   link: LinkInfo
+}
+
+export type LinkInfo = {
+  href: string
+  leftIcon: { src: string; width: number; height: number }
+  rightIcon?: string
+  leftText: string
+  rightText: string
+  themeColor: string
+  idForGaTarget: string
 }
 
 export default function UiLinkCard({ link }: UiLinkCardProps) {
