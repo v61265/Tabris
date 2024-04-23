@@ -1,0 +1,41 @@
+import type { Post } from '~/graphql/query/ombuds'
+import { fetchOmbudsPosts } from '~/components/ombuds/action'
+import SwiperManager from './swiperManager'
+
+export default async function tabletFetchArticleData() {
+  const PAGE_SIZE = 12
+  const filteredSlugArr: string[] = [
+    'biography',
+    'complaint',
+    'reports',
+    'law',
+    'standards',
+    'faq',
+  ]
+  const countOrNot: boolean = true
+  let postsList: Post[] = []
+  let nextPageDependment: number = 0
+
+  try {
+    const postsData = await fetchOmbudsPosts({
+      page: 1,
+      pageSize: PAGE_SIZE,
+      slug: filteredSlugArr,
+      isWithCount: countOrNot,
+    })
+
+    postsList = postsData.allPosts
+    nextPageDependment = postsData._allPostsMeta.count
+  } catch (error) {
+    console.error('Error fetching Ombuds Articles:', error)
+  }
+
+  return (
+    <SwiperManager
+      initialPostItems={postsList}
+      slug={filteredSlugArr}
+      countNumber={nextPageDependment}
+      pageSize={PAGE_SIZE}
+    />
+  )
+}

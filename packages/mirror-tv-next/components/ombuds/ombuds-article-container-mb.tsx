@@ -33,7 +33,7 @@ export default async function OmbudsArticleContainer() {
 
   return (
     <div className={styles.articleList}>
-      <h3>公評人最新消息</h3>
+      <h3>公評人辦公室最新消息</h3>
       <MoreItemsManager
         initialPostItems={postsList}
         slug={filteredSlugArr}
