@@ -11,7 +11,7 @@ type UiShowsListProps = {
 export default function UiShowsList({ showsList, title }: UiShowsListProps) {
   return (
     <>
-      <UiHeadingBordered title={title} />
+      <UiHeadingBordered title={title} htmlTag="h2" />
       <ul className={styles.list}>
         {showsList.map((showItem) => {
           return (
@@ -20,7 +20,7 @@ export default function UiShowsList({ showsList, title }: UiShowsListProps) {
               slug={showItem.slug}
               name={showItem.name}
               bannerImg={showItem.bannerImg ?? {}}
-              isArtShow={showItem.isArtShow}
+              isArtShow={showItem.isArtShow ?? false}
             />
           )
         })}

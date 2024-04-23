@@ -4,7 +4,6 @@ export type Show = {
   id: string
   slug: string
   name: string
-  sortOrder: number
   isArtShow: boolean | null
   bannerImg: {
     urlMobileSized: string
