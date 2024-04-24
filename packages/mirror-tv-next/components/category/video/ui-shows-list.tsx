@@ -11,7 +11,7 @@ type UiShowsListProps = {
 export default function UiShowsList({ showsList, title }: UiShowsListProps) {
   return (
     <>
-      <UiHeadingBordered title={title} htmlTag="h2" />
+      <UiHeadingBordered title={title} />
       <ul className={styles.list}>
         {showsList.map((showItem) => {
           return (

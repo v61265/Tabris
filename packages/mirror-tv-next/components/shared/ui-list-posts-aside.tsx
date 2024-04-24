@@ -24,11 +24,7 @@ export default function UiListPostsAside({
         className,
       ].join(' ')}
     >
-      <UiHeadingBordered
-        title={listTitle}
-        className={styles.listTitle}
-        htmlTag="h2"
-      />
+      <UiHeadingBordered title={listTitle} className={styles.listTitle} />
       <ol
         className={[
           styles.list,

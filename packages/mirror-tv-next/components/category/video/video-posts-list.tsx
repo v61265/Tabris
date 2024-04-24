@@ -80,7 +80,6 @@ export default function VideoPostsList({
         <UiHeadingBordered
           title={categoryName}
           className={styles.categoryTitle}
-          htmlTag="h2"
         />
         {!!categorySlug && <span className={styles.categoryLink} />}
       </a>

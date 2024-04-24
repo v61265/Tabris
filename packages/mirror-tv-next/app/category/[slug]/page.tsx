@@ -144,7 +144,7 @@ export default async function CategoryPage({
 
   return (
     <section className={styles.postsList}>
-      <UiHeadingBordered title={categoryData.name} htmlTag="h1" />
+      <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
         <div className="list-latest-wrapper">
           <UiFeaturePost post={categoryPosts[0]} />
