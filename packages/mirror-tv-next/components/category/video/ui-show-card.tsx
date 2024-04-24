@@ -2,25 +2,19 @@ import styles from '~/styles/components/category/video/ui-show-card.module.scss'
 import ResponsiveImage from '~/components/shared/responsive-image'
 import { formateHeroImage } from '~/utils'
 import type { HeroImage } from '~/types/common'
+import Link from 'next/link'
 
 type UiShowCardProps = {
   slug: string
   bannerImg: HeroImage
-  isArtShow: boolean
   name: string
 }
 
-export default function UiShowCard({
-  slug,
-  bannerImg,
-  isArtShow = false,
-  name,
-}: UiShowCardProps) {
-  const href = isArtShow ? `/show/${slug}/main` : ``
+export default function UiShowCard({ slug, bannerImg, name }: UiShowCardProps) {
   return (
-    <a
+    <Link
       className={styles.image}
-      href={href}
+      href={`/show/${slug}/`}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -30,6 +24,6 @@ export default function UiShowCard({
         rwd={{ mobile: '500px', tablet: '500px', desktop: '500px' }}
         priority={false}
       />
-    </a>
+    </Link>
   )
 }

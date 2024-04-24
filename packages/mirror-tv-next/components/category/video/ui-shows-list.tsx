@@ -20,7 +20,6 @@ export default function UiShowsList({ showsList, title }: UiShowsListProps) {
               slug={showItem.slug}
               name={showItem.name}
               bannerImg={showItem.bannerImg ?? {}}
-              isArtShow={showItem.isArtShow ?? false}
             />
           )
         })}
