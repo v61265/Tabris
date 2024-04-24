@@ -46,8 +46,7 @@ export default function UiLinkCard({ link }: UiLinkCardProps) {
             alt={link.rightText}
             className={styles.rightIcon}
             width={18}
-            height={200}
-            objectFit="contain"
+            height={120}
           />
         )}
         <span>{link.rightText}</span>
