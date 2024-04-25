@@ -4,10 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import type { Category } from '~/graphql/query/category'
-import type { Show } from '~/graphql/query/shows'
-import type { Sponsor } from '~/graphql/query/sponsors'
 import styles from '~/styles/components/layout/header/mobile-header/side-menu.module.scss'
+import type { Category, Show, Sponsor } from '~/types/header'
 
 type SideMenuProps = {
   categories: Category[]

@@ -11,6 +11,7 @@ import {
   SITE_URL,
 } from '~/constants/environment-variables'
 import '../styles/global.css'
+import { AppProvider } from './app-context'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -78,11 +79,11 @@ export default function RootLayout({
         })`}
       </Script>
       <body>
-        <>
+        <AppProvider>
           <MainHeader />
           {children}
           <Footer />
-        </>
+        </AppProvider>
       </body>
     </html>
   )
