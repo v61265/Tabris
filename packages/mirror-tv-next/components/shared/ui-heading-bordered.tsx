@@ -15,7 +15,7 @@ export default function UiHeadingBordered({
         ' '
       )}
     >
-      <h1>{title}</h1>
+      <p className={styles.title}>{title}</p>
     </div>
   )
 }

@@ -12,6 +12,11 @@ import { fetchVideoPostsItems } from '~/components/category/video/action'
 import styles from '~/styles/pages/category-video-page.module.scss'
 import VideoPostsList from '~/components/category/video/video-posts-list'
 import type { HeroImage } from '~/types/common'
+import type { Show } from '~/graphql/query/shows'
+import UiShowsList from '~/components/category/video/ui-shows-list'
+import UiLinksList from '~/components/category/video/ui-links-list'
+import { HEADER_JSON_URL } from '~/constants/environment-variables'
+import type { HeaderData } from '~/types/header'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -51,6 +56,7 @@ export default async function VideoCategoryPage() {
     categoryName: string
   }[] = []
   let allCategories: Category[] = []
+  let allShows: Show[] = []
 
   const client = getClient()
 
@@ -69,9 +75,18 @@ export default async function VideoCategoryPage() {
       return res.json() as unknown as RowPopularVideoData
     })
 
+  const fetchHeaderJson = () =>
+    fetch(HEADER_JSON_URL, {
+      next: { revalidate: GLOBAL_CACHE_SETTING },
+    }).then((res) => {
+      // use type assertion to eliminate any
+      return res.json() as unknown as HeaderData
+    })
+
   const responses = await Promise.allSettled([
     fetchAllCategory(),
     fetchPopularPosts(),
+    fetchHeaderJson(),
   ])
 
   allCategories = handleResponse(
@@ -99,6 +114,14 @@ export default async function VideoCategoryPage() {
       )
     },
     'Error occurs while fetching popular videos in video category page'
+  )
+
+  allShows = handleResponse(
+    responses[2],
+    (data: Awaited<ReturnType<typeof fetchHeaderJson>> | undefined) => {
+      return data?.allShows ?? []
+    },
+    'Error occurs while fetching all shows in video category page'
   )
 
   const fetchVideoPostsByCategory = (slug: string) =>
@@ -166,7 +189,10 @@ export default async function VideoCategoryPage() {
           )
         })}
       </section>
-      <aside className={styles.aside}></aside>
+      <aside className={styles.aside}>
+        {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
+        <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
+      </aside>
     </main>
   )
 }
