@@ -12,10 +12,11 @@ import { fetchVideoPostsItems } from '~/components/category/video/action'
 import styles from '~/styles/pages/category-video-page.module.scss'
 import VideoPostsList from '~/components/category/video/video-posts-list'
 import type { HeroImage } from '~/types/common'
-import { fetchShows } from '~/graphql/query/shows'
 import type { Show } from '~/graphql/query/shows'
 import UiShowsList from '~/components/category/video/ui-shows-list'
 import UiLinksList from '~/components/category/video/ui-links-list'
+import { HEADER_JSON_URL } from '~/constants/environment-variables'
+import type { HeaderData } from '~/types/header'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -71,15 +72,18 @@ export default async function VideoCategoryPage() {
       return res.json() as unknown as RowPopularVideoData
     })
 
-  const fetchAllShows = () =>
-    client.query<{ allShows: Show[] }>({
-      query: fetchShows,
+  const fetchHeaderJson = () =>
+    fetch(HEADER_JSON_URL, {
+      next: { revalidate: GLOBAL_CACHE_SETTING },
+    }).then((res) => {
+      // use type assertion to eliminate any
+      return res.json() as unknown as HeaderData
     })
 
   const responses = await Promise.allSettled([
     fetchAllCategory(),
     fetchPopularPosts(),
-    fetchAllShows(),
+    fetchHeaderJson(),
   ])
 
   allCategories = handleResponse(
@@ -111,8 +115,8 @@ export default async function VideoCategoryPage() {
 
   allShows = handleResponse(
     responses[2],
-    (data: Awaited<ReturnType<typeof fetchAllShows>> | undefined) => {
-      return data?.data?.allShows ?? []
+    (data: Awaited<ReturnType<typeof fetchHeaderJson>> | undefined) => {
+      return data?.allShows ?? []
     },
     'Error occurs while fetching all shows in video category page'
   )
