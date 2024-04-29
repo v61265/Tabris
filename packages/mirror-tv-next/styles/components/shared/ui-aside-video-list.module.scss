@@ -1,0 +1,11 @@
+@import '/styles/theme/breakpoints';
+
+.list {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  @include media-breakpoint-up(md) {
+    gap: 20px;
+  }
+}

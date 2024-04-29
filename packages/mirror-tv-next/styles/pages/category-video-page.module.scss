@@ -36,3 +36,16 @@
     flex: 1;
   }
 }
+
+.desktopOnly {
+  display: none;
+  @include media-breakpoint-up(xl) {
+    display: block;
+  }
+}
+
+.mobileOnly {
+  @include media-breakpoint-up(xl) {
+    display: none;
+  }
+}

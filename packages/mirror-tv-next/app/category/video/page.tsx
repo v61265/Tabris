@@ -17,6 +17,9 @@ import UiShowsList from '~/components/category/video/ui-shows-list'
 import UiLinksList from '~/components/category/video/ui-links-list'
 import { HEADER_JSON_URL } from '~/constants/environment-variables'
 import type { HeaderData } from '~/types/header'
+import type { PromotionVideo } from '~/graphql/query/promotion-video'
+import { getPromotionVideos } from '~/graphql/query/promotion-video'
+import UiAsideVideosList from '~/components/shared/ui-aside-videos-list'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -57,6 +60,7 @@ export default async function VideoCategoryPage() {
   }[] = []
   let allCategories: Category[] = []
   let allShows: Show[] = []
+  let allPromotionVideos: PromotionVideo[] = []
 
   const client = getClient()
 
@@ -83,10 +87,18 @@ export default async function VideoCategoryPage() {
       return res.json() as unknown as HeaderData
     })
 
+  const fetchPromotionVideos = () =>
+    client.query<{
+      allPromotionVideos: PromotionVideo[]
+    }>({
+      query: getPromotionVideos,
+    })
+
   const responses = await Promise.allSettled([
     fetchAllCategory(),
     fetchPopularPosts(),
     fetchHeaderJson(),
+    fetchPromotionVideos(),
   ])
 
   allCategories = handleResponse(
@@ -122,6 +134,14 @@ export default async function VideoCategoryPage() {
       return data?.allShows ?? []
     },
     'Error occurs while fetching all shows in video category page'
+  )
+
+  allPromotionVideos = handleResponse(
+    responses[3],
+    (data: Awaited<ReturnType<typeof fetchPromotionVideos>> | undefined) => {
+      return data?.data?.allPromotionVideos ?? []
+    },
+    'Error occurs while fetching all promotion videos in video category page'
   )
 
   const fetchVideoPostsByCategory = (slug: string) =>
@@ -190,6 +210,17 @@ export default async function VideoCategoryPage() {
         })}
       </section>
       <aside className={styles.aside}>
+        <section className={styles.desktopOnly}>
+          {!!allPromotionVideos.length && (
+            <UiAsideVideosList
+              title="發燒單元"
+              videosList={allPromotionVideos.map((video) => {
+                return { ...video, src: video.ytUrl }
+              })}
+              isAutoPlay={false}
+            />
+          )}
+        </section>
         {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
         <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
       </aside>
