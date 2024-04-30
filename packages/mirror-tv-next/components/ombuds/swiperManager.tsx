@@ -65,6 +65,7 @@ export default function SwiperManager({
   return (
     <Swiper
       ref={sliderRef}
+      cssMode={true}
       keyboard={true}
       loop={false}
       spaceBetween={20}
