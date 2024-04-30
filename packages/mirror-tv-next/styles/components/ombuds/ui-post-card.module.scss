@@ -47,8 +47,15 @@
   color: #4a4a4a;
   text-align: left;
   word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  max-height: 6em;
   @include media-breakpoint-up(md) {
     margin-top: 12px;
+    -webkit-line-clamp: 2;
+    max-height: 3em;
   }
 }
 
