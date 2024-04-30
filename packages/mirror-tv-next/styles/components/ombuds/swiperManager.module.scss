@@ -1,17 +1,7 @@
 @import '/styles/theme/breakpoints';
 
 .swiper {
-  display: none;
   position: relative;
-  @include media-breakpoint-up(md) {
-    display: block;
-    width: 696px;
-    margin: 0 auto 32px;
-  }
-  @include media-breakpoint-up(xl) {
-    width: 1120px;
-    margin-bottom: 48px;
-  }
 }
 
 .prevArrow,
