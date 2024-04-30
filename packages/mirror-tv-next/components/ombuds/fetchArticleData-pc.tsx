@@ -1,6 +1,7 @@
 import type { Post } from '~/graphql/query/ombuds'
 import { fetchOmbudsPosts } from '~/components/ombuds/action'
 import SwiperManager from './swiperManager'
+import styles from '~/styles/components/ombuds/fetchArticleData-pc.module.scss'
 
 export default async function tabletFetchArticleData() {
   const PAGE_SIZE = 12
@@ -31,11 +32,14 @@ export default async function tabletFetchArticleData() {
   }
 
   return (
-    <SwiperManager
-      initialPostItems={postsList}
-      slug={filteredSlugArr}
-      countNumber={nextPageDependment}
-      pageSize={PAGE_SIZE}
-    />
+    <div className={styles.articleList}>
+      <h3>公評人辦公室最新消息</h3>
+      <SwiperManager
+        initialPostItems={postsList}
+        slug={filteredSlugArr}
+        countNumber={nextPageDependment}
+        pageSize={PAGE_SIZE}
+      />
+    </div>
   )
 }

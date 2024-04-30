@@ -1,0 +1,25 @@
+@import '/styles/theme/breakpoints';
+
+.articleList {
+  display: none;
+  h3 {
+    color: #014db8;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    @include media-breakpoint-up(md) {
+      margin-bottom: 16px;
+    }
+  }
+  @include media-breakpoint-up(md) {
+    width: 696px;
+    display: block;
+    margin: 0 auto 32px;
+  }
+  @include media-breakpoint-up(xl) {
+    width: 1120px;
+    margin-bottom: 48px;
+  }
+}
