@@ -229,13 +229,19 @@ export default async function VideoCategoryPage() {
 
   return (
     <main className={styles.main}>
-      <AsideVideoListHandler
-        isDesktop={false}
-        isMobile={true}
-        promotionVideos={allPromotionVideos}
-        otherStreamings={otherStreamings}
-        liveVideo={liveVideo}
-      />
+      <aside className={styles.aside}>
+        <AsideVideoListHandler
+          promotionVideos={allPromotionVideos}
+          otherStreamings={otherStreamings}
+          liveVideo={liveVideo}
+        />
+        <section className={styles.desktopOnly}>
+          {!!allShows.length && (
+            <UiShowsList title="節目" showsList={allShows} />
+          )}
+          <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
+        </section>
+      </aside>
       <section className={styles.left}>
         {!!popularVideos.length && (
           <VideoPostsList
@@ -260,17 +266,10 @@ export default async function VideoCategoryPage() {
           )
         })}
       </section>
-      <aside className={styles.aside}>
-        <AsideVideoListHandler
-          isDesktop={true}
-          isMobile={false}
-          promotionVideos={allPromotionVideos}
-          otherStreamings={otherStreamings}
-          liveVideo={liveVideo}
-        />
+      <section className={styles.mobileOnly}>
         {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
         <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
-      </aside>
+      </section>
     </main>
   )
 }
