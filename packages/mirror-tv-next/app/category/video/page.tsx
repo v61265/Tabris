@@ -63,7 +63,7 @@ export default async function VideoCategoryPage() {
   let allCategories: Category[] = []
   let allShows: Show[] = []
   let allPromotionVideos: PromotionVideo[] = []
-  let houseVideos: Video[] = []
+  let otherStreamings: Video[] = []
   let liveVideo: Video[] = []
 
   const client = getClient()
@@ -98,7 +98,7 @@ export default async function VideoCategoryPage() {
       query: getPromotionVideos,
     })
 
-  const fetchHouseVideo = () =>
+  const fetchOtherStreaming = () =>
     client.query<{
       allVideos: Video[]
     }>({
@@ -125,7 +125,7 @@ export default async function VideoCategoryPage() {
     fetchPopularPosts(),
     fetchHeaderJson(),
     fetchPromotionVideos(),
-    fetchHouseVideo(),
+    fetchOtherStreaming(),
     fetchLiveVideo(),
   ])
 
@@ -172,9 +172,9 @@ export default async function VideoCategoryPage() {
     'Error occurs while fetching all promotion videos in video category page'
   )
 
-  houseVideos = handleResponse(
+  otherStreamings = handleResponse(
     responses[4],
-    (data: Awaited<ReturnType<typeof fetchHouseVideo>> | undefined) => {
+    (data: Awaited<ReturnType<typeof fetchOtherStreaming>> | undefined) => {
       return data?.data?.allVideos ?? []
     },
     'Error occurs while fetching house videos in video category page'
@@ -233,7 +233,7 @@ export default async function VideoCategoryPage() {
         isDesktop={false}
         isMobile={true}
         promotionVideos={allPromotionVideos}
-        houseVideos={houseVideos}
+        otherStreamings={otherStreamings}
         liveVideo={liveVideo}
       />
       <section className={styles.left}>
@@ -265,7 +265,7 @@ export default async function VideoCategoryPage() {
           isDesktop={true}
           isMobile={false}
           promotionVideos={allPromotionVideos}
-          houseVideos={houseVideos}
+          otherStreamings={otherStreamings}
           liveVideo={liveVideo}
         />
         {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}

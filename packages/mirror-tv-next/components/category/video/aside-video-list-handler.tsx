@@ -9,7 +9,7 @@ type AsideVideoListHandlerProps = {
   isMobile: boolean
   isDesktop: boolean
   promotionVideos: PromotionVideo[]
-  houseVideos: Video[]
+  otherStreamings: Video[]
   liveVideo: Video[]
 }
 
@@ -17,7 +17,7 @@ export default function AsideVideoListHandler({
   isMobile,
   isDesktop,
   promotionVideos,
-  houseVideos,
+  otherStreamings,
   liveVideo,
 }: AsideVideoListHandlerProps) {
   const { width = 1200 } = useWindowDimensions()
@@ -38,10 +38,10 @@ export default function AsideVideoListHandler({
           isAutoPlay={!notShown}
         />
       )}
-      {!!houseVideos.length && (
+      {!!otherStreamings.length && (
         <UiAsideVideosList
           title="直播現場"
-          videosList={houseVideos.map((video) => {
+          videosList={otherStreamings.map((video) => {
             return { ...video, src: video.youtubeUrl ?? video.url }
           })}
           isAutoPlay={!notShown}
