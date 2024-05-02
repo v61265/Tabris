@@ -57,6 +57,10 @@
     -webkit-line-clamp: 2;
     max-height: 3em;
   }
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .date {
