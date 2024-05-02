@@ -33,6 +33,10 @@
   padding: 8px;
   background-color: #f4f5f6;
   text-align: center;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: #003366;
+  }
   p {
     color: #003366;
     font-weight: 500;
