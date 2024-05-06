@@ -1,7 +1,6 @@
 import errors from '@twreporter/errors'
 import type { ApiData } from '~/types/api-data'
 
-
 function isServer(): boolean {
   return typeof window === 'undefined'
 }
@@ -11,9 +10,9 @@ const extractYoutubeId = (url: string) => {
   const match = url?.match(
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
   )
+
   return match ? match[1] : null
 }
-
 
 const handleResponse = <
   T extends Record<string, unknown>,
@@ -78,4 +77,10 @@ function handleApiData(apiData: string) {
   }
 }
 
-export { extractYoutubeId, isServer, handleResponse, handleApiData, handleMetaDesc }
+export {
+  extractYoutubeId,
+  isServer,
+  handleResponse,
+  handleApiData,
+  handleMetaDesc,
+}

@@ -17,6 +17,11 @@ import UiShowsList from '~/components/category/video/ui-shows-list'
 import UiLinksList from '~/components/category/video/ui-links-list'
 import { HEADER_JSON_URL } from '~/constants/environment-variables'
 import type { HeaderData } from '~/types/header'
+import type { PromotionVideo } from '~/graphql/query/promotion-video'
+import { getPromotionVideos } from '~/graphql/query/promotion-video'
+import { getVideoByName } from '~/graphql/query/videos'
+import type { Video } from '~/graphql/query/videos'
+import AsideVideoListHandler from '~/components/category/video/aside-video-list-handler'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -57,6 +62,9 @@ export default async function VideoCategoryPage() {
   }[] = []
   let allCategories: Category[] = []
   let allShows: Show[] = []
+  let allPromotionVideos: PromotionVideo[] = []
+  let otherStreamings: Video[] = []
+  let liveVideo: Video[] = []
 
   const client = getClient()
 
@@ -83,10 +91,42 @@ export default async function VideoCategoryPage() {
       return res.json() as unknown as HeaderData
     })
 
+  const fetchPromotionVideos = () =>
+    client.query<{
+      allPromotionVideos: PromotionVideo[]
+    }>({
+      query: getPromotionVideos,
+    })
+
+  const fetchOtherStreaming = () =>
+    client.query<{
+      allVideos: Video[]
+    }>({
+      query: getVideoByName,
+      variables: {
+        name: 'live-cam',
+        take: 2,
+      },
+    })
+
+  const fetchLiveVideo = () =>
+    client.query<{
+      allVideos: Video[]
+    }>({
+      query: getVideoByName,
+      variables: {
+        name: 'mnews-live',
+        take: 1,
+      },
+    })
+
   const responses = await Promise.allSettled([
     fetchAllCategory(),
     fetchPopularPosts(),
     fetchHeaderJson(),
+    fetchPromotionVideos(),
+    fetchOtherStreaming(),
+    fetchLiveVideo(),
   ])
 
   allCategories = handleResponse(
@@ -122,6 +162,30 @@ export default async function VideoCategoryPage() {
       return data?.allShows ?? []
     },
     'Error occurs while fetching all shows in video category page'
+  )
+
+  allPromotionVideos = handleResponse(
+    responses[3],
+    (data: Awaited<ReturnType<typeof fetchPromotionVideos>> | undefined) => {
+      return data?.data?.allPromotionVideos ?? []
+    },
+    'Error occurs while fetching all promotion videos in video category page'
+  )
+
+  otherStreamings = handleResponse(
+    responses[4],
+    (data: Awaited<ReturnType<typeof fetchOtherStreaming>> | undefined) => {
+      return data?.data?.allVideos ?? []
+    },
+    'Error occurs while fetching other streaming videos in video category page'
+  )
+
+  liveVideo = handleResponse(
+    responses[5],
+    (data: Awaited<ReturnType<typeof fetchLiveVideo>> | undefined) => {
+      return data?.data?.allVideos ?? []
+    },
+    'Error occurs while fetching live videos in video category page'
   )
 
   const fetchVideoPostsByCategory = (slug: string) =>
@@ -165,6 +229,19 @@ export default async function VideoCategoryPage() {
 
   return (
     <main className={styles.main}>
+      <aside className={styles.aside}>
+        <AsideVideoListHandler
+          promotionVideos={allPromotionVideos}
+          otherStreamings={otherStreamings}
+          liveVideo={liveVideo}
+        />
+        <section className={styles.desktopOnly}>
+          {!!allShows.length && (
+            <UiShowsList title="節目" showsList={allShows} />
+          )}
+          <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
+        </section>
+      </aside>
       <section className={styles.left}>
         {!!popularVideos.length && (
           <VideoPostsList
@@ -189,10 +266,10 @@ export default async function VideoCategoryPage() {
           )
         })}
       </section>
-      <aside className={styles.aside}>
+      <section className={styles.mobileOnly}>
         {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
         <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
-      </aside>
+      </section>
     </main>
   )
 }

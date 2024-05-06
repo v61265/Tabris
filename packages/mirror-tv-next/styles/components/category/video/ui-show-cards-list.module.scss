@@ -17,3 +17,13 @@
     gap: 20px;
   }
 }
+
+.title {
+  margin-top: 48px;
+  @include media-breakpoint-up(md) {
+    margin-top: 80px;
+  }
+  @include media-breakpoint-up(xl) {
+    margin-top: 36px;
+  }
+}
