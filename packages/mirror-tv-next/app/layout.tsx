@@ -11,7 +11,7 @@ import {
   SITE_URL,
 } from '~/constants/environment-variables'
 import '../styles/global.css'
-import { AppProvider } from './app-context'
+import { AppProvider } from '../context/header-json-provider'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 

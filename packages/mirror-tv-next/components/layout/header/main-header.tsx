@@ -6,15 +6,15 @@ import HeaderBottom from './header-bottom'
 import HeaderNav from './header-nav'
 import HeaderTop from './header-top'
 
-import { useAppContext } from '~/app/app-context'
+import { useAppContext } from '~/context/header-json-provider'
 
 export default async function MainHeader() {
   const { data } = useAppContext()
 
   const {
-    allSponsors: sponsorsData,
-    allCategories: categoriesData,
-    allShows: showsData,
+    allSponsors: sponsorsData = [],
+    allCategories: categoriesData = [],
+    allShows: showsData = [],
   } = data
 
   return (
