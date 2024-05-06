@@ -177,7 +177,7 @@ export default async function VideoCategoryPage() {
     (data: Awaited<ReturnType<typeof fetchOtherStreaming>> | undefined) => {
       return data?.data?.allVideos ?? []
     },
-    'Error occurs while fetching house videos in video category page'
+    'Error occurs while fetching other streaming videos in video category page'
   )
 
   liveVideo = handleResponse(
