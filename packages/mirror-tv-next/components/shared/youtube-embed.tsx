@@ -1,3 +1,4 @@
+'use client'
 import styles from '~/styles/components/shared/youtube-embed.module.scss'
 
 type YoutubeEmbedProps = {
@@ -6,6 +7,9 @@ type YoutubeEmbedProps = {
   autoplay?: boolean
   controls?: boolean
   loop?: boolean
+  className?: string
+  handleEnded?: () => void
+  handlePlaying?: () => void
 }
 
 export default function YoutubeEmbed({
@@ -14,9 +18,12 @@ export default function YoutubeEmbed({
   autoplay = false,
   loop = false,
   controls = true,
+  className = '',
+  handleEnded = () => {},
+  handlePlaying = () => {},
 }: YoutubeEmbedProps) {
   return (
-    <div className={styles.videoWrapper}>
+    <div className={`${styles.videoWrapper} ${className}`}>
       <iframe
         src={`https://www.youtube.com/embed/${youtubeId}?autoplay=${
           autoplay ? 1 : 0
@@ -26,6 +33,8 @@ export default function YoutubeEmbed({
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         title="Embedded youtube"
+        onEnded={handleEnded}
+        onPlaying={handlePlaying}
       />
     </div>
   )

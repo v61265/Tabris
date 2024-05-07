@@ -22,6 +22,9 @@ import { getPromotionVideos } from '~/graphql/query/promotion-video'
 import { getVideoByName } from '~/graphql/query/videos'
 import type { Video } from '~/graphql/query/videos'
 import AsideVideoListHandler from '~/components/category/video/aside-video-list-handler'
+import type { VideoEditorChoice } from '~/graphql/query/video-editor-choice'
+import { getVideoEditorChoice } from '~/graphql/query/video-editor-choice'
+import EditorChoiceVideoList from '~/components/category/video/editor-choice-video-list'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -65,6 +68,7 @@ export default async function VideoCategoryPage() {
   let allPromotionVideos: PromotionVideo[] = []
   let otherStreamings: Video[] = []
   let liveVideo: Video[] = []
+  let allVideoEditorChoices: VideoEditorChoice[] = []
 
   const client = getClient()
 
@@ -120,6 +124,11 @@ export default async function VideoCategoryPage() {
       },
     })
 
+  const fetchVideoEditorChoice = () =>
+    client.query<{ allVideoEditorChoices: VideoEditorChoice[] }>({
+      query: getVideoEditorChoice,
+    })
+
   const responses = await Promise.allSettled([
     fetchAllCategory(),
     fetchPopularPosts(),
@@ -127,6 +136,7 @@ export default async function VideoCategoryPage() {
     fetchPromotionVideos(),
     fetchOtherStreaming(),
     fetchLiveVideo(),
+    fetchVideoEditorChoice(),
   ])
 
   allCategories = handleResponse(
@@ -187,6 +197,14 @@ export default async function VideoCategoryPage() {
     },
     'Error occurs while fetching live videos in video category page'
   )
+  allVideoEditorChoices = handleResponse(
+    responses[6],
+    (data: Awaited<ReturnType<typeof fetchVideoEditorChoice>> | undefined) => {
+      console.log(data?.data?.allVideoEditorChoices)
+      return data?.data?.allVideoEditorChoices ?? []
+    },
+    'Error occurs while fetching video category page in video category page'
+  )
 
   const fetchVideoPostsByCategory = (slug: string) =>
     fetchVideoPostsItems({
@@ -227,44 +245,55 @@ export default async function VideoCategoryPage() {
   })
   categoryPosts = categoryPosts.filter((item) => item.count)
 
+  console.log({ allPromotionVideos, otherStreamings, liveVideo })
+
   return (
     <main className={styles.main}>
-      <aside className={styles.aside}>
-        <AsideVideoListHandler
-          promotionVideos={allPromotionVideos}
-          otherStreamings={otherStreamings}
-          liveVideo={liveVideo}
+      {!!allVideoEditorChoices && (
+        <EditorChoiceVideoList
+          title="編輯精選"
+          videoLists={allVideoEditorChoices}
         />
-        <section className={styles.desktopOnly}>
-          {!!allShows.length && (
-            <UiShowsList title="節目" showsList={allShows} />
-          )}
-          <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
-        </section>
-      </aside>
-      <section className={styles.left}>
-        {!!popularVideos.length && (
-          <VideoPostsList
-            initPostsList={popularVideos}
-            categorySlug=""
-            categoryName="熱門影音"
-            pageSize={PAGE_SIZE}
-            postsCount={popularVideos.length}
+      )}
+      <section className={styles.wrapper}>
+        <aside className={styles.aside}>
+          <AsideVideoListHandler
+            promotionVideos={allPromotionVideos}
+            otherStreamings={otherStreamings}
+            liveVideo={liveVideo}
           />
-        )}
+          <section className={styles.desktopOnly}>
+            {!!allShows.length && (
+              <UiShowsList title="節目" showsList={allShows} />
+            )}
+            <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
+          </section>
+        </aside>
 
-        {categoryPosts.map((list) => {
-          return (
+        <section className={styles.left}>
+          {!!popularVideos.length && (
             <VideoPostsList
-              initPostsList={list.posts}
-              categorySlug={list.categorySlug}
-              categoryName={list.categoryName}
+              initPostsList={popularVideos}
+              categorySlug=""
+              categoryName="熱門影音"
               pageSize={PAGE_SIZE}
-              postsCount={list.count}
-              key={list.categorySlug}
+              postsCount={popularVideos.length}
             />
-          )
-        })}
+          )}
+
+          {categoryPosts.map((list) => {
+            return (
+              <VideoPostsList
+                initPostsList={list.posts}
+                categorySlug={list.categorySlug}
+                categoryName={list.categoryName}
+                pageSize={PAGE_SIZE}
+                postsCount={list.count}
+                key={list.categorySlug}
+              />
+            )
+          })}
+        </section>
       </section>
       <section className={styles.mobileOnly}>
         {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
