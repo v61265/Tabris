@@ -245,8 +245,6 @@ export default async function VideoCategoryPage() {
   })
   categoryPosts = categoryPosts.filter((item) => item.count)
 
-  console.log({ allPromotionVideos, otherStreamings, liveVideo })
-
   return (
     <main className={styles.main}>
       {!!allVideoEditorChoices && (

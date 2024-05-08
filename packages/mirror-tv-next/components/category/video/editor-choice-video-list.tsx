@@ -4,7 +4,7 @@ import type { VideoEditorChoice } from '~/graphql/query/video-editor-choice'
 import { extractYoutubeId } from '~/utils'
 import YoutubeEmbed from '~/components/shared/youtube-embed'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import ResponsiveImage from '~/components/shared/responsive-image'
 import { formateHeroImage } from '~/utils'
 
@@ -18,8 +18,7 @@ export default function EditorChoiceVideoList({
   videoLists = [],
 }: EditorChoiceVideoListProps) {
   const [highlightIndex, setHighLightIndex] = useState(0)
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
-  const [videoIsPlaying, setVideoIsPlaying] = useState(false)
+  const [status, setStatus] = useState<null | 'playing'>(null)
   const selectItemToHighlight = (index: number) => {
     setHighLightIndex(index)
   }
@@ -28,35 +27,27 @@ export default function EditorChoiceVideoList({
   }
 
   const nextVideoCarousel = () => {
-    if (videoIsPlaying) return
-    if (highlightIndex + 1 > videoLists.length - 1) {
-      setHighLightIndex(0)
-    } else {
-      setHighLightIndex((prev) => prev + 1)
-    }
+    setHighLightIndex((prev) => {
+      if (prev + 1 > videoLists.length - 1) return 0
+      return prev + 1
+    })
   }
 
-  const setTimerInterval = () => {
-    clearInterval(timer!)
-    setTimer(setInterval(nextVideoCarousel, 5000))
-  }
+  const handleEnded = useCallback(() => {
+    setStatus(null)
+  }, [])
 
-  const handleEnded = () => {
-    clearInterval(timer!)
-    setTimerInterval()
-  }
-
-  const handlePlaying = () => {
-    console.log('playing')
-    clearInterval(timer!)
-    setTimer(null)
-    setVideoIsPlaying(true)
-  }
+  const handlePlaying = useCallback(() => {
+    setStatus('playing')
+  }, [])
 
   useEffect(() => {
-    setTimerInterval()
+    const timer = setInterval(nextVideoCarousel, 5000)
+    if (status === 'playing') {
+      clearInterval(timer!)
+    }
     return () => clearInterval(timer!)
-  }, [highlightIndex])
+  }, [status])
 
   return (
     <div className={styles.wrapper}>

@@ -1,8 +1,9 @@
 'use client'
 import styles from '~/styles/components/shared/youtube-embed.module.scss'
+import YouTube, { YouTubeProps } from 'react-youtube'
 
 type YoutubeEmbedProps = {
-  youtubeId: string | null
+  youtubeId: string
   muted?: boolean
   autoplay?: boolean
   controls?: boolean
@@ -13,7 +14,7 @@ type YoutubeEmbedProps = {
 }
 
 export default function YoutubeEmbed({
-  youtubeId,
+  youtubeId = '',
   muted = false,
   autoplay = false,
   loop = false,
@@ -22,19 +23,24 @@ export default function YoutubeEmbed({
   handleEnded = () => {},
   handlePlaying = () => {},
 }: YoutubeEmbedProps) {
+  const opts: YouTubeProps['opts'] = {
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: autoplay ? 1 : 0,
+      controls: controls ? 1 : 0,
+      muted: muted ? 1 : 0,
+      loop: loop ? 1 : 0,
+    },
+  }
   return (
     <div className={`${styles.videoWrapper} ${className}`}>
-      <iframe
-        src={`https://www.youtube.com/embed/${youtubeId}?autoplay=${
-          autoplay ? 1 : 0
-        }&controls=${controls ? 1 : 0}&mute=${muted ? 1 : 0}&loop=${
-          loop ? 1 : 0
-        }`}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
+      <YouTube
+        videoId={youtubeId} // defaults -> ''
+        id={youtubeId} // defaults -> ''
         title="Embedded youtube"
-        onEnded={handleEnded}
-        onPlaying={handlePlaying}
+        opts={opts} // defaults -> {}
+        onPlay={handlePlaying} // defaults -> noop
+        onEnd={handleEnded} // defaults -> noop
       />
     </div>
   )
