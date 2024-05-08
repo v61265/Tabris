@@ -28,7 +28,7 @@ export default function YoutubeEmbed({
       // https://developers.google.com/youtube/player_parameters
       autoplay: autoplay ? 1 : 0,
       controls: controls ? 1 : 0,
-      muted: muted ? 1 : 0,
+      mute: muted ? 1 : 0,
       loop: loop ? 1 : 0,
     },
   }
