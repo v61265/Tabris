@@ -5,7 +5,7 @@ interface GPTPlaceholderProps {
   children: ReactNode
 }
 
-const GPTPlaceholderMobileAndTablet = ({
+const GPTPlaceholderMobile = ({
   children,
 }: GPTPlaceholderProps): JSX.Element => {
   return <div className={`${styles.gptAdContainerMb}`}>{children}</div>
@@ -16,4 +16,4 @@ const GPTPlaceholderDesktop = ({
   return <div className={`${styles.gptAdContainerPc}`}>{children}</div>
 }
 
-export { GPTPlaceholderMobileAndTablet, GPTPlaceholderDesktop }
+export { GPTPlaceholderMobile, GPTPlaceholderDesktop }
