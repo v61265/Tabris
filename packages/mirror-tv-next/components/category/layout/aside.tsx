@@ -7,6 +7,8 @@ import {
   POPULAR_POSTS_URL,
   GLOBAL_CACHE_SETTING,
 } from '~/constants/environment-variables'
+import dynamic from 'next/dynamic'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 type RawPopularPost = {
   id: string
@@ -85,6 +87,7 @@ export default async function CategoryPageLayoutAside() {
 
   return (
     <aside className={styles.aside}>
+      <GPTAd pageKey="category" adKey="PC_R1" />
       <UiListPostsAside
         listTitle="熱門新聞"
         page="category"
