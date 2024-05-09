@@ -13,9 +13,6 @@ import type { SingleAnchor } from '~/graphql/query/contact'
 import { fetchContactBySlug } from '~/graphql/query/contact'
 import styles from '~/styles/pages/single-anchorperson-page.module.scss'
 import { handleApiData } from '~/utils'
-import dynamic from 'next/dynamic'
-const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
-import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -144,10 +141,6 @@ export default async function singleAnchor({
 
   return (
     <main className={styles.main}>
-      <GPTPlaceholderDesktop>
-        <p>廣告</p>
-        <GPTAd pageKey="all" adKey="PC_HD" />
-      </GPTPlaceholderDesktop>
       <section className={styles.section}>
         <AnchorImg heroImage={singleAnchor.showhostImg} />
         <div className={styles.contentWrapper}>

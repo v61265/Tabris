@@ -12,9 +12,6 @@ import {
   fetchContactsByHost,
 } from '~/graphql/query/contact'
 import styles from '~/styles/pages/anchorperson-page.module.scss'
-import dynamic from 'next/dynamic'
-const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
-import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -106,10 +103,6 @@ export default async function Anchorperson() {
 
   return (
     <main className={styles.main}>
-      <GPTPlaceholderDesktop>
-        <p>廣告</p>
-        <GPTAd pageKey="all" adKey="PC_HD" />
-      </GPTPlaceholderDesktop>
       <Section title="鏡主播" data={anchorData} />
       <Section title="鏡主持" data={hostData} />
     </main>
