@@ -1,5 +1,6 @@
 import errors from '@twreporter/errors'
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
 import { fetchPostsItems } from '~/components/category/action'
@@ -15,6 +16,7 @@ import type { Sale } from '~/graphql/query/sales'
 import { getSales } from '~/graphql/query/sales'
 import styles from '~/styles/pages/category.module.scss'
 import { FormattedPostCard, formatArticleCard } from '~/utils'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -157,6 +159,7 @@ export default async function CategoryPage({
           />
         </div>
       )}
+      <GPTAd pageKey="category" adKey="PC_BT" />
     </section>
   )
 }

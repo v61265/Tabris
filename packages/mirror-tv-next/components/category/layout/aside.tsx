@@ -94,6 +94,7 @@ export default async function CategoryPageLayoutAside() {
         listData={popularPosts}
         className="aside__list-popular"
       />
+      <GPTAd pageKey="category" adKey="PC_R2" />
       <UiListPostsAside
         listTitle="即時新聞"
         page="category"
