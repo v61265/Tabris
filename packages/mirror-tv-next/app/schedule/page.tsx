@@ -9,6 +9,9 @@ import {
 } from '~/constants/environment-variables'
 import styles from '~/styles/pages/schedule-page.module.scss'
 import type { Schedule } from '~/types/common'
+import dynamic from 'next/dynamic'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
+import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -90,6 +93,10 @@ export default async function SchedulePage() {
 
   return (
     <main className={styles.main}>
+      <GPTPlaceholderDesktop>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </GPTPlaceholderDesktop>
       <ScheduleTable schedule={schedule} weekDates={weekDates} />
     </main>
   )
