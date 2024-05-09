@@ -20,6 +20,7 @@ import { fetchSingleTopicByTopicSlug } from '~/graphql/query/topic'
 import styles from '~/styles/pages/single-topic-page.module.scss'
 import { handleMetaDesc } from '~/utils'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
+import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -143,10 +144,10 @@ export default async function SingleTopicPage({
 
   return (
     <main className={styles.mainWrapper}>
-      <div className={styles.gptAdContainerPc}>
+      <GPTPlaceholderDesktop>
         <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
-      </div>
+      </GPTPlaceholderDesktop>
       {(() => {
         switch (singleTopic.leading) {
           case 'video':

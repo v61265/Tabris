@@ -1,6 +1,10 @@
 import dynamic from 'next/dynamic'
 import MainFlashNews from '~/components/flash-news/main-flash-news'
 import styles from '~/styles/pages/page.module.scss'
+import {
+  GPTPlaceholderDesktop,
+  GPTPlaceholderMobileAndTablet,
+} from '~/components/ads/gpt/gpt-placeholder'
 
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
@@ -8,14 +12,14 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {/* GPT ADs */}
-      <div className={styles.gptAdContainerPc}>
+      <GPTPlaceholderDesktop>
         <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
-      </div>
-      <div className={styles.gptAdContainerMb}>
+      </GPTPlaceholderDesktop>
+      <GPTPlaceholderMobileAndTablet>
         <p>廣告</p>
         <GPTAd pageKey="home" adKey="MB_M1" />
-      </div>
+      </GPTPlaceholderMobileAndTablet>
       <div className={styles.mobFlashNewsWrapper}>
         <MainFlashNews />
       </div>
