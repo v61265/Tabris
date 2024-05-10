@@ -200,10 +200,9 @@ export default async function VideoCategoryPage() {
   allVideoEditorChoices = handleResponse(
     responses[6],
     (data: Awaited<ReturnType<typeof fetchVideoEditorChoice>> | undefined) => {
-      console.log(data?.data?.allVideoEditorChoices)
       return data?.data?.allVideoEditorChoices ?? []
     },
-    'Error occurs while fetching video category page in video category page'
+    'Error occurs while fetching video editor choices in video category page'
   )
 
   const fetchVideoPostsByCategory = (slug: string) =>

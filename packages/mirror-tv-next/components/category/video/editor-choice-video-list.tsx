@@ -27,10 +27,7 @@ export default function EditorChoiceVideoList({
   }
 
   const nextVideoCarousel = () => {
-    setHighLightIndex((prev) => {
-      if (prev + 1 > videoLists.length - 1) return 0
-      return prev + 1
-    })
+    setHighLightIndex((prev) => (prev + 1) % videoLists.length)
   }
 
   const handleEnded = useCallback(() => {

@@ -9,8 +9,8 @@ type YoutubeEmbedProps = {
   controls?: boolean
   loop?: boolean
   className?: string
-  handleEnded?: () => void
-  handlePlaying?: () => void
+  handleEnded?: YouTubeProps['onEnd']
+  handlePlaying?: YouTubeProps['onPlay']
 }
 
 export default function YoutubeEmbed({
@@ -20,8 +20,8 @@ export default function YoutubeEmbed({
   loop = false,
   controls = true,
   className = '',
-  handleEnded = () => {},
-  handlePlaying = () => {},
+  handleEnded,
+  handlePlaying,
 }: YoutubeEmbedProps) {
   const opts: YouTubeProps['opts'] = {
     playerVars: {
