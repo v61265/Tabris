@@ -1,7 +1,7 @@
 import type { Show } from '~/graphql/query/shows'
 import UiShowCard from './ui-show-card'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
-import styles from '~/styles/components/category/video/ui-show-cards-list.module.scss'
+import styles from './ui-show-cards-list.module.scss'
 
 type UiShowsListProps = {
   title: string
