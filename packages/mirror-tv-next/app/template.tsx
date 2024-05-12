@@ -1,3 +1,4 @@
+'use client'
 import dynamic from 'next/dynamic'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
