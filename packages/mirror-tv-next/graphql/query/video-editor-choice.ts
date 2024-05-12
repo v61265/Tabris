@@ -11,7 +11,7 @@ export type VideoEditorChoice = {
       url: string
       coverPhoto: HeroImage
     }
-  }
+  } | null
 }
 
 const getVideoEditorChoice = gql`

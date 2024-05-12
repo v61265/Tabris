@@ -246,7 +246,7 @@ export default async function VideoCategoryPage() {
 
   return (
     <main className={styles.main}>
-      {!!allVideoEditorChoices && (
+      {!!allVideoEditorChoices.length && (
         <EditorChoiceVideoList
           title="編輯精選"
           videoLists={allVideoEditorChoices}

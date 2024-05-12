@@ -23,7 +23,9 @@ export default function EditorChoiceVideoList({
     setHighLightIndex(index)
   }
   const getImageUrls = (item: VideoEditorChoice['videoEditor']) => {
-    return formateHeroImage(item.heroVideo?.coverPhoto ?? item.heroImage)
+    return formateHeroImage(
+      item?.heroVideo?.coverPhoto ?? item?.heroImage ?? {}
+    )
   }
 
   const nextVideoCarousel = () => {
@@ -41,9 +43,9 @@ export default function EditorChoiceVideoList({
   useEffect(() => {
     const timer = setInterval(nextVideoCarousel, 5000)
     if (status === 'playing') {
-      clearInterval(timer!)
+      clearInterval(timer)
     }
-    return () => clearInterval(timer!)
+    return () => clearInterval(timer)
   }, [status])
 
   return (
@@ -52,7 +54,7 @@ export default function EditorChoiceVideoList({
       <div className={styles.container}>
         <YoutubeEmbed
           youtubeId={extractYoutubeId(
-            videoLists[highlightIndex]?.videoEditor?.heroVideo?.url
+            videoLists[highlightIndex]?.videoEditor?.heroVideo?.url ?? ''
           )}
           className={styles.feature}
           handleEnded={handleEnded}
@@ -63,7 +65,7 @@ export default function EditorChoiceVideoList({
             {videoLists.map(({ videoEditor }, index) => {
               return (
                 <div
-                  key={videoEditor.slug}
+                  key={videoEditor?.slug}
                   className={`${styles.item} ${
                     index === highlightIndex ? styles.highlight : ''
                   }`}
@@ -72,7 +74,7 @@ export default function EditorChoiceVideoList({
                   <picture>
                     <ResponsiveImage
                       images={getImageUrls(videoEditor)}
-                      alt={videoEditor.name}
+                      alt={videoEditor?.name ?? 'hero image'}
                       rwd={{
                         mobile: '500px',
                         tablet: '500px',
@@ -80,11 +82,9 @@ export default function EditorChoiceVideoList({
                       }}
                       priority={false}
                     />
-                    <div className="g-video-news-img-icon-wrapper">
-                      <div className="g-video-news-img-icon" />
-                    </div>
+                    <span className={styles.videoIcon}></span>
                   </picture>
-                  <span>{videoEditor.name}</span>
+                  <span>{videoEditor?.name}</span>
                 </div>
               )
             })}
