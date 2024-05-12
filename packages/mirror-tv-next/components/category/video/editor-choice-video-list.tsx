@@ -52,14 +52,16 @@ export default function EditorChoiceVideoList({
     <div className={styles.wrapper}>
       <UiHeadingBordered title={title} />
       <div className={styles.container}>
-        <YoutubeEmbed
-          youtubeId={extractYoutubeId(
-            videoLists[highlightIndex]?.videoEditor?.heroVideo?.url ?? ''
-          )}
-          className={styles.feature}
-          handleEnded={handleEnded}
-          handlePlaying={handlePlaying}
-        />
+        <div className={styles.ytContainer}>
+          <YoutubeEmbed
+            youtubeId={extractYoutubeId(
+              videoLists[highlightIndex]?.videoEditor?.heroVideo?.url ?? ''
+            )}
+            className={styles.feature}
+            handleEnded={handleEnded}
+            handlePlaying={handlePlaying}
+          />
+        </div>
         <div className={styles.list}>
           <div className={styles.scroll}>
             {videoLists.map(({ videoEditor }, index) => {

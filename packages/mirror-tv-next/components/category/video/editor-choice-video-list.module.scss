@@ -12,7 +12,6 @@
 }
 
 .container {
-  // desktop  range
   @include media-breakpoint-up(xl) {
     display: flex;
     flex-wrap: wrap;
@@ -29,31 +28,30 @@
   }
 }
 
-.feature {
+.ytContainer {
   position: relative;
   width: 100%;
+  aspect-ratio: 16 / 9;
   margin: 20px 0 0;
-  height: calc(100% * (9 / 16));
-  // tablet range
-  @include media-breakpoint-up(md) {
-    left: 0;
-    width: 100%;
-    height: calc(318px * (9 / 16));
-  }
-  // desktop range
   @include media-breakpoint-up(xl) {
     flex: 1;
     margin-right: 24px;
-    padding: 0;
-    height: 0;
-    padding-top: calc(672px * (9 / 16));
   }
-  @include media-breakpoint-up(xxl) {
-    flex: 1;
+}
+
+.feature {
+  @include media-breakpoint-up(md) {
+    left: 0;
+    width: 100%;
+  }
+  @include media-breakpoint-up(xl) {
     margin-right: 24px;
     padding: 0;
-    height: 0;
-    padding-top: calc(720px * (9 / 16));
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 
