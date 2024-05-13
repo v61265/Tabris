@@ -13,6 +13,9 @@ import type { SingleAnchor } from '~/graphql/query/contact'
 import { fetchContactBySlug } from '~/graphql/query/contact'
 import styles from '~/styles/pages/single-anchorperson-page.module.scss'
 import { handleApiData } from '~/utils'
+import dynamic from 'next/dynamic'
+import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -140,34 +143,40 @@ export default async function singleAnchor({
   const bio = handleApiData(singleAnchor.bioApiData)
 
   return (
-    <main className={styles.main}>
-      <section className={styles.section}>
-        <AnchorImg heroImage={singleAnchor.showhostImg} />
-        <div className={styles.contentWrapper}>
-          <div className={styles.titleIconWrapper}>
-            <div className={styles.title}>{singleAnchor.name}</div>
-            <div className={styles.socialIcons}>
-              {socialMediaIcons.map(
-                (icon, index) =>
-                  icon.href && (
-                    <SocialIcon
-                      key={index}
-                      href={icon.href}
-                      src={icon.src}
-                      alt={icon.alt}
-                      name={icon.name}
-                    />
-                  )
-              )}
+    <>
+      <GPTPlaceholderDesktop>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </GPTPlaceholderDesktop>
+      <main className={styles.main}>
+        <section className={styles.section}>
+          <AnchorImg heroImage={singleAnchor.showhostImg} />
+          <div className={styles.contentWrapper}>
+            <div className={styles.titleIconWrapper}>
+              <div className={styles.title}>{singleAnchor.name}</div>
+              <div className={styles.socialIcons}>
+                {socialMediaIcons.map(
+                  (icon, index) =>
+                    icon.href && (
+                      <SocialIcon
+                        key={index}
+                        href={icon.href}
+                        src={icon.src}
+                        alt={icon.alt}
+                        name={icon.name}
+                      />
+                    )
+                )}
+              </div>
+            </div>
+            <div className={styles.bio}>
+              {bio.map((item: { id: string; content: string }) => (
+                <div key={item.id}>{item.content && <p>{item.content}</p>}</div>
+              ))}
             </div>
           </div>
-          <div className={styles.bio}>
-            {bio.map((item: { id: string; content: string }) => (
-              <div key={item.id}>{item.content && <p>{item.content}</p>}</div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   )
 }

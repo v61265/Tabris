@@ -8,6 +8,9 @@ import {
 import PostsListManager from '~/components/tag/posts-list-manager'
 import { fetchPostsItems } from '~/components/tag/action'
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
+import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -73,6 +76,10 @@ export default async function TagPage({
 
   return (
     <section className={styles.tag}>
+      <GPTPlaceholderDesktop>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </GPTPlaceholderDesktop>
       <div className={styles.tagWrapper}>
         <h1 className={styles.tagName}>{tagName}</h1>
         {postsCount === 0 ? (

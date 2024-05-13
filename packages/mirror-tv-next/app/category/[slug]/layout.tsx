@@ -1,6 +1,9 @@
 import styles from '~/styles/pages/category-layout.module.scss'
 import CategoryPageLayoutAside from '~/components/category/layout/aside'
-import { GPTPlaceholderMobile } from '~/components/ads/gpt/gpt-placeholder'
+import {
+  GPTPlaceholderMobile,
+  GPTPlaceholderDesktop,
+} from '~/components/ads/gpt/gpt-placeholder'
 import dynamic from 'next/dynamic'
 
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
@@ -12,6 +15,10 @@ export default async function CategoryPageLayout({
 }) {
   return (
     <main>
+      <GPTPlaceholderDesktop>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </GPTPlaceholderDesktop>
       <section className={styles.category}>
         <GPTPlaceholderMobile>
           <p>廣告</p>
