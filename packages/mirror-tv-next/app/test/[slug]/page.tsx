@@ -1,9 +1,11 @@
+'use client'
 import Link from 'next/link'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
 export default function StoryPage({ params }: { params: { slug: string } }) {
+  console.log('re-render page')
   const mockStringArr = ['a', 'b', 'c']
   return (
     <section>

@@ -185,6 +185,11 @@ export default function GptAd({
       return
     }
   }, [adKey, pageKey, isBuildInAdUnit, isCustomAdUnit, isValidAd])
+
+  useEffect(() => {
+    console.log('ad', window.location.pathname)
+  }, [])
+
   return (
     <>
       {shouldShowAd && isValidAd ? (
