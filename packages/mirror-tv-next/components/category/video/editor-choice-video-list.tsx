@@ -28,9 +28,9 @@ export default function EditorChoiceVideoList({
     )
   }
 
-  const nextVideoCarousel = () => {
+  const nextVideoCarousel = useCallback(() => {
     setHighLightIndex((prev) => (prev + 1) % videoLists.length)
-  }
+  }, [])
 
   const handleEnded = useCallback(() => {
     setStatus(null)
@@ -46,11 +46,11 @@ export default function EditorChoiceVideoList({
       clearInterval(timer)
     }
     return () => clearInterval(timer)
-  }, [status])
+  }, [status, nextVideoCarousel])
 
   return (
     <div className={styles.wrapper}>
-      <UiHeadingBordered title={title} />
+      <UiHeadingBordered title={title} className={styles.title} />
       <div className={styles.container}>
         <div className={styles.ytContainer}>
           <YoutubeEmbed

@@ -14,10 +14,6 @@
 
 .categoryTitle {
   width: 110px;
-  @include media-breakpoint-up(md) {
-    margin-left: 4px;
-    margin-left: 20px;
-  }
 }
 
 .categoryLink {

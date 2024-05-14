@@ -28,6 +28,13 @@
   }
 }
 
+.title {
+  margin-left: 16px;
+  @include media-breakpoint-up(md) {
+    margin-left: 0;
+  }
+}
+
 .ytContainer {
   position: relative;
   width: 100%;
@@ -56,12 +63,11 @@
 }
 
 .list {
-  width: calc(100% - 40px);
+  width: calc(100% - 16px);
   padding: 8px 0;
   border: 1px solid #d8d8d8;
-  max-height: 456px;
   overflow: scroll;
-  margin: 16px 20px 0 20px;
+  margin: 16px 8px 0 8px;
   // tablet range
   @include media-breakpoint-up(md) {
     position: relative;
@@ -69,7 +75,6 @@
     width: auto;
     margin: 16px 0 0;
     padding: 0;
-    max-height: 300px;
   }
   // desktop range
   @include media-breakpoint-up(xl) {
