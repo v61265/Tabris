@@ -26,6 +26,9 @@
 
 .left {
   padding: 0 16px;
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
   @include media-breakpoint-up(xl) {
     width: calc(100% - 384px - 64px);
     margin-bottom: 60px;
@@ -34,6 +37,9 @@
 
 .aside {
   padding: 0 16px;
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
   @include media-breakpoint-up(xl) {
     padding-top: 0;
     margin-left: 64px;
@@ -53,6 +59,9 @@
 
 .mobileOnly {
   padding: 0 16px;
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
   @include media-breakpoint-up(xl) {
     display: none;
   }
