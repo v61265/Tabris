@@ -3,14 +3,14 @@ import type { HeroImage } from '~/types/common'
 
 export type VideoEditorChoice = {
   videoEditor: {
-    slug: string
-    name: string
+    slug: string | null
+    name: string | null
     style: string
-    heroImage: HeroImage
+    heroImage: HeroImage | null
     heroVideo: {
       url: string
       coverPhoto: HeroImage
-    }
+    } | null
   } | null
 }
 
