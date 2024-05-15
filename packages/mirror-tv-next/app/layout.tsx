@@ -11,6 +11,7 @@ import {
   SITE_URL,
 } from '~/constants/environment-variables'
 import '../styles/global.css'
+import CompassFit from '~/components/ads/compass-fit'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -82,6 +83,7 @@ export default function RootLayout({
           <MainHeader />
           {children}
           <Footer />
+          <CompassFit />
         </>
       </body>
     </html>
