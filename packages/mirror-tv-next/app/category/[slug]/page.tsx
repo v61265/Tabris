@@ -160,6 +160,7 @@ export default async function CategoryPage({
         </div>
       )}
       <GPTAd pageKey="category" adKey="PC_BT" />
+      <GPTAd pageKey="fs" adKey="MB_CATEGORY" />
     </section>
   )
 }

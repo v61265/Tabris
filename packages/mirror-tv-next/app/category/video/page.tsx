@@ -25,6 +25,8 @@ import AsideVideoListHandler from '~/components/category/video/aside-video-list-
 import type { VideoEditorChoice } from '~/graphql/query/video-editor-choice'
 import { getVideoEditorChoice } from '~/graphql/query/video-editor-choice'
 import EditorChoiceVideoList from '~/components/category/video/editor-choice-video-list'
+import dynamic from 'next/dynamic'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -296,6 +298,7 @@ export default async function VideoCategoryPage() {
         {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
         <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
       </section>
+      <GPTAd pageKey="fs" adKey="MB_VIDEO" />
     </main>
   )
 }
