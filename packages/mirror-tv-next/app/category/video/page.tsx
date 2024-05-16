@@ -27,6 +27,11 @@ import { getVideoEditorChoice } from '~/graphql/query/video-editor-choice'
 import EditorChoiceVideoList from '~/components/category/video/editor-choice-video-list'
 import dynamic from 'next/dynamic'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
+import {
+  GPTPlaceholderMobile,
+  GPTPlaceholderDesktop,
+} from '~/components/ads/gpt/gpt-placeholder'
+import UiAsideVideosList from '~/components/shared/ui-aside-videos-list'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -247,58 +252,95 @@ export default async function VideoCategoryPage() {
   categoryPosts = categoryPosts.filter((item) => item.count)
 
   return (
-    <main className={styles.main}>
-      {!!allVideoEditorChoices.length && (
-        <EditorChoiceVideoList
-          title="編輯精選"
-          videoLists={allVideoEditorChoices}
-        />
-      )}
-      <section className={styles.wrapper}>
-        <aside className={styles.aside}>
-          <AsideVideoListHandler
-            promotionVideos={allPromotionVideos}
-            otherStreamings={otherStreamings}
-            liveVideo={liveVideo}
+    <>
+      <GPTPlaceholderDesktop>
+        <p>廣告</p>
+        <GPTAd pageKey="all" adKey="PC_HD" />
+      </GPTPlaceholderDesktop>
+      <GPTPlaceholderMobile>
+        <p>廣告</p>
+        <GPTAd pageKey="video" adKey="MB_M1" />
+      </GPTPlaceholderMobile>
+      <main className={styles.main}>
+        {!!allVideoEditorChoices.length && (
+          <EditorChoiceVideoList
+            title="編輯精選"
+            videoLists={allVideoEditorChoices}
           />
-          <section className={styles.desktopOnly}>
-            {!!allShows.length && (
-              <UiShowsList title="節目" showsList={allShows} />
-            )}
-            <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
-          </section>
-        </aside>
+        )}
+        <section className={styles.wrapper}>
+          <aside className={styles.aside}>
+            <AsideVideoListHandler
+              otherStreamings={otherStreamings}
+              liveVideo={liveVideo}
+            />
+            <GPTAd pageKey="video" adKey="MB_M2" />
+            <GPTAd pageKey="video" adKey="PC_R1" />
+            <section className={styles.desktopOnly}>
+              {!!allPromotionVideos.length && (
+                <UiAsideVideosList
+                  title="發燒單元"
+                  videosList={allPromotionVideos.map((video) => {
+                    return { ...video, src: video.ytUrl }
+                  })}
+                  isAutoPlay={false}
+                />
+              )}
+              <GPTAd pageKey="video" adKey="PC_R2" />
+              <GPTAd pageKey="video" adKey="PC_R3" />
+              {!!allShows.length && (
+                <UiShowsList title="節目" showsList={allShows} />
+              )}
+              <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
+            </section>
+          </aside>
 
-        <section className={styles.left}>
-          {!!popularVideos.length && (
-            <VideoPostsList
-              initPostsList={popularVideos}
-              categorySlug=""
-              categoryName="熱門影音"
-              pageSize={PAGE_SIZE}
-              postsCount={popularVideos.length}
+          <section className={styles.left}>
+            {!!popularVideos.length && (
+              <VideoPostsList
+                initPostsList={popularVideos}
+                categorySlug=""
+                categoryName="熱門影音"
+                pageSize={PAGE_SIZE}
+                postsCount={popularVideos.length}
+              />
+            )}
+            <GPTAd pageKey="video" adKey="PC_BT" />
+            {categoryPosts.map((list) => {
+              return (
+                <VideoPostsList
+                  initPostsList={list.posts}
+                  categorySlug={list.categorySlug}
+                  categoryName={list.categoryName}
+                  pageSize={PAGE_SIZE}
+                  postsCount={list.count}
+                  key={list.categorySlug}
+                />
+              )
+            })}
+          </section>
+        </section>
+        <section className={styles.mobileOnly}>
+          {!!allPromotionVideos.length && (
+            <UiAsideVideosList
+              title="發燒單元"
+              videosList={allPromotionVideos.map((video) => {
+                return { ...video, src: video.ytUrl }
+              })}
+              isAutoPlay={false}
             />
           )}
-
-          {categoryPosts.map((list) => {
-            return (
-              <VideoPostsList
-                initPostsList={list.posts}
-                categorySlug={list.categorySlug}
-                categoryName={list.categoryName}
-                pageSize={PAGE_SIZE}
-                postsCount={list.count}
-                key={list.categorySlug}
-              />
-            )
-          })}
+          <GPTAd pageKey="video" adKey="PC_R2" />
+          <GPTAd pageKey="video" adKey="PC_R3" />
+          <GPTAd pageKey="video" adKey="MB_M3" />
+          {!!allShows.length && (
+            <UiShowsList title="節目" showsList={allShows} />
+          )}
+          <GPTAd pageKey="video" adKey="MB_M4" />
+          <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
         </section>
-      </section>
-      <section className={styles.mobileOnly}>
-        {!!allShows.length && <UiShowsList title="節目" showsList={allShows} />}
-        <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
-      </section>
-      <GPTAd pageKey="fs" adKey="MB_VIDEO" />
-    </main>
+        <GPTAd pageKey="fs" adKey="MB_VIDEO" />
+      </main>
+    </>
   )
 }

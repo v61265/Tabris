@@ -1,15 +1,12 @@
 import type { Video } from '~/graphql/query/videos'
-import type { PromotionVideo } from '~/graphql/query/promotion-video'
 import UiAsideVideosList from '~/components/shared/ui-aside-videos-list'
 
 type AsideVideoListHandlerProps = {
-  promotionVideos: PromotionVideo[]
   otherStreamings: Video[]
   liveVideo: Video[]
 }
 
 export default function AsideVideoListHandler({
-  promotionVideos,
   otherStreamings,
   liveVideo,
 }: AsideVideoListHandlerProps) {
@@ -31,15 +28,6 @@ export default function AsideVideoListHandler({
             return { ...video, src: video.youtubeUrl ?? video.url }
           })}
           isAutoPlay={true}
-        />
-      )}
-      {!!promotionVideos.length && (
-        <UiAsideVideosList
-          title="發燒單元"
-          videosList={promotionVideos.map((video) => {
-            return { ...video, src: video.ytUrl }
-          })}
-          isAutoPlay={false}
         />
       )}
     </section>
