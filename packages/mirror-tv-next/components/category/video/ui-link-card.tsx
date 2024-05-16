@@ -1,4 +1,4 @@
-import styles from '~/styles/components/category/video/ui-link-card.module.scss'
+import styles from './ui-link-card.module.scss'
 
 import Image from 'next/image'
 

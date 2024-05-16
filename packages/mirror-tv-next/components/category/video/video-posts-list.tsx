@@ -1,6 +1,6 @@
 'use client'
 import { useMemo, useRef, useState } from 'react'
-import styles from '~/styles/components/category/video/video-posts-list.module.scss'
+import styles from './video-posts-list.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react'
 import { fetchVideoPostsItems } from '~/components/category/video/action'

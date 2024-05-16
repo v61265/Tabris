@@ -3,7 +3,7 @@
 .main {
   margin: 0 auto;
   min-height: calc(100dvh - 50px); // header height
-  padding: 86px 16px 48px;
+  padding: 86px 0 48px;
   @include media-breakpoint-up(md) {
     min-height: calc(100dvh - 152px); // header height
     max-width: 688px;
@@ -11,15 +11,24 @@
   }
   @include media-breakpoint-up(xl) {
     max-width: 1120px;
-    display: flex;
-    flex-direction: row-reverse;
   }
   @include media-breakpoint-up(xxl) {
     max-width: 1200px;
   }
 }
 
+.wrapper {
+  @include media-breakpoint-up(xl) {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
 .left {
+  padding: 0 16px;
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
   @include media-breakpoint-up(xl) {
     width: calc(100% - 384px - 64px);
     margin-bottom: 60px;
@@ -28,6 +37,9 @@
 
 .aside {
   padding: 0 16px;
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
   @include media-breakpoint-up(xl) {
     padding-top: 0;
     margin-left: 64px;
@@ -46,6 +58,10 @@
 }
 
 .mobileOnly {
+  padding: 0 16px;
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
   @include media-breakpoint-up(xl) {
     display: none;
   }

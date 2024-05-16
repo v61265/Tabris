@@ -1,4 +1,4 @@
-import styles from '~/styles/components/category/video/ui-links-list.module.scss'
+import styles from './ui-links-list.module.scss'
 import UiLinkCard from './ui-link-card'
 import FacebookPlugin from '~/components/shared/facebook-plugin'
 import type { LinkInfo } from './ui-link-card'
