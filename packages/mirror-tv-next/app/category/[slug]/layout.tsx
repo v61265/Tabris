@@ -20,11 +20,11 @@ export default async function CategoryPageLayout({
         <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
       </GPTPlaceholderDesktop>
+      <GPTPlaceholderMobile>
+        <p>廣告</p>
+        <GPTAd pageKey="category" adKey="MB_M1" />
+      </GPTPlaceholderMobile>
       <section className={styles.category}>
-        <GPTPlaceholderMobile>
-          <p>廣告</p>
-          <GPTAd pageKey="category" adKey="MB_M1" />
-        </GPTPlaceholderMobile>
         {children}
         <GPTAd pageKey="category" adKey="MB_M2" />
         <CategoryPageLayoutAside />
