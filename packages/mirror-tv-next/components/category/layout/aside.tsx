@@ -9,6 +9,7 @@ import {
 } from '~/constants/environment-variables'
 import dynamic from 'next/dynamic'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
+const MicroAd = dynamic(() => import('~/components/ads/micro-ad'))
 
 type RawPopularPost = {
   id: string
@@ -93,6 +94,12 @@ export default async function CategoryPageLayoutAside() {
         page="category"
         listData={popularPosts}
         className="aside__list-popular"
+      />
+      <MicroAd
+        unitIdMobile="4300420"
+        unitIdDesktop="4300419"
+        className={styles.microAd}
+        condition="!isTablet"
       />
       <GPTAd pageKey="category" adKey="PC_R2" />
       <UiListPostsAside
