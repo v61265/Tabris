@@ -1,5 +1,5 @@
 'use client'
-import styles from '~/styles/components/schedule/week-dates-picker.module.scss'
+import styles from './_styles/week-dates-picker.module.scss'
 
 type WeekDate = {
   date: string

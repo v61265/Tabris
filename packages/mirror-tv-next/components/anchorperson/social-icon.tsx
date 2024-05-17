@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '~/styles/components/anchorperson/social-icon.module.scss'
+import styles from './_styles/social-icon.module.scss'
 
 type Props = {
   href: string

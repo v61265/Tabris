@@ -1,7 +1,7 @@
 import type { Post } from '~/graphql/query/ombuds'
 import { fetchOmbudsPosts } from '~/components/ombuds/action'
 import SwiperManager from './swiperManager'
-import styles from '~/styles/components/ombuds/fetchArticleData-pc.module.scss'
+import styles from './_styles/fetchArticleData-pc.module.scss'
 
 export default async function tabletFetchArticleData() {
   const PAGE_SIZE = 12

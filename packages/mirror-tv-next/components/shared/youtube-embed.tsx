@@ -1,5 +1,5 @@
 'use client'
-import styles from '~/styles/components/shared/youtube-embed.module.scss'
+import styles from './_styles/youtube-embed.module.scss'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
 type YoutubeEmbedProps = {

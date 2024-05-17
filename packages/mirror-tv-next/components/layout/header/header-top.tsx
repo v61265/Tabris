@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Sponsor } from '~/graphql/query/sponsors'
-import styles from '~/styles/components/layout/header/header-top.module.scss'
+import styles from './_styles/header-top.module.scss'
 
 type HeaderTopProps = {
   sponsors: Sponsor[]

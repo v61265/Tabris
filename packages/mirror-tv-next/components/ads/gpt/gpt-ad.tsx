@@ -1,5 +1,5 @@
 'use client'
-import styles from '~/styles/components/ads/gpt-ad/gpt-ad.module.scss'
+import styles from './_styles/gpt-ad.module.scss'
 
 import { useEffect, useState } from 'react'
 

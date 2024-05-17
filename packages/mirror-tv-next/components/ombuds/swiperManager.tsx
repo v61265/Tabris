@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import type { Post } from '~/graphql/query/ombuds'
 import useWindowDimensions from '~/hooks/use-window-dimensions'
-import styles from '~/styles/components/ombuds/swiperManager.module.scss'
+import styles from './_styles/swiperManager.module.scss'
 import UiPostCard from './ui-post-card'
 
 // Import Swiper styles

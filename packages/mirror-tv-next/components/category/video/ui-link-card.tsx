@@ -1,4 +1,4 @@
-import styles from './ui-link-card.module.scss'
+import styles from './_styles/ui-link-card.module.scss'
 
 import Image from 'next/image'
 

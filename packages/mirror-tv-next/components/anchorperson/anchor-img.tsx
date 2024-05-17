@@ -1,6 +1,6 @@
 'use client'
 import Image from '@readr-media/react-image'
-import styles from '~/styles/components/anchorperson/anchor-img.module.scss'
+import styles from './_styles/anchor-img.module.scss'
 import type { HeroImage } from '~/types/common'
 import { formateHeroImage } from '~/utils'
 

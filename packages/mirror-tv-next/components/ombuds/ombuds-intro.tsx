@@ -1,4 +1,4 @@
-import styles from '~/styles/components/ombuds/ombuds-intro.module.scss'
+import styles from './_styles/ombuds-intro.module.scss'
 import ArticleContentVideo from '~/components/shared/article-content-video'
 import Link from 'next/link'
 

@@ -4,7 +4,7 @@ import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
 
-import styles from '~/styles/components/layout/header/mobile-header/mobile-nav.module.scss'
+import styles from './_styles/mobile-nav.module.scss'
 import SideMenu from './side-menu'
 
 type MobileNavProps = {

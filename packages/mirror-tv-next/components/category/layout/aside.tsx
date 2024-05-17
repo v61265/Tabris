@@ -1,5 +1,5 @@
 import { getClient } from '~/apollo-client'
-import styles from '~/styles/components/category/layout/aside.module.scss'
+import styles from './_styles/aside.module.scss'
 import { getLatestPosts, PostCardItem } from '~/graphql/query/posts'
 import { formatArticleCard, FormattedPostCard, handleResponse } from '~/utils'
 import UiListPostsAside from '~/components/shared/ui-list-posts-aside'

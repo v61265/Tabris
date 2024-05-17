@@ -1,5 +1,5 @@
 'use client'
-import styles from './editor-choice-video-list.module.scss'
+import styles from './_styles/editor-choice-video-list.module.scss'
 import type { VideoEditorChoice } from '~/graphql/query/video-editor-choice'
 import { extractYoutubeId } from '~/utils'
 import YoutubeEmbed from '~/components/shared/youtube-embed'

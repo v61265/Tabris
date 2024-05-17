@@ -1,4 +1,4 @@
-import styles from '~/styles/components/shared/ui-load-more-button.module.scss'
+import styles from './_styles/ui-load-more-button.module.scss'
 
 type UiLoadMoreButtonProps = {
   title: string

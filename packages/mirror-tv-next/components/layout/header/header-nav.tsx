@@ -1,6 +1,6 @@
 import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
-import styles from '~/styles/components/layout/header/header-nav.module.scss'
+import styles from './_styles/header-nav.module.scss'
 import NavItems from './nav-items'
 
 type HeaderNavProps = {

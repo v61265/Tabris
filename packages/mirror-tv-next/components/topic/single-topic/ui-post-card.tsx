@@ -1,7 +1,7 @@
 import Image from '@readr-media/react-image'
 import Link from 'next/link'
 import type { Post } from '~/graphql/query/topic'
-import styles from '~/styles/components/topic/single-topic/ui-post-card.module.scss'
+import styles from './_styles/ui-post-card.module.scss'
 import { formateHeroImage } from '~/utils'
 
 type Props = {

@@ -1,4 +1,4 @@
-import styles from './ui-show-card.module.scss'
+import styles from './_styles/ui-show-card.module.scss'
 import ResponsiveImage from '~/components/shared/responsive-image'
 import { formateHeroImage } from '~/utils'
 import type { HeroImage } from '~/types/common'

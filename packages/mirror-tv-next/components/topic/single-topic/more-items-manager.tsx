@@ -3,7 +3,7 @@ import { useState } from 'react'
 import UiLoadMoreButton from '~/components/shared/ui-load-more-button'
 import { fetchTopicItems } from '~/components/topic/single-topic/action'
 import type { Post } from '~/graphql/query/topic'
-import styles from '~/styles/components/topic/single-topic/more-items-manager.module.scss'
+import styles from './_styles/more-items-manager.module.scss'
 import UiPostCard from './ui-post-card'
 
 type Props = {

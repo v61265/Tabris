@@ -1,4 +1,4 @@
-import styles from '~/styles/components/shared/article-content-video.module.scss'
+import styles from './_styles/article-content-video.module.scss'
 
 type ArticleContentVideoProps = {
   videoSrc: string

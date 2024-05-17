@@ -7,7 +7,7 @@ import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
 import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
 import type { Sponsor } from '~/graphql/query/sponsors'
-import styles from '~/styles/components/layout/header/mobile-header/side-menu.module.scss'
+import styles from './_styles/side-menu.module.scss'
 
 type SideMenuProps = {
   categories: Category[]

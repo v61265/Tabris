@@ -1,4 +1,4 @@
-import styles from '~/styles/components/category/ui-feature-post.module.scss'
+import styles from './_styles/ui-feature-post.module.scss'
 import { formateDateAtTaipei } from '~/utils/date-handler'
 import ResponsiveImage from '~/components/shared/responsive-image'
 import { FormattedPostCard } from '~/utils'

@@ -1,4 +1,4 @@
-import styles from '~/styles/components/shared/ui-post-card.module.scss'
+import styles from './_styles/ui-post-card.module.scss'
 import { formateDateAtTaipei, PostImage } from '~/utils'
 import ResponsiveImage from './responsive-image'
 

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import styles from '~/styles/components/layout/footer.module.scss'
+import styles from './_styles/footer.module.scss'
 
 const footerRightList = [
   { href: '/schedule', gaText: 'schedule', text: '電視節目表' },

@@ -1,4 +1,4 @@
-import styles from '~/styles/components/shared/ui-heading-bordered.module.scss'
+import styles from './_styles/ui-heading-bordered.module.scss'
 
 type UiHeadingBorderedProps = {
   title: string

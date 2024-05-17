@@ -1,4 +1,4 @@
-import styles from '~/styles/components/shared/ui-aside-video-list.module.scss'
+import styles from './_styles/ui-aside-video-list.module.scss'
 import UiHeadingBordered from './ui-heading-bordered'
 import YoutubeEmbed from './youtube-embed'
 import { extractYoutubeId } from '~/utils'

@@ -1,4 +1,4 @@
-import styles from './video-post-card.module.scss'
+import styles from './_styles/video-post-card.module.scss'
 import ResponsiveImage from '~/components/shared/responsive-image'
 import { PostImage } from '~/utils'
 

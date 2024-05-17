@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '~/styles/components/ombuds/iconLinkList.module.scss'
+import styles from './_styles/iconLinkList.module.scss'
 
 type InfoList = {
   id: number

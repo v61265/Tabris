@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import styles from '~/styles/components/ads/gpt-ad/gpt-placeholder.module.scss'
+import styles from './_styles/gpt-placeholder.module.scss'
 
 interface GPTPlaceholderProps {
   children: ReactNode

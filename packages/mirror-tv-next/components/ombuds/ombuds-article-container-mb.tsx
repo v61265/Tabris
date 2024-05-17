@@ -1,7 +1,7 @@
 import type { Post } from '~/graphql/query/ombuds'
 import { fetchOmbudsPosts } from '~/components/ombuds/action'
 import MoreItemsManager from '~/components/ombuds/more-items-manager'
-import styles from '~/styles/components/ombuds/ombuds-article-container.module.scss'
+import styles from './_styles/ombuds-article-container.module.scss'
 
 export default async function OmbudsArticleContainer() {
   const PAGE_SIZE = 5

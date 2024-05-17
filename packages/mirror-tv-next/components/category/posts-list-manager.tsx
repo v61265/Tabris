@@ -3,7 +3,7 @@ import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { PostCardItem } from '~/graphql/query/posts'
 import { useMemo, useState } from 'react'
 import { fetchPostsItems } from '~/components/category/action'
-import styles from '~/styles/components/category/posts-list-manager.module.scss'
+import styles from './_styles/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formatArticleCard, FormattedPostCard } from '~/utils'
 

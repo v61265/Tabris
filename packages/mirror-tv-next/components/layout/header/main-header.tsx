@@ -8,7 +8,7 @@ import {
   GLOBAL_CACHE_SETTING,
   HEADER_JSON_URL,
 } from '~/constants/environment-variables'
-import styles from '~/styles/components/layout/header/main-header.module.scss'
+import styles from './_styles/main-header.module.scss'
 import HeaderBottom from './header-bottom'
 import HeaderNav from './header-nav'
 import HeaderTop from './header-top'
