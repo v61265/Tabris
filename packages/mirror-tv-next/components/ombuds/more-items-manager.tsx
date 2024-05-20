@@ -38,7 +38,7 @@ export default function MoreItemsManager({
     setPostsList((prevPosts) => [...prevPosts, ...nextPagePosts])
   }
   return (
-    <div>
+    <div className="article-list__wrappe">
       <ul>
         {postsList.map((item, index) => (
           <li key={index}>

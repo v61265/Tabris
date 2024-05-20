@@ -64,7 +64,7 @@ const infoList: InfoList[] = [
 
 export default function IconLinkList() {
   return (
-    <ol className={styles.infoList}>
+    <ol className={`${styles.infoList} ombuds__infolist`}>
       {infoList.map((info) => (
         <li key={info.id} className={styles.infoListItem}>
           <Link href={info.href} target="_blank" rel="noreferrer noopener">

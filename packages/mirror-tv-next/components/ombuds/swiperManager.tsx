@@ -72,7 +72,7 @@ export default function SwiperManager({
       speed={700}
       slidesPerView={slidesPerView}
       slidesPerGroup={slidesPerView}
-      className={styles.swiper}
+      className={`${styles.swiper} article-list__wrapper`}
       modules={[Navigation]}
       onSlideChange={(swiper) => {
         if (swiper.activeIndex + slidesPerView * 2 >= swiper.slides.length)
