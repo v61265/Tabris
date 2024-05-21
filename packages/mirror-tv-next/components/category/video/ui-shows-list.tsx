@@ -12,7 +12,7 @@ export default function UiShowsList({ showsList, title }: UiShowsListProps) {
   return (
     <>
       <UiHeadingBordered title={title} className={styles.title} />
-      <ul className={styles.list}>
+      <ul className={`${styles.list} show-card`}>
         {showsList.map((showItem) => {
           return (
             <UiShowCard

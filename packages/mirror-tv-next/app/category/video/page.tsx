@@ -278,13 +278,15 @@ export default async function VideoCategoryPage() {
             <GPTAd pageKey="video" adKey="PC_R1" />
             <section className={styles.desktopOnly}>
               {!!allPromotionVideos.length && (
-                <UiAsideVideosList
-                  title="發燒單元"
-                  videosList={allPromotionVideos.map((video) => {
-                    return { ...video, src: video.ytUrl }
-                  })}
-                  isAutoPlay={false}
-                />
+                <div className="promotion.aside__item">
+                  <UiAsideVideosList
+                    title="發燒單元"
+                    videosList={allPromotionVideos.map((video) => {
+                      return { ...video, src: video.ytUrl }
+                    })}
+                    isAutoPlay={false}
+                  />
+                </div>
               )}
               <GPTAd pageKey="video" adKey="PC_R2" />
               <GPTAd pageKey="video" adKey="PC_R3" />
@@ -295,7 +297,7 @@ export default async function VideoCategoryPage() {
             </section>
           </aside>
 
-          <section className={styles.left}>
+          <section className={`${styles.left} category-posts`}>
             {!!popularVideos.length && (
               <VideoPostsList
                 initPostsList={popularVideos}
@@ -322,13 +324,15 @@ export default async function VideoCategoryPage() {
         </section>
         <section className={styles.mobileOnly}>
           {!!allPromotionVideos.length && (
-            <UiAsideVideosList
-              title="發燒單元"
-              videosList={allPromotionVideos.map((video) => {
-                return { ...video, src: video.ytUrl }
-              })}
-              isAutoPlay={false}
-            />
+            <div className="promotion.aside__item">
+              <UiAsideVideosList
+                title="發燒單元"
+                videosList={allPromotionVideos.map((video) => {
+                  return { ...video, src: video.ytUrl }
+                })}
+                isAutoPlay={false}
+              />
+            </div>
           )}
           <GPTAd pageKey="video" adKey="PC_R2" />
           <GPTAd pageKey="video" adKey="PC_R3" />

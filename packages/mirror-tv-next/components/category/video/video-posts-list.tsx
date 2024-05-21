@@ -123,6 +123,7 @@ export default function VideoPostsList({
             nextEl: nextButtonRef.current,
             prevEl: prevButtonRef.current,
           }}
+          className="list-slides-container"
         >
           {postsList.map((post, index) => {
             return (
@@ -144,8 +145,18 @@ export default function VideoPostsList({
             ></SwiperSlide>
           ))}
         </Swiper>
-        <div className={styles.prevArrow} ref={prevButtonRef}></div>
-        <div className={styles.nextArrow} ref={nextButtonRef}></div>
+        <button>
+          <div
+            className={`${styles.prevArrow} slide-btn__arrow`}
+            ref={prevButtonRef}
+          ></div>
+        </button>
+        <button>
+          <div
+            className={`${styles.nextArrow} slide-btn__arrow`}
+            ref={nextButtonRef}
+          ></div>
+        </button>
       </ol>
     </div>
   )
