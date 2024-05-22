@@ -146,6 +146,7 @@ export default async function CategoryPage({
 
   return (
     <section className={styles.postsList}>
+      <GPTAd pageKey="fs" adKey="MB_CATEGORY" />
       <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
         <div className="list-latest-wrapper">
@@ -160,7 +161,6 @@ export default async function CategoryPage({
         </div>
       )}
       <GPTAd pageKey="category" adKey="PC_BT" />
-      <GPTAd pageKey="fs" adKey="MB_CATEGORY" />
     </section>
   )
 }

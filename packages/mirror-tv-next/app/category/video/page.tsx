@@ -253,6 +253,7 @@ export default async function VideoCategoryPage() {
 
   return (
     <>
+      <GPTAd pageKey="fs" adKey="MB_VIDEO" />
       <GPTPlaceholderDesktop>
         <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
@@ -343,7 +344,6 @@ export default async function VideoCategoryPage() {
           <GPTAd pageKey="video" adKey="MB_M4" />
           <UiLinksList fbHref="https://www.facebook.com/mnewstw/" />
         </section>
-        <GPTAd pageKey="fs" adKey="MB_VIDEO" />
       </main>
     </>
   )
