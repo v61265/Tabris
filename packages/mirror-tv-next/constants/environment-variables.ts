@@ -45,7 +45,7 @@ switch (ENV) {
     SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
     POPULAR_POSTS_URL = 'https://dev.mnews.tw/json/popularlist.json'
     POPULAR_VIDEOS_JSON_URL =
-      'https://dev.mnews.tw/json/popular-videonews-list.json'
+      'https://mnews.tw/json/popular-videonews-list.json'
 
     break
 
@@ -58,7 +58,7 @@ switch (ENV) {
     SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
     POPULAR_POSTS_URL = 'https://dev.mnews.tw/json/popularlist.json'
     POPULAR_VIDEOS_JSON_URL =
-      'https://dev.mnews.tw/json/popular-videonews-list.json'
+      'https://mnews.tw/json/popular-videonews-list.json'
 
     break
 }
