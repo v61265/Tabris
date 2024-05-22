@@ -40,7 +40,8 @@ export default function VideoPostsList({
     return viewportWidth >= 768 ? 3 : 2
   }, [viewportWidth])
   const placeholders = useMemo(() => {
-    const placeholdersCount = slidesPerView - (postsCount % slidesPerView)
+    const placeholdersCount =
+      (slidesPerView - (postsCount % slidesPerView)) % slidesPerView
     return Array(placeholdersCount).fill('_')
   }, [slidesPerView, postsCount])
 
