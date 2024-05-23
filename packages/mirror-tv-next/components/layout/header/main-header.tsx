@@ -64,6 +64,7 @@ export default async function MainHeader() {
         <HeaderBottom />
       </div>
       <div className={styles.mobHeaderWrapper}>
+        <div className={styles.placeholder} />
         <MobileNav
           categories={categoriesData}
           shows={showsData}
