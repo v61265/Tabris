@@ -8,15 +8,22 @@ type UiShowCardProps = {
   slug: string
   bannerImg: HeroImage
   name: string
+  id: string
 }
 
-export default function UiShowCard({ slug, bannerImg, name }: UiShowCardProps) {
+export default function UiShowCard({
+  slug,
+  bannerImg,
+  name,
+  id,
+}: UiShowCardProps) {
   return (
     <Link
       className={styles.image}
       href={`/show/${slug}/`}
       target="_blank"
       rel="noopener noreferrer"
+      id={id}
     >
       <ResponsiveImage
         images={formateHeroImage(bannerImg)}

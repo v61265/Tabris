@@ -280,7 +280,7 @@ export default async function VideoCategoryPage() {
             <GPTAd pageKey="video" adKey="PC_R1" />
             <section className={styles.desktopOnly}>
               {!!allPromotionVideos.length && (
-                <div className="promotion.aside__item">
+                <div className="promotion aside__item">
                   <UiAsideVideosList
                     title="發燒單元"
                     videosList={allPromotionVideos.map((video) => {
@@ -326,7 +326,7 @@ export default async function VideoCategoryPage() {
         </section>
         <section className={styles.mobileOnly}>
           {!!allPromotionVideos.length && (
-            <div className="promotion.aside__item">
+            <div className="promotion aside__item">
               <UiAsideVideosList
                 title="發燒單元"
                 videosList={allPromotionVideos.map((video) => {
