@@ -16,7 +16,5 @@
 }
 
 .gptWrapper {
-  @include media-breakpoint-up(md) {
-    margin-left: -204px;
-  }
+  margin-left: -204px;
 }

@@ -2,6 +2,7 @@
 import styles from './_styles/gpt-ad.module.scss'
 
 import { useEffect, useState } from 'react'
+import useWindowDimensions from '~/hooks/use-window-dimensions'
 
 import {
   getAdSlotParam,
@@ -30,6 +31,7 @@ const GPTAdRoot = ({
   const [adSize, setAdSize] = useState<SingleSizeArray[]>([])
   const [adUnitPath, setAdUnitPath] = useState('')
   const [adWidth, setAdWidth] = useState('')
+  const { width = 0 } = useWindowDimensions()
 
   const adDivId = adUnitPath // Set the id of the ad `<div>` to be the same as the `adUnitPath`.
 
@@ -37,7 +39,6 @@ const GPTAdRoot = ({
     let newAdSize, newAdUnitPath, newAdWidth
     if (pageKey && adKey) {
       // built-in ad unit
-      const width = window.innerWidth
       const adSlotParam = getAdSlotParam(pageKey, adKey, width)
       if (!adSlotParam) {
         return
@@ -64,7 +65,7 @@ const GPTAdRoot = ({
     setAdSize(newAdSize)
     setAdWidth(newAdWidth)
     setAdUnitPath(newAdUnitPath)
-  }, [adKey, pageKey, adUnit])
+  }, [adKey, pageKey, adUnit, width])
 
   useEffect(() => {
     if (adDivId && adWidth && window.googletag) {
@@ -156,6 +157,7 @@ export default function GptAd({
   const isBuildInAdUnit = pageKey && adKey
   const isCustomAdUnit = adUnit
   const isValidAd = isBuildInAdUnit || isCustomAdUnit
+  const { width = 0 } = useWindowDimensions()
 
   /**
    * If adKey contain 'MB', which means this ad should only render at device which viewport is smaller then 1200px.
@@ -166,8 +168,6 @@ export default function GptAd({
    * The inconsistency between the loading and rendering of ads does not align with our business logic.
    */
   useEffect(() => {
-    const width = window.innerWidth
-
     if (!width || !isValidAd) {
       return
     }
@@ -188,7 +188,7 @@ export default function GptAd({
       setShouldAd(true)
       return
     }
-  }, [adKey, pageKey, isBuildInAdUnit, isCustomAdUnit, isValidAd])
+  }, [adKey, pageKey, isBuildInAdUnit, isCustomAdUnit, isValidAd, width])
 
   useEffect(() => {
     console.log('ad', window.location.pathname)
