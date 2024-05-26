@@ -10,3 +10,13 @@
     width: calc(100% - 384px - 48px);
   }
 }
+
+.listWrapper {
+  margin-bottom: 40px;
+}
+
+.gptWrapper {
+  @include media-breakpoint-up(md) {
+    margin-left: -204px;
+  }
+}

@@ -150,7 +150,7 @@ export default async function CategoryPage({
       {/* <GPTAdStatic pageKey="fs" adKey="MB_CATEGORY" /> */}
       <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
-        <div className="list-latest-wrapper">
+        <div className={`${styles.listWrapper} list-latest-wrapper`}>
           <UiFeaturePost post={categoryPosts[0]} />
           <PostsListManager
             salePostsList={salePosts}
@@ -161,7 +161,9 @@ export default async function CategoryPage({
           />
         </div>
       )}
-      <GPTAd pageKey="category" adKey="PC_BT" />
+      <div className={styles.gptWrapper}>
+        <GPTAd pageKey="category" adKey="PC_BT" />
+      </div>
     </section>
   )
 }

@@ -10,6 +10,7 @@ import {
 import dynamic from 'next/dynamic'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 const MicroAd = dynamic(() => import('~/components/ads/micro-ad'))
+import '~/components/ads/_styles/mocro-ad.scss'
 
 type RawPopularPost = {
   id: string
@@ -95,18 +96,20 @@ export default async function CategoryPageLayoutAside() {
         listData={popularPosts}
         className="aside__list-popular"
       />
-      <MicroAd
-        unitIdMobile="4300420"
-        unitIdDesktop="4300419"
-        className={styles.microAd}
-        condition="!isTablet"
-      />
+      <div className={styles.microId}>
+        <MicroAd
+          unitIdMobile="4300420"
+          unitIdDesktop="4300419"
+          className={styles.microAd}
+          condition="!isTablet"
+        />
+      </div>
       <GPTAd pageKey="category" adKey="PC_R2" />
       <UiListPostsAside
         listTitle="即時新聞"
         page="category"
         listData={latestPosts}
-        className="aside__list-latest"
+        className={`aside__list-latest`}
       />
     </aside>
   )
