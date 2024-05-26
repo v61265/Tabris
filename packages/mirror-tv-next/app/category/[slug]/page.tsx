@@ -17,7 +17,7 @@ import { getSales } from '~/graphql/query/sales'
 import styles from '~/styles/pages/category.module.scss'
 import { FormattedPostCard, formatArticleCard } from '~/utils'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
-import GPTAdStatic from '~/components/ads/gpt/gpt-ad'
+// import GPTAdStatic from '~/components/ads/gpt/gpt-ad'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -147,7 +147,7 @@ export default async function CategoryPage({
 
   return (
     <section className={styles.postsList}>
-      <GPTAdStatic pageKey="fs" adKey="MB_CATEGORY" />
+      {/* <GPTAdStatic pageKey="fs" adKey="MB_CATEGORY" /> */}
       <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
         <div className="list-latest-wrapper">
