@@ -10,7 +10,6 @@ import {
 import dynamic from 'next/dynamic'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 const MicroAd = dynamic(() => import('~/components/ads/micro-ad'))
-import '~/components/ads/_styles/mocro-ad.scss'
 
 type RawPopularPost = {
   id: string

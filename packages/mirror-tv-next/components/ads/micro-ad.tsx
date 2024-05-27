@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import useWindowDimensions from '~/hooks/use-window-dimensions'
+import './_styles/mocro-ad.scss'
 
 interface MicroAdProps {
   unitIdDesktop: string
