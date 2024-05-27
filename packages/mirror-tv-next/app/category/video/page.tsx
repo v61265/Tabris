@@ -177,7 +177,13 @@ export default async function VideoCategoryPage() {
   allShows = handleResponse(
     responses[2],
     (data: Awaited<ReturnType<typeof fetchHeaderJson>> | undefined) => {
-      return data?.allShows ?? []
+      return (
+        data?.allShows?.sort((a, b) => {
+          if (a.sortOrder === null) return 1
+          if (b.sortOrder === null) return -1
+          return a.sortOrder - b.sortOrder
+        }) ?? []
+      )
     },
     'Error occurs while fetching all shows in video category page'
   )
