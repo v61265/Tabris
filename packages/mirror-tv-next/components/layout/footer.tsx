@@ -63,7 +63,9 @@ export default function Footer(): JSX.Element {
                 />
               </Link>
             </div>
-            <ul className={styles.iconsWrapper}>
+            <div
+              className={`${styles.iconsWrapper} footer__top-wrapper top-wrapper`}
+            >
               {socialLinks.map((link, index) => (
                 <li className={styles.icon} key={index}>
                   <Link
@@ -80,7 +82,7 @@ export default function Footer(): JSX.Element {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div className={styles.middleWrapper}>
