@@ -135,7 +135,9 @@ export default function SideMenu({
                 path === '/category/video' ? styles.active : ''
               }`}
             >
-              <Link href="/category/video">影音</Link>
+              <Link href="/category/video" className="category-nav__link">
+                影音
+              </Link>
             </li>
             {categories.map((category) => {
               // Check if the category's slug matches the path
@@ -146,7 +148,10 @@ export default function SideMenu({
                   key={category.id}
                   className={`${styles.li} ${isActive ? styles.active : ''}`}
                 >
-                  <Link href={`/category/${category.slug}`}>
+                  <Link
+                    href={`/category/${category.slug}`}
+                    className="category-nav__link"
+                  >
                     {category.name}
                   </Link>
                 </li>

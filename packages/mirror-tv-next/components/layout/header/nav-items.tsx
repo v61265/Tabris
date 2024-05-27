@@ -71,7 +71,9 @@ export default function NavItems({ categories, shows }: NavItemProps) {
               path === '/category/video' ? styles.active : ''
             }`}
           >
-            <Link href="/category/video">影音</Link>
+            <Link href="/category/video" className="category-nav__link">
+              影音
+            </Link>
           </li>
           {categories.slice(0, totalVisibleCategories).map((category) => {
             // Check if the category's slug matches the path
@@ -82,7 +84,12 @@ export default function NavItems({ categories, shows }: NavItemProps) {
                 key={category.id}
                 className={`${styles.li} ${isActive ? styles.active : ''}`}
               >
-                <Link href={`/category/${category.slug}`}>{category.name}</Link>
+                <Link
+                  href={`/category/${category.slug}`}
+                  className="category-nav__link"
+                >
+                  {category.name}
+                </Link>
               </li>
             )
           })}
@@ -136,7 +143,12 @@ export default function NavItems({ categories, shows }: NavItemProps) {
               key={category.id}
               className={`${styles.liRest} ${isActive ? styles.activeRe : ''}`}
             >
-              <Link href={`/category/${category.slug}`}>{category.name}</Link>
+              <Link
+                href={`/category/${category.slug}`}
+                className="category-nav__link"
+              >
+                {category.name}
+              </Link>
             </li>
           )
         })}
