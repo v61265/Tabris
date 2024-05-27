@@ -309,7 +309,11 @@ export default async function VideoCategoryPage() {
                 postsCount={popularVideos.length}
               />
             )}
-            <GPTAd pageKey="video" adKey="PC_BT" />
+            <div className={styles.gptContainer}>
+              <div className={styles.gptWrapper}>
+                <GPTAd pageKey="video" adKey="PC_BT" />
+              </div>
+            </div>
             {categoryPosts.map((list) => {
               return (
                 <VideoPostsList
@@ -324,7 +328,7 @@ export default async function VideoCategoryPage() {
             })}
           </section>
         </section>
-        <section className={styles.mobileOnly}>
+        <section className={`${styles.mobileOnly} ${styles.mobileAside}`}>
           {!!allPromotionVideos.length && (
             <div className="promotion aside__item">
               <UiAsideVideosList

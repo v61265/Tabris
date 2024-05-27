@@ -66,3 +66,22 @@
     display: none;
   }
 }
+
+.mobileAside {
+  & > * + * {
+    margin-top: 10px;
+  }
+}
+
+.gptContainer {
+  height: 290px;
+  width: 100%;
+  position: relative;
+  margin: 20px 0;
+}
+
+.gptWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
