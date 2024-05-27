@@ -161,8 +161,10 @@ export default async function CategoryPage({
           />
         </div>
       )}
-      <div className={styles.gptWrapper}>
-        <GPTAd pageKey="category" adKey="PC_BT" />
+      <div className={styles.gptContainer}>
+        <div className={styles.gptWrapper}>
+          <GPTAd pageKey="category" adKey="PC_BT" />
+        </div>
       </div>
     </section>
   )
