@@ -13,8 +13,13 @@
 
 .listWrapper {
   margin-bottom: 40px;
+  height: 290px;
+  width: 100%;
+  position: relative;
 }
 
 .gptWrapper {
-  margin-left: -204px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
