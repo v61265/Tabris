@@ -305,7 +305,7 @@ export default async function VideoCategoryPage() {
             </section>
           </aside>
 
-          <section className={`${styles.left} category-posts`}>
+          <div className={`${styles.left} category-posts`}>
             {!!popularVideos.length && (
               <VideoPostsList
                 initPostsList={popularVideos}
@@ -332,7 +332,7 @@ export default async function VideoCategoryPage() {
                 />
               )
             })}
-          </section>
+          </div>
         </section>
         <section className={`${styles.mobileOnly} ${styles.mobileAside}`}>
           {!!allPromotionVideos.length && (
