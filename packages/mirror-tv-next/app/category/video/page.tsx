@@ -27,7 +27,7 @@ import { getVideoEditorChoice } from '~/graphql/query/video-editor-choice'
 import EditorChoiceVideoList from '~/components/category/video/editor-choice-video-list'
 import dynamic from 'next/dynamic'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
-// import GPTAdStatic from '~/components/ads/gpt/gpt-ad'
+import GptPopup from '~/components/ads/gpt/gpt-popup'
 import {
   GPTPlaceholderMobile,
   GPTPlaceholderDesktop,
@@ -269,7 +269,7 @@ export default async function VideoCategoryPage() {
         <GPTAd pageKey="video" adKey="MB_M1" />
       </GPTPlaceholderMobile>
       <main className={styles.main}>
-        {/* <GPTAdStatic pageKey="fs" adKey="MB_VIDEO" /> */}
+        <GptPopup adKey="MB_VIDEO" />
         {!!allVideoEditorChoices.length && (
           <EditorChoiceVideoList
             title="編輯精選"

@@ -127,11 +127,7 @@ const GPTAdRoot = ({
   }, [adDivId, adSize, adUnitPath, adWidth, onSlotRenderEnded, onSlotRequested])
 
   return (
-    <div
-      className={`${styles.wrapper} gpt-ad ${
-        pageKey === 'fs' ? styles.fixed : ''
-      }`}
-    >
+    <div className={`${styles.wrapper} gpt-ad`}>
       <div
         className={styles.ad}
         style={{

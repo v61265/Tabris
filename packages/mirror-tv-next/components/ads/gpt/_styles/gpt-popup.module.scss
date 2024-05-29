@@ -1,0 +1,27 @@
+.adGeek-popup {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: none;
+  justify-content: space-around;
+}
+
+.adGeek-popup-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  opacity: 0.8;
+}
+
+.adGeek-popup-slot {
+  position: absolute;
+  top: 50%;
+}
+
+.adGeek-popup-close {
+  position: absolute;
+  transform: scale(0.8);
+  display: none;
+}
