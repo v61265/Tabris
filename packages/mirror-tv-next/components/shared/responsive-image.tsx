@@ -14,6 +14,7 @@ type UiPostCardProps = {
     default?: string
   }
   imgClassName?: string
+  imgId?: string
 }
 
 export default function ResponsiveImage({
@@ -28,6 +29,7 @@ export default function ResponsiveImage({
     default: '100vw',
   },
   imgClassName = '',
+  imgId = '',
 }: UiPostCardProps) {
   return (
     <Image
@@ -38,6 +40,7 @@ export default function ResponsiveImage({
       rwd={rwd}
       priority={priority}
       className={imgClassName}
+      imageProps={{ id: imgId }}
     />
   )
 }
