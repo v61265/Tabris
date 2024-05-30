@@ -24,7 +24,7 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
     }
   }, [isVisible])
 
-  const handleSlotRenderEnded = (event: SlotRenderEndedEvent) => {
+  const handleSlotRenderEnded = useCallback((event: SlotRenderEndedEvent) => {
     console.log('end:', event)
     const size = event?.size
     if (size && size?.[0] !== 1 && size?.[1] !== 1) {
@@ -32,7 +32,7 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
       setSlotStyle({ marginTop: `-${Math.round(height / 2)}px` })
       setIsVisible(true)
     }
-  }
+  }, [])
 
   return (
     <div ref={containerRef} className={`${styles.adGeekPopup} `}>
