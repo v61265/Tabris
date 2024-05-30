@@ -39,17 +39,17 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
       ref={containerRef}
       className={`${styles.adGeekPopup} ${isVisible ? styles.shouldShow : ''}`}
     >
-      <div className={styles.AdGeekPopupOverlay} onClick={closeAction}></div>
-      <div className={`${styles.AdGeekPopupSlot}`} style={slotStyle}>
+      <div className={styles.adGeekPopupOverlay} onClick={closeAction}></div>
+      <div className={`${styles.adGeekPopupSlot}`} style={slotStyle}>
         <GptAd
           pageKey="fs"
           adKey={adKey}
           onSlotRenderEnded={handleSlotRenderEnded}
         />
         {isCloseBtnVisible && (
-          <div className={styles.AdGeekPopupClose} onClick={closeAction}>
+          <div className={styles.adGeekPopupClose} onClick={closeAction}>
             <img
-              className={styles.AdGeekPopupCloseBtn}
+              className={styles.adGeekPopupCloseBtn}
               src="https://sslcode.adgeek.com.tw/public/images/popup_close_button_large.png"
               alt="Close"
             />
