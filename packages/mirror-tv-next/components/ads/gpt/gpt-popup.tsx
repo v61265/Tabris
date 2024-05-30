@@ -49,9 +49,9 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
         {isCloseBtnVisible && (
           <div className={styles.AdGeekPopupClose} onClick={closeAction}>
             <img
+              className={styles.AdGeekPopupCloseBtn}
               src="https://sslcode.adgeek.com.tw/public/images/popup_close_button_large.png"
               alt="Close"
-              style={{ width: '40px', height: '40px' }}
             />
           </div>
         )}
