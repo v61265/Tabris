@@ -35,7 +35,10 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
   }, [])
 
   return (
-    <div ref={containerRef} className={`${styles.adGeekPopup} `}>
+    <div
+      ref={containerRef}
+      className={`${styles.adGeekPopup} ${isVisible ? 'shouldShow' : ''}`}
+    >
       <div className={styles.AdGeekPopupOverlay} onClick={closeAction}></div>
       <div className={`${styles.AdGeekPopupSlot}`} style={slotStyle}>
         <GptAd
