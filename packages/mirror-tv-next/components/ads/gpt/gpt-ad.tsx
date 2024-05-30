@@ -3,6 +3,7 @@ import styles from './_styles/gpt-ad.module.scss'
 
 import { useEffect, useState } from 'react'
 import useWindowDimensions from '~/hooks/use-window-dimensions'
+import type { SlotRenderEndedEvent, SlotRequestedEvent } from '~/types/event'
 
 import {
   getAdSlotParam,
@@ -14,8 +15,8 @@ type GPTAdProps = {
   pageKey?: string
   adKey?: string
   adUnit?: string
-  onSlotRequested?: (event: unknown) => void
-  onSlotRenderEnded?: (event: unknown) => void
+  onSlotRequested?: (event: SlotRequestedEvent) => void
+  onSlotRenderEnded?: (event: SlotRenderEndedEvent) => void
   className?: string
 }
 
@@ -72,15 +73,15 @@ const GPTAdRoot = ({
       /**
        * Check https://developers.google.com/publisher-tag/guides/get-started?hl=en for the tutorial of the flow.
        */
-      let adSlot: string
+      let adSlot: googletag.Slot
 
-      const handleOnSlotRequested = (event: { slot: string }) => {
+      const handleOnSlotRequested = (event: SlotRequestedEvent) => {
         if (event.slot === adSlot && onSlotRequested) {
           onSlotRequested(event)
         }
       }
 
-      const handleOnSlotRenderEnded = (event: { slot: string }) => {
+      const handleOnSlotRenderEnded = (event: SlotRenderEndedEvent) => {
         if (event.slot === adSlot && onSlotRenderEnded) {
           onSlotRenderEnded(event)
         }
@@ -90,7 +91,7 @@ const GPTAdRoot = ({
         const pubads = window.googletag.pubads()
 
         adSlot = window.googletag
-          .defineSlot(adUnitPath, adSize, adDivId)
+          .defineSlot(adUnitPath, adSize, adDivId)!
           .addService(window.googletag.pubads())
         window.googletag.display(adDivId)
 
@@ -112,7 +113,7 @@ const GPTAdRoot = ({
 
         window.googletag.cmd.push(() => {
           window.googletag.destroySlots([adSlot])
-          if (onSlotRenderEnded) {
+          if (onSlotRequested) {
             pubads.removeEventListener('slotRequested', handleOnSlotRequested)
           }
           if (onSlotRenderEnded) {

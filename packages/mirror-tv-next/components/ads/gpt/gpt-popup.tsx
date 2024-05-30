@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react'
 import styles from './_styles/gpt-popup.module.scss'
 import GptAd from './gpt-ad'
+import type { SlotRenderEndedEvent } from '~/types/event'
 
 export default function GptPopup({ adKey = '' }: { adKey: string }) {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -23,11 +24,12 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
     }
   }, [isVisible])
 
-  const handleSlotRenderEnded = (event: unknown) => {
+  const handleSlotRenderEnded = (event: SlotRenderEndedEvent) => {
     console.log('end:', event)
-    const size = event?.size ?? [1, 1]
-    if (size[0] !== 1 && size[1] !== 1) {
-      setSlotStyle({ marginTop: `-${Math.round(size[1] / 2)}px` })
+    const size = event?.size
+    if (size && size?.[0] !== 1 && size?.[1] !== 1) {
+      const height = typeof size[1] === 'number' ? size[1] : parseInt(size[1])
+      setSlotStyle({ marginTop: `-${Math.round(height / 2)}px` })
       setIsVisible(true)
     }
   }
