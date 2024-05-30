@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import { getClient } from '~/apollo-client'
+import GptPopup from '~/components/ads/gpt/gpt-popup'
 import { fetchPostsItems } from '~/components/category/action'
 import PostsListManager from '~/components/category/posts-list-manager'
 import UiFeaturePost from '~/components/category/ui-feature-post'
@@ -147,7 +148,7 @@ export default async function CategoryPage({
 
   return (
     <section className={styles.postsList}>
-      {/* <GPTAdStatic pageKey="fs" adKey="MB_CATEGORY" /> */}
+      <GptPopup adKey="MB_CATEGORY" />
       <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
         <div className={`${styles.listWrapper} list-latest-wrapper`}>

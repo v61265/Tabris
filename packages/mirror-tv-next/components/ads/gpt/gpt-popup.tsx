@@ -18,18 +18,16 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
   }, [])
 
   useEffect(() => {
-    console.log(123, isVisible)
     if (isVisible) {
-      setTimeout(() => setIsCloseBtnVisible(true), 1000)
+      setTimeout(() => setIsCloseBtnVisible(true), 3000)
     }
   }, [isVisible])
 
   const handleSlotRenderEnded = useCallback((event: SlotRenderEndedEvent) => {
-    console.log('end:', event)
     const size = event?.size
     if (size && size?.[0] !== 1 && size?.[1] !== 1) {
       const height = typeof size[1] === 'number' ? size[1] : parseInt(size[1])
-      setSlotStyle({ marginTop: `${Math.round(height / 2)}px` })
+      setSlotStyle({ marginTop: `-${Math.round(height / 2)}px` })
       setIsVisible(true)
     }
   }, [])
