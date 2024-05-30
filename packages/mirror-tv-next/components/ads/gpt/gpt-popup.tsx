@@ -29,7 +29,7 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
     const size = event?.size
     if (size && size?.[0] !== 1 && size?.[1] !== 1) {
       const height = typeof size[1] === 'number' ? size[1] : parseInt(size[1])
-      setSlotStyle({ marginTop: `-${Math.round(height / 2)}px` })
+      setSlotStyle({ marginTop: `${Math.round(height / 2)}px` })
       setIsVisible(true)
     }
   }, [])
