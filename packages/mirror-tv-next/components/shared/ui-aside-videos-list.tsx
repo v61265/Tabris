@@ -20,7 +20,7 @@ export default function UiAsideVideosList({
         <UiHeadingBordered title={title} />
         {isAutoPlay && <div className={styles.live} />}
       </div>
-      <div className={`${styles.list} promotion aside__item`}>
+      <div className={`${styles.list}`}>
         {videosList.map((video) => {
           const youtubeId = extractYoutubeId(video.src)
           return (
