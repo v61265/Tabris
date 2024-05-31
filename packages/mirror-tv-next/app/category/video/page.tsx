@@ -286,15 +286,14 @@ export default async function VideoCategoryPage() {
             <GPTAd pageKey="video" adKey="PC_R1" />
             <section className={styles.desktopOnly}>
               {!!allPromotionVideos.length && (
-                <div className="promotion aside__item">
-                  <UiAsideVideosList
-                    title="發燒單元"
-                    videosList={allPromotionVideos.map((video) => {
-                      return { ...video, src: video.ytUrl }
-                    })}
-                    isAutoPlay={false}
-                  />
-                </div>
+                <UiAsideVideosList
+                  title="發燒單元"
+                  videosList={allPromotionVideos.map((video) => {
+                    return { ...video, src: video.ytUrl }
+                  })}
+                  isAutoPlay={false}
+                  firstPlayTriggerClassName="promotion aside__item"
+                />
               )}
               <GPTAd pageKey="video" adKey="PC_R2" />
               <GPTAd pageKey="video" adKey="PC_R3" />
@@ -343,6 +342,7 @@ export default async function VideoCategoryPage() {
                   return { ...video, src: video.ytUrl }
                 })}
                 isAutoPlay={false}
+                firstPlayTriggerClassName="promotion aside__item"
               />
             </div>
           )}
