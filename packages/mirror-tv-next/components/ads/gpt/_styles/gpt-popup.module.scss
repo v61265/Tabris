@@ -19,11 +19,13 @@
   height: 100%;
   position: fixed;
   opacity: 0.8;
+  background: #000;
 }
 
 .adGeekPopupSlot {
   position: absolute;
   top: 50%;
+  transform: translate(0, -50%);
 }
 
 .adGeekPopupClose {

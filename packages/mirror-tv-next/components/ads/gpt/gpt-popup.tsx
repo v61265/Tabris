@@ -1,16 +1,12 @@
 'use client'
-import React, { useEffect, useRef, useCallback, useState } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import styles from './_styles/gpt-popup.module.scss'
 import GptAd from './gpt-ad'
 import type { SlotRenderEndedEvent } from '~/types/event'
 
 export default function GptPopup({ adKey = '' }: { adKey: string }) {
-  const containerRef = useRef<HTMLDivElement | null>(null)
   const [isVisible, setIsVisible] = useState(true)
   const [isCloseBtnVisible, setIsCloseBtnVisible] = useState(false)
-  const [slotStyle, setSlotStyle] = useState<React.CSSProperties>({
-    marginTop: '0px',
-  })
 
   const closeAction = useCallback(() => {
     setIsVisible(false)
@@ -26,19 +22,16 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
   const handleSlotRenderEnded = useCallback((event: SlotRenderEndedEvent) => {
     const size = event?.size
     if (size && size?.[0] !== 1 && size?.[1] !== 1) {
-      const height = typeof size[1] === 'number' ? size[1] : parseInt(size[1])
-      setSlotStyle({ marginTop: `-${Math.round(height / 2)}px` })
       setIsVisible(true)
     }
   }, [])
 
   return (
     <div
-      ref={containerRef}
       className={`${styles.adGeekPopup} ${isVisible ? styles.shouldShow : ''}`}
     >
       <div className={styles.adGeekPopupOverlay} onClick={closeAction}></div>
-      <div className={styles.adGeekPopupSlot} style={slotStyle}>
+      <div className={styles.adGeekPopupSlot}>
         <GptAd
           pageKey="fs"
           adKey={adKey}
