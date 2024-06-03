@@ -5,7 +5,7 @@ import GptAd from './gpt-ad'
 import type { SlotRenderEndedEvent } from '~/types/event'
 
 export default function GptPopup({ adKey = '' }: { adKey: string }) {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
   const [isCloseBtnVisible, setIsCloseBtnVisible] = useState(false)
 
   const closeAction = useCallback(() => {
