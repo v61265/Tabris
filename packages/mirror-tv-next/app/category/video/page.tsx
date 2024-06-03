@@ -260,6 +260,7 @@ export default async function VideoCategoryPage() {
 
   return (
     <>
+      <GptPopup adKey="MB_VIDEO" />
       <GPTPlaceholderDesktop>
         <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
@@ -269,7 +270,6 @@ export default async function VideoCategoryPage() {
         <GPTAd pageKey="video" adKey="MB_M1" />
       </GPTPlaceholderMobile>
       <main className={styles.main}>
-        <GptPopup adKey="MB_VIDEO" />
         {!!allVideoEditorChoices.length && (
           <EditorChoiceVideoList
             title="編輯精選"
