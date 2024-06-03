@@ -25,6 +25,7 @@ export default function UiAsideVideosList({
     (e: YouTubeEvent<number>) => {
       if (!firstPlayTriggerClassName || !e) return
       const targetId = e.target?.id
+      console.log({ targetId })
       if (targetId && !playedIds.includes(targetId)) {
         if (triggeredDiv.current) {
           triggeredDiv.current.click()
