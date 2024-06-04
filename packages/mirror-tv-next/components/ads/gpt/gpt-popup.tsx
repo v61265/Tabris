@@ -14,6 +14,7 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
   }, [])
 
   useEffect(() => {
+    console.log({ isVisible })
     if (isVisible) {
       setTimeout(() => setIsCloseBtnVisible(true), 3000)
     }
