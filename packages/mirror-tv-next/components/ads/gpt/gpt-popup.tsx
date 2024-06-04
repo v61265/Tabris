@@ -14,7 +14,6 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
   }, [])
 
   useEffect(() => {
-    console.log({ isVisible })
     if (isVisible) {
       setTimeout(() => setIsCloseBtnVisible(true), 3000)
     }
@@ -22,13 +21,10 @@ export default function GptPopup({ adKey = '' }: { adKey: string }) {
 
   const handleSlotRenderEnded = useCallback((event: SlotRenderEndedEvent) => {
     console.log('popup:', isVisible, event)
-    if (!event.isEmpty) {
+    const size = event?.size
+    if (size && size?.[0] !== 1 && size?.[1] !== 1) {
       setIsVisible(true)
     }
-    // const size = event?.size
-    // if (size && size?.[0] !== 1 && size?.[1] !== 1) {
-    //   setIsVisible(true)
-    // }
   }, [])
 
   return (
