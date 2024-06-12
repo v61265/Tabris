@@ -1,0 +1,49 @@
+@import '/styles/theme/z-index';
+
+.searchBarContainer {
+  // background-color: #fff;
+  // height: 100%;
+
+  .searchIconActive {
+    color: aquamarine;
+  }
+
+  .searchBarSection {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 20px 0 20px;
+    height: 80px;
+    width: 100vw;
+    background-color: #e7e7e7;
+
+    .searchWrapper {
+      border: 1px solid #014db8;
+      display: flex;
+      width: 100%;
+      background-color: #fff;
+
+      .searchInputIcon {
+        margin-left: 9px;
+        margin-right: 10px;
+      }
+
+      .searchInput {
+        height: 40px;
+        width: 100%;
+      }
+    }
+
+    .modalOverlay {
+      position: fixed;
+      top: 130px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: $Z_INDEX-coverContent;
+    }
+  }
+}
