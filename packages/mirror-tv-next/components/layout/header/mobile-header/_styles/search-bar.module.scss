@@ -44,3 +44,16 @@
     }
   }
 }
+
+.logo {
+  mask-size: 28px 26px;
+  width: 28px;
+  height: 26px;
+  background-color: #c1c2c2;
+  mask: url('/icons/icon-search.svg') 0 0/28px 26px;
+  -webkit-mask: url('/icons/icon-search.svg') 0 0/28px 26px;
+
+  &.isActive {
+    background-color: #898f9c;
+  }
+}

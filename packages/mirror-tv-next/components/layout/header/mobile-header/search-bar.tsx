@@ -9,26 +9,21 @@ const SearchBar = () => {
   const toggleSearchBar = () => {
     setIsSearchBarShown((prevState) => !prevState)
   }
-  const searchIconStyle = isSearchBarShown ? styles.searchIconActive : ''
+  const searchIconStyle = isSearchBarShown
+    ? `${styles.logo} ${styles.isActive}`
+    : styles.logo
 
   return (
     <div className={styles.searchBarContainer}>
       <button onClick={toggleSearchBar}>
-        <Image
-          className={searchIconStyle}
-          src="/icons/side-menu-icon.svg"
-          alt="search icon"
-          width={28}
-          height={26}
-          priority
-        />
+        <div className={searchIconStyle} />
       </button>
       {isSearchBarShown && (
         <section className={styles.searchBarSection}>
           <div className={styles.searchWrapper}>
             <Image
               className={styles.searchInputIcon}
-              src="/icons/side-menu-icon.svg"
+              src="/icons/icon-search.svg"
               alt="search icon"
               width={18}
               height={19}
