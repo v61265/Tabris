@@ -32,8 +32,10 @@ export default function MobileNav({
           />
         </Link>
       </div>
-      <SideMenu categories={categories} shows={shows} sponsors={sponsors} />
-      <SearchBar />
+      <section className={styles.sideBtnWrapper}>
+        <SideMenu categories={categories} shows={shows} sponsors={sponsors} />
+        <SearchBar />
+      </section>
     </div>
   )
 }
