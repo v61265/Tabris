@@ -44,9 +44,9 @@ function formateHeroImage(heroImage: HeroImage) {
     original: '/images/image-default.jpg',
   }
 
-  images.w3200 = heroImage?.urlOriginal ?? ''
-  images.w2400 = heroImage?.urlDesktopSized ?? ''
-  images.w1600 = heroImage?.urlTabletSized ?? ''
+  // images.w3200 = heroImage?.urlOriginal ?? ''
+  // images.w2400 = heroImage?.urlDesktopSized ?? ''
+  // images.w1600 = heroImage?.urlTabletSized ?? ''
   images.w400 = heroImage?.urlMobileSized ?? ''
 
   return images
