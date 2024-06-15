@@ -24,6 +24,9 @@
   width: 100%;
   align-items: center;
   gap: 28px;
+  li {
+    width: 100%;
+  }
 }
 
 .searchKeyword {
@@ -109,4 +112,17 @@
   width: 100%;
   height: 4px;
   background-color: #014db8;
+  margin-bottom: 27px;
+}
+
+.popularResultList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 28px;
+
+  li {
+    width: 100%;
+  }
 }

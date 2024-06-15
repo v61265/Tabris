@@ -1,9 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import styles from '~/styles/pages/search-page.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import SearchNoResult from '~/components/search/search-no-result'
 import { POPULAR_POSTS_URL } from '~/constants/environment-variables'
+import {
+  PopularSearchItem,
+  PopularSearchItemResponse,
+  TVPost,
+  TVPostResponse,
+} from '~/types/api-data'
 // write typescript type of params
 type slug = {
   params: params
@@ -13,53 +18,16 @@ type params = {
   keyword: string
 }
 
-// interface TVPost {
-//   _index: string
-//   _type: string
-//   _id: string
-//   _score: null
-//   _source: {
-//     audio: null
-//     briefHtml: string
-//     cameraOperators: any[]
-//     categories: { [key: string]: any }[]
-//     contentHtml: string
-//     designers: any[]
-//     engineers: any[]
-//     heroCaption: string
-//     heroImage: {
-//       name: string
-//       keywords: null | any
-//       urlMobileSized: string
-//     }
-//     heroVideo: null | any
-//     id: string
-//     name: string
-//     ogDescription: null | any
-//     ogImage: null | any
-//     ogTitle: null | any
-//     otherbyline: null | any
-//     photographers: { [key: string]: any }[]
-//     publishTime: string
-//     slug: string
-//     style: string
-//     subtitle: null | any
-//     tags: { [key: string]: any }[]
-//     topics: any[]
-//     vocals: any[]
-//     writers: { [key: string]: any }[]
-//   }
-//   sort: number[]
-// }
+// FIXME: tmp search url
+const SEARCH_URL = 'http://localhost:8080/search'
 
-const getSearchResult = async (keyword?: string) => {
-  const response = await fetch('http://localhost:8080/search' + keyword)
+const getSearchResult = async (keyword?: string): Promise<TVPostResponse> => {
+  const response = await fetch(`${SEARCH_URL}/${keyword}`)
   const result = await response.json()
   return result
 }
 
-const getPopularResult = async () => {
-  console.log('call')
+const getPopularResult = async (): Promise<PopularSearchItemResponse> => {
   const response = await fetch(POPULAR_POSTS_URL)
   const result = await response.json()
   return result
@@ -68,24 +36,18 @@ const getPopularResult = async () => {
 const page = async ({ params }: slug) => {
   const keyword = decodeURI(params.keyword)
   const searchNoResultProps = { width: 166, height: 204 }
-  let searchResultList = []
-  let popularResultList = []
+  let searchResultList: TVPost[] = []
+  let popularResultList: PopularSearchItem[] = []
   try {
-    searchResultList = await getSearchResult('')
-    searchResultList = await searchResultList.body.hits.hits
-    await console.log(
-      'searchResultList',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      searchResultList.find((item: any) => item._source.audio === null)
-    )
+    const searchResultResponse = await getSearchResult('')
+    searchResultList = searchResultResponse?.body?.hits?.hits || []
   } catch (e) {
     console.error('searchResultList_error', e)
   }
 
   try {
-    popularResultList = await getPopularResult()
-    popularResultList = await popularResultList.report
-    console.log('popularResultList', popularResultList[1])
+    const popularResultResponse = await getPopularResult()
+    popularResultList = popularResultResponse?.report || []
   } catch (e) {
     console.error('searchResultList_error', e)
   }
@@ -102,8 +64,8 @@ const page = async ({ params }: slug) => {
           <p>熱門新聞</p>
         </div>
         <div className={styles.divider} />
-        <ul>
-          {popularResultList.map((popularPost: any) => {
+        <ul className={styles.popularResultList}>
+          {popularResultList.map((popularPost) => {
             const date = new Date(popularPost.publishTime)
             const props = {
               title: popularPost.name,
@@ -130,8 +92,7 @@ const page = async ({ params }: slug) => {
     <main className={styles.main}>
       <p className={styles.searchKeyword}>{keyword}</p>
       <ul className={styles.searchResultList}>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {searchResultList.map((searchResult: any) => {
+        {searchResultList.map((searchResult) => {
           const date = new Date(searchResult._source.publishTime)
           const props = {
             title: searchResult._source.name,
