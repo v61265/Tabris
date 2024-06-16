@@ -36,15 +36,15 @@ const SearchNoResult = ({
       </div>
       <div className={styles.divider} />
       <ul className={styles.popularResultList}>
-        {popularResultList.map((popularPost) => {
-          const date = new Date(popularPost.publishTime)
+        {popularResultList.map(({ publishTime, name, slug, id, heroImage }) => {
+          const date = new Date(publishTime)
           const props = {
-            title: popularPost.name,
+            title: name,
             date,
-            href: `/story/${popularPost.slug}`,
+            href: `/story/${slug}`,
             images: {
-              original: popularPost.heroImage?.urlMobileSized || '',
-              w400: popularPost.heroImage?.urlMobileSized || '',
+              original: heroImage?.urlMobileSized || '',
+              w400: heroImage?.urlMobileSized || '',
             },
             postStyle: 'article',
             mobileLayoutDirection:
@@ -52,7 +52,7 @@ const SearchNoResult = ({
             postTitleHighlightText: '',
           }
           return (
-            <li key={popularPost.id}>
+            <li key={id}>
               <UiPostCard {...props} />
             </li>
           )

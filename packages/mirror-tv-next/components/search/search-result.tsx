@@ -13,27 +13,29 @@ const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
     <main className={styles.main}>
       <p className={styles.searchKeyword}>{keyword}</p>
       <ul className={styles.searchResultList}>
-        {searchResultList.map((searchResult) => {
-          const date = new Date(searchResult._source.publishTime)
-          const props = {
-            title: searchResult._source.name,
-            date,
-            href: `/story/${searchResult._source.slug}`,
-            images: {
-              original: searchResult._source.heroImage.urlMobileSized,
-              w400: searchResult._source.heroImage.urlMobileSized,
-            },
-            postStyle: 'article',
-            mobileLayoutDirection:
-              'column' as UiPostCardProps['mobileLayoutDirection'],
-            postTitleHighlightText: '',
+        {searchResultList.map(
+          ({ _source: { publishTime, name, slug, heroImage }, _id }) => {
+            const date = new Date(publishTime)
+            const props = {
+              title: name,
+              date,
+              href: `/story/${slug}`,
+              images: {
+                original: heroImage.urlMobileSized,
+                w400: heroImage.urlMobileSized,
+              },
+              postStyle: 'article',
+              mobileLayoutDirection:
+                'column' as UiPostCardProps['mobileLayoutDirection'],
+              postTitleHighlightText: '',
+            }
+            return (
+              <li key={_id}>
+                <UiPostCard {...props} />
+              </li>
+            )
           }
-          return (
-            <li key={searchResult._id}>
-              <UiPostCard {...props} />
-            </li>
-          )
-        })}
+        )}
         <button className={styles.seeMoreBtn}>看更多</button>
       </ul>
     </main>
