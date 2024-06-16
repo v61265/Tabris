@@ -11,7 +11,7 @@
   padding: 36px 20px 48px 20px;
 
   @include media-breakpoint-up(md) {
-    padding: 85px 40px 48px;
+    padding: 36px 40px 48px;
   }
   @include media-breakpoint-up(lg) {
     padding: 80px 40px 32px;
@@ -24,6 +24,26 @@
   width: 100%;
   align-items: center;
   gap: 28px;
+
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    row-gap: 48px;
+    column-gap: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 40px;
+    column-gap: 24px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    row-gap: 52px;
+    column-gap: 24px;
+  }
+
   li {
     width: 100%;
   }
@@ -49,12 +69,25 @@
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 0.5px;
+
+  @include media-breakpoint-up(md) {
+    width: 400px;
+    justify-self: center;
+    border-width: 1px;
+    grid-column: span 3;
+    letter-spacing: 3px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-column: span 4;
+  }
 }
 
 .noResultImg {
   @include media-breakpoint-up(md) {
     width: 200px;
     height: 246px;
+    margin-top: 49px;
   }
 }
 
