@@ -24,6 +24,7 @@ const SearchNoResult = ({
           alt="查無結果"
           width={width}
           height={height}
+          className={styles.noResultImg}
         />
       </div>
       <section className={styles.noResultTxt}>

@@ -34,6 +34,10 @@ const getPopularResult = async (): Promise<PopularSearchItemResponse> => {
 
 const page = async ({ params }: slug) => {
   const keyword = decodeURI(params.keyword)
+  function onlyShow4Results<T>(list: T[]): T[] {
+    return list.slice(0, 4)
+  }
+
   let searchResultList: TVPost[] = []
   let popularResultList: PopularSearchItem[] = []
   try {
@@ -45,9 +49,9 @@ const page = async ({ params }: slug) => {
 
   try {
     const popularResultResponse = await getPopularResult()
-    popularResultList = popularResultResponse?.report || []
+    popularResultList = onlyShow4Results(popularResultResponse?.report) || []
   } catch (e) {
-    console.error('searchResultList_error', e)
+    console.error('popularResultList_error', e)
   }
 
   // update after fetch
