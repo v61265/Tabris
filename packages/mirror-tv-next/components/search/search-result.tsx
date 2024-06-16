@@ -2,7 +2,7 @@ import React from 'react'
 
 import { TVPost } from '~/types/api-data'
 import styles from '~/styles/pages/search-page.module.scss'
-import UiPostCard from '~/components/shared/ui-post-card'
+import UiPostCard, { UiPostCardProps } from '~/components/shared/ui-post-card'
 
 type SearchResultProps = {
   keyword: string
@@ -24,7 +24,8 @@ const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
               w400: searchResult._source.heroImage.urlMobileSized,
             },
             postStyle: 'article',
-            mobileLayoutDirection: 'column' as 'column' | 'row',
+            mobileLayoutDirection:
+              'column' as UiPostCardProps['mobileLayoutDirection'],
             postTitleHighlightText: '',
           }
           return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import styles from '~/styles/pages/search-page.module.scss'
-import UiPostCard from '~/components/shared/ui-post-card'
+import UiPostCard, { UiPostCardProps } from '~/components/shared/ui-post-card'
 import { PopularSearchItem } from '~/types/api-data'
 type SearchNoResultProps = {
   width: number
@@ -47,7 +47,8 @@ const SearchNoResult = ({
               w400: popularPost.heroImage?.urlMobileSized || '',
             },
             postStyle: 'article',
-            mobileLayoutDirection: 'column' as 'column' | 'row',
+            mobileLayoutDirection:
+              'column' as UiPostCardProps['mobileLayoutDirection'],
             postTitleHighlightText: '',
           }
           return (
