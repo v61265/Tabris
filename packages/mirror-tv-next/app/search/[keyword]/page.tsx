@@ -47,26 +47,28 @@ const page = async ({ params }: slug) => {
     console.error('searchResultList_error', e)
   }
 
-  try {
-    const popularResultResponse = await getPopularResult()
-    popularResultList = onlyShow4Results(popularResultResponse?.report) || []
-  } catch (e) {
-    console.error('popularResultList_error', e)
-  }
-
-  // update after fetch
-  const searchNoResultProps = {
-    width: 166,
-    height: 204,
-    keyword,
-    popularResultList,
-  }
   const searchResultProps = {
     keyword,
     searchResultList,
   }
-  if (searchResultList.length === 0)
+
+  if (searchResultList.length === 0) {
+    try {
+      const popularResultResponse = await getPopularResult()
+      popularResultList = onlyShow4Results(popularResultResponse?.report) || []
+    } catch (e) {
+      console.error('popularResultList_error', e)
+    }
+    // update after fetch
+    const searchNoResultProps = {
+      width: 166,
+      height: 204,
+      keyword,
+      popularResultList,
+    }
     return <SearchNoResult {...searchNoResultProps} />
+  }
+
   return <SearchResult {...searchResultProps} />
 }
 
