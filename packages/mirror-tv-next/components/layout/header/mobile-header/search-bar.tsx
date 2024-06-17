@@ -1,5 +1,4 @@
 'use client'
-import Image from 'next/image'
 import React, { useState } from 'react'
 import styles from './_styles/search-bar.module.scss'
 
@@ -21,13 +20,9 @@ const SearchBar = () => {
       {isSearchBarShown && (
         <section className={styles.searchBarSection}>
           <div className={styles.searchWrapper}>
-            <Image
-              className={styles.searchInputIcon}
-              src="/icons/icon-search.svg"
-              alt="search icon"
-              width={18}
-              height={19}
-            />
+            <div className={styles.searchIconWrapper}>
+              <div className={styles.searchIcon} />
+            </div>
             <input
               type="text"
               placeholder="請輸入關鍵字"
