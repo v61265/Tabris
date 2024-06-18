@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchNoResult from '~/components/search/search-no-result'
+import SearchNoResult from '~/components/search/no-search-result'
 import { POPULAR_POSTS_URL } from '~/constants/environment-variables'
 import type {
   PopularSearchItem,
@@ -47,11 +47,6 @@ const page = async ({ params }: slug) => {
     console.error('searchResultList_error', e)
   }
 
-  const searchResultProps = {
-    keyword,
-    searchResultList,
-  }
-
   if (searchResultList.length === 0) {
     try {
       const popularResultResponse = await getPopularResult()
@@ -61,14 +56,16 @@ const page = async ({ params }: slug) => {
     }
     // update after fetch
     const searchNoResultProps = {
-      width: 166,
-      height: 204,
       keyword,
       popularResultList,
     }
     return <SearchNoResult {...searchNoResultProps} />
   }
 
+  const searchResultProps = {
+    keyword,
+    searchResultList,
+  }
   return <SearchResult {...searchResultProps} />
 }
 

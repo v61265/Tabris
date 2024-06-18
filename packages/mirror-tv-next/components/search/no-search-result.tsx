@@ -4,15 +4,11 @@ import styles from '~/styles/pages/search-page.module.scss'
 import UiPostCard, { UiPostCardProps } from '~/components/shared/ui-post-card'
 import { PopularSearchItem } from '~/types/api-data'
 type SearchNoResultProps = {
-  width: number
-  height: number
   keyword: string
   popularResultList: PopularSearchItem[]
 }
 
 const SearchNoResult = ({
-  width,
-  height,
   keyword,
   popularResultList,
 }: SearchNoResultProps) => {
@@ -22,8 +18,8 @@ const SearchNoResult = ({
         <Image
           src="/images/tv-man.svg"
           alt="查無結果"
-          width={width}
-          height={height}
+          width={166}
+          height={204}
           className={styles.noResultImg}
         />
       </div>
