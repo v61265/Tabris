@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { TVPost } from '~/types/api-data'
+import type { TVPost } from '~/types/api-data'
 import styles from '~/styles/pages/search-page.module.scss'
-import UiPostCard, { UiPostCardProps } from '~/components/shared/ui-post-card'
+import UiPostCard, {
+  type UiPostCardProps,
+} from '~/components/shared/ui-post-card'
 
 type SearchResultProps = {
   keyword: string

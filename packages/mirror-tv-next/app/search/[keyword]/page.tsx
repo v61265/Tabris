@@ -1,7 +1,7 @@
 import React from 'react'
 import SearchNoResult from '~/components/search/search-no-result'
 import { POPULAR_POSTS_URL } from '~/constants/environment-variables'
-import {
+import type {
   PopularSearchItem,
   PopularSearchItemResponse,
   TVPost,
