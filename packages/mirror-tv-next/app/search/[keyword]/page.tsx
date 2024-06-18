@@ -3,11 +3,11 @@ import SearchNoResult from '~/components/search/no-search-result'
 import type { TVPost, TVPostResponse } from '~/types/api-data'
 import SearchResult from '~/components/search/search-result'
 // write typescript type of params
-type slug = {
-  params: params
+type Slug = {
+  params: Params
 }
 
-type params = {
+type Params = {
   keyword: string
 }
 
@@ -20,7 +20,7 @@ const getSearchResult = async (keyword?: string): Promise<TVPostResponse> => {
   return result
 }
 
-const page = async ({ params }: slug) => {
+const page = async ({ params }: Slug) => {
   const keyword = decodeURI(params.keyword)
   let searchResultList: TVPost[] = []
 
