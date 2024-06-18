@@ -26,7 +26,7 @@ const page = async ({ params }: Slug) => {
 
   try {
     const searchResultResponse = await getSearchResult('')
-    searchResultList = searchResultResponse?.body?.hits?.hits || []
+    searchResultList = searchResultResponse.body.hits.hits || []
   } catch (e) {
     console.error('searchResultList_error', e)
   }
