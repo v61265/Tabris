@@ -1,17 +1,39 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import styles from '~/styles/pages/search-page.module.scss'
-import UiPostCard, { UiPostCardProps } from '~/components/shared/ui-post-card'
-import { PopularSearchItem } from '~/types/api-data'
+import { fetchPopularPosts } from '../errors/action'
+import { formatArticleCard } from '~/utils'
+import type { FormattedPostCard } from '~/utils'
+import Link from 'next/link'
+import ResponsiveImage from '../shared/responsive-image'
+import useWindowDimensions from '~/hooks/use-window-dimensions'
 type SearchNoResultProps = {
   keyword: string
-  popularResultList: PopularSearchItem[]
 }
 
-const SearchNoResult = ({
-  keyword,
-  popularResultList,
-}: SearchNoResultProps) => {
+const SearchNoResult = ({ keyword }: SearchNoResultProps) => {
+  const [popularPosts, setPopularPosts] = useState([])
+  const { width = 0 } = useWindowDimensions()
+  const isDesktop = width > 768
+  const formattedPostsCount = isDesktop ? 4 : 3
+
+  useEffect(() => {
+    const fetchDataAndSetState = async () => {
+      try {
+        const { data } = await fetchPopularPosts()
+        setPopularPosts(data.report)
+      } catch (error) {
+        console.error('Error fetching popular posts:', error)
+      }
+    }
+
+    fetchDataAndSetState()
+  }, [])
+
+  const formattedPosts: FormattedPostCard[] =
+    popularPosts.map(formatArticleCard)
+
   return (
     <main className={styles.main}>
       <div>
@@ -32,25 +54,31 @@ const SearchNoResult = ({
       </div>
       <div className={styles.divider} />
       <ul className={styles.popularResultList}>
-        {popularResultList.map(({ publishTime, name, slug, id, heroImage }) => {
-          const date = new Date(publishTime)
-          const props = {
-            title: name,
-            date,
-            href: `/story/${slug}`,
-            images: {
-              original: heroImage?.urlMobileSized || '',
-              w400: heroImage?.urlMobileSized || '',
-            },
-            postStyle: 'article',
-            mobileLayoutDirection:
-              'column' as UiPostCardProps['mobileLayoutDirection'],
-            postTitleHighlightText: '',
-          }
+        {formattedPosts.slice(0, formattedPostsCount).map((article) => {
           return (
-            <li key={id}>
-              <UiPostCard {...props} />
-            </li>
+            <Link
+              key={article.slug}
+              href={article.href}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <div className={styles.img}>
+                <ResponsiveImage
+                  images={article.images}
+                  alt={article.name}
+                  priority={false}
+                  rwd={{
+                    mobile: '500px',
+                    tablet: '500px',
+                    laptop: '500px',
+                    desktop: '500px',
+                    default: '500px',
+                  }}
+                />
+              </div>
+
+              <p>{article.name}</p>
+            </Link>
           )
         })}
       </ul>

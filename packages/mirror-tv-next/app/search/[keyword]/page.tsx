@@ -1,12 +1,6 @@
 import React from 'react'
 import SearchNoResult from '~/components/search/no-search-result'
-import { POPULAR_POSTS_URL } from '~/constants/environment-variables'
-import type {
-  PopularSearchItem,
-  PopularSearchItemResponse,
-  TVPost,
-  TVPostResponse,
-} from '~/types/api-data'
+import type { TVPost, TVPostResponse } from '~/types/api-data'
 import SearchResult from '~/components/search/search-result'
 // write typescript type of params
 type slug = {
@@ -26,20 +20,10 @@ const getSearchResult = async (keyword?: string): Promise<TVPostResponse> => {
   return result
 }
 
-const getPopularResult = async (): Promise<PopularSearchItemResponse> => {
-  const response = await fetch(POPULAR_POSTS_URL)
-  const result = await response.json()
-  return result
-}
-
 const page = async ({ params }: slug) => {
   const keyword = decodeURI(params.keyword)
-  function onlyShow4Results<T>(list: T[]): T[] {
-    return list.slice(0, 4)
-  }
-
   let searchResultList: TVPost[] = []
-  let popularResultList: PopularSearchItem[] = []
+
   try {
     const searchResultResponse = await getSearchResult('')
     searchResultList = searchResultResponse?.body?.hits?.hits || []
@@ -48,18 +32,7 @@ const page = async ({ params }: slug) => {
   }
 
   if (searchResultList.length === 0) {
-    try {
-      const popularResultResponse = await getPopularResult()
-      popularResultList = onlyShow4Results(popularResultResponse?.report) || []
-    } catch (e) {
-      console.error('popularResultList_error', e)
-    }
-    // update after fetch
-    const searchNoResultProps = {
-      keyword,
-      popularResultList,
-    }
-    return <SearchNoResult {...searchNoResultProps} />
+    return <SearchNoResult keyword={keyword} />
   }
 
   const searchResultProps = {
