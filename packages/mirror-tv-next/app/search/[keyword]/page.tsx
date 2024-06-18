@@ -15,7 +15,9 @@ type Params = {
 const SEARCH_URL = 'http://localhost:8080/search'
 
 const getSearchResult = async (keyword?: string): Promise<TVPostResponse> => {
-  const response = await fetch(`${SEARCH_URL}/${keyword}`)
+  // const response = await fetch(`${SEARCH_URL}/${keyword}`)
+  const response = await fetch(`${SEARCH_URL}`)
+  console.log(keyword)
   const result = await response.json()
   return result
 }

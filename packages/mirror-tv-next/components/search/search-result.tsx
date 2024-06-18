@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { TVPost } from '~/types/api-data'
-import styles from '~/styles/pages/search-page.module.scss'
+import styles from './_styles/search-page.module.scss'
 import UiPostCard, {
   type UiPostCardProps,
 } from '~/components/shared/ui-post-card'

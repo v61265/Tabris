@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import styles from '~/styles/pages/search-page.module.scss'
+import styles from './_styles/no-search-result.module.scss'
 import { fetchPopularPosts } from '../errors/action'
 import { formatArticleCard } from '~/utils'
 import type { FormattedPostCard } from '~/utils'
@@ -62,7 +62,7 @@ const SearchNoResult = ({ keyword }: SearchNoResultProps) => {
               target="_blank"
               rel="noreferrer noopener"
             >
-              <div className={styles.img}>
+              <li className={styles.img}>
                 <ResponsiveImage
                   images={article.images}
                   alt={article.name}
@@ -75,7 +75,7 @@ const SearchNoResult = ({ keyword }: SearchNoResultProps) => {
                     default: '500px',
                   }}
                 />
-              </div>
+              </li>
 
               <p>{article.name}</p>
             </Link>
