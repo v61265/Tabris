@@ -14,16 +14,14 @@ const HeaderSearchBar = () => {
         placeholder=""
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Link href={`/search/${keyword}`}>
-        <button className={styles.searchButton}>
-          <Image
-            className={styles.searchInputIcon}
-            src="/icons/icon-search.svg"
-            alt="search icon"
-            width={26}
-            height={28}
-          />
-        </button>
+      <Link href={`/search/${keyword}`} className={styles.searchButton}>
+        <Image
+          className={styles.searchInputIcon}
+          src="/icons/icon-search.svg"
+          alt="search icon"
+          width={26}
+          height={28}
+        />
       </Link>
     </section>
   )

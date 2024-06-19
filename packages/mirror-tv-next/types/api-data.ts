@@ -1,3 +1,5 @@
+import { HeroImage } from './common'
+
 export type ApiData = {
   id: string
   type: string
@@ -8,7 +10,7 @@ export type ApiData = {
 
 // search result api data type
 
-type _sourceType = {
+type _SourceType = {
   audio: null
   briefHtml: string
   cameraOperators: unknown[]
@@ -39,22 +41,22 @@ type _sourceType = {
   vocals: string[]
   writers: { [key: string]: string }[]
 }
-export interface TVPost {
+export type TVPost = {
   _index: string
   _type: string
   _id: string
   _score: null
-  _source: _sourceType
+  _source: _SourceType
   sort: number[]
 }
-type _shardsType = {
+type _ShardsType = {
   total: number
   successful: number
   skipped: number
   failed: number
 }
 
-type hitsType = {
+type HitsType = {
   total: {
     value: number
     relation: string
@@ -62,31 +64,29 @@ type hitsType = {
   max_score: null | number
   hits: TVPost[]
 }
-export interface TVPostResponse {
+export type TVPostResponse = {
   body: {
     took: number
     timed_out: boolean
-    _shards: _shardsType
-    hits: hitsType
+    _shards: _ShardsType
+    hits: HitsType
   }
 }
 
 // popular search result type
 
-type HeroImage = {
-  urlTinySized: string
-  urlMobileSized: string
-} | null
-
 export type PopularSearchItem = {
   id: string
-  heroImage: HeroImage
+  heroImage: HeroImage | null
   name: string
   publishTime: string
   slug: string
   source: string
 }
 
-export interface PopularSearchItemResponse {
+export type PopularSearchItemResponse = {
   report: PopularSearchItem[]
+  start_date: string
+  end_date: string
+  generate_time: string
 }

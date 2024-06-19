@@ -1,38 +1,34 @@
 'use client'
-import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import styles from './_styles/no-search-result.module.scss'
-import { fetchPopularPosts } from '../errors/action'
-import { formatArticleCard } from '~/utils'
+import { formatePostImage } from '~/utils'
 import type { FormattedPostCard } from '~/utils'
 import Link from 'next/link'
 import ResponsiveImage from '../shared/responsive-image'
 import useWindowDimensions from '~/hooks/use-window-dimensions'
-type SearchNoResultProps = {
+import type { PopularSearchItem } from '~/types/api-data'
+import type { PostCardItem } from '~/graphql/query/posts'
+type NoSearchResultProps = {
   keyword: string
+  popularPostList: PopularSearchItem[]
 }
 
-const SearchNoResult = ({ keyword }: SearchNoResultProps) => {
-  const [popularPosts, setPopularPosts] = useState([])
+const NoSearchResult = ({ keyword, popularPostList }: NoSearchResultProps) => {
   const { width = 0 } = useWindowDimensions()
-  const isDesktop = width > 768
+  const isDesktop = width > 1200
   const formattedPostsCount = isDesktop ? 4 : 3
-
-  useEffect(() => {
-    const fetchDataAndSetState = async () => {
-      try {
-        const { data } = await fetchPopularPosts()
-        setPopularPosts(data.report)
-      } catch (error) {
-        console.error('Error fetching popular posts:', error)
-      }
+  const formatArticleCard = (articleCardList: PopularSearchItem) => {
+    return {
+      href: `/story/${articleCardList.slug}`,
+      slug: articleCardList.slug,
+      name: articleCardList.name,
+      images: formatePostImage(articleCardList as PostCardItem),
+      publishTime: new Date(articleCardList.publishTime),
     }
-
-    fetchDataAndSetState()
-  }, [])
+  }
 
   const formattedPosts: FormattedPostCard[] =
-    popularPosts.map(formatArticleCard)
+    popularPostList.map(formatArticleCard)
 
   return (
     <main className={styles.main}>
@@ -86,4 +82,4 @@ const SearchNoResult = ({ keyword }: SearchNoResultProps) => {
   )
 }
 
-export default SearchNoResult
+export default NoSearchResult
