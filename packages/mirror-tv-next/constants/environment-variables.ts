@@ -24,7 +24,7 @@ switch (ENV) {
     break
 
   case 'staging':
-    SITE_URL = 'https://staging.mnews.tw'
+    SITE_URL = 'https://staging-next.mnews.tw'
     GTM_ID = 'GTM-NFH6FDH'
     GLOBAL_CACHE_SETTING = 300
     HEADER_JSON_URL = 'https://staging.mnews.tw/json/header_v2.json'
