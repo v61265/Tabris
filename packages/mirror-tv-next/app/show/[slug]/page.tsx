@@ -9,7 +9,10 @@ import {
 } from '~/constants/environment-variables'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
-import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
+import {
+  GPTPlaceholderDesktop,
+  GPTPlaceholderMobile,
+} from '~/components/ads/gpt/gpt-placeholder'
 import { getClient } from '~/apollo-client'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 import { fetchShowBySlug } from '~/graphql/query/shows'
@@ -189,6 +192,10 @@ export default async function ShowPage({
         <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
       </GPTPlaceholderDesktop>
+      <GPTPlaceholderMobile>
+        <p>廣告</p>
+        <GPTAd pageKey="show" adKey="MB_M1" />
+      </GPTPlaceholderMobile>
       <main className={styles.container}>
         <h1 className={styles.title}>{show.name}</h1>
         <figure className={styles.banner}>
@@ -233,9 +240,16 @@ export default async function ShowPage({
               )}
               {!!show.hostName && <UiHostList hostList={show.hostName} />}
             </section>
-            <aside className={styles.aside}></aside>
+            <aside className={styles.aside}>
+              <GPTAd pageKey="show" adKey="PC_R1" />
+              <GPTAd pageKey="show" adKey="PC_R2" />
+              <GPTAd pageKey="show" adKey="PC_R3" />
+            </aside>
+            <GPTAd pageKey="show" adKey="MB_M2" />
           </section>
           {!!podcasts.length && <PodcastsList podcasts={podcasts} />}
+          <GPTAd pageKey="show" adKey="PC_BT" />
+          <GPTAd pageKey="show" adKey="MB_M3" />
         </section>
       </main>
     </>

@@ -58,6 +58,12 @@
   }
 }
 
+.aside {
+  * {
+    margin: 10px;
+  }
+}
+
 .show {
   flex: 1;
   margin: 24px 0 0;
