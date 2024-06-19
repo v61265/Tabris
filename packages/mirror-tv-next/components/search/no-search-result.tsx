@@ -1,22 +1,23 @@
-'use client'
 import Image from 'next/image'
 import styles from './_styles/no-search-result.module.scss'
 import { formatePostImage } from '~/utils'
 import type { FormattedPostCard } from '~/utils'
-import Link from 'next/link'
-import ResponsiveImage from '../shared/responsive-image'
-import useWindowDimensions from '~/hooks/use-window-dimensions'
 import type { PopularSearchItem } from '~/types/api-data'
 import type { PostCardItem } from '~/graphql/query/posts'
+import NoSearchResultList from './no-search-result-list'
+import { fetchPopularPosts } from '../errors/action'
 type NoSearchResultProps = {
   keyword: string
-  popularPostList: PopularSearchItem[]
 }
 
-const NoSearchResult = ({ keyword, popularPostList }: NoSearchResultProps) => {
-  const { width = 0 } = useWindowDimensions()
-  const isDesktop = width > 1200
-  const formattedPostsCount = isDesktop ? 4 : 3
+const NoSearchResult = async ({ keyword }: NoSearchResultProps) => {
+  let popularPostList: PopularSearchItem[] = []
+  try {
+    const { data } = await fetchPopularPosts()
+    popularPostList = data.report
+  } catch (e) {
+    console.error('popularPostList_error', e)
+  }
   const formatArticleCard = (articleCardList: PopularSearchItem) => {
     return {
       href: `/story/${articleCardList.slug}`,
@@ -49,35 +50,7 @@ const NoSearchResult = ({ keyword, popularPostList }: NoSearchResultProps) => {
         <p>熱門新聞</p>
       </div>
       <div className={styles.divider} />
-      <ul className={styles.popularResultList}>
-        {formattedPosts.slice(0, formattedPostsCount).map((article) => {
-          return (
-            <Link
-              key={article.slug}
-              href={article.href}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <li className={styles.img}>
-                <ResponsiveImage
-                  images={article.images}
-                  alt={article.name}
-                  priority={false}
-                  rwd={{
-                    mobile: '500px',
-                    tablet: '500px',
-                    laptop: '500px',
-                    desktop: '500px',
-                    default: '500px',
-                  }}
-                />
-              </li>
-
-              <p>{article.name}</p>
-            </Link>
-          )
-        })}
-      </ul>
+      <NoSearchResultList formattedPosts={formattedPosts} />
     </main>
   )
 }

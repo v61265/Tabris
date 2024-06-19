@@ -1,4 +1,4 @@
-import { HeroImage } from './common'
+import type { HeroImage } from './common'
 
 export type ApiData = {
   id: string
