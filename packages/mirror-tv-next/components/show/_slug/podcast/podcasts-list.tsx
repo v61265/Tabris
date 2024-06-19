@@ -13,7 +13,7 @@ export default function PodcastsList({ podcasts }: { podcasts: Podcast[] }) {
   const podcastShown = useMemo(() => {
     const shownCount = width && width >= 768 ? 10 * page : 5 * page
     return podcasts.slice(0, shownCount)
-  }, [width])
+  }, [width, page])
 
   const [playingIndex, setPlayIndex] = useState<number>(-1)
   const togglePlayingAudio = (index: number) => {
@@ -35,10 +35,15 @@ export default function PodcastsList({ podcasts }: { podcasts: Podcast[] }) {
           )
         })}
       </ul>
-      <UiLoadMoreButton
-        title="看更多"
-        onClick={() => setPage((prev) => prev++)}
-      />
+      {podcastShown < podcasts && (
+        <div className={styles.btnWrapper}>
+          <UiLoadMoreButton
+            title="看更多"
+            onClick={() => setPage((prev) => prev + 1)}
+          />
+        </div>
+      )}
+
       {playingIndex !== -1 && (
         <AudioPlayer listeningPodcast={podcasts[playingIndex]} />
       )}
