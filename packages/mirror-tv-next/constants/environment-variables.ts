@@ -24,7 +24,7 @@ switch (ENV) {
     break
 
   case 'staging':
-    SITE_URL = 'https://staging-next.mnews.tw'
+    SITE_URL = 'https://staging.mnews.tw'
     GTM_ID = 'GTM-NFH6FDH'
     GLOBAL_CACHE_SETTING = 300
     HEADER_JSON_URL = 'https://staging.mnews.tw/json/header_v2.json'
@@ -37,7 +37,7 @@ switch (ENV) {
     break
 
   case 'dev':
-    SITE_URL = 'https://tabris-mirror-tv-next-dev-ugq4qlmzra-de.a.run.app/'
+    SITE_URL = 'https://dev.mnews.tw'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
     HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
