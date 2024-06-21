@@ -7,10 +7,10 @@ interface PlayPauseButtonProps {
   togglePlayPause: () => void
 }
 
-const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
+export default function PlayPauseButton({
   isPlaying,
   togglePlayPause,
-}) => {
+}: PlayPauseButtonProps) {
   const [active, setActive] = useState(false)
 
   const handleClick = () => {
@@ -19,10 +19,11 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
   }
 
   return (
-    <button className={styles.togglePlayBtn} onClick={handleClick}>
+    <div
+      className={`${styles.togglePlayBtn} player__control`}
+      onClick={handleClick}
+    >
       <span className={isPlaying ? styles.pause : styles.play} />
-    </button>
+    </div>
   )
 }
-
-export default PlayPauseButton

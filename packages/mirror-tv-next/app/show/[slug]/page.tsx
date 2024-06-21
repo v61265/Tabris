@@ -25,6 +25,7 @@ import UiHostList from '~/components/show/_slug/ui-host-list'
 import axios from 'axios'
 import type { Podcast } from '~/types/common'
 import PodcastsList from '~/components/show/_slug/podcast/podcasts-list'
+import GptPopup from '~/components/ads/gpt/gpt-popup'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -192,6 +193,7 @@ export default async function ShowPage({
         <p>廣告</p>
         <GPTAd pageKey="all" adKey="PC_HD" />
       </GPTPlaceholderDesktop>
+      <GptPopup adKey="MB_PROGRAM" />
       <GPTPlaceholderMobile>
         <p>廣告</p>
         <GPTAd pageKey="show" adKey="MB_M1" />

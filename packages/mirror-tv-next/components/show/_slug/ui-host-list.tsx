@@ -16,7 +16,7 @@ export default function UiHostList({ hostList }: { hostList: HostOrStaff[] }) {
     })
   }
   return (
-    <ol className={styles.list}>
+    <ol className={`${styles.list} host-list`}>
       {hostList.map((hostItem) => {
         const bios = formatBio(hostItem)[0]
         return (
