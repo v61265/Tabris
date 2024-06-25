@@ -17,14 +17,14 @@ const SearchBar = () => {
   const handleSearch = () => {
     toggleSearchBar()
   }
-  const searchIconStyle = isSearchBarShown
+  const searchIconClassName = isSearchBarShown
     ? `${styles.logo} ${styles.isActive}`
     : styles.logo
 
   return (
     <div className={styles.searchBarContainer}>
       <button onClick={toggleSearchBar}>
-        <div className={searchIconStyle} />
+        <div className={searchIconClassName} />
       </button>
       {isSearchBarShown && (
         <section className={styles.searchBarSection}>

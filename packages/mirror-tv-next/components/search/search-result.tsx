@@ -5,12 +5,16 @@ import styles from './_styles/search-page.module.scss'
 import UiPostCard, {
   type UiPostCardProps,
 } from '~/components/shared/ui-post-card'
-
+import { formateHeroImage } from '~/utils'
+import UiLoadMoreButton from '../shared/ui-load-more-button'
 type SearchResultProps = {
   keyword: string
   searchResultList: TVPost[]
 }
 const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
+  const handleClickLoadMore = () => {
+    // loadMore
+  }
   return (
     <main className={styles.main}>
       <p className={styles.searchKeyword}>{keyword}</p>
@@ -22,10 +26,7 @@ const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
               title: name,
               date,
               href: `/story/${slug}`,
-              images: {
-                original: heroImage.urlMobileSized,
-                w400: heroImage.urlMobileSized,
-              },
+              images: formateHeroImage(heroImage),
               postStyle: 'article',
               mobileLayoutDirection:
                 'column' as UiPostCardProps['mobileLayoutDirection'],
@@ -38,7 +39,7 @@ const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
             )
           }
         )}
-        <button className={styles.seeMoreBtn}>看更多</button>
+        <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
       </ul>
     </main>
   )

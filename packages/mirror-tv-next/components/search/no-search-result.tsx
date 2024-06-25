@@ -23,6 +23,7 @@ const NoSearchResult = async ({ keyword }: NoSearchResultProps) => {
       href: `/story/${articleCardList.slug}`,
       slug: articleCardList.slug,
       name: articleCardList.name,
+      // TODO: turn formatePostImage into formateHeroImage
       images: formatePostImage(articleCardList as PostCardItem),
       publishTime: new Date(articleCardList.publishTime),
     }

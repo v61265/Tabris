@@ -29,7 +29,7 @@ const page = async ({ params }: Slug) => {
     console.error('searchResultList_error', e)
   }
 
-  if (searchResultList.length === 0) return <NoSearchResult keyword={keyword} />
+  if (searchResultList.length) return <NoSearchResult keyword={keyword} />
 
   const searchResultProps = {
     keyword,
