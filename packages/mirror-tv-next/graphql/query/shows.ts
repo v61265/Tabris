@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { HeroImage } from '~/types/common'
+import type { HeroImage } from '~/types/common'
 
 export type Show = {
   id: string
