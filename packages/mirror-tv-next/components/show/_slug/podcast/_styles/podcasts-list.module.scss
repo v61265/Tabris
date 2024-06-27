@@ -11,6 +11,9 @@
   font-weight: 500;
   line-height: 160%; /* 32px */
   margin-left: 4px;
+  @include media-breakpoint-up(md) {
+    margin-left: 0;
+  }
 }
 
 .list {

@@ -10,11 +10,18 @@ type AudioPlayerProps = {
   listeningPodcast: Podcast | null
 }
 
+const PLAYBACK_SPEEDS = {
+  NORMAL: 1,
+  FAST: 1.5,
+  FASTER: 2,
+} as const
+type PlaybackSpeed = (typeof PLAYBACK_SPEEDS)[keyof typeof PLAYBACK_SPEEDS]
+
 export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
   const audioURL = listeningPodcast?.enclosures[0].url ?? ''
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isPlaying, setIsPlaying] = useState(true)
-  const [speed, setSpeed] = useState(1)
+  const [speed, setSpeed] = useState<PlaybackSpeed>(PLAYBACK_SPEEDS.NORMAL)
   const [duration, setDuration] = useState<number>(0)
   const [currentTime, setCurrentTime] = useState<number>(0)
 
@@ -58,7 +65,7 @@ export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
 
     setCurrentTime(0)
     setDuration(0)
-    setSpeed(1)
+    setSpeed(PLAYBACK_SPEEDS.NORMAL)
     setIsPlaying(true)
     setShowVolumeSlider(false)
     setIsMuted(false)
@@ -96,15 +103,19 @@ export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
   const updateSpeed = () => {
     const audio = audioRef.current
     if (!audio) return
-    if (speed === 1) {
-      audio.playbackRate = 1.5
-      setSpeed(1.5)
-    } else if (speed === 1.5) {
-      audio.playbackRate = 2
-      setSpeed(2)
-    } else {
-      audio.playbackRate = 1
-      setSpeed(1)
+    switch (speed) {
+      case PLAYBACK_SPEEDS.NORMAL:
+        audio.playbackRate = PLAYBACK_SPEEDS.FAST
+        setSpeed(PLAYBACK_SPEEDS.FAST)
+        break
+      case PLAYBACK_SPEEDS.FAST:
+        audio.playbackRate = PLAYBACK_SPEEDS.FASTER
+        setSpeed(PLAYBACK_SPEEDS.FASTER)
+        break
+      default:
+        audio.playbackRate = PLAYBACK_SPEEDS.NORMAL
+        setSpeed(PLAYBACK_SPEEDS.NORMAL)
+        break
     }
   }
 
