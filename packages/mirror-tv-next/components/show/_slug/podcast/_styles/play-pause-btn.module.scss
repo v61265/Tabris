@@ -29,6 +29,16 @@
   }
 }
 
+.pauseErr {
+  --error-color: #767676;
+  border-right: 4px solid var(--error-color);
+  border-left: 4px solid var(--error-color);
+  &:hover {
+    border-right: 4px solid var(--error-color);
+    border-left: 4px solid var(--error-color);
+  }
+}
+
 .play {
   position: absolute;
   width: 12px;
@@ -37,6 +47,16 @@
   border-left: 12px solid #fff;
   border-bottom: 8px solid transparent;
   &:hover {
+    cursor: default;
     border-left: 12px solid #ffcc01;
+  }
+}
+
+.playError {
+  --error-color: #767676;
+  border-left: 12px solid var(--error-color);
+  &:hover {
+    cursor: default;
+    border-left: 12px solid var(--error-color);
   }
 }

@@ -101,6 +101,7 @@ export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
   }
 
   const updateSpeed = () => {
+    if (audioLoadError) return
     const audio = audioRef.current
     if (!audio) return
     switch (speed) {
@@ -170,17 +171,28 @@ export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
 
           <div className={styles.container} key={audioURL}>
             <audio ref={audioRef} src={audioURL} autoPlay></audio>
-            <div className={styles.control}>
+            <div
+              className={`${styles.control} ${
+                audioLoadError ? styles.hasError : ''
+              }`}
+            >
               <PlayPauseButton
                 isPlaying={isPlaying}
                 togglePlayPause={togglePlayPause}
+                hasError={audioLoadError}
               />
               <span>{formattedCurrentTime}</span>
               &nbsp;/&nbsp;
               <span>{formattedDuration}</span>
-              <div className={styles.slidersWrapper}>
+              <div
+                className={`${styles.slidersWrapper} ${
+                  audioLoadError ? styles.hasError : ''
+                }`}
+              >
                 <input
-                  className={styles.seekSlider}
+                  className={`${styles.seekSlider} ${
+                    audioLoadError ? styles.seekHasError : ''
+                  }`}
                   type="range"
                   min="0"
                   step="1"
@@ -196,12 +208,16 @@ export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
                   }
                 />
                 <div
-                  className={`${styles.volume} `}
-                  onMouseEnter={() => setShowVolumeSlider(true)}
+                  className={`${styles.volume} ${
+                    audioLoadError ? styles.hasError : ''
+                  }`}
+                  onMouseEnter={() => setShowVolumeSlider(!audioLoadError)}
                   onMouseLeave={() => setShowVolumeSlider(false)}
                 >
                   <button
-                    className={styles.icons}
+                    className={`${styles.icons} ${
+                      audioLoadError ? styles.hasError : ''
+                    }`}
                     onClick={handleVolumeClicked}
                   >
                     <AudioSound />
@@ -228,8 +244,13 @@ export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
                   )}
                 </div>
               </div>
-              <button className={styles.speedBtn} onClick={updateSpeed}>
-                {speed}X
+              <button
+                className={`${styles.speedBtn}${
+                  audioLoadError ? styles.hasError : ''
+                }`}
+                onClick={updateSpeed}
+              >
+                Ｘ{speed}
               </button>
             </div>
           </div>

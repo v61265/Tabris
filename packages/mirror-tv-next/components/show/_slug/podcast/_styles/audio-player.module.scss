@@ -26,10 +26,9 @@
   overflow: hidden;
   position: relative;
   width: 278px;
-  height: 44px;
+  height: 20px;
   @include media-breakpoint-up(md) {
     width: 557px;
-    height: 36px;
   }
 }
 
@@ -48,16 +47,15 @@
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
-  margin-top: 14px;
   display: inline-block;
   white-space: nowrap;
   animation: marquee 18s linear infinite;
   position: absolute;
   top: 0;
   left: 0;
-  @include media-breakpoint-up(md) {
-    margin-top: 10px;
-  }
+  // @include media-breakpoint-up(md) {
+  //   margin-top: 10px;
+  // }
 
   &:hover {
     animation-play-state: paused; /* Pause the animation on hover */
@@ -67,19 +65,17 @@
 .error {
   color: #ff0f00;
   text-align: center;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   line-height: normal;
 }
 
 .container {
-  height: 52px;
   width: 278px;
   color: #fff;
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
-
   @include media-breakpoint-up(md) {
     width: 557px;
   }
@@ -89,6 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 14px;
 }
 
 .slidersWrapper {
@@ -127,9 +124,10 @@
   }
 
   &::-webkit-slider-thumb {
+    display: none;
     -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 1px;
+    height: 11px;
     background: #ffcc01;
     border-radius: 50%;
     cursor: pointer;
@@ -139,12 +137,23 @@
 
   &:hover {
     &::-webkit-slider-thumb {
+      display: block;
       width: 10px;
       height: 10px;
       border-radius: 50%;
       background-color: #ffcc01;
       margin-top: -3px;
       transition: all 0.15s ease-in-out;
+    }
+  }
+}
+
+.seekHasError {
+  background-color: #767676;
+  &:hover {
+    cursor: inherit;
+    &::-webkit-slider-thumb {
+      display: none;
     }
   }
 }
@@ -234,5 +243,19 @@
   &:hover {
     color: #ffcc01;
     cursor: pointer;
+  }
+}
+
+.hasError {
+  color: #767676;
+  &:hover {
+    cursor: inherit;
+    color: #767676;
+    padding: 0;
+    background: transparent;
+  }
+
+  path {
+    fill: #767676;
   }
 }
