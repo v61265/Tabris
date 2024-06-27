@@ -5,7 +5,6 @@ import Image from 'next/image'
 import {
   GLOBAL_CACHE_SETTING,
   SITE_URL,
-  ENV,
 } from '~/constants/environment-variables'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
@@ -22,10 +21,8 @@ import { cache } from 'react'
 import ResponsiveImage from '~/components/shared/responsive-image'
 import { formateHeroImage } from '~/utils'
 import UiHostList from '~/components/show/_slug/ui-host-list'
-import axios from 'axios'
-import type { Podcast } from '~/types/common'
-import PodcastsList from '~/components/show/_slug/podcast/podcasts-list'
 import GptPopup from '~/components/ads/gpt/gpt-popup'
+import { PodcastsListHandler } from '~/components/show/_slug/podcast/podcasts-list-handler'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -158,35 +155,6 @@ export default async function ShowPage({
     },
   ]
 
-  let podcasts: Podcast[] = []
-
-  // podcasts
-  if (slug === 'election24') {
-    const podcastsEndpoint =
-      ENV === 'prod' || ENV === 'staging'
-        ? 'https://www.mnews.tw/json/podcast_list.json'
-        : 'https://dev.mnews.tw/json/podcast_list.json'
-    try {
-      const { data } = await axios.get(podcastsEndpoint)
-      podcasts = data
-    } catch (err) {
-      const annotatingError = errors.helpers.wrap(
-        err,
-        'UnhandledError',
-        'Error occurs while fetching data for show page'
-      )
-      console.error(
-        JSON.stringify({
-          severity: 'ERROR',
-          message: errors.helpers.printAll(annotatingError, {
-            withStack: false,
-            withPayload: true,
-          }),
-        })
-      )
-      throw new Error('Error occurs while fetching podcasts data.')
-    }
-  }
   return (
     <>
       <GPTPlaceholderDesktop>
@@ -249,7 +217,7 @@ export default async function ShowPage({
             </aside>
             <GPTAd pageKey="show" adKey="MB_M2" />
           </section>
-          {!!podcasts.length && <PodcastsList podcasts={podcasts} />}
+          {slug === 'election24' && <PodcastsListHandler />}
           <GPTAd pageKey="show" adKey="PC_BT" />
           <GPTAd pageKey="show" adKey="MB_M3" />
         </section>
