@@ -61,12 +61,14 @@
   justify-content: center;
   width: 40px;
   .searchIcon {
-    outline: none;
     mask-size: 18px 19px;
     width: 18px;
     height: 19px;
     background-color: #014db8;
     mask: url('/icons/icon-search.svg') 0 0/ 18px 19px;
     -webkit-mask: url('/icons/icon-search.svg') 0 0/ 18px 19px;
+    &:focus {
+      outline: none;
+    }
   }
 }
