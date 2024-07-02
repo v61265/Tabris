@@ -14,7 +14,6 @@ import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export const revalidate = GLOBAL_CACHE_SETTING
-export const fetchCache = 'must-revalidate, public'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
