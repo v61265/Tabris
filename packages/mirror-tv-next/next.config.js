@@ -38,7 +38,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: ['/schedule'],
+        source: '/schedule',
         headers: [
           {
             key: 'Cache-Control',
