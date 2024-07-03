@@ -144,7 +144,7 @@ export default function AudioPlayer({ listeningPodcast }: AudioPlayerProps) {
 
     if (isMuted) {
       setVolume(newVolume)
-      audio.volume = 1
+      audio.volume = newVolume / 100
     } else {
       newVolume = 0
       audio.volume = 0

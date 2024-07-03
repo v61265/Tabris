@@ -1,11 +1,10 @@
-'use server'
 import errors from '@twreporter/errors'
-import { Podcast } from '~/types/common'
+import type { Podcast } from '~/types/common'
 import { ENV } from '~/constants/environment-variables'
 import axios from 'axios'
 import PodcastsList from './podcasts-list'
 
-export async function PodcastsListHandler() {
+export default async function PodcastsListHandler() {
   let podcasts: Podcast[]
   try {
     const podcastsEndpoint =
