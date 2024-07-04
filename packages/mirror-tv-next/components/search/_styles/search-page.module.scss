@@ -1,0 +1,84 @@
+@import '/styles/theme/breakpoints';
+
+.main {
+  min-height: 100dvh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 50px; /* the height of mobile nav*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 20px 48px 20px;
+
+  @include media-breakpoint-up(md) {
+    padding: 36px 40px 48px;
+  }
+  @include media-breakpoint-up(lg) {
+    padding: 80px 40px 32px;
+  }
+}
+
+.searchResultList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 28px;
+
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    row-gap: 48px;
+    column-gap: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 40px;
+    column-gap: 24px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    row-gap: 52px;
+    column-gap: 24px;
+  }
+
+  li {
+    width: 100%;
+  }
+}
+
+.searchKeyword {
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 18px;
+  color: #014db8;
+}
+
+.seeMoreBtn {
+  width: 100%;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #014db8;
+  color: #014db8;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
+  @include media-breakpoint-up(md) {
+    width: 400px;
+    justify-self: center;
+    border-width: 1px;
+    grid-column: span 3;
+    letter-spacing: 3px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-column: span 4;
+  }
+}

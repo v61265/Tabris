@@ -9,11 +9,13 @@
   @include media-breakpoint-up(md) {
     background: #fff;
     height: 64px;
-    padding: 0 16px;
+    padding-left: 40px;
+    padding-right: 112px;
     justify-content: space-between;
   }
 
   @include media-breakpoint-up(xl) {
+    padding-left: 104px;
     height: 73px;
     max-width: 1232px;
   }
