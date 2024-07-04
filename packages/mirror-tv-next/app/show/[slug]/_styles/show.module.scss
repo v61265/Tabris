@@ -41,7 +41,9 @@
   padding-top: 37.5%;
   transform: translateX(-16px);
   margin-top: 16px;
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(md) {
+    transform: translateX(0);
+    width: 100%;
     margin-top: 24px;
   }
   @include media-breakpoint-up(xl) {
