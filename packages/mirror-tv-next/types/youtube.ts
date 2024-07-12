@@ -13,14 +13,10 @@ type YoutubeItem = {
 }
 
 type YoutubeResponse = {
+  id: string
   items: YoutubeItem[] | void
   nextPageToken?: string
+  pageInfo: { resultsPerPage: number; totalResults: number }
 }
 
-type PlayList = {
-  id: string
-  nextPageToken?: string
-  items: YoutubeItem[]
-}
-
-export type { YoutubeItem, YoutubeResponse, PlayList }
+export type { YoutubeItem, YoutubeResponse }

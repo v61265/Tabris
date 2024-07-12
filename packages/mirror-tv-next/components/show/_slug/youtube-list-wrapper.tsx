@@ -1,8 +1,8 @@
 import { fetchYoutubeList } from './action-yt'
 import { handleResponse } from '~/utils'
-import type { YoutubeItem, YoutubeResponse } from '~/types/youtube'
 import type { FormatPlayListItems } from './youtube-list'
 import YoutubeListHandler from './youtube-list-handler'
+import { formateYoutubeListRes } from '~/utils'
 
 type YoutubeListHandlerProps = {
   urls: (string | null)[]
@@ -34,24 +34,6 @@ export default async function YoutubeListWrapper({
       getListIdAndName(url, index)
     ) as YoutubeListInfoFormatted[]
 
-  const formateYoutubeListRes = (
-    response: YoutubeResponse
-  ): FormatPlayListItems => {
-    const filteredItems = response?.items?.filter(
-      (item) => item?.status?.privacyStatus === 'public'
-    )
-    const formatPlayListItems = (item: YoutubeItem) => {
-      return {
-        id: item?.snippet?.resourceId?.videoId,
-        title: item?.snippet?.title,
-      }
-    }
-    return {
-      items: filteredItems?.map((item) => formatPlayListItems(item)) ?? [],
-      nextPageToken: response?.nextPageToken,
-    }
-  }
-
   const listResponse = await Promise.allSettled(
     youtubeListIds.map((item) =>
       fetchYoutubeList({ list: { id: item.url, nextPageToken: '' }, take: 30 })
@@ -65,11 +47,10 @@ export default async function YoutubeListWrapper({
       res,
       (res: Awaited<ReturnType<typeof fetchYoutubeList>> | undefined) => {
         if (!res) return
-        const itemAndNextPageToken = formateYoutubeListRes(res)
-        itemAndNextPageToken.name = youtubeListIds[i].sectionName
         playListRendered.push({
           ...formateYoutubeListRes(res),
           name: youtubeListIds[i].sectionName,
+          id: youtubeListIds[i].url,
         })
       },
       'Error occurs while fetching youtube list in show page'

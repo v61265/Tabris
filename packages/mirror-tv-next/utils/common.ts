@@ -1,5 +1,7 @@
 import errors from '@twreporter/errors'
+import { FormatPlayListItems } from '~/components/show/_slug/youtube-list'
 import type { ApiData } from '~/types/api-data'
+import type { YoutubeItem, YoutubeResponse } from '~/types/youtube'
 
 function isServer(): boolean {
   return typeof window === 'undefined'
@@ -77,10 +79,30 @@ function handleApiData(apiData: string): ApiData[] {
   }
 }
 
+const formateYoutubeListRes = (
+  response: YoutubeResponse
+): FormatPlayListItems => {
+  const filteredItems = response?.items?.filter(
+    (item) => item?.status?.privacyStatus === 'public'
+  )
+  const formatPlayListItems = (item: YoutubeItem) => {
+    return {
+      id: item?.snippet?.resourceId?.videoId,
+      title: item?.snippet?.title,
+    }
+  }
+  return {
+    items: filteredItems?.map((item) => formatPlayListItems(item)) ?? [],
+    nextPageToken: response?.nextPageToken,
+    totalItems: response.pageInfo.totalResults,
+  }
+}
+
 export {
   extractYoutubeId,
   isServer,
   handleResponse,
   handleApiData,
   handleMetaDesc,
+  formateYoutubeListRes,
 }
