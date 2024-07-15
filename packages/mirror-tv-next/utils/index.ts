@@ -6,11 +6,11 @@ import {
   handleApiData,
   handleMetaDesc,
   handleResponse,
-  formateYoutubeListRes,
 } from './common'
 import { formateDateAtTaipei } from './date-handler'
 import type { FormattedPostCard } from './post-handler'
 import { formatArticleCard } from './post-handler'
+import { formateYoutubeListRes, fetchYoutubeData } from './youtube'
 
 export {
   extractYoutubeId,
@@ -22,5 +22,6 @@ export {
   handleApiData,
   handleMetaDesc,
   formateYoutubeListRes,
+  fetchYoutubeData,
 }
 export type { FormattedPostCard, PostImage }

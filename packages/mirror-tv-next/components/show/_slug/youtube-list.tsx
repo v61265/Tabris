@@ -16,11 +16,13 @@ export type FormatPlayListItems = {
 type YoutubeListProps = {
   playListObj: FormatPlayListItems
   fetchMoreItems: () => Promise<void>
+  isShown: boolean
 }
 
 export default function YoutubeList({
   playListObj,
   fetchMoreItems,
+  isShown,
 }: YoutubeListProps) {
   const [page, setPage] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
@@ -55,7 +57,10 @@ export default function YoutubeList({
   }, [playListObj?.items?.length])
 
   return (
-    <section key={playListObj.name} className={styles.list}>
+    <section
+      key={playListObj.name}
+      className={`${styles.list} ${isShown ? styles.active : ''}`}
+    >
       {!isMobile && (
         <span className={styles.sectionName}>{playListObj.name}</span>
       )}

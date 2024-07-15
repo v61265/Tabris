@@ -2,7 +2,7 @@
 import errors from '@twreporter/errors'
 import { YoutubeResponse } from '~/types/youtube'
 
-import { fetchYoutubeData } from '~/utils/fetch'
+import { fetchYoutubeData } from '~/utils'
 
 type fetchYoutubeListProps = {
   list: { nextPageToken: string; id: string | undefined }

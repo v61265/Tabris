@@ -61,13 +61,13 @@ export default function YoutubeListHandler({
       )}
 
       {listData.map((list, index) => {
-        if (!list.items?.length) return null
         return (
-          (!isMobile || index === activeList) && (
+          list.items?.length && (
             <YoutubeList
               key={index}
               playListObj={list}
               fetchMoreItems={() => fetchMoreItems(index)}
+              isShown={!isMobile || index === activeList}
             />
           )
         )

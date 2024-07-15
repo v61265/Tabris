@@ -4,12 +4,17 @@
 .list {
   width: 100%;
   margin: 12px 0;
+  display: none;
   @include media-breakpoint-up(md) {
     margin: 0 0 24px;
   }
   @include media-breakpoint-up(xl) {
     margin: 0 0 48px;
   }
+}
+
+.active {
+  display: block;
 }
 
 .sectionName {

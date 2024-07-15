@@ -1,4 +1,4 @@
-type YoutubeItem = {
+export type YoutubeItem = {
   id: string
   title: string
   snippet: {
@@ -12,11 +12,9 @@ type YoutubeItem = {
   }
 }
 
-type YoutubeResponse = {
+export type YoutubeResponse = {
   id: string
-  items: YoutubeItem[] | void
+  items: YoutubeItem[] | undefined
   nextPageToken?: string
   pageInfo: { resultsPerPage: number; totalResults: number }
 }
-
-export type { YoutubeItem, YoutubeResponse }

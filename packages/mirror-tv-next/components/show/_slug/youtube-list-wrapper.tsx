@@ -29,14 +29,16 @@ export default async function YoutubeListWrapper({
     return { url, sectionName }
   }
   const youtubeListIds = urls
-    .filter((url) => url)
-    .map((url, index) =>
-      getListIdAndName(url, index)
-    ) as YoutubeListInfoFormatted[]
+    .filter((url): url is string => url !== null)
+    .map((url, index) => getListIdAndName(url, index))
+    .filter((item): item is YoutubeListInfoFormatted => item?.url !== null)
 
   const listResponse = await Promise.allSettled(
     youtubeListIds.map((item) =>
-      fetchYoutubeList({ list: { id: item.url, nextPageToken: '' }, take: 30 })
+      fetchYoutubeList({
+        list: { id: item.url, nextPageToken: '' },
+        take: 30,
+      })
     )
   )
 
