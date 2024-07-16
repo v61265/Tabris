@@ -44,6 +44,16 @@
 
 .item {
   margin-bottom: 24px;
+  & > span {
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    @include media-breakpoint-up(md) {
+      -webkit-line-clamp: 2;
+    }
+  }
 }
 
 .itemName {
