@@ -6,6 +6,7 @@ import {
   handleApiData,
   handleMetaDesc,
   handleResponse,
+  FetchError,
 } from './common'
 import { formateDateAtTaipei } from './date-handler'
 import type { FormattedPostCard } from './post-handler'
@@ -23,5 +24,6 @@ export {
   handleMetaDesc,
   formateYoutubeListRes,
   fetchYoutubeData,
+  FetchError,
 }
 export type { FormattedPostCard, PostImage }

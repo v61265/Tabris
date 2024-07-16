@@ -1,8 +1,8 @@
 import type { YoutubeItem, YoutubeResponse } from '~/types/youtube'
 import type { FormatPlayListItems } from '~/components/show/_slug/youtube-list'
 import axios, { AxiosResponse } from 'axios'
-import { FetchError } from './fetch'
-import { YOUTUBE_URL } from '~/constants/environment-variables'
+import { FetchError } from './index'
+import { YOUTUBE_API_URL } from '~/constants/environment-variables'
 
 const formateYoutubeListRes = (
   response: YoutubeResponse
@@ -29,7 +29,7 @@ async function fetchYoutubeData(url: string): Promise<YoutubeResponse> {
       timeout: 3000,
     }
     const response: AxiosResponse = await axios.get(
-      `${YOUTUBE_URL}/api/youtube${url}`,
+      `${YOUTUBE_API_URL}/api/youtube${url}`,
       axiosConfig
     )
     return response.data
