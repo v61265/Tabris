@@ -11,7 +11,7 @@ const HeaderSearchBar = () => {
       <input
         className={styles.input}
         type="text"
-        placeholder=""
+        placeholder="請輸入關鍵字"
         onChange={(e) => setKeyword(e.target.value)}
       />
       <Link href={`/search/${keyword}`} className={styles.searchButton}>
