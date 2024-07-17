@@ -2,10 +2,12 @@
 import React, { useState } from 'react'
 import styles from './_styles/search-bar.module.scss'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const SearchBar = () => {
   const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [keyword, setKeyword] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
 
   const toggleSearchBar = () => {
     setIsSearchBarShown((prevState) => !prevState)
@@ -15,7 +17,15 @@ const SearchBar = () => {
     setKeyword(e.target.value)
   }
   const handleSearch = () => {
-    toggleSearchBar()
+    setIsSearching(true)
+    // toggleSearchBar()
+    // setKeyword('')
+    // setIsSearching(false)
+  }
+
+  const handleResetKeyword = () => {
+    console.log('click')
+    setKeyword('')
   }
   const searchIconClassName = isSearchBarShown
     ? `${styles.logo} ${styles.isActive}`
@@ -29,17 +39,35 @@ const SearchBar = () => {
       {isSearchBarShown && (
         <section className={styles.searchBarSection}>
           <div className={styles.searchWrapper}>
-            <div className={styles.searchIconWrapper}>
-              <Link href={`/search/${keyword}`} onClick={handleSearch}>
-                <div className={styles.searchIcon} />
-              </Link>
-            </div>
             <input
               type="text"
               placeholder="請輸入關鍵字"
-              className={styles.searchInput}
+              className={`${styles.searchInput} ${
+                isSearching && styles.isSearchingInput
+              }`}
+              value={keyword}
               onChange={handleInputOnChange}
             />
+            <div className={styles.searchIconWrapper}>
+              <button onClick={handleResetKeyword}>
+                <Image
+                  className={styles.resetIcon}
+                  src="/icons/icon-cross.svg"
+                  alt="search icon"
+                  width={16}
+                  height={16}
+                />
+              </button>
+              <Link href={`/search/${keyword}`} onClick={handleSearch}>
+                <div
+                  className={`${styles.searchIcon} ${
+                    isSearching && styles.isSearchingIcon
+                  }`}
+                >
+                  GO
+                </div>
+              </Link>
+            </div>
           </div>
           <div className={styles.modalOverlay} />
         </section>
