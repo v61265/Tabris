@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './_styles/header-top.module.scss'
-import HeaderSearchBar from './header-search-bar'
 
 export default function HeaderTop() {
   return (
@@ -17,7 +16,6 @@ export default function HeaderTop() {
           />
         </Link>
       </div>
-      <HeaderSearchBar />
     </div>
   )
 }

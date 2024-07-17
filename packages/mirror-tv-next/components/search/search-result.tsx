@@ -1,4 +1,4 @@
-import React from 'react'
+'use client'
 
 import type { TVPost } from '~/types/api-data'
 import styles from './_styles/search-page.module.scss'
