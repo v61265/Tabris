@@ -61,6 +61,7 @@
   height: 44px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   @include media-breakpoint-up(md) {
     padding: 0 16px;
