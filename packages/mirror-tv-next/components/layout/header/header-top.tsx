@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './_styles/header-top.module.scss'
-import HeaderSearchBar from './header-search-bar'
 import type { Sponsor } from '~/graphql/query/sponsors'
 import { formateHeroImage } from '~/utils'
 import ResponsiveImage from '~/components/shared/responsive-image'
@@ -24,7 +23,6 @@ export default function HeaderTop({ sponsors }: HeaderTopProps) {
           />
         </Link>
       </div>
-      <HeaderSearchBar />
       <div className={styles.sponsorsWrapper}>
         {sponsors.slice(0, 3).map((sponsor) => {
           const formattedLogo = formateHeroImage(sponsor.logo ?? {})
