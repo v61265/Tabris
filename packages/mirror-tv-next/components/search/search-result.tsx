@@ -1,10 +1,7 @@
 'use client'
 import React from 'react'
-
 import styles from './_styles/search-page.module.scss'
-import UiPostCard, {
-  type UiPostCardProps,
-} from '~/components/shared/ui-post-card'
+import UiPostCard from '~/components/shared/ui-post-card'
 import { formateHeroImage } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import type { SearchItem } from '~/types/search'
@@ -20,7 +17,7 @@ const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
   return (
     <main className={styles.main}>
       <p className={styles.searchKeyword}>{keyword}</p>
-      <ul className={styles.searchResultList}>
+      <ol className={`${styles.searchResultList} search-result__list`}>
         {searchResultList.map((item) => {
           const date = new Date(
             item.pagemap.metatags?.[0]?.['article:published_time'] ?? ''
@@ -37,8 +34,7 @@ const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
                 : {}
             ),
             postStyle: 'article',
-            mobileLayoutDirection:
-              'column' as UiPostCardProps['mobileLayoutDirection'],
+            mobileLayoutDirection: 'column' as const,
             postTitleHighlightText: '',
           }
           return (
@@ -47,8 +43,8 @@ const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
             </li>
           )
         })}
-        <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
-      </ul>
+      </ol>
+      <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
     </main>
   )
 }
