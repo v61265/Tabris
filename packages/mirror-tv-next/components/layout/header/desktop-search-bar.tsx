@@ -1,17 +1,17 @@
 'use client'
-import React from 'react'
 import styles from './_styles/header-search-bar.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const HeaderSearchBar = () => {
-  const [keyword, setKeyword] = React.useState('')
+  const [keyword, setKeyword] = useState('')
   return (
     <section className={styles.container}>
       <input
         className={styles.input}
         type="text"
-        placeholder=""
+        placeholder="請輸入關鍵字"
         onChange={(e) => setKeyword(e.target.value)}
       />
       <Link href={`/search/${keyword}`} className={styles.searchButton}>
