@@ -2,7 +2,7 @@ import styles from './_styles/ui-load-more-button.module.scss'
 
 type UiLoadMoreButtonProps = {
   title: string
-  onClick: () => void | Promise<void>
+  onClick?: () => void | Promise<void>
   className?: string
 }
 

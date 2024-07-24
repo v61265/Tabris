@@ -1,50 +1,100 @@
 'use client'
-import React from 'react'
-import styles from './_styles/search-page.module.scss'
+import styles from './_styles/search-result.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formateHeroImage } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
-import type { SearchItem } from '~/types/search'
+import type { SearchItem, SearchResponse } from '~/types/search'
+import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
+import { searchAPI } from '~/app/search/[keyword]/action'
+import errors from '@twreporter/errors'
 
 type SearchResultProps = {
   keyword: string
   searchResultList: SearchItem[]
+  startIndex: number
+  searchResultNumber: number
 }
-const SearchResult = ({ keyword, searchResultList }: SearchResultProps) => {
-  const handleClickLoadMore = () => {
-    // loadMore
+const CARD_PER_PAGE = 12
+const SearchResult = ({
+  keyword,
+  searchResultList,
+  startIndex,
+  searchResultNumber,
+}: SearchResultProps) => {
+  const formateResultCard = (item: SearchItem) => {
+    const date = new Date(
+      item.pagemap.metatags?.[0]?.['article:published_time'] ?? ''
+    )
+    return {
+      title: item.title,
+      date,
+      href: item.link,
+      images: formateHeroImage(
+        item?.pagemap?.cse_image?.[0]?.src
+          ? {
+              urlOriginal: item?.pagemap?.cse_image?.[0]?.src,
+            }
+          : {}
+      ),
+      postStyle: 'article',
+      mobileLayoutDirection: 'column' as const,
+      postTitleHighlightText: '',
+    }
+  }
+  const handleClickLoadMore = async (page: number) => {
+    try {
+      const res: SearchResponse | null = await searchAPI(
+        keyword,
+        page * CARD_PER_PAGE + startIndex,
+        12
+      )
+      return res?.items || []
+    } catch (err) {
+      console.error(
+        JSON.stringify({
+          severity: 'ERROR',
+          message: errors.helpers.printAll(
+            err,
+            {
+              withStack: true,
+              withPayload: true,
+            },
+            0,
+            0
+          ),
+        })
+      )
+      return []
+    }
   }
   return (
     <main className={styles.main}>
       <p className={styles.searchKeyword}>{keyword}</p>
       <ol className={`${styles.searchResultList} search-result__list`}>
-        {searchResultList.map((item) => {
-          const date = new Date(
-            item.pagemap.metatags?.[0]?.['article:published_time'] ?? ''
-          )
-          const props = {
-            title: item.title,
-            date,
-            href: item.link,
-            images: formateHeroImage(
-              item?.pagemap?.cse_image?.[0]?.src
-                ? {
-                    urlOriginal: item?.pagemap?.cse_image?.[0]?.src,
-                  }
-                : {}
-            ),
-            postStyle: 'article',
-            mobileLayoutDirection: 'column' as const,
-            postTitleHighlightText: '',
+        <InfiniteScrollList
+          initialList={searchResultList}
+          pageSize={CARD_PER_PAGE}
+          amountOfElements={searchResultNumber}
+          fetchListInPage={handleClickLoadMore}
+          isAutoFetch={false}
+          loader={
+            <div className={styles.moreWrapper}>
+              <UiLoadMoreButton title="看更多" className={styles.more} />
+            </div>
           }
-          return (
-            <li key={item.htmlTitle}>
-              <UiPostCard {...props} />
-            </li>
-          )
-        })}
+        >
+          {(list) =>
+            list.map((item) => {
+              const props = formateResultCard(item)
+              return (
+                <li key={item.htmlTitle}>
+                  <UiPostCard {...props} />
+                </li>
+              )
+            })
+          }
+        </InfiniteScrollList>
       </ol>
-      <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
     </main>
   )
 }

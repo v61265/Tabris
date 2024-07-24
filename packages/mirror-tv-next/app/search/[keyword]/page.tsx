@@ -1,7 +1,7 @@
 import NoSearchResult from '~/components/search/no-search-result'
 import SearchResult from '~/components/search/search-result'
 import errors from '@twreporter/errors'
-import { searchAPI } from '~/app/api/programmable-search'
+import { searchAPI } from './action'
 import type { SearchResponse, SearchItem } from '~/types/search'
 
 type Slug = {
@@ -13,16 +13,19 @@ export default async function SearchPage({ params, query }: Slug) {
   const keyword = decodeURI(params.keyword)
   const startIndex = Number(query?.start) || 1
   let searchResultList: SearchItem[] = []
-  // let searchResultNumber: number = 0
+  let searchResultNumber: number = 0
   try {
     const inputValue = keyword || ''
-    const response: SearchResponse = await searchAPI(inputValue, startIndex)
+    const response: SearchResponse | null = await searchAPI(
+      inputValue,
+      startIndex,
+      12
+    )
 
     searchResultList = response?.items || []
-    // searchResultNumber =
-    //   Number(response?.searchInformation?.totalResults) > 100
-    //     ? 100
-    //     : Number(response?.searchInformation?.totalResults) || 0
+    searchResultNumber = response?.searchInformation.totalResults
+      ? parseInt(response?.searchInformation.totalResults)
+      : 0
   } catch (err) {
     // All exceptions that include a stack trace will be
     // integrated with Error Reporting.
@@ -48,6 +51,8 @@ export default async function SearchPage({ params, query }: Slug) {
   const searchResultProps = {
     keyword,
     searchResultList,
+    startIndex,
+    searchResultNumber,
   }
   return <SearchResult {...searchResultProps} />
 }

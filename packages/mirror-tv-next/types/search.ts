@@ -1,3 +1,4 @@
+// reference: https://developers.google.com/custom-search/v1/reference/rest/v1/Search?hl=zh-tw
 export type SearchResponse = {
   kind: string
   url: Url
