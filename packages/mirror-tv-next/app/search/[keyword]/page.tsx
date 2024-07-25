@@ -1,41 +1,58 @@
 import NoSearchResult from '~/components/search/no-search-result'
-import type { TVPost, TVPostResponse } from '~/types/api-data'
 import SearchResult from '~/components/search/search-result'
+import errors from '@twreporter/errors'
+import { searchAPI } from './action'
+import type { SearchResponse, SearchItem } from '~/types/search'
 
 type Slug = {
-  params: Params
+  params: { keyword: string }
+  query: Record<string, string>
 }
 
-type Params = {
-  keyword: string
-}
-
-// FIXME: tmp search url
-const SEARCH_URL = 'http://localhost:8080/search'
-
-const getSearchResult = async (keyword?: string): Promise<TVPostResponse> => {
-  const response = await fetch(`${SEARCH_URL}/${keyword}`)
-  const result = await response.json()
-  return result
-}
-
-const page = async ({ params }: Slug) => {
+export default async function SearchPage({ params, query }: Slug) {
   const keyword = decodeURI(params.keyword)
-  let searchResultList: TVPost[] = []
+  const startIndex = Number(query?.start) || 1
+  let searchResultList: SearchItem[] = []
+  let searchResultNumber: number = 0
   try {
-    const searchResultResponse = await getSearchResult('')
-    searchResultList = searchResultResponse.body.hits.hits || []
-  } catch (e) {
-    console.error('searchResultList_error', e)
+    const inputValue = keyword || ''
+    const response: SearchResponse | null = await searchAPI(
+      inputValue,
+      startIndex,
+      20
+    )
+
+    searchResultList = response?.items || []
+    searchResultNumber = response?.searchInformation.totalResults
+      ? parseInt(response?.searchInformation.totalResults)
+      : 0
+  } catch (err) {
+    // All exceptions that include a stack trace will be
+    // integrated with Error Reporting.
+    // See https://cloud.google.com/run/docs/error-reporting
+    console.error(
+      JSON.stringify({
+        severity: 'ERROR',
+        message: errors.helpers.printAll(
+          err,
+          {
+            withStack: true,
+            withPayload: true,
+          },
+          0,
+          0
+        ),
+      })
+    )
   }
 
-  if (searchResultList.length) return <NoSearchResult keyword={keyword} />
+  if (!searchResultList.length) return <NoSearchResult keyword={keyword} />
 
   const searchResultProps = {
     keyword,
     searchResultList,
+    startIndex,
+    searchResultNumber,
   }
   return <SearchResult {...searchResultProps} />
 }
-
-export default page

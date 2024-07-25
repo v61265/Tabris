@@ -1,4 +1,5 @@
 @import '/styles/theme/breakpoints';
+@import '/styles/theme/variable';
 
 .main {
   min-height: 100dvh;
@@ -24,21 +25,20 @@
   width: 100%;
   align-items: center;
   gap: 28px;
-
+  margin-bottom: 28px;
   @include media-breakpoint-up(md) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-
     row-gap: 48px;
     column-gap: 20px;
+    margin-bottom: 32px;
   }
-
   @include media-breakpoint-up(lg) {
     grid-template-columns: repeat(4, 1fr);
     row-gap: 40px;
     column-gap: 24px;
+    margin-bottom: 36px;
   }
-
   @include media-breakpoint-up(xl) {
     row-gap: 52px;
     column-gap: 24px;
@@ -46,6 +46,11 @@
 
   li {
     width: 100%;
+  }
+
+  > div {
+    width: 100%;
+    grid-column: 1/-1;
   }
 }
 
@@ -55,7 +60,7 @@
   text-align: left;
   font-weight: 500;
   font-size: 18px;
-  color: #014db8;
+  color: $color-blue;
 }
 
 .seeMoreBtn {
@@ -64,8 +69,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #014db8;
-  color: #014db8;
+  border: 3px solid $color-blue;
+  color: $color-blue;
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -81,4 +86,8 @@
   @include media-breakpoint-up(lg) {
     grid-column: span 4;
   }
+}
+
+.moreWrapper {
+  margin: 0 auto;
 }
