@@ -4,14 +4,14 @@ import errors from '@twreporter/errors'
 import { searchAPI } from './action'
 import type { SearchResponse, SearchItem } from '~/types/search'
 
-type Slug = {
+type SearchPageProps = {
   params: { keyword: string }
-  query: Record<string, string>
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function SearchPage({ params, query }: Slug) {
+export default async function SearchPage({ params }: SearchPageProps) {
   const keyword = decodeURI(params.keyword)
-  const startIndex = Number(query?.start) || 1
+  const startIndex = 1
   let searchResultList: SearchItem[] = []
   let searchResultNumber: number = 0
   try {
