@@ -7,6 +7,7 @@ import type { SearchItem, SearchResponse } from '~/types/search'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
 import { searchAPI } from '~/app/search/[keyword]/action'
 import errors from '@twreporter/errors'
+import { useState } from 'react'
 
 type SearchResultProps = {
   keyword: string
@@ -21,6 +22,7 @@ const SearchResult = ({
   startIndex,
   searchResultNumber,
 }: SearchResultProps) => {
+  const [isFetching, setIsFetching] = useState(false)
   const formatResultCard = (item: SearchItem) => {
     const date = new Date(
       item.pagemap.metatags?.[0]?.['article:published_time'] ?? ''
@@ -42,12 +44,15 @@ const SearchResult = ({
     }
   }
   const handleClickLoadMore = async (page: number) => {
+    if (isFetching) return []
     try {
+      setIsFetching(true)
       const res: SearchResponse | null = await searchAPI(
         keyword,
         (page - 1) * CARD_PER_PAGE + startIndex,
         20
       )
+      setIsFetching(false)
       return res?.items || []
     } catch (err) {
       console.error(
@@ -64,9 +69,11 @@ const SearchResult = ({
           ),
         })
       )
+      setIsFetching(false)
       return []
     }
   }
+
   return (
     <main className={styles.main}>
       <p className={styles.searchKeyword}>{keyword}</p>
