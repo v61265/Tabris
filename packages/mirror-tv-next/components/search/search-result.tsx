@@ -45,8 +45,8 @@ const SearchResult = ({
     try {
       const res: SearchResponse | null = await searchAPI(
         keyword,
-        (page - 1) * CARD_PER_PAGE + startIndex,
-        12
+        (page - 1) * 20 + startIndex,
+        20
       )
       return res?.items || []
     } catch (err) {
@@ -80,8 +80,8 @@ const SearchResult = ({
           isAutoFetch={false}
           loader={<UiLoadMoreButton title="看更多" className={styles.more} />}
         >
-          {(list) =>
-            list.map((item) => {
+          {(list) => {
+            return list.map((item) => {
               const props = formatResultCard(item)
               return (
                 <li key={item.htmlTitle}>
@@ -89,7 +89,7 @@ const SearchResult = ({
                 </li>
               )
             })
-          }
+          }}
         </InfiniteScrollList>
       </ol>
     </main>
