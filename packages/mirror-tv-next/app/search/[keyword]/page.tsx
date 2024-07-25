@@ -19,7 +19,7 @@ export default async function SearchPage({ params, query }: Slug) {
     const response: SearchResponse | null = await searchAPI(
       inputValue,
       startIndex,
-      20
+      12
     )
 
     searchResultList = response?.items || []

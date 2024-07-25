@@ -50,7 +50,7 @@ const SearchResult = ({
       const res: SearchResponse | null = await searchAPI(
         keyword,
         (page - 1) * CARD_PER_PAGE + startIndex,
-        20
+        12
       )
       setIsFetching(false)
       return res?.items || []
