@@ -1,5 +1,10 @@
 @import '/styles/theme/z-index';
 
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .sidebarWrapper {
   position: absolute;
   width: 0;

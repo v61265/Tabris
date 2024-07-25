@@ -1,6 +1,7 @@
 @import '/styles/theme/z-index';
 
 .searchBarContainer {
+  display: flex;
   *:focus {
     outline: none;
   }

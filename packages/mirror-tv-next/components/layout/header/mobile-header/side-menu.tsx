@@ -80,7 +80,7 @@ export default function SideMenu({
   ]
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <button
         onClick={toggleSidebar}
         style={{ outline: 'none' }}
