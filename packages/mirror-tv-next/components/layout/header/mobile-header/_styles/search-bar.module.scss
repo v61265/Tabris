@@ -1,4 +1,5 @@
 @import '/styles/theme/z-index';
+@import '/styles/theme/variable';
 
 .searchBarContainer {
   display: flex;
@@ -33,14 +34,14 @@
         padding: 0 8px;
         padding-left: 14px;
         border-radius: inherit;
-        color: #979797;
+        color: $color-grey-deep;
         &:focus {
           color: #000;
         }
       }
 
       .isSearchingInput {
-        color: #014db8;
+        color: $color-blue;
       }
     }
 
@@ -60,13 +61,9 @@
   mask-size: 28px 26px;
   width: 28px;
   height: 26px;
-  background-color: #c1c2c2;
+  background-color: #ffffff;
   mask: url('/icons/icon-search.svg') 0 0/28px 26px;
   -webkit-mask: url('/icons/icon-search.svg') 0 0/28px 26px;
-
-  &.isActive {
-    background-color: #898f9c;
-  }
 }
 
 .searchIconWrapper {
@@ -93,7 +90,7 @@
     padding: 5px 6px;
   }
   .isSearchingIcon {
-    background-color: #014db8;
+    background-color: $color-blue;
     color: #fff;
   }
 }

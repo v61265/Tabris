@@ -7,7 +7,7 @@
   &:hover {
     cursor: pointer;
     h4 {
-      color: #014db8;
+      color: $color-blue;
       font-weight: 500;
       line-height: normal;
     }
@@ -99,7 +99,7 @@
 
 .isPlaying {
   h4 {
-    color: #014db8;
+    color: $color-blue;
     font-weight: 500;
     line-height: normal;
   }

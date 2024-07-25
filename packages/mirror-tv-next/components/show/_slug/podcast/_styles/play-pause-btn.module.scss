@@ -24,8 +24,8 @@
   border-right: 4px solid #fff;
   border-left: 4px solid #fff;
   &:hover {
-    border-right: 4px solid #ffcc01;
-    border-left: 4px solid #ffcc01;
+    border-right: 4px solid $color-yellow;
+    border-left: 4px solid $color-yellow;
   }
 }
 
@@ -48,7 +48,7 @@
   border-bottom: 8px solid transparent;
   &:hover {
     cursor: default;
-    border-left: 12px solid #ffcc01;
+    border-left: 12px solid $color-yellow;
   }
 }
 

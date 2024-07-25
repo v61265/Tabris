@@ -27,7 +27,7 @@
 
 .li:hover::after {
   width: 100%;
-  background-color: #ffcc01;
+  background-color: $color-yellow;
 }
 
 .li::before {
@@ -37,7 +37,7 @@
   left: 0;
   height: 16px;
   width: 1px;
-  background-color: #979797;
+  background-color: $color-grey-deep;
 }
 
 .active::after {
@@ -48,7 +48,7 @@
   width: 0%;
   height: 2px;
   width: 100%;
-  background-color: #ffcc01;
+  background-color: $color-yellow;
 }
 
 .navWrapper {
@@ -144,7 +144,7 @@
 
 .liRest:hover::after {
   width: 100%;
-  background-color: #ffcc01;
+  background-color: $color-yellow;
 }
 
 .activeRe::after {
@@ -155,7 +155,7 @@
   width: 0%;
   height: 2px;
   width: 100%;
-  background-color: #ffcc01;
+  background-color: $color-yellow;
 }
 
 .showRest {
@@ -163,7 +163,7 @@
 }
 
 .grey {
-  color: #979797;
+  color: $color-grey-deep;
   cursor: pointer;
   padding-right: 5px;
   -webkit-user-select: none;
@@ -195,7 +195,7 @@
   font-weight: 400;
   line-height: normal;
   color: #e3e3e3;
-  border-top: 2px solid #ffcc01;
+  border-top: 2px solid $color-yellow;
 
   display: flex;
   flex-wrap: wrap;
@@ -213,5 +213,5 @@
 }
 
 .showItem:hover {
-  color: #ffcc01;
+  color: $color-yellow;
 }

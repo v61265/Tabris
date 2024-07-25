@@ -101,7 +101,7 @@
     bottom: -3px;
     height: 2px;
     width: 100%;
-    background-color: #ffcc01;
+    background-color: $color-yellow;
   }
 }
 
@@ -127,7 +127,7 @@
 }
 
 .activeShow {
-  color: #ffcc01;
+  color: $color-yellow;
 }
 
 .otherLi {
@@ -155,7 +155,7 @@
   transition-duration: 0.15s;
 }
 
-.activeToggleButton {
-  transform: rotate(90deg);
-  transition-duration: 0.15s;
-}
+// .activeToggleButton {
+//   transform: rotate(90deg);
+//   transition-duration: 0.15s;
+// }

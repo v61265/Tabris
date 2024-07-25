@@ -51,7 +51,7 @@
   img {
     &:hover {
       path {
-        fill: #ffcc01;
+        fill: $color-yellow;
       }
     }
   }
@@ -59,6 +59,6 @@
 
 .li {
   &:hover {
-    color: #ffcc01;
+    color: $color-yellow;
   }
 }
