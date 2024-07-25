@@ -25,7 +25,7 @@ export async function searchAPI(
     }
   }
 
-  let allItems: SearchItem[] = []
+  const allItems: SearchItem[] = []
   let currentStartIndex = startIndex
   let combinedResponse: SearchResponse | null = null
 
@@ -44,7 +44,7 @@ export async function searchAPI(
         combinedResponse = { ...data, items: [] }
       }
       if (data.items) {
-        allItems = allItems.concat(data.items)
+        allItems.push(...data.items)
       }
       if (!data.queries?.nextPage) {
         // No more results available

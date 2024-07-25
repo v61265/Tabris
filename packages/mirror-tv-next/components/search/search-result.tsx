@@ -21,7 +21,7 @@ const SearchResult = ({
   startIndex,
   searchResultNumber,
 }: SearchResultProps) => {
-  const formateResultCard = (item: SearchItem) => {
+  const formatResultCard = (item: SearchItem) => {
     const date = new Date(
       item.pagemap.metatags?.[0]?.['article:published_time'] ?? ''
     )
@@ -45,8 +45,8 @@ const SearchResult = ({
     try {
       const res: SearchResponse | null = await searchAPI(
         keyword,
-        page * CARD_PER_PAGE + startIndex,
-        12
+        (page - 1) * CARD_PER_PAGE + startIndex,
+        20
       )
       return res?.items || []
     } catch (err) {
@@ -77,15 +77,11 @@ const SearchResult = ({
           amountOfElements={searchResultNumber}
           fetchListInPage={handleClickLoadMore}
           isAutoFetch={false}
-          loader={
-            <div className={styles.moreWrapper}>
-              <UiLoadMoreButton title="看更多" className={styles.more} />
-            </div>
-          }
+          loader={<UiLoadMoreButton title="看更多" className={styles.more} />}
         >
           {(list) =>
             list.map((item) => {
-              const props = formateResultCard(item)
+              const props = formatResultCard(item)
               return (
                 <li key={item.htmlTitle}>
                   <UiPostCard {...props} />
