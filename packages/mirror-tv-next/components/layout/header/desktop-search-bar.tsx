@@ -1,29 +1,36 @@
 'use client'
 import styles from './_styles/header-search-bar.module.scss'
 import Image from 'next/image'
-import Link from 'next/link'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { FormEvent, useState } from 'react'
 
 const HeaderSearchBar = () => {
   const [keyword, setKeyword] = useState('')
+  const router = useRouter()
+
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (keyword.trim()) {
+      router.push(`/search/${keyword}`)
+    }
+  }
   return (
-    <section className={styles.container}>
+    <form className={styles.container} onSubmit={handleSearch}>
       <input
         className={styles.input}
         type="text"
-        placeholder="請輸入關鍵字"
+        value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Link href={`/search/${keyword}`} className={styles.searchButton}>
+      <button type="submit" className={styles.searchButton}>
         <Image
           className={styles.searchInputIcon}
           src="/icons/icon-search.svg"
           alt="search icon"
-          width={26}
-          height={28}
+          layout="fill"
         />
-      </Link>
-    </section>
+      </button>
+    </form>
   )
 }
 
