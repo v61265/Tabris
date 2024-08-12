@@ -158,9 +158,7 @@ export default async function CategoryPage({
         '@type': 'NewsArticle',
         url: `https://www.mnews.tw${post.href}`,
         headline: post.name,
-        image: `https://www.mnews.tw${
-          post.images.w3200 ?? post.images.original
-        }`,
+        image: post.images.w3200 ?? post.images.original,
         dateCreated: formateDateAtTaipei(
           post.publishTime,
           'YYYY.MM.DD HH:mm',
