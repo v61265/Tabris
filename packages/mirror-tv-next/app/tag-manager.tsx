@@ -10,7 +10,7 @@ const TagManagerWrapper = () => {
   useEffect(() => {
     if (typeof window !== 'undefined' && window.dataLayer) {
       const tagManagerArgs = {
-        event: 'pageview',
+        event: 'gtm.load',
         page: {
           title: document.title,
           url: window.location.pathname,
