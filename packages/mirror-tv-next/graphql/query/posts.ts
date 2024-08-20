@@ -4,7 +4,7 @@ import { HeroImage } from '~/types/common'
 
 export type PostCardItem = ListingPost & {
   publishTime: string
-  ogImage: HeroImage | null
+  ogImage?: HeroImage | null
 }
 
 const getPostsByTagName = gql`
