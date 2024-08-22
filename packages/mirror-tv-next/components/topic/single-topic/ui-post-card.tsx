@@ -10,6 +10,7 @@ type Props = {
 
 export default function UiPostCard({ item }: Props) {
   const formattedHeroImage = formateHeroImage(item.heroImage ?? {})
+  console.log({ formattedHeroImage })
   return (
     <Link
       href={`/story/${item.slug}`}
@@ -28,10 +29,10 @@ export default function UiPostCard({ item }: Props) {
             defaultImage="/images/image-default.jpg"
             rwd={{
               mobile: '100vw',
-              tablet: '100vw',
-              laptop: '100vw',
-              desktop: '100vw',
-              default: '100vw',
+              tablet: '500px',
+              laptop: '500px',
+              desktop: '500px',
+              default: '500px',
             }}
           />
         </div>
