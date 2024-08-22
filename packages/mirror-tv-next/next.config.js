@@ -47,7 +47,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/topic/:slug',
+        source: '/tag/:name',
         headers: [
           {
             key: 'Cache-Control',
