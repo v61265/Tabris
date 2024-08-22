@@ -115,7 +115,7 @@
     padding: 0 calc((100dvw - $header-max-width-xl) / 2);
   }
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(xxl) {
     padding: 0 calc((100dvw - $header-max-width-xxl) / 2);
   }
 }
