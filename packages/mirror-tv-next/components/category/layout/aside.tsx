@@ -78,9 +78,9 @@ export default async function CategoryPageLayoutAside() {
     ) => {
       // post in json doesn't have 'style' attribute
       return (
-        popularPostsData?.report?.map((post) =>
-          formatArticleCard({ ...post, style: 'article' })
-        ) ?? []
+        popularPostsData?.report
+          ?.map((post) => formatArticleCard({ ...post, style: 'article' }))
+          ?.slice(5) ?? []
       )
     },
     'Error occurs while fetching popular posts in category page'
@@ -89,12 +89,14 @@ export default async function CategoryPageLayoutAside() {
   return (
     <aside className={styles.aside}>
       <GPTAd pageKey="category" adKey="PC_R1" />
-      <UiListPostsAside
-        listTitle="熱門新聞"
-        page="category"
-        listData={popularPosts}
-        className={`aside__list-popular ${styles.asideItem}`}
-      />
+      {!!popularPosts.length && (
+        <UiListPostsAside
+          listTitle="熱門新聞"
+          page="category"
+          listData={popularPosts}
+          className={`aside__list-popular ${styles.asideItem}`}
+        />
+      )}
       <div className={styles.microId}>
         <MicroAd
           unitIdMobile="4300420"
