@@ -249,7 +249,10 @@ export default async function VideoCategoryPage() {
           categoryName: getCategoryNameBySlug(
             videoPostsData?.categorySlug ?? ''
           ),
-          posts: videoPostsData?.data?.allPosts?.map(formatArticleCard) ?? [],
+          posts:
+            videoPostsData?.data?.allPosts?.map((post) =>
+              formatArticleCard(post)
+            ) ?? [],
           count: videoPostsData?.data?._allPostsMeta?.count ?? 0,
         }
       },

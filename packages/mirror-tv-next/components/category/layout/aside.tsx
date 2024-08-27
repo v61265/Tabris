@@ -64,7 +64,10 @@ export default async function CategoryPageLayoutAside() {
     (
       latestPostsData: Awaited<ReturnType<typeof fetchLatestPosts>> | undefined
     ) => {
-      return latestPostsData?.data.allPosts.map(formatArticleCard) ?? []
+      return (
+        latestPostsData?.data.allPosts.map((post) => formatArticleCard(post)) ??
+        []
+      )
     },
     'Error occurs while fetching latest posts in category page'
   )
