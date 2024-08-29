@@ -10,6 +10,7 @@ type FetchMoreItemsType = {
   pageSize: number
   isWithCount: boolean
   salePostsCount: number
+  filteredSlug: string[]
 }
 
 async function fetchPostsItems({
@@ -18,6 +19,7 @@ async function fetchPostsItems({
   pageSize,
   isWithCount,
   salePostsCount,
+  filteredSlug = [],
 }: FetchMoreItemsType): Promise<{
   allPosts: PostCardItem[]
   _allPostsMeta?: { count: number }
@@ -35,7 +37,7 @@ async function fetchPostsItems({
         first: page === 0 ? pageSize + 1 - salePostsCount : pageSize,
         skip: page === 0 ? 0 : page * pageSize + 1 - salePostsCount,
         withCount: isWithCount,
-        filteredSlug: FILTERED_SLUG,
+        filteredSlug: [...FILTERED_SLUG, ...filteredSlug],
       },
     })
     return data

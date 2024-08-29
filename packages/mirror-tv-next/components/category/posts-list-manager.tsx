@@ -1,18 +1,19 @@
 'use client'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { PostCardItem } from '~/graphql/query/posts'
-import { useMemo, useState } from 'react'
 import { fetchPostsItems } from '~/components/category/action'
 import styles from './_styles/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formatArticleCard, FormattedPostCard } from '~/utils'
+import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
 
 type PostsListManagerProps = {
   categorySlug: string
   pageSize: number
   postsCount: number
   initPostsList: FormattedPostCard[]
-  salePostsList: FormattedPostCard[]
+  salesLength: number
+  filteredSlug: string[]
 }
 
 export default function PostsListManager({
@@ -20,67 +21,58 @@ export default function PostsListManager({
   pageSize,
   postsCount,
   initPostsList,
-  salePostsList,
+  salesLength,
+  filteredSlug = [],
 }: PostsListManagerProps) {
-  const [page, setPage] = useState(1)
-  const [postsList, setPostsList] = useState<FormattedPostCard[]>([
-    ...initPostsList,
-  ])
-  const salesLength = salePostsList?.length || 0
-  const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesLength)
-  const renderedPostsList: FormattedPostCard[] = useMemo(() => {
-    if (!salesLength) {
-      return postsList
-    }
-    const postsListAfterInserted = [...postsList]
-    salesPostsInsertIndex.forEach((position, index) => {
-      postsListAfterInserted.splice(position, 0, salePostsList[index])
-    })
-    return postsListAfterInserted
-  }, [postsList])
-
   const formattedPostsList = (list: PostCardItem[]) =>
     list.map((post) => formatArticleCard(post))
 
-  const handleClickLoadMore = async () => {
+  const handleClickLoadMore = async (page: number) => {
     const { allPosts: newPosts } = await fetchPostsItems({
       page,
       categorySlug,
       pageSize,
       isWithCount: false,
       salePostsCount: salesLength,
+      filteredSlug,
     })
-    if (!newPosts) return
-    setPage((page) => page + 1)
-    setPostsList((oldPost) => [...oldPost, ...formattedPostsList(newPosts)])
+    return formattedPostsList(newPosts)
   }
+
+  console.log(postsCount, pageSize)
 
   return (
     <>
       <section className={styles.list}>
-        <ol className={styles.posts}>
-          {renderedPostsList?.map((postItem) => {
-            return (
-              <li key={postItem.slug}>
-                <UiPostCard
-                  href={postItem.href}
-                  images={postItem.images}
-                  title={postItem.name}
-                  date={postItem.publishTime}
-                  postStyle={postItem.style}
-                  label={postItem.label ?? ''}
-                  mobileLayoutDirection="row"
-                />
-              </li>
-            )
-          })}
-        </ol>
+        <InfiniteScrollList
+          initialList={initPostsList}
+          pageSize={pageSize}
+          amountOfElements={postsCount}
+          fetchListInPage={handleClickLoadMore}
+          isAutoFetch={false}
+          loader={<UiLoadMoreButton title="看更多" className={styles.more} />}
+        >
+          {(renderList) => (
+            <ol className={styles.posts}>
+              {renderList.map((postItem) => {
+                return (
+                  <li key={postItem.slug}>
+                    <UiPostCard
+                      href={postItem.href}
+                      images={postItem.images}
+                      title={postItem.name}
+                      date={postItem.publishTime}
+                      postStyle={postItem.style}
+                      label={postItem.label ?? ''}
+                      mobileLayoutDirection="row"
+                    />
+                  </li>
+                )
+              })}
+            </ol>
+          )}
+        </InfiniteScrollList>
       </section>
-      {postsCount - 1 > pageSize * page && (
-        <div className={styles.btnWrapper}>
-          <UiLoadMoreButton title="看更多" onClick={handleClickLoadMore} />
-        </div>
-      )}
     </>
   )
 }
