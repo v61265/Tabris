@@ -156,7 +156,6 @@ export default async function CategoryPage({
   try {
     const { allPosts, _allPostsMeta } = await fetchPostsItems({
       page: 0,
-      salePostsCount: salePosts?.length ?? 0,
       categorySlug: categoryData.slug,
       pageSize: PAGE_SIZE,
       isWithCount: true,
@@ -239,7 +238,6 @@ export default async function CategoryPage({
             categorySlug={categoryData.slug}
             pageSize={PAGE_SIZE}
             postsCount={postsCount}
-            salesLength={salePosts.length}
             initPostsList={renderedPostsListInit}
             filteredSlug={featurePost ? [featurePost.slug] : []}
           />

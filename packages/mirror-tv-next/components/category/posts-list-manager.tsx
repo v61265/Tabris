@@ -12,7 +12,6 @@ type PostsListManagerProps = {
   pageSize: number
   postsCount: number
   initPostsList: FormattedPostCard[]
-  salesLength: number
   filteredSlug: string[]
 }
 
@@ -21,7 +20,6 @@ export default function PostsListManager({
   pageSize,
   postsCount,
   initPostsList,
-  salesLength,
   filteredSlug = [],
 }: PostsListManagerProps) {
   const formattedPostsList = (list: PostCardItem[]) =>
@@ -33,7 +31,6 @@ export default function PostsListManager({
       categorySlug,
       pageSize,
       isWithCount: false,
-      salePostsCount: salesLength,
       filteredSlug,
     })
     return formattedPostsList(newPosts)
