@@ -162,7 +162,6 @@ export default async function CategoryPage({
       isWithCount: true,
       filteredSlug: featurePost ? [featurePost.slug] : [],
     })
-    console.log(_allPostsMeta)
     postsCount = _allPostsMeta?.count ?? 0
     categoryPosts = allPosts.map((post) => formatArticleCard(post)) ?? []
     if (featurePost) {

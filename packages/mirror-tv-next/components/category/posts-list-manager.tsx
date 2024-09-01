@@ -39,8 +39,6 @@ export default function PostsListManager({
     return formattedPostsList(newPosts)
   }
 
-  console.log(postsCount, pageSize)
-
   return (
     <>
       <section className={styles.list}>
