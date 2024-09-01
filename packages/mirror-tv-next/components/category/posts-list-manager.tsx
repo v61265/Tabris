@@ -27,9 +27,9 @@ export default function PostsListManager({
   const formattedPostsList = (list: PostCardItem[]) =>
     list.map((post) => formatArticleCard(post))
 
-  const handleClickLoadMore = async (page: number) => {
+  const handleFetchLoadMore = async (page: number) => {
     const { allPosts: newPosts } = await fetchPostsItems({
-      page,
+      page: page - 1,
       categorySlug,
       pageSize,
       isWithCount: false,
@@ -46,7 +46,7 @@ export default function PostsListManager({
           initialList={initPostsList}
           pageSize={pageSize}
           amountOfElements={postsCount}
-          fetchListInPage={handleClickLoadMore}
+          fetchListInPage={handleFetchLoadMore}
           isAutoFetch={false}
           loader={<UiLoadMoreButton title="看更多" className={styles.more} />}
         >
