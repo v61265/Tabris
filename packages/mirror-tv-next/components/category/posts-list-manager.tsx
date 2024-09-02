@@ -42,7 +42,7 @@ export default function PostsListManager({
         <InfiniteScrollList
           initialList={initPostsList}
           pageSize={pageSize}
-          amountOfElements={postsCount}
+          amountOfElements={postsCount + 1}
           fetchListInPage={handleFetchLoadMore}
           isAutoFetch={false}
           loader={<UiLoadMoreButton title="看更多" className={styles.more} />}
