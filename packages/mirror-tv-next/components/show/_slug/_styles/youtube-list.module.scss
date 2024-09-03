@@ -7,9 +7,11 @@
   display: none;
   @include media-breakpoint-up(md) {
     margin: 0 0 24px;
+    max-width: 688px;
   }
   @include media-breakpoint-up(xl) {
     margin: 0 0 48px;
+    max-width: auto;
   }
 }
 
