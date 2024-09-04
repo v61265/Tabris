@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
-import styles from '~/styles/components/ombuds/hero-img.module.scss'
+import styles from './_styles/hero-img.module.scss'
 
 export default function HeroImg() {
   const [isLoading, setIsLoading] = useState(true)

@@ -1,5 +1,5 @@
 import { Varela_Round } from 'next/font/google'
-import styles from '~/styles/components/errors/ui-500.module.scss'
+import styles from './_styles/ui-500.module.scss'
 const font = Varela_Round({ subsets: ['latin'], weight: '400' })
 export default function Ui500() {
   return (

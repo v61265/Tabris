@@ -1,0 +1,22 @@
+@import '/styles/theme/breakpoints';
+
+.pcHeaderWrapper {
+  display: none;
+
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+}
+
+.mobHeaderWrapper {
+  display: block;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}
+
+.placeholder {
+  width: 100%;
+  height: 50px;
+}

@@ -1,0 +1,52 @@
+@import '/styles/theme/breakpoints';
+@import '/styles/theme/variable';
+
+.datesPickerWrapper {
+  margin-top: 60px;
+  margin-bottom: 28px;
+  display: flex;
+  gap: 4px;
+  display: none;
+
+  @include media-breakpoint-up(xl) {
+    display: flex;
+  }
+}
+
+.weekDayButton {
+  width: 142px;
+  height: 102px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $color-grey;
+  color: #4a4a4a;
+  &:hover {
+    background: #ececec;
+  }
+}
+
+.active {
+  background: $color-blue;
+  color: #fff;
+  &:hover {
+    background: #0153c7;
+  }
+  cursor: default;
+}
+
+.daysOfWeek {
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 12px;
+}
+
+.date {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

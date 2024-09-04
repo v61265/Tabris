@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import styles from '~/styles/components/layout/footer.module.scss'
+import styles from './_styles/footer.module.scss'
 
 const footerRightList = [
   { href: '/schedule', gaText: 'schedule', text: '電視節目表' },
@@ -63,7 +63,9 @@ export default function Footer(): JSX.Element {
                 />
               </Link>
             </div>
-            <ul className={styles.iconsWrapper}>
+            <div
+              className={`${styles.iconsWrapper} footer__top-wrapper top-wrapper`}
+            >
               {socialLinks.map((link, index) => (
                 <li className={styles.icon} key={index}>
                   <Link
@@ -80,7 +82,7 @@ export default function Footer(): JSX.Element {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div className={styles.middleWrapper}>
@@ -158,6 +160,10 @@ export default function Footer(): JSX.Element {
             >
               Google 隱私權與條款
             </a>
+            <br />
+            <span className={styles.agree}>
+              瀏覽此頁面即代表您同意上述授權條款及細則
+            </span>
           </p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import styles from '~/styles/components/ombuds/ombuds-intro.module.scss'
+import styles from './_styles/ombuds-intro.module.scss'
 import ArticleContentVideo from '~/components/shared/article-content-video'
 import Link from 'next/link'
 
@@ -28,6 +28,7 @@ export default function ombudsIntro() {
                 href="/story/biography"
                 target="_blank"
                 rel="noreferrer noopener"
+                className="ombuds__intro__main__wrapper-info--btn"
               >
                 了解更多
               </Link>
@@ -46,7 +47,7 @@ export default function ombudsIntro() {
                 href="/story/complaint"
                 target="_blank"
                 rel="noreferrer noopener"
-                className={styles.reportLink}
+                className={`${styles.reportLink} ombuds__intro__aside__content-main--btn`}
               >
                 向公評人申訴
               </Link>

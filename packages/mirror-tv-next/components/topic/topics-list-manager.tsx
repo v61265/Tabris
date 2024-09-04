@@ -1,10 +1,10 @@
 'use client'
 import Image from 'next/image'
-import InfiniteScrollList from '~/components/shared/infinite-scroll-list'
+import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
 import { fetchTopics } from '~/components/topic/action'
 import UiTopicCard from '~/components/topic/ui-topic-card'
 import { Topic } from '~/graphql/query/topic'
-import styles from '~/styles/components/topic/topics-list-manager.module.scss'
+import styles from './_styles/topics-list-manager.module.scss'
 import type { ApiData } from '~/types/api-data'
 import type { PostImage } from '~/utils'
 import { formatePostImage, handleApiData } from '~/utils'
@@ -71,7 +71,7 @@ export default function TopicsListManager({
         <InfiniteScrollList<FormatTopicCard>
           initialList={formattedTopicsList([...initTopicsList])}
           pageSize={pageSize}
-          totalCount={topicsCount}
+          amountOfElements={topicsCount}
           fetchListInPage={fetchMoreTopics}
           loader={
             <div className={styles.loading}>

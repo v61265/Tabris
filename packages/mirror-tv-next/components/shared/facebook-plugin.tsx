@@ -49,7 +49,7 @@ const FacebookPagePlugin: React.FC<FacebookPagePluginProps> = ({
       data-adapt-container-width="true"
       data-hide-cover="false"
       data-show-facepile="false"
-      hide_cta="true"
+      data-hide_cta="true"
     >
       <blockquote cite={href} className="fb-xfbml-parse-ignore">
         <a href={href}>{pageName}</a>

@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import type { FlashNews } from '~/types/common'
-import styles from '~/styles/components/flash-news/news-carousel.module.scss'
+import styles from './_styles/news-carousel.module.scss'
 
 type NewsCarouselProps = {
   flashNews: FlashNews[]

@@ -1,5 +1,5 @@
 import type { FlashNews } from '~/types/common'
-import styles from '~/styles/components/flash-news/ui-pc-flash-news.module.scss'
+import styles from './_styles/ui-pc-flash-news.module.scss'
 import NewsCarousel from './news-carousel'
 
 type UiPcFlashNewsProps = {

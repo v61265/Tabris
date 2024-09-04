@@ -2,9 +2,8 @@
 import Image from '@readr-media/react-image'
 import Link from 'next/link'
 import type { Contact } from '~/graphql/query/contact'
-import styles from '~/styles/components/anchorperson/ui-contact-card.module.scss'
+import styles from './_styles/ui-contact-card.module.scss'
 import { formateHeroImage } from '~/utils'
-
 type Props = {
   item: Contact
 }

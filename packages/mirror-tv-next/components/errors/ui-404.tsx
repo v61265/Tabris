@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 import Link from 'next/link'
 import ResponsiveImage from '~/components/shared/responsive-image'
-import styles from '~/styles/components/errors/ui-404.module.scss'
+import styles from './_styles/ui-404.module.scss'
 import type { FormattedPostCard } from '~/utils'
 import { formatArticleCard } from '~/utils'
 import { fetchPopularPosts } from './action'
@@ -28,8 +28,9 @@ export default function Ui404() {
     fetchDataAndSetState()
   }, [])
 
-  const formattedPosts: FormattedPostCard[] =
-    popularPosts.map(formatArticleCard)
+  const formattedPosts: FormattedPostCard[] = popularPosts.map((post) =>
+    formatArticleCard(post)
+  )
 
   return (
     <div className={`${font.className} ${styles.error}`}>

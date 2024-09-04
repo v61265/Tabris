@@ -1,0 +1,73 @@
+@import '/styles/theme/breakpoints';
+
+.cardWrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 16px;
+  @include media-breakpoint-up(md) {
+    flex-direction: column;
+    padding: 16px 12px;
+    border: solid 1px #d8d8d8;
+  }
+  @include media-breakpoint-up(xl) {
+    padding: 20px;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  height: 132px;
+  width: 132px;
+  min-width: 132px;
+  min-height: 132px;
+  @include media-breakpoint-up(md) {
+    width: 192px;
+    height: 128px;
+  }
+  @include media-breakpoint-up(xl) {
+    width: 228px;
+    height: 152px;
+  }
+}
+
+.infoWrapper {
+  margin: 0 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include media-breakpoint-up(md) {
+    margin: 0;
+  }
+}
+
+.title {
+  font-size: 16px;
+  height: 88px;
+  line-height: 140%;
+  color: #4a4a4a;
+  text-align: left;
+  word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  max-height: 6em;
+  @include media-breakpoint-up(md) {
+    margin-top: 12px;
+    -webkit-line-clamp: 2;
+    max-height: 3em;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.date {
+  margin: 11px 0 0 0;
+  font-size: 14px;
+  color: #9b9b9b;
+  @include media-breakpoint-up(md) {
+    margin-top: 8px;
+  }
+}

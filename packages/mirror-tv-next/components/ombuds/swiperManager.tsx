@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import type { Post } from '~/graphql/query/ombuds'
 import useWindowDimensions from '~/hooks/use-window-dimensions'
-import styles from '~/styles/components/ombuds/swiperManager.module.scss'
+import styles from './_styles/swiperManager.module.scss'
 import UiPostCard from './ui-post-card'
 
 // Import Swiper styles
@@ -65,13 +65,14 @@ export default function SwiperManager({
   return (
     <Swiper
       ref={sliderRef}
+      cssMode={true}
       keyboard={true}
       loop={false}
       spaceBetween={20}
       speed={700}
       slidesPerView={slidesPerView}
       slidesPerGroup={slidesPerView}
-      className={styles.swiper}
+      className={`${styles.swiper} article-list__wrapper`}
       modules={[Navigation]}
       onSlideChange={(swiper) => {
         if (swiper.activeIndex + slidesPerView * 2 >= swiper.slides.length)

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import UiPostCard from './ui-post-card'
 import type { Post } from '~/graphql/query/ombuds'
 import { fetchOmbudsPosts } from './action'
-import styles from '~/styles/components/ombuds/more-items-manager.module.scss'
+import styles from './_styles/more-items-manager.module.scss'
 
 type Props = {
   slug: string[]
@@ -38,7 +38,7 @@ export default function MoreItemsManager({
     setPostsList((prevPosts) => [...prevPosts, ...nextPagePosts])
   }
   return (
-    <div>
+    <div className="article-list__wrappe">
       <ul>
         {postsList.map((item, index) => (
           <li key={index}>

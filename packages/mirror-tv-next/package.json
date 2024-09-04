@@ -12,7 +12,8 @@
   "dependencies": {
     "@apollo/client": "^3.8.0-rc.2",
     "@next/third-parties": "^14.1.4",
-    "@readr-media/react-image": "^2.2.2",
+    "@readr-media/react-image": "2.2.3",
+    "@readr-media/react-infinite-scroll-list": "^1.2.0",
     "@svgr/webpack": "^8.1.0",
     "@twreporter/errors": "^1.1.2",
     "axios": "^1.6.2",
@@ -22,6 +23,7 @@
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "18.2.0",
+    "react-youtube": "^10.1.0",
     "sass": "^1.69.7",
     "stylelint-scss": "^6.0.0",
     "swiper": "^11.0.6"
@@ -30,6 +32,7 @@
     "node": ">=18.17.0"
   },
   "devDependencies": {
+    "@types/google-publisher-tag": "^1.20240219.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

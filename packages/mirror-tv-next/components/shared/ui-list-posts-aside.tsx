@@ -1,4 +1,4 @@
-import styles from '~/styles/components/shared/ui-list-posts-aside.module.scss'
+import styles from './_styles/ui-list-posts-aside.module.scss'
 import { FormattedPostCard } from '~/utils'
 import UiHeadingBordered from './ui-heading-bordered'
 import UiPostCardAside from './ui-post-card-aside'

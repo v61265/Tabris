@@ -3,7 +3,7 @@ import { useState } from 'react'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { fetchPostsItems } from '~/components/tag/action'
 import { PostCardItem } from '~/graphql/query/posts'
-import styles from '~/styles/components/tag/posts-list-manager.module.scss'
+import styles from './_styles/posts-list-manager.module.scss'
 import { formatArticleCard } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 

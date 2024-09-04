@@ -1,8 +1,10 @@
 import gql from 'graphql-tag'
 import { ListingPost, listingPost } from '../fragments/listing-post'
+import { HeroImage } from '~/types/common'
 
 export type PostCardItem = ListingPost & {
   publishTime: string
+  ogImage?: HeroImage | null
 }
 
 const getPostsByTagName = gql`
@@ -26,6 +28,13 @@ const getPostsByTagName = gql`
     ) {
       publishTime
       ...listingPostFragment
+      ogImage {
+        urlOriginal
+        urlDesktopSized
+        urlTabletSized
+        urlMobileSized
+        urlTinySized
+      }
     }
     _allPostsMeta(
       where: {
@@ -75,7 +84,7 @@ const getPostsByCategorySlug = gql`
       }
       first: $first
       skip: $skip
-      sortBy: [isFeatured_ASC, publishTime_DESC]
+      sortBy: [publishTime_DESC, id_DESC]
     ) {
       publishTime
       ...listingPostFragment

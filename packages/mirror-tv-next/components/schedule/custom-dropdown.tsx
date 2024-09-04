@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import styles from '~/styles/components/schedule/custom-dropdown.module.scss'
+import styles from './_styles/custom-dropdown.module.scss'
 
 type WeekDate = {
   date: string

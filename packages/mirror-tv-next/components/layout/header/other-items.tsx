@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import styles from '~/styles/components/layout/header/other-items.module.scss'
+import styles from './_styles/other-items.module.scss'
 
 export default function OtherItems(): JSX.Element {
   return (

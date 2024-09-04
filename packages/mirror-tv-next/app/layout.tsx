@@ -12,6 +12,8 @@ import {
 } from '~/constants/environment-variables'
 import '../styles/global.css'
 import { AppProvider } from '../context/header-json-provider'
+import CompassFit from '~/components/ads/compass-fit'
+import TagManagerWrapper from './tag-manager'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -78,12 +80,31 @@ export default function RootLayout({
           
         })`}
       </Script>
+      <Script id="comscore">
+        {`var _comscore = _comscore || [];
+        _comscore.push({
+        c1: "2", c2: "35880649", cs_ucfr: "1",
+        options: {
+        enableFirstPartyCookie: true
+        }
+        });
+        (function() {
+        var s = document.createElement("script"), el =
+        document.getElementsByTagName("script")[0];
+        s.async = true;
+        s.src = "https://sb.scorecardresearch.com/cs/CLIENT_ID/beacon.js";
+        el.parentNode.insertBefore(s, el);
+        })();`}
+      </Script>
       <body>
         <AppProvider>
           <MainHeader />
+          <TagManagerWrapper />
           {children}
           <Footer />
         </AppProvider>
+          <CompassFit />
+        </>
       </body>
     </html>
   )

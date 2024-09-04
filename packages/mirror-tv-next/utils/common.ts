@@ -1,7 +1,6 @@
 import errors from '@twreporter/errors'
 import type { ApiData } from '~/types/api-data'
 
-
 function isServer(): boolean {
   return typeof window === 'undefined'
 }
@@ -11,9 +10,9 @@ const extractYoutubeId = (url: string) => {
   const match = url?.match(
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
   )
-  return match ? match[1] : null
-}
 
+  return match ? match[1] : ''
+}
 
 const handleResponse = <
   T extends Record<string, unknown>,
@@ -67,7 +66,7 @@ function handleMetaDesc(str: string) {
   return formatedStr.length > 123 ? formatedStr + '...' : formatedStr
 }
 
-function handleApiData(apiData: string) {
+function handleApiData(apiData: string): ApiData[] {
   try {
     const rawString = apiData ?? ''
     const content = JSON.parse(rawString)
@@ -78,4 +77,22 @@ function handleApiData(apiData: string) {
   }
 }
 
-export { extractYoutubeId, isServer, handleResponse, handleApiData, handleMetaDesc }
+class FetchError extends Error {
+  public code: number
+
+  constructor(url: string, message: string = 'Not Found', code: number = 404) {
+    const errorMessage = `${message}, url: ${url}`
+    super(errorMessage)
+    this.name = this.constructor.name
+    this.code = code
+  }
+}
+
+export {
+  extractYoutubeId,
+  isServer,
+  handleResponse,
+  handleApiData,
+  handleMetaDesc,
+  FetchError,
+}

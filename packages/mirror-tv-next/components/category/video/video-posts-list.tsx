@@ -1,6 +1,6 @@
 'use client'
 import { useMemo, useRef, useState } from 'react'
-import styles from '~/styles/components/category/video/video-posts-list.module.scss'
+import styles from './_styles/video-posts-list.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react'
 import { fetchVideoPostsItems } from '~/components/category/video/action'
@@ -40,7 +40,8 @@ export default function VideoPostsList({
     return viewportWidth >= 768 ? 3 : 2
   }, [viewportWidth])
   const placeholders = useMemo(() => {
-    const placeholdersCount = slidesPerView - (postsCount % slidesPerView)
+    const placeholdersCount =
+      (slidesPerView - (postsCount % slidesPerView)) % slidesPerView
     return Array(placeholdersCount).fill('_')
   }, [slidesPerView, postsCount])
 
@@ -63,7 +64,10 @@ export default function VideoPostsList({
     })
     if (!newPosts) return
     setFetchedTime((prev) => prev + 1)
-    setPostsList((oldPost) => [...oldPost, ...newPosts.map(formatArticleCard)])
+    setPostsList((oldPost) => [
+      ...oldPost,
+      ...newPosts.map((post) => formatArticleCard(post)),
+    ])
     setIsFetching(false)
   }
 
@@ -123,6 +127,7 @@ export default function VideoPostsList({
             nextEl: nextButtonRef.current,
             prevEl: prevButtonRef.current,
           }}
+          className="list-slides-container"
         >
           {postsList.map((post, index) => {
             return (
@@ -144,8 +149,18 @@ export default function VideoPostsList({
             ></SwiperSlide>
           ))}
         </Swiper>
-        <div className={styles.prevArrow} ref={prevButtonRef}></div>
-        <div className={styles.nextArrow} ref={nextButtonRef}></div>
+        <button>
+          <div
+            className={`${styles.prevArrow} slide-btn__arrow`}
+            ref={prevButtonRef}
+          ></div>
+        </button>
+        <button>
+          <div
+            className={`${styles.nextArrow} slide-btn__arrow`}
+            ref={nextButtonRef}
+          ></div>
+        </button>
       </ol>
     </div>
   )

@@ -1,5 +1,5 @@
 import { getClient } from '~/apollo-client'
-import styles from '~/styles/components/category/layout/aside.module.scss'
+import styles from './_styles/aside.module.scss'
 import { getLatestPosts, PostCardItem } from '~/graphql/query/posts'
 import { formatArticleCard, FormattedPostCard, handleResponse } from '~/utils'
 import UiListPostsAside from '~/components/shared/ui-list-posts-aside'
@@ -7,6 +7,9 @@ import {
   POPULAR_POSTS_URL,
   GLOBAL_CACHE_SETTING,
 } from '~/constants/environment-variables'
+import dynamic from 'next/dynamic'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
+const MicroAd = dynamic(() => import('~/components/ads/micro-ad'))
 
 type RawPopularPost = {
   id: string
@@ -61,7 +64,10 @@ export default async function CategoryPageLayoutAside() {
     (
       latestPostsData: Awaited<ReturnType<typeof fetchLatestPosts>> | undefined
     ) => {
-      return latestPostsData?.data.allPosts.map(formatArticleCard) ?? []
+      return (
+        latestPostsData?.data.allPosts.map((post) => formatArticleCard(post)) ??
+        []
+      )
     },
     'Error occurs while fetching latest posts in category page'
   )
@@ -75,9 +81,9 @@ export default async function CategoryPageLayoutAside() {
     ) => {
       // post in json doesn't have 'style' attribute
       return (
-        popularPostsData?.report?.map((post) =>
-          formatArticleCard({ ...post, style: 'article' })
-        ) ?? []
+        popularPostsData?.report
+          ?.map((post) => formatArticleCard({ ...post, style: 'article' }))
+          ?.slice(5) ?? []
       )
     },
     'Error occurs while fetching popular posts in category page'
@@ -85,17 +91,29 @@ export default async function CategoryPageLayoutAside() {
 
   return (
     <aside className={styles.aside}>
-      <UiListPostsAside
-        listTitle="熱門新聞"
-        page="category"
-        listData={popularPosts}
-        className="aside__list-popular"
-      />
+      <GPTAd pageKey="category" adKey="PC_R1" />
+      {!!popularPosts.length && (
+        <UiListPostsAside
+          listTitle="熱門新聞"
+          page="category"
+          listData={popularPosts}
+          className={`aside__list-popular ${styles.asideItem}`}
+        />
+      )}
+      <div className={styles.microId}>
+        <MicroAd
+          unitIdMobile="4300420"
+          unitIdDesktop="4300419"
+          className={styles.microAd}
+          condition="!isTablet"
+        />
+      </div>
+      <GPTAd pageKey="category" adKey="PC_R2" />
       <UiListPostsAside
         listTitle="即時新聞"
         page="category"
         listData={latestPosts}
-        className="aside__list-latest"
+        className={`aside__list-latest ${styles.asideItem}`}
       />
     </aside>
   )

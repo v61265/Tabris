@@ -1,5 +1,5 @@
 import type { FlashNews } from '~/types/common'
-import styles from '~/styles/components/flash-news/ui-mob-flash-news.module.scss'
+import styles from './_styles/ui-mob-flash-news.module.scss'
 import NewsCarousel from './news-carousel'
 
 type UiMobFlashNewsProps = {

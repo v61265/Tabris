@@ -1,0 +1,20 @@
+@import 'styles/theme/breakpoints';
+@import '/styles/theme/variable';
+
+.articleList {
+  margin: 0 16px;
+  h3 {
+    color: $color-blue;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    @include media-breakpoint-up(md) {
+      margin-bottom: 16px;
+    }
+  }
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}

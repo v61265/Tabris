@@ -1,11 +1,16 @@
 'use client'
 import Image from 'next/image'
+import CallbackImage from '@readr-media/react-image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { HEADER_BOTTOM_LINKS } from '~/constants/constant'
-import styles from '~/styles/components/layout/header/mobile-header/side-menu.module.scss'
 import type { Category, Show, Sponsor } from '~/types/header'
+import type { Category } from '~/graphql/query/category'
+import type { Show } from '~/graphql/query/shows'
+import type { Sponsor } from '~/graphql/query/sponsors'
+import styles from './_styles/side-menu.module.scss'
+import { formateHeroImage } from '~/utils'
 
 type SideMenuProps = {
   categories: Category[]
@@ -38,11 +43,13 @@ export default function SideMenu({
   }`
 
   // Splitting shows into multiple columns with 7 shows each
-  const columns = []
-  const showsPerColumn = 7
+  const columns: Show[][] = []
 
-  for (let i = 0; i < shows.length; i += showsPerColumn) {
-    columns.push(shows.slice(i, i + showsPerColumn))
+  if (Array.isArray(shows)) {
+    for (let i = 0; i < shows.length; i += 2) {
+      const group: Show[] = shows.slice(i, i + 2) // 取出两个 shows 为一组
+      columns.push(group)
+    }
   }
 
   // Bottom Links
@@ -76,7 +83,7 @@ export default function SideMenu({
   ]
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <button
         onClick={toggleSidebar}
         style={{ outline: 'none' }}
@@ -92,38 +99,36 @@ export default function SideMenu({
       </button>
       <div className={sidebarWrapperClasses}>
         {/* Sponsors Block */}
-        <div className={styles.sponsorsBlock}>
-          <div className={styles.sponsorsWrapper}>
-            {sponsors.slice(0, 3).map((sponsor) => {
-              return (
-                <div key={sponsor.id}>
-                  <Link
-                    href={
-                      sponsor.url
-                        ? sponsor.url
-                        : `/topic/${sponsor.topic?.slug}`
-                    }
-                  >
-                    <Image
-                      src={
-                        sponsor.logo?.urlMobileSized ??
-                        '/images/image-default.jpg'
+        {!!sponsors?.length && (
+          <div className={styles.sponsorsBlock}>
+            <div className={styles.sponsorsWrapper}>
+              {sponsors.slice(0, 3).map((sponsor) => {
+                const formattedLogo = formateHeroImage(sponsor.logo ?? {})
+                return (
+                  <div key={sponsor.id}>
+                    <Link
+                      href={
+                        sponsor.url
+                          ? sponsor.url
+                          : `/topic/${sponsor.topic?.slug}`
                       }
-                      alt="Sponsor Logo"
-                      width={100}
-                      height={52}
-                      priority
-                      style={{
-                        width: 100,
-                        height: 52,
-                      }}
-                    />
-                  </Link>
-                </div>
-              )
-            })}
+                      className={styles.sponsorItem}
+                    >
+                      <CallbackImage
+                        alt="Sponsor Logo"
+                        images={formattedLogo}
+                        loadingImage="/images/loading.svg"
+                        defaultImage="/images/image-default.jpg"
+                        rwd={{ default: '100px' }}
+                        priority={true}
+                      />
+                    </Link>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Categories Block */}
         <ul className={styles.categoriesBlock}>
@@ -133,7 +138,9 @@ export default function SideMenu({
                 path === '/category/video' ? styles.active : ''
               }`}
             >
-              <Link href="/category/video">影音</Link>
+              <Link href="/category/video" className="category-nav__link">
+                影音
+              </Link>
             </li>
             {categories.map((category) => {
               // Check if the category's slug matches the path
@@ -144,7 +151,10 @@ export default function SideMenu({
                   key={category.id}
                   className={`${styles.li} ${isActive ? styles.active : ''}`}
                 >
-                  <Link href={`/category/${category.slug}`}>
+                  <Link
+                    href={`/category/${category.slug}`}
+                    className="category-nav__link"
+                  >
                     {category.name}
                   </Link>
                 </li>

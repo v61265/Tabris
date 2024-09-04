@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import CustomDropDown from '~/components/schedule/custom-dropdown'
 import WeekDatesPicker from '~/components/schedule/week-dates-picker'
-import styles from '~/styles/components/schedule/schedule-table.module.scss'
+import styles from './_styles/schedule-table.module.scss'
 import type { Schedule } from '~/types/common'
 
 type ScheduleProps = {

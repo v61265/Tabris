@@ -4,7 +4,8 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
-import styles from '~/styles/components/layout/header/nav-items.module.scss'
+import styles from './_styles/nav-items.module.scss'
+import DesktopSearchBar from './desktop-search-bar'
 
 type NavItemProps = {
   categories: Category[]
@@ -58,8 +59,10 @@ export default function NavItems({ categories, shows }: NavItemProps) {
   const columns = []
   const showsPerColumn = 7
 
-  for (let i = 0; i < shows.length; i += showsPerColumn) {
-    columns.push(shows.slice(i, i + showsPerColumn))
+  if (Array.isArray(shows)) {
+    for (let i = 0; i < shows.length; i += showsPerColumn) {
+      columns.push(shows.slice(i, i + showsPerColumn))
+    }
   }
 
   return (
@@ -71,7 +74,9 @@ export default function NavItems({ categories, shows }: NavItemProps) {
               path === '/category/video' ? styles.active : ''
             }`}
           >
-            <Link href="/category/video">影音</Link>
+            <Link href="/category/video" className="category-nav__link">
+              影音
+            </Link>
           </li>
           {categories.slice(0, totalVisibleCategories).map((category) => {
             // Check if the category's slug matches the path
@@ -82,7 +87,12 @@ export default function NavItems({ categories, shows }: NavItemProps) {
                 key={category.id}
                 className={`${styles.li} ${isActive ? styles.active : ''}`}
               >
-                <Link href={`/category/${category.slug}`}>{category.name}</Link>
+                <Link
+                  href={`/category/${category.slug}`}
+                  className="category-nav__link"
+                >
+                  {category.name}
+                </Link>
               </li>
             )
           })}
@@ -122,6 +132,7 @@ export default function NavItems({ categories, shows }: NavItemProps) {
             </li>
           )}
         </div>
+        <DesktopSearchBar />
       </div>
       <div
         className={`${styles.restOfCategories} ${
@@ -136,7 +147,12 @@ export default function NavItems({ categories, shows }: NavItemProps) {
               key={category.id}
               className={`${styles.liRest} ${isActive ? styles.activeRe : ''}`}
             >
-              <Link href={`/category/${category.slug}`}>{category.name}</Link>
+              <Link
+                href={`/category/${category.slug}`}
+                className="category-nav__link"
+              >
+                {category.name}
+              </Link>
             </li>
           )
         })}

@@ -35,6 +35,46 @@ const nextConfig = {
     ],
   },
   output: 'standalone',
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=300, must-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/tag/:name',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=600, must-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/show/:name',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=600, must-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/search/:keyword',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=600, must-revalidate',
+          },
+        ],
+      },
+    ]
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,

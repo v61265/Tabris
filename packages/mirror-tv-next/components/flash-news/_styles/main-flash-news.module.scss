@@ -1,0 +1,19 @@
+@import '/styles/theme/breakpoints';
+
+.pcWrapper {
+  display: none;
+
+  @include media-breakpoint-up(md) {
+    display: block;
+    flex-grow: 1;
+    width: 0;
+  }
+}
+
+.mobWrapper {
+  display: block;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}

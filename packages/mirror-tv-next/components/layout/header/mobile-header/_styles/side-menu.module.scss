@@ -1,0 +1,167 @@
+@import '/styles/theme/z-index';
+@import '/styles/theme/variable';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.sidebarWrapper {
+  position: absolute;
+  width: 0;
+  transition: width 0.3s ease;
+  height: calc(100dvh - 50px);
+  position: fixed;
+  top: 50px;
+  left: 0;
+  background: #000;
+  z-index: $Z_INDEX-header;
+  display: none;
+  color: #fff;
+  overflow-y: scroll;
+}
+
+.sidebarOpen {
+  width: 100%;
+  display: block;
+}
+
+.sponsorsBlock {
+  background: #153047;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsorsWrapper {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.sponsorItem {
+  display: block;
+  position: relative;
+  width: 80px;
+  height: 52px;
+  overflow: hidden;
+  object-fit: contain;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80px;
+    max-height: 52px;
+  }
+}
+
+.categoriesBlock {
+  background: #153047;
+  display: flex;
+  justify-content: center;
+  padding-top: 36px;
+  padding-bottom: 20px;
+}
+
+.categoriesWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  row-gap: 28px;
+}
+
+.bottomBlock {
+  background: #004ebc;
+  padding: 20px 42px;
+}
+
+.li {
+  max-width: 58px;
+  height: fit-content;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 21px */
+  letter-spacing: 0.5px;
+}
+
+.active {
+  position: relative;
+
+  ::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -3px;
+    height: 2px;
+    width: 100%;
+    background-color: $color-yellow;
+  }
+}
+
+.showsBlock {
+  background: #000;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.showColumn {
+  display: flex;
+  gap: 12px;
+}
+
+.showItem {
+  color: #e3e3e3;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: calc(50% - 6px);
+}
+
+.activeShow {
+  color: $color-yellow;
+}
+
+.otherLi {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 28px; /* 200% */
+  letter-spacing: 0.5px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.iconsWrapper {
+  display: flex;
+  gap: 23px;
+  margin-top: 20px;
+}
+
+.toggleButton {
+  transform: rotate(0deg);
+  transition-duration: 0.15s;
+}
+
+.activeToggleButton {
+  transform: rotate(90deg);
+  transition-duration: 0.15s;
+}
