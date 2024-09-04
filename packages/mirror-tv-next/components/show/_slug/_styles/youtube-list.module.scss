@@ -7,7 +7,6 @@
   display: none;
   @include media-breakpoint-up(md) {
     margin: 0 0 24px;
-    max-width: 688px;
   }
   @include media-breakpoint-up(xl) {
     margin: 0 0 48px;
@@ -30,6 +29,11 @@
 }
 
 .listContainer {
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  flex-wrap: wrap;
+  gap: 24px 0px;
   @include media-breakpoint-up(md) {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -38,14 +42,13 @@
   }
   @include media-breakpoint-up(xl) {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     flex-wrap: wrap;
-    gap: 48px 24px;
+    gap: 24px 32px;
   }
 }
 
 .item {
-  margin-bottom: 24px;
   & > span {
     word-wrap: break-word;
     -webkit-line-clamp: 3;

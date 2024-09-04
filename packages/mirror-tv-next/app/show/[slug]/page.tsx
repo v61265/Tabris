@@ -210,6 +210,10 @@ export default async function ShowPage({
                 ></div>
               )}
               {!!show.hostName && <UiHostList hostList={show.hostName} />}
+              <YoutubeListWrapper
+                urls={[show.playList01, show.playList02]}
+                isDesktop={true}
+              />
             </section>
             <aside className={styles.aside}>
               <GPTAd pageKey="show" adKey="PC_R1" />
@@ -218,7 +222,10 @@ export default async function ShowPage({
             </aside>
             <GPTAd pageKey="show" adKey="MB_M2" />
           </section>
-          <YoutubeListWrapper urls={[show.playList01, show.playList02]} />
+          <YoutubeListWrapper
+            urls={[show.playList01, show.playList02]}
+            isDesktop={false}
+          />
           {slug === 'election24' && <PodcastsListHandler />}
           <GPTAd pageKey="show" adKey="PC_BT" />
           <GPTAd pageKey="show" adKey="MB_M3" />
