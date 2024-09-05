@@ -24,6 +24,7 @@ import UiHostList from '~/components/show/_slug/ui-host-list'
 import GptPopup from '~/components/ads/gpt/gpt-popup'
 import PodcastsListHandler from '~/components/show/_slug/podcast/podcasts-list-handler'
 import YoutubeListWrapper from '~/components/show/_slug/youtube-list-wrapper'
+import AsideAd from '~/components/show/_slug/aside-ad'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -210,16 +211,13 @@ export default async function ShowPage({
                 ></div>
               )}
               {!!show.hostName && <UiHostList hostList={show.hostName} />}
+              <AsideAd shownOnMobile={true} />
               <YoutubeListWrapper
                 urls={[show.playList01, show.playList02]}
                 isDesktop={true}
               />
             </section>
-            <aside className={styles.aside}>
-              <GPTAd pageKey="show" adKey="PC_R1" />
-              <GPTAd pageKey="show" adKey="PC_R2" />
-              <GPTAd pageKey="show" adKey="PC_R3" />
-            </aside>
+            <AsideAd shownOnMobile={false} />
             <GPTAd pageKey="show" adKey="MB_M2" />
           </section>
           <YoutubeListWrapper
