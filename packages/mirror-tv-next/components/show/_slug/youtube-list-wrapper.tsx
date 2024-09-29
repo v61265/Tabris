@@ -62,8 +62,6 @@ export default async function YoutubeListWrapper({
   })
 
   return (
-    <section>
-      <YoutubeListHandler playLists={playListRendered} isDesktop={isDesktop} />
-    </section>
+    <YoutubeListHandler playLists={playListRendered} isDesktop={isDesktop} />
   )
 }
