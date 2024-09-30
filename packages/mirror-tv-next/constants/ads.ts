@@ -350,6 +350,27 @@ const GPT_UNITS: GPTUnits = {
         [1, 1],
       ],
     },
+    MB_R1: {
+      adUnit: 'mnews_program_sidebar_300x250_01',
+      adSize: [
+        [300, 250],
+        [1, 1],
+      ],
+    },
+    MB_R2: {
+      adUnit: 'mnews_program_sidebar_300x250_02',
+      adSize: [
+        [300, 250],
+        [1, 1],
+      ],
+    },
+    MB_R3: {
+      adUnit: 'mnews_program_sidebar_300x600_03',
+      adSize: [
+        [300, 600],
+        [1, 1],
+      ],
+    },
     MB_M1: {
       adUnit: 'mnews_m_program_top_300x250',
       adSize: [
