@@ -6,12 +6,14 @@ const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 export default function AsideAd({ shownOnMobile }: { shownOnMobile: boolean }) {
   const { width: viewportWidth = 0 } = useWindowDimensions()
+
+  // 檢查 viewportWidth 並進行邏輯判斷
+  if (viewportWidth === 0 || shownOnMobile !== viewportWidth < 768) {
+    return null
+  }
+
   return (
-    <aside
-      className={`${styles.aside} ${
-        shownOnMobile !== viewportWidth < 768 ? styles.isHide : null
-      }`}
-    >
+    <aside className={styles.aside}>
       123
       <GPTAd pageKey="show" adKey="PC_R1" />
       <GPTAd pageKey="show" adKey="PC_R2" />
