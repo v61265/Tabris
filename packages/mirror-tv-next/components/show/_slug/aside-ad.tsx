@@ -9,6 +9,7 @@ export default function AsideAd({ shownOnMobile }: { shownOnMobile: boolean }) {
   if (shownOnMobile !== viewportWidth < 768) return null
   return (
     <aside className={styles.aside}>
+      123
       <GPTAd pageKey="show" adKey="PC_R1" />
       <GPTAd pageKey="show" adKey="PC_R2" />
       <GPTAd pageKey="show" adKey="PC_R3" />
