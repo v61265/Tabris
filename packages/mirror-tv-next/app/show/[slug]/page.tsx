@@ -218,7 +218,6 @@ export default async function ShowPage({
               />
             </section>
             <AsideAd shownOnMobile={false} />
-            <GPTAd pageKey="show" adKey="MB_M2" />
           </section>
           <YoutubeListWrapper
             urls={[show.playList01, show.playList02]}
