@@ -68,6 +68,7 @@
   margin: 24px 0 0;
   @include media-breakpoint-up(md) {
     margin: 40px 0 0;
+    max-width: 100%;
   }
   @include media-breakpoint-up(xl) {
     margin: 48px 0 0;
