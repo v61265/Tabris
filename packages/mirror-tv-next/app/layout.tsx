@@ -13,6 +13,7 @@ import {
 import '../styles/global.css'
 import CompassFit from '~/components/ads/compass-fit'
 import TagManagerWrapper from './tag-manager'
+import Counter from '~/components/layout/lottery/counter'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -101,6 +102,7 @@ export default function RootLayout({
           <TagManagerWrapper />
           {children}
           <Footer />
+          <Counter />
           <CompassFit />
         </>
       </body>
