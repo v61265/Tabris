@@ -25,23 +25,7 @@
     position: relative;
   }
 
-  &__number {
-    color: #000;
-    text-align: center;
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-size: 52.747px;
-    font-weight: 700;
-    position: absolute;
-    top: 28px;
-    left: 50%;
-    transform: translate(-50%, 5px);
-
-    &.unlock {
-      color: #f15a24;
-    }
-  }
-
-  &__unlocked {
+  .unlocked {
     position: relative;
     border-radius: 16px;
     background: #f96756;
@@ -57,5 +41,21 @@
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+.number {
+  color: #000;
+  text-align: center;
+  font-feature-settings: 'liga' off, 'clig' off;
+  font-size: 52.747px;
+  font-weight: 700;
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translate(-50%, 5px);
+
+  &.unlock {
+    color: #f15a24;
   }
 }

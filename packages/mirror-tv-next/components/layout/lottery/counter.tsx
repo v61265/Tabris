@@ -1,6 +1,6 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-// import InfoSubmissionModal from './info-submission-modal'
+import React, { useEffect, useMemo, useState } from 'react'
+import InfoSubmissionModal from './info-submission-modal'
 import { ARTICLE_READ_THRESHOLD } from '~/constants/lottery'
 import styles from './_styles/counter.module.scss'
 import Cookies from 'js-cookie'
@@ -32,38 +32,44 @@ export default function Counter() {
   }, [])
 
   const slugCount = readStorySlugs.length
-  const canUnlock =
-    slugCount - redeemCount * ARTICLE_READ_THRESHOLD >= ARTICLE_READ_THRESHOLD
+  const canUnlock = useMemo(() => {
+    return (
+      slugCount - redeemCount * ARTICLE_READ_THRESHOLD >= ARTICLE_READ_THRESHOLD
+    )
+  }, [slugCount, redeemCount])
 
   const handleOpenModal = () => {
     setShowModal(true)
     console.log({ showModal })
   }
 
-  // const handleClose = () => {
-  //   setShowModal(false)
-  // }
+  const handleClose = () => {
+    setShowModal(false)
+  }
 
   return (
     <div>
       <div className={`${styles.counter} ${canUnlock ? styles.unlock : ''}`}>
         <img alt="counter" src="/images/read-story-counter.png" />
-        <span
-          className={`${styles.counter__number} ${
-            canUnlock ? styles.unlock : ''
-          }`}
-        >
+        <span className={`${styles.number} ${canUnlock ? styles.unlock : ''}`}>
           {slugCount - redeemCount * ARTICLE_READ_THRESHOLD}
         </span>
         {canUnlock && (
-          <div className={styles.counter__unlocked} onClick={handleOpenModal}>
+          <div className={styles.unlocked} onClick={handleOpenModal}>
             點擊獲得
             <br />
             抽獎資格
           </div>
         )}
       </div>
-      {/* {showModal && <InfoSubmissionModal onClose={handleClose} />} */}
+      {showModal && (
+        <InfoSubmissionModal
+          onClose={handleClose}
+          readSlugs={readStorySlugs}
+          redeemCount={redeemCount}
+          incrementRedeem={() => setRedeemCount((prev) => prev + 1)}
+        />
+      )}
     </div>
   )
 }

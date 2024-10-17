@@ -1,1 +1,1 @@
-export const ARTICLE_READ_THRESHOLD = 30
+export const ARTICLE_READ_THRESHOLD = 3
