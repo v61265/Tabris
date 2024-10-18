@@ -103,7 +103,7 @@ export default function RootLayout({
           <TagManagerWrapper />
           {children}
           <Footer />
-          {LOTTERY_FEATURE_TOGGLE && <Counter />}
+          {LOTTERY_FEATURE_TOGGLE === 'on' && <Counter />}
           <CompassFit />
         </>
       </body>
