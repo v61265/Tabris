@@ -9,6 +9,7 @@ import {
   GLOBAL_CACHE_SETTING,
   GTM_ID,
   SITE_URL,
+  LOTTERY_FEATURE_TOGGLE,
 } from '~/constants/environment-variables'
 import '../styles/global.css'
 import CompassFit from '~/components/ads/compass-fit'
@@ -102,7 +103,7 @@ export default function RootLayout({
           <TagManagerWrapper />
           {children}
           <Footer />
-          <Counter />
+          {LOTTERY_FEATURE_TOGGLE && <Counter />}
           <CompassFit />
         </>
       </body>
