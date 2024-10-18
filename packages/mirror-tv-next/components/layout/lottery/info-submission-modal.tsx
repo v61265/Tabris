@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import styles from './_styles/info-submission-modal.module.scss'
 import { ARTICLE_READ_THRESHOLD } from '~/constants/lottery'
+import { SITE_URL } from '~/constants/environment-variables'
 
 interface Props {
   readSlugs: string[]
@@ -77,7 +78,7 @@ export default function InfoSubmissionModal({
 
     const data = [[name, phone, address, email, new Date()]]
     try {
-      const response = await fetch('/api/sheets', {
+      const response = await fetch(`${SITE_URL}/api/sheets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
