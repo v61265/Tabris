@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import styles from './_styles/info-submission-modal.module.scss'
 import { ARTICLE_READ_THRESHOLD } from '~/constants/lottery'
-import { SITE_URL } from '~/constants/environment-variables'
+import { submitFormAction } from './action'
 
 interface Props {
   readSlugs: string[]
@@ -78,19 +78,10 @@ export default function InfoSubmissionModal({
 
     const data = [[name, phone, address, email, new Date()]]
     try {
-      const response = await fetch(`${SITE_URL}/api/sheets`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      if (!response.ok) {
-        const errorMessage = await response.text()
-        throw new Error(`Error: ${response.status} - ${errorMessage}`)
+      const response = await submitFormAction(data)
+      if (!response || response.status === 'error') {
+        throw new Error(response?.error || 'Unknown error occurred')
       }
-
       setIsSubmit(true)
       incrementRedeem()
     } catch (error) {

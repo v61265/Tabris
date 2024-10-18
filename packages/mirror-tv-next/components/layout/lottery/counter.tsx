@@ -5,6 +5,7 @@ import { ARTICLE_READ_THRESHOLD } from '~/constants/lottery'
 import styles from './_styles/counter.module.scss'
 import Cookies from 'js-cookie'
 import { getMidnightExpiration } from '~/utils/date-handler'
+import { ENV } from '~/constants/environment-variables'
 
 export default function Counter() {
   const [showModal, setShowModal] = useState(false)
@@ -75,9 +76,11 @@ export default function Counter() {
 
   return (
     <div>
-      <div className={styles.sudo} onClick={clickSudo}>
-        點我新增 30 篇（只會在 dev 出現）
-      </div>
+      {(ENV === 'dev' || ENV === 'local') && (
+        <div className={styles.sudo} onClick={clickSudo}>
+          點我新增 30 篇（只會在 dev 出現）
+        </div>
+      )}
       <div className={`${styles.counter} ${canUnlock ? styles.unlock : ''}`}>
         <img alt="counter" src="/images/read-story-counter.png" />
         <span className={`${styles.number} ${canUnlock ? styles.unlock : ''}`}>
