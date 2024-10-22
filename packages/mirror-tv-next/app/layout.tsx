@@ -41,7 +41,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const targetTime = new Date('2024-10-22T16:00:00')
+  const targetTime = new Date('2024-10-21')
   const now = new Date()
   return (
     <html lang="zh-Hant" className={`${noto_sans.variable} `}>
