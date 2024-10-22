@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import styles from './_styles/info-submission-modal.module.scss'
 import { ARTICLE_READ_THRESHOLD } from '~/constants/lottery'
@@ -23,26 +23,14 @@ export default function InfoSubmissionModal({
   const [address, setAddress] = useState('')
   const [isSubmit, setIsSubmit] = useState(false)
   const [isSending, setIsSending] = useState(false)
-  const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
-    const timeout = setTimeout(() => {
-      document.addEventListener('click', handleClickOutside)
-    }, 1000)
 
     return () => {
       document.body.style.overflow = ''
-      document.removeEventListener('click', handleClickOutside)
-      clearTimeout(timeout)
     }
   }, [])
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      onClose()
-    }
-  }
 
   const getNextDate = () => {
     const dates = [
@@ -94,11 +82,8 @@ export default function InfoSubmissionModal({
 
   return (
     <div className={styles.modal}>
-      <div
-        className={styles.modalContent}
-        ref={modalRef}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.modalContent} onClick={onClose}>
+        <div className={styles.closeBtn} />
         <div className={styles.counter}>
           <Image
             alt="counter"
