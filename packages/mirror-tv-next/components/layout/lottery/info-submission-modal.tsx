@@ -82,8 +82,8 @@ export default function InfoSubmissionModal({
 
   return (
     <div className={styles.modal}>
-      <div className={styles.modalContent} onClick={onClose}>
-        <div className={styles.closeBtn} />
+      <div className={styles.modalContent}>
+        <div className={styles.closeBtn} onClick={onClose} />
         <div className={styles.counter}>
           <Image
             alt="counter"
