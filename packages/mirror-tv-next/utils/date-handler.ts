@@ -14,20 +14,32 @@ function formateDateAtTaipei(
   return `${taipeiTime} ${suffixStr}`
 }
 
-function getMidnightExpiration(): Date {
-  const now: Date = new Date()
-  const timezoneOffset: number = 480
-  const localOffset: number = now.getTimezoneOffset()
-  const taiwanNow: Date = new Date(
+function getNextThursdayNoon() {
+  const now = new Date()
+  const timezoneOffset = 480 // 台灣時區偏移量 (UTC+8)
+  const localOffset = now.getTimezoneOffset()
+  const taiwanNow = new Date(
     now.getTime() + (timezoneOffset + localOffset) * 60 * 1000
   )
 
-  const midnight: Date = new Date(taiwanNow)
-  midnight.setHours(24, 0, 0, 0) // 設置為台灣時間的午夜 00:00
+  // 取得當前星期幾（0 表示星期日，6 表示星期六）
+  const currentDay = taiwanNow.getDay()
+  let daysUntilNextThursday = 4 - currentDay // 4 代表星期四
 
-  const timeUntilMidnight: number = midnight.getTime() - taiwanNow.getTime()
+  // 如果今天已經是星期四且時間已經超過中午 12 點，就設定到下個星期四
+  if (
+    daysUntilNextThursday < 0 ||
+    (daysUntilNextThursday === 0 && taiwanNow.getHours() >= 12)
+  ) {
+    daysUntilNextThursday += 7 // 跳到下個星期四
+  }
 
-  return new Date(Date.now() + timeUntilMidnight)
+  // 設置為下一個星期四中午 12 點
+  const nextThursdayNoon = new Date(taiwanNow)
+  nextThursdayNoon.setDate(taiwanNow.getDate() + daysUntilNextThursday)
+  nextThursdayNoon.setHours(12, 0, 0, 0)
+
+  return nextThursdayNoon
 }
 
-export { formateDateAtTaipei, getMidnightExpiration }
+export { formateDateAtTaipei, getNextThursdayNoon }

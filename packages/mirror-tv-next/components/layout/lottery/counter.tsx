@@ -4,7 +4,7 @@ import InfoSubmissionModal from './info-submission-modal'
 import { ARTICLE_READ_THRESHOLD } from '~/constants/lottery'
 import styles from './_styles/counter.module.scss'
 import Cookies from 'js-cookie'
-import { getMidnightExpiration } from '~/utils/date-handler'
+import { getNextThursdayNoon } from '~/utils/date-handler'
 import { ENV } from '~/constants/environment-variables'
 
 export default function Counter() {
@@ -58,7 +58,7 @@ export default function Counter() {
     setReadStorySlugs((prev) => {
       const newArray = [...prev, ...newSudoSlugs]
       Cookies.set('read-story-slugs', JSON.stringify(newArray), {
-        expires: getMidnightExpiration(), // 設置過期時間到當天午夜
+        expires: getNextThursdayNoon(), // 設置過期時間到當天午夜
       })
       return newArray
     })
@@ -68,7 +68,7 @@ export default function Counter() {
     setRedeemCount((prev) => {
       const newCount = prev + 1
       Cookies.set('redeem-count', newCount + '', {
-        expires: getMidnightExpiration(),
+        expires: getNextThursdayNoon(),
       })
       return newCount
     })
