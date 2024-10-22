@@ -41,7 +41,7 @@ switch (ENV) {
       'https://staging.mnews.tw/json/popular-videonews-list.json'
     FEATURE_POSTS_URL =
       'https://staging.mnews.tw/api/gcs/featured_categories_post'
-    LOTTERY_FEATURE_TOGGLE = 'off'
+    LOTTERY_FEATURE_TOGGLE = 'on'
     break
 
   case 'dev':

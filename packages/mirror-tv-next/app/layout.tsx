@@ -41,6 +41,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const targetTime = new Date('2024-10-22T16:00:00')
+  const now = new Date()
   return (
     <html lang="zh-Hant" className={`${noto_sans.variable} `}>
       <GoogleTagManager gtmId={GTM_ID} />
@@ -103,7 +105,7 @@ export default function RootLayout({
           <TagManagerWrapper />
           {children}
           <Footer />
-          {LOTTERY_FEATURE_TOGGLE === 'on' && <Counter />}
+          {LOTTERY_FEATURE_TOGGLE === 'on' && now > targetTime && <Counter />}
           <CompassFit />
         </>
       </body>
