@@ -160,7 +160,7 @@ export default function InfoSubmissionModal({
             </button>
           </form>
         ) : (
-          <div className={styles.modalDone}>
+          <div className={`${styles.modalDone} ${styles.done}`}>
             <div className={styles.doneInfo}>
               <div className={styles.doneName}>
                 {name}
