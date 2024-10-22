@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const now = new Date()
-  const targetDate = new Date('2024-10-23T00:40:00+08:00')
+  const targetDate = new Date('2024-10-23T01:00:00+08:00')
   return (
     <html lang="zh-Hant" className={`${noto_sans.variable} `}>
       <GoogleTagManager gtmId={GTM_ID} />
