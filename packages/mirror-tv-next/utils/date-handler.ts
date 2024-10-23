@@ -26,18 +26,20 @@ function getNextThursdayNoon() {
   const currentDay = taiwanNow.getDay()
   let daysUntilNextWednesday = 3 - currentDay // 3 代表星期三
 
-  // 如果今天已經是星期三且時間已經超過中午 12 點，跳到下個星期三
+  // 如果今天已經是星期三且時間已經超過下午 1:30，跳到下個星期三
   if (
     daysUntilNextWednesday < 0 ||
-    (daysUntilNextWednesday === 0 && taiwanNow.getHours() >= 12)
+    (daysUntilNextWednesday === 0 &&
+      (taiwanNow.getHours() > 13 ||
+        (taiwanNow.getHours() === 13 && taiwanNow.getMinutes() >= 30)))
   ) {
     daysUntilNextWednesday += 7 // 跳到下個星期三
   }
 
-  // 設置為下一個星期三中午 12:00
+  // 設置為下一個星期三下午 1:30
   const nextWednesdayNoon = new Date(taiwanNow)
   nextWednesdayNoon.setDate(taiwanNow.getDate() + daysUntilNextWednesday)
-  nextWednesdayNoon.setHours(12, 0, 0, 0)
+  nextWednesdayNoon.setHours(13, 30, 0, 0)
 
   return nextWednesdayNoon
 }
