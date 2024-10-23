@@ -24,22 +24,24 @@ function getNextThursdayNoon() {
 
   // 取得當前星期幾（0 表示星期日，6 表示星期六）
   const currentDay = taiwanNow.getDay()
-  let daysUntilNextThursday = 4 - currentDay // 4 代表星期四
+  let daysUntilNextWednesday = 3 - currentDay // 3 代表星期三
 
-  // 如果今天已經是星期四且時間已經超過中午 12 點，就設定到下個星期四
+  // 如果今天已經是星期三且時間已經超過 11:15，就設定到下個星期三
   if (
-    daysUntilNextThursday < 0 ||
-    (daysUntilNextThursday === 0 && taiwanNow.getHours() >= 12)
+    daysUntilNextWednesday < 0 ||
+    (daysUntilNextWednesday === 0 &&
+      (taiwanNow.getHours() > 11 ||
+        (taiwanNow.getHours() === 11 && taiwanNow.getMinutes() >= 15)))
   ) {
-    daysUntilNextThursday += 7 // 跳到下個星期四
+    daysUntilNextWednesday += 7 // 跳到下個星期三
   }
 
-  // 設置為下一個星期四中午 12 點
-  const nextThursdayNoon = new Date(taiwanNow)
-  nextThursdayNoon.setDate(taiwanNow.getDate() + daysUntilNextThursday)
-  nextThursdayNoon.setHours(12, 0, 0, 0)
+  // 設置為下一個星期三中午 11:15
+  const nextWednesdayMorning = new Date(taiwanNow)
+  nextWednesdayMorning.setDate(taiwanNow.getDate() + daysUntilNextWednesday)
+  nextWednesdayMorning.setHours(11, 15, 0, 0)
 
-  return nextThursdayNoon
+  return nextWednesdayMorning
 }
 
 export { formateDateAtTaipei, getNextThursdayNoon }

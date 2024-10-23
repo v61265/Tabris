@@ -42,7 +42,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const now = new Date()
-  const targetDate = new Date('2024-10-23T11:00:00+08:00')
+  const targetDate = new Date(Date.UTC(2024, 9, 23, 3, 0, 0)) // 2024 年 10 月 23 日，台灣時間上午 11:00
+  targetDate.setHours(targetDate.getHours() + 8)
   return (
     <html lang="zh-Hant" className={`${noto_sans.variable} `}>
       <GoogleTagManager gtmId={GTM_ID} />
