@@ -1,4 +1,4 @@
-import { ThemeProvider } from '~/context/data-context'
+import { DataProvider } from '~/context/data-context'
 import { GoogleTagManager } from '@next/third-parties/google'
 import type { Metadata } from 'next'
 import { Noto_Sans } from 'next/font/google'
@@ -109,14 +109,14 @@ export default async function RootLayout({
         })();`}
       </Script>
       <body>
-        <ThemeProvider initialPopularPosts={initialPopularPosts}>
+        <DataProvider initialPopularPosts={initialPopularPosts}>
           <MainHeader />
           <TagManagerWrapper />
           {children}
           <Footer />
           {LOTTERY_FEATURE_TOGGLE === 'on' && <Counter />}
           <CompassFit />
-        </ThemeProvider>
+        </DataProvider>
       </body>
     </html>
   )

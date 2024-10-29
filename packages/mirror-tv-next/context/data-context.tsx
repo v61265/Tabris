@@ -3,14 +3,14 @@
 import { createContext, useContext, useState, ReactNode } from 'react'
 import type { RawPopularPost } from '~/types/popular-post'
 
-type ThemeContextType = {
+type DataContextType = {
   popularPosts: RawPopularPost[]
   setPopularPosts: (posts: RawPopularPost[]) => void
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+const ThemeContext = createContext<DataContextType | undefined>(undefined)
 
-export function ThemeProvider({
+export function DataProvider({
   children,
   initialPopularPosts,
 }: {
@@ -27,10 +27,10 @@ export function ThemeProvider({
   )
 }
 
-export const useTheme = () => {
+export const useData = () => {
   const context = useContext(ThemeContext)
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider')
+    throw new Error('useTheme must be used within a DataProvider')
   }
   return context
 }

@@ -1,10 +1,10 @@
 'use client'
-import { useTheme } from '~/context/data-context'
+import { useData } from '~/context/data-context'
 // import styles from './_styles/popular-posts-list.module.scss'
 import { useEffect } from 'react'
 
 export default function PopularPostsList() {
-  const { popularPosts } = useTheme()
+  const { popularPosts } = useData()
 
   useEffect(() => {
     console.log(popularPosts)
