@@ -2,7 +2,6 @@
 
 import { Varela_Round } from 'next/font/google'
 import Image from 'next/image'
-import { useMemo } from 'react'
 
 import Link from 'next/link'
 import ResponsiveImage from '~/components/shared/responsive-image'
@@ -15,9 +14,8 @@ const font = Varela_Round({ subsets: ['latin'], weight: '400' })
 
 export default function Ui404() {
   const { popularPosts } = useData()
-  const formattedPosts: FormattedPostCard[] = useMemo(
-    () => popularPosts.map((post) => formatArticleCard(post)),
-    [popularPosts]
+  const formattedPosts: FormattedPostCard[] = popularPosts.map((post) =>
+    formatArticleCard(post)
   )
 
   return (
