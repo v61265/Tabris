@@ -166,9 +166,46 @@ const fetchPostSortDirBySlug = gql`
   }
 `
 
+const fetchFeatureTopics = gql`
+  query fetchFeaturedTopics($topicFirst: Int = 4, $postFirst: Int = 3) {
+    allTopics(
+      where: { state: published, isFeatured: true }
+      first: $topicFirst
+      sortBy: [sortOrder_ASC, updatedAt_DESC]
+    ) {
+      id
+      slug
+      name
+      heroImage {
+        urlMobileSized
+        urlTabletSized
+        urlOriginal
+      }
+      sortDir
+      postDESC: post(
+        first: $postFirst
+        sortBy: publishTime_DESC
+        where: { state: published }
+      ) {
+        slug
+        name
+      }
+      postASC: post(
+        first: $postFirst
+        sortBy: publishTime_ASC
+        where: { state: published }
+      ) {
+        slug
+        name
+      }
+    }
+  }
+`
+
 export {
   fetchPostItemsByTopicSlug,
   fetchPostSortDirBySlug,
   fetchSingleTopicByTopicSlug,
   getTopics,
+  fetchFeatureTopics,
 }

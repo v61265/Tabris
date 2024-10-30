@@ -16,7 +16,7 @@ import '../styles/global.css'
 import CompassFit from '~/components/ads/compass-fit'
 import TagManagerWrapper from './tag-manager'
 import Counter from '~/components/layout/lottery/counter'
-import { fetchPopularPosts } from '~/context/action/fetch-popular-data'
+import { fetchPopularPosts } from '~/app/_actions/popular-data'
 import { RawPopularPost } from '~/types/popular-post'
 
 export const revalidate = GLOBAL_CACHE_SETTING

@@ -1,6 +1,6 @@
 import errors from '@twreporter/errors'
 import type { Metadata } from 'next'
-import { fetchTopics } from '~/components/topic/action'
+import { fetchTopics } from '~/components/topic/topic'
 import TopicsListManager from '~/components/topic/topics-list-manager'
 import {
   GLOBAL_CACHE_SETTING,
