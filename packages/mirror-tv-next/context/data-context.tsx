@@ -7,7 +7,7 @@ type DataContextType = {
   setPopularPosts: (posts: RawPopularPost[]) => void
 }
 
-const ThemeContext = createContext<DataContextType | undefined>(undefined)
+const DataContext = createContext<DataContextType | undefined>(undefined)
 
 export function DataProvider({
   children,
@@ -20,16 +20,16 @@ export function DataProvider({
     useState<RawPopularPost[]>(initialPopularPosts)
 
   return (
-    <ThemeContext.Provider value={{ popularPosts, setPopularPosts }}>
+    <DataContext.Provider value={{ popularPosts, setPopularPosts }}>
       {children}
-    </ThemeContext.Provider>
+    </DataContext.Provider>
   )
 }
 
 export const useData = () => {
-  const context = useContext(ThemeContext)
+  const context = useContext(DataContext)
   if (context === undefined) {
-    throw new Error('useTheme must be used within a DataProvider')
+    throw new Error('useData must be used within a DataProvider')
   }
   return context
 }
