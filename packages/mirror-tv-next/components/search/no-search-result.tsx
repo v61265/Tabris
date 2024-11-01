@@ -10,7 +10,7 @@ type NoSearchResultProps = {
   keyword: string
 }
 
-const NoSearchResult = async ({ keyword }: NoSearchResultProps) => {
+const NoSearchResult = ({ keyword }: NoSearchResultProps) => {
   const { popularPosts } = useData()
   const formattedPosts: FormattedPostCard[] = popularPosts.map((post) =>
     formatArticleCard(post)
