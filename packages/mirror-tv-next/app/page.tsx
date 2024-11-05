@@ -27,7 +27,7 @@ export default async function Home() {
       <div className={styles.mobFlashNewsWrapper}>
         <MainFlashNews />
       </div>
-      <PopularPostsList />
+      <PopularPostsList title="熱門新聞" />
     </main>
   )
 }
