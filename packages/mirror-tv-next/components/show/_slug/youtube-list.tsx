@@ -31,7 +31,7 @@ export default function YoutubeList({
     return width && width < 768
   }, [width])
   const videoPerPage = useMemo(() => {
-    if (!width || width < 768) return 9
+    if (!width || width < 768) return 2
     if (width < 1200) return 9
     return 6
   }, [width])
