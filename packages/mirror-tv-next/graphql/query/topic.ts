@@ -56,7 +56,7 @@ export type SingleTopic = Topic & {
   }
 }
 
-export type FeatureTopic = Omit<Topic, 'sortDir' | 'briefApiData'> & {
+export type FeatureTopic = Omit<Topic, 'briefApiData'> & {
   postDESC: {
     slug: string
     name: string
