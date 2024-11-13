@@ -4,7 +4,7 @@ import { getClient } from '~/apollo-client'
 import type { Video } from '~/graphql/query/videos'
 import { getVideoByName } from '~/graphql/query/videos'
 
-type getVideoType = {
+type GetVideoType = {
   name: string
   take: number
   errorMessage?: string
@@ -14,12 +14,9 @@ async function getVideo({
   name,
   take,
   errorMessage = '',
-}: getVideoType): Promise<
-  | {
-      data: { allVideos: Video[] }
-    }
-  | undefined
-> {
+}: GetVideoType): Promise<{
+  data: { allVideos: Video[] }
+}> {
   const client = getClient()
   try {
     const { data } = await client.query<{ allVideos: Video[] }>({
@@ -45,6 +42,7 @@ async function getVideo({
         }),
       })
     )
+    return { data: { allVideos: [] } }
   }
 }
 

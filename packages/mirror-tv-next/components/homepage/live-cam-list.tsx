@@ -1,7 +1,7 @@
 import styles from './_styles/live-cam-list.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import type { Video } from '~/graphql/query/videos'
-import { getVideo } from '~/app/_actions/homepage/video'
+import { getVideo } from '~/app/_actions/share/video'
 import YoutubeEmbed from '../shared/youtube-embed'
 import { extractYoutubeId } from '~/utils'
 
