@@ -7,6 +7,7 @@ import GptPopup from '~/components/ads/gpt/gpt-popup'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
 import PopularPostsList from '~/components/homepage/popular-posts-list'
 import TopicList from '~/components/homepage/topic-list'
+import LiveCamList from '~/components/homepage/live-cam-list'
 
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
@@ -29,6 +30,7 @@ export default function Home() {
         <MainFlashNews />
       </div>
       <PopularPostsList title="熱門新聞" />
+      <LiveCamList title="直播現場" />
       <TopicList title="推薦專題" />
     </main>
   )
