@@ -49,7 +49,6 @@
   }
   @include media-breakpoint-up(xl) {
     display: block;
-    height: fit-content;
-    width: fit-content;
+    width: 160px;
   }
 }

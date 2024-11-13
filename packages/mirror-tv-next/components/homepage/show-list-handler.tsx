@@ -48,7 +48,6 @@ export default function ShowListHandler({
       isGetCount: false,
     })
     const newShows = res?.data?.allShows ?? []
-    console.log({ newShows })
 
     // 合併新舊數據
     const newCombinedShows = [...showsHasFetched, ...newShows]
@@ -69,6 +68,7 @@ export default function ShowListHandler({
       fetchListInPage={fetchMoreShows}
       isAutoFetch={(width && width < 768) || false}
       loader={<button className={styles.load}>看更多</button>}
+      key={pageSize}
     >
       {(renderList) => (
         <ol className={styles.showList}>
