@@ -1,7 +1,7 @@
 .videoWrapper {
   overflow: hidden;
   position: relative;
-  aspect-ratio: calc(1 / 0.5625);
+  aspect-ratio: calc(16 / 9);
 
   iframe {
     left: 0;
