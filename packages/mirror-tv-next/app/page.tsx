@@ -9,6 +9,7 @@ import PopularPostsList from '~/components/homepage/popular-posts-list'
 import TopicList from '~/components/homepage/topic-list'
 import LiveCamList from '~/components/homepage/live-cam-list'
 import ShowList from '~/components/homepage/show-list-init'
+import PromotionVideoList from '~/components/homepage/promotion-video-list'
 
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
@@ -33,6 +34,7 @@ export default function Home() {
       <ShowList title="節目" />
       <PopularPostsList title="熱門新聞" />
       <LiveCamList title="直播現場" />
+      <PromotionVideoList title="發燒單元" />
       <TopicList title="推薦專題" />
     </main>
   )
