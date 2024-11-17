@@ -9,9 +9,11 @@ import PopularPostsList from '~/components/homepage/popular-posts-list'
 import TopicList from '~/components/homepage/topic-list'
 import LiveCamList from '~/components/homepage/live-cam-list'
 import ShowList from '~/components/homepage/show-list-init'
-import PromotionVideoList from '~/components/homepage/promotion-video-list'
 
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
+const PromotionVideoList = dynamic(
+  () => import('~/components/homepage/promotion-video-list')
+)
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
