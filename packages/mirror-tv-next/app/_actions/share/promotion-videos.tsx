@@ -6,7 +6,7 @@ import {
   getPromotionVideos,
 } from '~/graphql/query/promotion-video'
 
-type fetchPromotionVideosServerActionType = {
+type FetchPromotionVideosServerActionType = {
   take: number
   pageName: string
 }
@@ -14,7 +14,7 @@ type fetchPromotionVideosServerActionType = {
 async function fetchPromotionVideosServerAction({
   take,
   pageName,
-}: fetchPromotionVideosServerActionType): Promise<{
+}: FetchPromotionVideosServerActionType): Promise<{
   data: { allPromotionVideos: PromotionVideo[] }
 }> {
   const client = getClient()
