@@ -61,8 +61,6 @@ export default function PromotionVideoList({ title }: PromotionVideoListProps) {
     e.preventDefault()
     const container = promotionListRef.current
     if (!container) return
-    console.log('scrollWidth:', container.scrollWidth)
-    console.log('clientWidth:', container.clientWidth)
     container.scrollTo({
       left: container.scrollWidth - container.clientWidth,
       behavior: 'smooth',
