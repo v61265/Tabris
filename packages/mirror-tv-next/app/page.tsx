@@ -11,6 +11,9 @@ import LiveCamList from '~/components/homepage/live-cam-list'
 import ShowList from '~/components/homepage/show-list-init'
 
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
+const PromotionVideoList = dynamic(
+  () => import('~/components/homepage/promotion-video-list')
+)
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -33,6 +36,7 @@ export default function Home() {
       <ShowList title="節目" />
       <PopularPostsList title="熱門新聞" />
       <LiveCamList title="直播現場" />
+      <PromotionVideoList title="發燒單元" />
       <TopicList title="推薦專題" />
     </main>
   )
