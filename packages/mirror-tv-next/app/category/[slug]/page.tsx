@@ -15,8 +15,6 @@ import {
   SITE_URL,
 } from '~/constants/environment-variables'
 import { Category, fetchCategoryBySlug } from '~/graphql/query/category'
-import type { Sale } from '~/graphql/query/sales'
-import { getSales } from '~/graphql/query/sales'
 import styles from '~/styles/pages/category.module.scss'
 import { FeaturePost } from '~/types/api-data'
 import {
@@ -24,6 +22,7 @@ import {
   formatArticleCard,
   formateDateAtTaipei,
 } from '~/utils'
+import { fetchSales } from '~/app/_actions/share/sales'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 // import GPTAdStatic from '~/components/ads/gpt/gpt-ad'
 
@@ -96,36 +95,14 @@ export default async function CategoryPage({
   categoryData = await fetchCategoryData(params.slug)
   if (!categoryData.name) return notFound()
 
-  const client = getClient()
   try {
-    const { data } = await client.query<{
-      allSales: Sale[]
-    }>({
-      query: getSales,
-      variables: {
-        first: 4,
-      },
-    })
+    const response = await fetchSales({ take: 4, pageName: 'category' })
     salePosts =
-      data?.allSales?.map((sale) =>
+      response?.data?.allSales?.map((sale) =>
         formatArticleCard(sale?.adPost, { label: '特企' })
       ) ?? []
   } catch (err) {
-    const annotatingError = errors.helpers.wrap(
-      err,
-      'UnhandledError',
-      'Error occurs while fetching sale posts data in category page'
-    )
-
-    console.error(
-      JSON.stringify({
-        severity: 'ERROR',
-        message: errors.helpers.printAll(annotatingError, {
-          withStack: false,
-          withPayload: true,
-        }),
-      })
-    )
+    // TODO: error handling?
   }
 
   try {

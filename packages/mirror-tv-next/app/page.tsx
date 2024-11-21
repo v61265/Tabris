@@ -9,6 +9,7 @@ import PopularPostsList from '~/components/homepage/popular-posts-list'
 import TopicList from '~/components/homepage/topic-list'
 import LiveCamList from '~/components/homepage/live-cam-list'
 import ShowList from '~/components/homepage/show-list-init'
+import LatestAndEditorchoicesWithLive from '~/components/homepage/latest-and-editor-choices-with-live'
 
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 const PromotionVideoList = dynamic(
@@ -33,6 +34,7 @@ export default function Home() {
       <div className={styles.mobFlashNewsWrapper}>
         <MainFlashNews />
       </div>
+      <LatestAndEditorchoicesWithLive latestListTitle="即時新聞" />
       <ShowList title="節目" />
       <PopularPostsList title="熱門新聞" />
       <LiveCamList title="直播現場" />

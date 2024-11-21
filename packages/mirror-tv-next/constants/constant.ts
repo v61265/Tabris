@@ -24,10 +24,13 @@ const FILTERED_SLUG = [
 //Custom Search JSON API
 const URL_PROGRAMABLE_SEARCH = 'https://www.googleapis.com/customsearch/v1'
 
+const HOMEPAGE_POSTS_PAGE_SIZE = 12
+
 export {
   HEADER_BOTTOM_LINKS,
   META_DESCRIPTION,
   SITE_TITLE,
   FILTERED_SLUG,
   URL_PROGRAMABLE_SEARCH,
+  HOMEPAGE_POSTS_PAGE_SIZE,
 }
