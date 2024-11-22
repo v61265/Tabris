@@ -19,6 +19,7 @@ import {
 import Image from '@readr-media/react-image'
 import { formateHeroImage } from '~/utils'
 import { useRef } from 'react'
+import { PaginationOptions } from 'swiper/types'
 
 type EditorChoicesSwiperProps = {
   editorChoices: EditorChoices[]
@@ -33,10 +34,10 @@ export default function EditorChoicesSwiper({
     return null
   }
 
-  const pagination = {
+  const pagination: PaginationOptions = {
     el: '.swiper-pagination',
     type: 'custom',
-    renderCustom(swiper: typeof Swiper, current: number, total: number) {
+    renderCustom(swiper, current: number, total: number) {
       return `
         <span class="swiper-pagination-current">${current}</span>
         |
@@ -58,15 +59,11 @@ export default function EditorChoicesSwiper({
               disableOnInteraction: false,
             }}
             pagination={pagination}
-            onSwiper={(swiper) => {
-              if (prevButtonRef.current && nextButtonRef.current) {
-                swiper.navigation.init()
-                swiper.navigation.update()
-              }
-            }}
-            navigation={{
-              nextEl: nextButtonRef.current,
-              prevEl: prevButtonRef.current,
+            onBeforeInit={(swiper) => {
+              // @ts-expect-error - Swiper types don't properly recognize navigation params assignment
+              swiper.params.navigation.prevEl = prevButtonRef.current
+              // @ts-expect-error - Swiper types don't properly recognize navigation params assignment
+              swiper.params.navigation.nextEl = nextButtonRef.current
             }}
             mousewheel={true}
             keyboard={true}
@@ -77,7 +74,12 @@ export default function EditorChoicesSwiper({
               const { choice } = item
               return (
                 <SwiperSlide key={choice.slug} className={styles.swiperSlide}>
-                  <div className={styles.imageContainer}>
+                  <a
+                    className={styles.imageContainer}
+                    href={`/story/${choice.slug}`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
                     <Image
                       loadingImage="/images/loading.svg"
                       defaultImage="/images/image-default.jpg"
@@ -86,15 +88,20 @@ export default function EditorChoicesSwiper({
                       )}
                       alt={choice.name}
                       rwd={{
-                        tablet: '1300px',
-                        desktop: '1300px',
+                        tablet: '100px',
+                        desktop: '1000px',
                       }}
                       priority={false}
                     />
-                  </div>
-                  <span className={styles.nameWrapper}>
+                  </a>
+                  <a
+                    className={styles.nameWrapper}
+                    href={`/story/${choice.slug}`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
                     <span className={styles.name}>{choice.name}</span>
-                  </span>
+                  </a>
                 </SwiperSlide>
               )
             })}
@@ -106,12 +113,12 @@ export default function EditorChoicesSwiper({
             <span />
           </button>
           <button
-            className={`${styles.nav} ${styles.next}`}
+            className={`${styles.nav} ${styles.next} `}
             ref={nextButtonRef}
           >
             <span />
           </button>
-          <div className={`swiper-pagination ${styles.pagination}`} />
+          <div className={`swiper-pagination ${styles.pagination} nav-next`} />
         </div>
       </div>
     </section>
