@@ -10,6 +10,7 @@ import { FILTERED_SLUG, HOMEPAGE_POSTS_PAGE_SIZE } from '~/constants/constant'
 import { PostWithCategory } from '~/graphql/query/posts'
 import LatestPostListHandler from './latest-post-list-handler'
 import EditorChoicesSwiper from './editor-choices-swiper'
+import Live from './live'
 
 type LatestAndEditorchoicesWithLiveProps = {
   latestListTitle: string
@@ -96,6 +97,7 @@ export default async function LatestAndEditorchoicesWithLive({
   return (
     <>
       <section className={styles.liveAndEditor}>
+        <Live />
         <EditorChoicesSwiper editorChoices={editorChoices} />
       </section>
       <section className={styles.latest}>
