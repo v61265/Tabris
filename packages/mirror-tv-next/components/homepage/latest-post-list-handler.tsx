@@ -4,7 +4,7 @@ import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
 import { FormattedPostCard, formatArticleCard } from '~/utils'
 import { HOMEPAGE_POSTS_PAGE_SIZE } from '~/constants/constant'
 import { getLatestPostsServerAction } from '~/app/_actions/homepage/latest-posts'
-import UiPostCardHomepage from '../shared/ui-post-card-hompage'
+import UiPostCardHomepage from './ui-post-card-hompage'
 
 type LatestPostListHandlerProps = {
   initPosts: FormattedPostCard[]

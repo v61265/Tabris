@@ -1,6 +1,6 @@
 import styles from './_styles/ui-post-card-homepage.module.scss'
 import { formateDateAtTaipei, PostImage } from '~/utils'
-import ResponsiveImage from './responsive-image'
+import ResponsiveImage from '../shared/responsive-image'
 import { SALES_LABEL_NAME } from '~/constants/constant'
 
 export type UiPostCardProps = {
