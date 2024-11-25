@@ -43,7 +43,7 @@ async function getLatestPostsServerAction({
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching feature topics data in homepage'
+      'Error occurred while fetching latest posts data in homepage'
     )
     console.error(
       JSON.stringify({

@@ -29,56 +29,48 @@ export default async function LatestAndEditorchoicesWithLive({
   let latestPostsCount = 0
   let initRenderedPosts = []
 
-  try {
-    const fetchEditorChoiceData = () => getEditorChoices()
-    const getSalesData = () => fetchSales({ take: 4, pageName: 'homepage' })
-    const responses = await Promise.allSettled([
-      fetchEditorChoiceData(),
-      getSalesData(),
-    ])
-    editorChoices = handleResponse(
-      responses[0],
-      (res: Awaited<ReturnType<typeof fetchEditorChoiceData> | undefined>) => {
-        return res?.data?.allEditorChoices ?? []
-      },
-      ''
-    )
-    salesPosts = handleResponse(
-      responses[1],
-      (res: Awaited<ReturnType<typeof fetchSales> | undefined>) => {
-        res?.data?.allSales.forEach((item) => {
-          if (item.adPost.categories.length) {
-            item.adPost.categories[0].name = SALES_LABEL_NAME
-          } else {
-            item.adPost.categories.push({ name: SALES_LABEL_NAME })
-          }
-        })
-        return res?.data?.allSales ?? []
-      },
-      ''
-    )
-  } catch (error) {
-    // TODO: add error handling?
-  }
+  const fetchEditorChoiceData = () => getEditorChoices()
+  const getSalesData = () => fetchSales({ take: 4, pageName: 'homepage' })
+  const responses = await Promise.allSettled([
+    fetchEditorChoiceData(),
+    getSalesData(),
+  ])
+  editorChoices = handleResponse(
+    responses[0],
+    (res: Awaited<ReturnType<typeof fetchEditorChoiceData> | undefined>) => {
+      return res?.data?.allEditorChoices ?? []
+    },
+    'Error occurred while fetching editor-choices data in homepage'
+  )
+  salesPosts = handleResponse(
+    responses[1],
+    (res: Awaited<ReturnType<typeof fetchSales> | undefined>) => {
+      res?.data?.allSales.forEach((item) => {
+        if (item.adPost.categories.length) {
+          item.adPost.categories[0].name = SALES_LABEL_NAME
+        } else {
+          item.adPost.categories.push({ name: SALES_LABEL_NAME })
+        }
+      })
+      return res?.data?.allSales ?? []
+    },
+    'Error occurred while fetching sales-post data in homepage'
+  )
 
   const filteredSlug = editorChoices
     ?.map((item) => item.choice.slug)
     .concat(FILTERED_SLUG)
   const renderedSalesLength = Math.min(salesPosts?.length || 0, 4)
 
-  try {
-    const take = HOMEPAGE_POSTS_PAGE_SIZE - renderedSalesLength
-    const postsResponse = await getLatestPostsServerAction({
-      first: take,
-      skip: 0,
-      withCount: true,
-      filteredSlug: filteredSlug,
-    })
-    latestPosts = postsResponse?.data?.allPosts
-    latestPostsCount = postsResponse?.data?._allPostsMeta?.count ?? 0
-  } catch (error) {
-    // TODO: add error handling?
-  }
+  const take = HOMEPAGE_POSTS_PAGE_SIZE - renderedSalesLength
+  const postsResponse = await getLatestPostsServerAction({
+    first: take,
+    skip: 0,
+    withCount: true,
+    filteredSlug: filteredSlug,
+  })
+  latestPosts = postsResponse?.data?.allPosts
+  latestPostsCount = postsResponse?.data?._allPostsMeta?.count ?? 0
 
   const formattedLatestPosts = latestPosts?.map((post) =>
     formatArticleCard(post)
