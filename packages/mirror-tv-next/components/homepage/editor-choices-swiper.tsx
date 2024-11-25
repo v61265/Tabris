@@ -84,7 +84,7 @@ export default function EditorChoicesSwiper({
                       loadingImage="/images/loading.svg"
                       defaultImage="/images/image-default.jpg"
                       images={formateHeroImage(
-                        choice.heroImage ?? choice.heroVideo.heroImage ?? {}
+                        choice.heroImage ?? choice.heroVideo.coverPhoto ?? {}
                       )}
                       alt={choice.name}
                       rwd={{

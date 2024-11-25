@@ -6,7 +6,7 @@ export type EditorChoices = {
     name: string
     slug: string
     heroImage: HeroImage
-    heroVideo: { heroImage: HeroImage }
+    heroVideo: { coverPhoto: HeroImage }
   }
 }
 
