@@ -7,6 +7,7 @@ import useWindowDimensions from '~/hooks/use-window-dimensions'
 import { useMemo, useState } from 'react'
 import Image from '@readr-media/react-image'
 import { formateHeroImage } from '~/utils'
+import Link from 'next/link'
 
 type ShowListHandlerProps = {
   initShows: Show[]
@@ -73,7 +74,13 @@ export default function ShowListHandler({
       {(renderList) => (
         <ol className={styles.showList}>
           {renderList.map((item) => (
-            <li key={item.id} className={styles.item}>
+            <Link
+              key={item.id}
+              className={styles.item}
+              href={`/show/${item.slug}`}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               <Image
                 key={item.id}
                 loadingImage="/images/loading.svg"
@@ -89,7 +96,7 @@ export default function ShowListHandler({
                   default: '500px',
                 }}
               />
-            </li>
+            </Link>
           ))}
         </ol>
       )}
