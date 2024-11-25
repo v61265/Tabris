@@ -24,7 +24,7 @@ import {
 } from '~/utils'
 import { fetchSales } from '~/app/_actions/share/sales'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
-// import GPTAdStatic from '~/components/ads/gpt/gpt-ad'
+import { SALES_LABEL_NAME } from '~/constants/constant'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -99,7 +99,7 @@ export default async function CategoryPage({
     const response = await fetchSales({ take: 4, pageName: 'category' })
     salePosts =
       response?.data?.allSales?.map((sale) =>
-        formatArticleCard(sale?.adPost, { label: '特企' })
+        formatArticleCard(sale?.adPost, { label: SALES_LABEL_NAME })
       ) ?? []
   } catch (err) {
     // TODO: error handling?

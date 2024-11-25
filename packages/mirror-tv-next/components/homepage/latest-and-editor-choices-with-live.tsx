@@ -6,7 +6,11 @@ import { fetchSales } from '~/app/_actions/share/sales'
 import { formatArticleCard, handleResponse } from '~/utils'
 import { Sale } from '~/graphql/query/sales'
 import { getLatestPostsServerAction } from '~/app/_actions/homepage/latest-posts'
-import { FILTERED_SLUG, HOMEPAGE_POSTS_PAGE_SIZE } from '~/constants/constant'
+import {
+  FILTERED_SLUG,
+  HOMEPAGE_POSTS_PAGE_SIZE,
+  SALES_LABEL_NAME,
+} from '~/constants/constant'
 import { PostWithCategory } from '~/graphql/query/posts'
 import LatestPostListHandler from './latest-post-list-handler'
 import EditorChoicesSwiper from './editor-choices-swiper'
@@ -42,12 +46,11 @@ export default async function LatestAndEditorchoicesWithLive({
     salesPosts = handleResponse(
       responses[1],
       (res: Awaited<ReturnType<typeof fetchSales> | undefined>) => {
-        const salesLableName = '特企'
         res?.data?.allSales.forEach((item) => {
           if (item.adPost.categories.length) {
-            item.adPost.categories[0].name = salesLableName
+            item.adPost.categories[0].name = SALES_LABEL_NAME
           } else {
-            item.adPost.categories.push({ name: salesLableName })
+            item.adPost.categories.push({ name: SALES_LABEL_NAME })
           }
         })
         return res?.data?.allSales ?? []

@@ -1,6 +1,7 @@
 import styles from './_styles/ui-post-card-homepage.module.scss'
 import { formateDateAtTaipei, PostImage } from '~/utils'
 import ResponsiveImage from './responsive-image'
+import { SALES_LABEL_NAME } from '~/constants/constant'
 
 export type UiPostCardProps = {
   title: string
@@ -32,7 +33,7 @@ export default function UiPostCardHomepage({
       {!!label && (
         <span
           className={`${styles.label} ${
-            label === '特企' ? styles.yellowBack : ''
+            label === SALES_LABEL_NAME ? styles.yellowBack : ''
           }}`}
         >
           {label}

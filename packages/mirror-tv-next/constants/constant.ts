@@ -26,6 +26,8 @@ const URL_PROGRAMABLE_SEARCH = 'https://www.googleapis.com/customsearch/v1'
 
 const HOMEPAGE_POSTS_PAGE_SIZE = 12
 
+const SALES_LABEL_NAME = '特企'
+
 export {
   HEADER_BOTTOM_LINKS,
   META_DESCRIPTION,
@@ -33,4 +35,5 @@ export {
   FILTERED_SLUG,
   URL_PROGRAMABLE_SEARCH,
   HOMEPAGE_POSTS_PAGE_SIZE,
+  SALES_LABEL_NAME,
 }
