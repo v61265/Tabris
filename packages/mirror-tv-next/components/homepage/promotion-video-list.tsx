@@ -77,7 +77,7 @@ export default function PromotionVideoList({ title }: PromotionVideoListProps) {
               const youtubeId = extractYoutubeId(video.ytUrl)
               return (
                 <YoutubeEmbed
-                  className={styles.item}
+                  className={`${styles.item} promotion aside__item`}
                   key={video.id}
                   youtubeId={youtubeId}
                   autoplay={false}

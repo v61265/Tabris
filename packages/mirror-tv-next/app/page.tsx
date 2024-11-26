@@ -34,6 +34,7 @@ export default function Home() {
         <MainFlashNews />
       </div>
       <ShowList title="節目" />
+      <GPTAd pageKey="home" adKey="PC_BT" />
       <PopularPostsList title="熱門新聞" />
       <LiveCamList title="直播現場" />
       <PromotionVideoList title="發燒單元" />

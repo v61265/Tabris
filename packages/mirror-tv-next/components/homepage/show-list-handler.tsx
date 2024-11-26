@@ -75,8 +75,9 @@ export default function ShowListHandler({
         <ol className={styles.showList}>
           {renderList.map((item) => (
             <Link
+              id={item.id}
               key={item.id}
-              className={styles.item}
+              className={`${styles.item} show-card__img`}
               href={`/show/${item.slug}`}
               target="_blank"
               rel="noreferrer noopener"
