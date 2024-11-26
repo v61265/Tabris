@@ -34,7 +34,6 @@ export default function CategoryPageLayoutAside() {
           },
         })
       const responses = await Promise.allSettled([fetchLatestPosts()])
-      console.log({ responses })
       const latestPostsData = handleResponse(
         responses[0],
         (
