@@ -95,15 +95,11 @@ export default async function CategoryPage({
   categoryData = await fetchCategoryData(params.slug)
   if (!categoryData.name) return notFound()
 
-  try {
-    const response = await fetchSales({ take: 4, pageName: 'category' })
-    salePosts =
-      response?.data?.allSales?.map((sale) =>
-        formatArticleCard(sale?.adPost, { label: SALES_LABEL_NAME })
-      ) ?? []
-  } catch (err) {
-    // TODO: error handling?
-  }
+  const response = await fetchSales({ take: 4, pageName: 'category' })
+  salePosts =
+    response?.data?.allSales?.map((sale) =>
+      formatArticleCard(sale?.adPost, { label: SALES_LABEL_NAME })
+    ) ?? []
 
   try {
     const {

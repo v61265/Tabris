@@ -8,20 +8,16 @@ export default async function Live() {
   let liveUrl: string = ''
   let liveDesc: string = ''
 
-  try {
-    const response = await getVideo({
-      name: 'mnews-live',
-      take: 1,
-      withDescription: true,
-    })
-    liveUrl =
-      response?.data?.allVideos?.[0]?.youtubeUrl ??
-      response?.data?.allVideos?.[0]?.url ??
-      ''
-    liveDesc = response?.data?.allVideos?.[0]?.description ?? ''
-  } catch (error) {
-    return null
-  }
+  const response = await getVideo({
+    name: 'mnews-live',
+    take: 1,
+    withDescription: true,
+  })
+  liveUrl =
+    response?.data?.allVideos?.[0]?.youtubeUrl ??
+    response?.data?.allVideos?.[0]?.url ??
+    ''
+  liveDesc = response?.data?.allVideos?.[0]?.description ?? ''
 
   if (!liveUrl) {
     return null
