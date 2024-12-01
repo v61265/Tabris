@@ -218,3 +218,11 @@
 .showItem:hover {
   color: $color-yellow;
 }
+
+.hidden {
+  position: fixed;
+  display: flex;
+  opacity: 0;
+  top: -100%;
+  left: -100%;
+}

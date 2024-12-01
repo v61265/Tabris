@@ -1,11 +1,12 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Category } from '~/graphql/query/category'
 import type { Show } from '~/graphql/query/shows'
 import styles from './_styles/nav-items.module.scss'
 import DesktopSearchBar from './desktop-search-bar'
+import useWindowDimensions from '~/hooks/use-window-dimensions'
 
 type NavItemProps = {
   categories: Category[]
@@ -14,10 +15,14 @@ type NavItemProps = {
 
 export default function NavItems({ categories, shows }: NavItemProps) {
   const path = usePathname()
+  const { width } = useWindowDimensions()
 
   const [showRest, setShowRest] = useState(false)
-  const [totalVisibleCategories, setTotalVisibleCategories] = useState(9)
   const [showBox, setShowBox] = useState(false)
+  const [renderedCategoryIndex, setRenderedCategoryIndex] = useState(
+    categories.length
+  )
+  const categoryListRef = useRef<HTMLUListElement>(null)
 
   const handleShowBox = () => {
     setShowBox(true)
@@ -31,29 +36,42 @@ export default function NavItems({ categories, shows }: NavItemProps) {
     setShowRest((prevState) => !prevState)
   }
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth
-      const tabletWidthThreshold = 1200
+  const resetRenderedCategory = () => {
+    const isViewportWidthUpXl = width && width >= 1200
 
-      if (width <= tabletWidthThreshold) {
-        setTotalVisibleCategories(5) // Set totalVisibleCategories to 5 for tablet
+    // Desktop/Tablet view - calculate available space
+    const maxWidth = isViewportWidthUpXl ? 800 : 450
+    const otherItemWidth = isViewportWidthUpXl ? 300 : 160
+    console.log(maxWidth, width)
+
+    let firstLineItemCount = 0
+    let currentWidth = 0
+    const listElement = categoryListRef.current
+    const items = Array.from(listElement?.getElementsByTagName('li') || [])
+
+    for (const item of items) {
+      const itemWidth = item.getBoundingClientRect().width || 0
+      if (currentWidth + itemWidth + otherItemWidth <= maxWidth) {
+        firstLineItemCount++
+        currentWidth += itemWidth
       } else {
-        setTotalVisibleCategories(9) // Set totalVisibleCategories to 9 for PC
+        break
       }
     }
 
-    // Add event listener for resize to detect changes in viewport width
-    window.addEventListener('resize', handleResize)
+    setRenderedCategoryIndex(firstLineItemCount)
+  }
 
-    // Call handleResize once initially to set the correct value on component mount
-    handleResize()
+  useEffect(() => {
+    window.addEventListener('resize', resetRenderedCategory)
+
+    resetRenderedCategory()
 
     // Clean up the event listener on component unmount
     return () => {
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('resize', resetRenderedCategory)
     }
-  }, [])
+  }, [width])
 
   // Splitting shows into multiple columns with 7 shows each
   const columns = []
@@ -68,6 +86,15 @@ export default function NavItems({ categories, shows }: NavItemProps) {
   return (
     <div className={styles.itemWrapper}>
       <div className={styles.navWrapper}>
+        <ul ref={categoryListRef} className={styles.hidden}>
+          {categories.map((category) => {
+            return (
+              <li key={category.id} className={`${styles.li}`}>
+                <span className="category-nav__link">{category.name}</span>
+              </li>
+            )
+          })}
+        </ul>
         <div className={styles.visibleItems}>
           <li
             className={`${styles.li} ${
@@ -78,7 +105,7 @@ export default function NavItems({ categories, shows }: NavItemProps) {
               影音
             </Link>
           </li>
-          {categories.slice(0, totalVisibleCategories).map((category) => {
+          {categories.slice(0, renderedCategoryIndex).map((category) => {
             // Check if the category's slug matches the path
             const isActive = path === `/category/${category.slug}`
 
@@ -123,7 +150,7 @@ export default function NavItems({ categories, shows }: NavItemProps) {
             )}
           </div>
 
-          {categories.length > totalVisibleCategories && (
+          {categories.length > renderedCategoryIndex && (
             <li
               onClick={handleSeeMoreClick}
               className={`${styles.li} ${styles.grey}`}
@@ -132,6 +159,7 @@ export default function NavItems({ categories, shows }: NavItemProps) {
             </li>
           )}
         </div>
+
         <DesktopSearchBar />
       </div>
       <div
@@ -139,7 +167,7 @@ export default function NavItems({ categories, shows }: NavItemProps) {
           showRest ? styles.showRest : ''
         }`}
       >
-        {categories.slice(totalVisibleCategories).map((category) => {
+        {categories.slice(renderedCategoryIndex).map((category) => {
           const isActive = path === `/category/${category.slug}`
 
           return (
