@@ -3,19 +3,21 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import type { Category } from '~/graphql/query/category'
-import type { Show } from '~/graphql/query/shows'
 import styles from './_styles/nav-items.module.scss'
 import DesktopSearchBar from './desktop-search-bar'
 import useWindowDimensions from '~/hooks/use-window-dimensions'
+import { useData } from '~/context/data-context'
+import { Show } from '~/types/header'
 
 type NavItemProps = {
   categories: Category[]
-  shows: Show[]
 }
 
-export default function NavItems({ categories, shows }: NavItemProps) {
+export default function NavItems({ categories }: NavItemProps) {
   const path = usePathname()
   const { width } = useWindowDimensions()
+  const { headerData } = useData()
+  const shows: Show[] = headerData.allShows
 
   const [showRest, setShowRest] = useState(false)
   const [showBox, setShowBox] = useState(false)
