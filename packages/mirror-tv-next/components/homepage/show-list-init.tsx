@@ -1,29 +1,18 @@
+'use client'
 import styles from './_styles/show-list-init.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
-import { getShows } from '~/app/_actions/homepage/shows'
-import { Show } from '~/graphql/query/shows'
 import ShowListHandler from './show-list-handler'
+import { useData } from '~/context/data-context'
+import { Show } from '~/types/header'
 
 type ShowListProps = {
   title: string
 }
 
-export default async function ShowListInit({ title }: ShowListProps) {
-  let initShows: Show[] = []
-  let showsCount: number = 0
-  try {
-    const response:
-      | { data: { allShows: Show[]; _allShowsMeta?: { count: number } } }
-      | undefined = await getShows({
-      take: 12,
-      skip: 0,
-      isGetCount: true,
-    })
-    initShows = response?.data?.allShows ?? []
-    showsCount = response?.data?._allShowsMeta?.count ?? 0
-  } catch {
-    return null
-  }
+export default function ShowListInit({ title }: ShowListProps) {
+  const { headerData } = useData()
+  const initShows: Show[] = headerData.allShows
+  const showsCount: number = headerData.allShows.length
 
   if (!showsCount) return null
 
