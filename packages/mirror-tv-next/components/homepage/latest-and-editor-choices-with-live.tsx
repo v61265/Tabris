@@ -15,6 +15,8 @@ import { PostWithCategory } from '~/graphql/query/posts'
 import LatestPostListHandler from './latest-post-list-handler'
 import EditorChoicesSwiper from './editor-choices-swiper'
 import Live from './live'
+import dynamic from 'next/dynamic'
+const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 
 type LatestAndEditorchoicesWithLiveProps = {
   latestListTitle: string
@@ -95,6 +97,7 @@ export default async function LatestAndEditorchoicesWithLive({
         <Live />
         <EditorChoicesSwiper editorChoices={editorChoices} />
       </section>
+      <GPTAd pageKey="home" adKey="MB_M2" />
       <section className={styles.latest}>
         <UiHeadingBordered
           title={latestListTitle}

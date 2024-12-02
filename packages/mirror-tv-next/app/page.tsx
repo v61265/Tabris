@@ -35,11 +35,14 @@ export default function Home() {
         <MainFlashNews />
       </div>
       <LatestAndEditorchoicesWithLive latestListTitle="即時新聞" />
-      <ShowList title="節目" />
       <GPTAd pageKey="home" adKey="PC_BT" />
+      <GPTAd pageKey="home" adKey="MB_M3" />
       <PopularPostsList title="熱門新聞" />
       <LiveCamList title="直播現場" />
       <PromotionVideoList title="發燒單元" />
+      <ShowList title="節目" />
+      <GPTAd pageKey="home" adKey="PC_BT2" />
+      <GPTAd pageKey="home" adKey="MB_M4" />
       <TopicList title="推薦專題" />
     </main>
   )
