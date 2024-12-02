@@ -36,12 +36,18 @@ export default function LatestPostListHandler({
       amountOfElements={postsCount}
       fetchListInPage={fetchMorePosts}
       isAutoFetch={false}
-      loader={<button className={styles.load}>看更多</button>}
+      loader={
+        <button
+          className={`${styles.load} g-button-load-more button-load-more`}
+        >
+          看更多
+        </button>
+      }
     >
       {(renderList) => (
         <ol className={styles.list}>
           {renderList.map((postItem) => (
-            <li key={postItem.slug} className={styles.item}>
+            <ol key={postItem.slug} className={`${styles.item} list-latest`}>
               <UiPostCardHomepage
                 href={postItem.href}
                 images={postItem.images}
@@ -50,7 +56,7 @@ export default function LatestPostListHandler({
                 postStyle={postItem.style}
                 label={postItem.label}
               />
-            </li>
+            </ol>
           ))}
         </ol>
       )}

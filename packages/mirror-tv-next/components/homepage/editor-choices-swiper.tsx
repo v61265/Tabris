@@ -68,12 +68,15 @@ export default function EditorChoicesSwiper({
             mousewheel={true}
             keyboard={true}
             modules={[Autoplay, Pagination, Navigation, Mousewheel, Keyboard]}
-            className={styles.swiper}
+            className={`${styles.swiper} editor-choices-swiper`}
           >
             {editorChoices.map((item) => {
               const { choice } = item
               return (
-                <SwiperSlide key={choice.slug} className={styles.swiperSlide}>
+                <SwiperSlide
+                  key={choice.slug}
+                  className={`${styles.swiperSlide}`}
+                >
                   <a
                     className={styles.imageContainer}
                     href={`/story/${choice.slug}`}

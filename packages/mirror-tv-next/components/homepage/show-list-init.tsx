@@ -32,7 +32,7 @@ export default async function ShowListInit({ title }: ShowListProps) {
       <div className={styles.titleWrapper}>
         <UiHeadingBordered title={title} className={styles.listTitle} />
       </div>
-      <div className={styles.list}>
+      <div className={`${styles.list} show-list`}>
         <ShowListHandler initShows={initShows} showsCount={showsCount} />
       </div>
     </section>
