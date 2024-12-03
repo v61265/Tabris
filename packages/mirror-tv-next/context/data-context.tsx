@@ -1,6 +1,6 @@
 'use client'
 import { createContext, useContext, useState, ReactNode } from 'react'
-import { HeaderData } from '~/types/header'
+import type { HeaderData } from '~/types/header'
 import type { RawPopularPost } from '~/types/popular-post'
 
 type DataContextType = {

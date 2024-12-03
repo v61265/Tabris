@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 import Image from '@readr-media/react-image'
 import { formateHeroImage } from '~/utils'
 import Link from 'next/link'
-import { Show } from '~/types/header'
+import type { Show } from '~/types/header'
 
 type ShowListHandlerProps = {
   initShows: Show[]

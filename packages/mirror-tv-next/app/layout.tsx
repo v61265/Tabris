@@ -17,7 +17,7 @@ import CompassFit from '~/components/ads/compass-fit'
 import TagManagerWrapper from './tag-manager'
 import { fetchPopularPosts } from '~/app/_actions/popular-data'
 import { RawPopularPost } from '~/types/popular-post'
-import { HeaderData } from '~/types/header'
+import type { HeaderData } from '~/types/header'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -45,7 +45,11 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   let initialPopularPosts: RawPopularPost[] = []
-  let initialHeaderData: HeaderData = {} as HeaderData
+  let initialHeaderData: HeaderData = {
+    allCategories: [],
+    allShows: [],
+    allSponsors: [],
+  }
 
   try {
     const { data } = await fetchPopularPosts()

@@ -7,7 +7,7 @@ import styles from './_styles/nav-items.module.scss'
 import DesktopSearchBar from './desktop-search-bar'
 import useWindowDimensions from '~/hooks/use-window-dimensions'
 import { useData } from '~/context/data-context'
-import { Show } from '~/types/header'
+import type { Show } from '~/types/header'
 
 type NavItemProps = {
   categories: Category[]

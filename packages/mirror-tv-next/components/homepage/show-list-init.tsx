@@ -3,7 +3,7 @@ import styles from './_styles/show-list-init.module.scss'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
 import ShowListHandler from './show-list-handler'
 import { useData } from '~/context/data-context'
-import { Show } from '~/types/header'
+import type { Show } from '~/types/header'
 
 type ShowListProps = {
   title: string
