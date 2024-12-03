@@ -49,7 +49,7 @@ export default function EditorChoicesSwiper({
   return (
     <section className={styles.container}>
       <div>
-        <div className={styles.swiperContainer}>
+        <div className={`${styles.swiperContainer} editor-choices-wrapper`}>
           <Swiper
             cssMode={true}
             slidesPerView={1}
@@ -75,7 +75,7 @@ export default function EditorChoicesSwiper({
               return (
                 <SwiperSlide
                   key={choice.slug}
-                  className={`${styles.swiperSlide}`}
+                  className={`${styles.swiperSlide} editor-choices-wrapper`}
                 >
                   <a
                     className={styles.imageContainer}

@@ -38,7 +38,7 @@ export default function LatestPostListHandler({
       isAutoFetch={false}
       loader={
         <button
-          className={`${styles.load} g-button-load-more button-load-more`}
+          className={`${styles.load} load-more g-button-load-more button-load-more`}
         >
           看更多
         </button>

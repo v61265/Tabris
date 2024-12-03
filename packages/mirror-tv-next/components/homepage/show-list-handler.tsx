@@ -42,12 +42,12 @@ export default function ShowListHandler({
       key={pageSize}
     >
       {(renderList) => (
-        <ol className={styles.showList}>
+        <ol className={`${styles.showList} show-list`}>
           {renderList.map((item) => (
             <Link
               id={item.id}
               key={item.id}
-              className={`${styles.item} show-card__img`}
+              className={`${styles.item} `}
               href={`/show/${item.slug}`}
               target="_blank"
               rel="noreferrer noopener"
