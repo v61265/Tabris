@@ -126,10 +126,15 @@
 .liRest {
   padding: 0 10px;
   position: relative;
+
   @include media-breakpoint-up(md) {
     color: #a6a6a6;
     margin: 0;
     padding: 0 14px;
+    font-size: 14px;
+  }
+  @include media-breakpoint-up(xl) {
+    font-size: 16px;
   }
 }
 
