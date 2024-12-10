@@ -16,6 +16,8 @@ import CompassFit from '~/components/ads/compass-fit'
 import TagManagerWrapper from './tag-manager'
 import { fetchPopularPosts } from '~/app/_actions/popular-data'
 import { RawPopularPost } from '~/types/popular-post'
+import getLatestPostsForAside from './_actions/category/get-latest-posts'
+import { PostCardItem } from '~/graphql/query/posts'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -43,12 +45,22 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   let initialPopularPosts: RawPopularPost[] = []
+  let initialLatestPosts: PostCardItem[] = []
 
   try {
     const { data } = await fetchPopularPosts()
     initialPopularPosts = data.report
   } catch (error) {
     console.error('Failed to fetch popular posts:', error)
+  }
+  // TODO: refactor for more efficient code
+  try {
+    const response = await getLatestPostsForAside()
+    const { data } = response
+    const { allPosts } = data
+    initialLatestPosts = allPosts
+  } catch (error) {
+    console.error('failed to fetch the initialLatestPosts', error)
   }
 
   return (
@@ -108,7 +120,10 @@ export default async function RootLayout({
         })();`}
       </Script>
       <body>
-        <DataProvider initialPopularPosts={initialPopularPosts}>
+        <DataProvider
+          initialPopularPosts={initialPopularPosts}
+          initialLatestPosts={initialLatestPosts}
+        >
           <MainHeader />
           <TagManagerWrapper />
           {children}
