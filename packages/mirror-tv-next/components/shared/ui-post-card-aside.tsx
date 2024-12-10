@@ -7,7 +7,7 @@ type UiPostCardAsideProps = {
   date: Date
   href: string
   postStyle: string
-  page: 'category' | 'stroy'
+  page: 'category' | 'story'
   images: PostImage
 }
 
@@ -39,7 +39,7 @@ export default function UiPostCardAside({
       </figure>
       <div className={styles.info}>
         <span className={styles.title}>{title}</span>
-        {page === 'stroy' && (
+        {page === 'story' && (
           <span className={styles.date}>
             {formateDateAtTaipei(date, 'YYYY.MM.DD HH:mm', '')}
           </span>
