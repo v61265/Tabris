@@ -1,0 +1,29 @@
+@import "/styles/theme/breakpoints";
+@import "/styles/theme/variable";
+.story {
+    margin: 0 auto;
+    min-height: calc(100dvh - 50px); // header height
+    padding: 86px 16px 48px;
+    @include media-breakpoint-up(md) {
+        min-height: calc(100dvh - 152px); // header height
+        max-width: 688px;
+        padding: 28px 0 50px;
+    }
+    @include media-breakpoint-up(xl) {
+        max-width: 1120px;
+        display: flex;
+    }
+    @include media-breakpoint-up(xxl) {
+        max-width: 1200px;
+    }
+}
+
+.microAd {
+    margin: 40px 0;
+    @include media-breakpoint-up(mb) {
+        margin: 0;
+    }
+    @include media-breakpoint-up(xl) {
+        margin: 48px 0;
+    }
+}
