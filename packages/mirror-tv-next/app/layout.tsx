@@ -47,21 +47,27 @@ export default async function RootLayout({
   let initialPopularPosts: RawPopularPost[] = []
   let initialLatestPosts: PostCardItem[] = []
 
-  try {
-    const { data } = await fetchPopularPosts()
-    initialPopularPosts = data.report
-  } catch (error) {
-    console.error('Failed to fetch popular posts:', error)
-  }
-  // TODO: refactor for more efficient code
-  try {
-    const response = await getLatestPostsForAside()
-    const { data } = response
-    const { allPosts } = data
-    initialLatestPosts = allPosts
-  } catch (error) {
-    console.error('failed to fetch the initialLatestPosts', error)
-  }
+  const popularPostsPromise = fetchPopularPosts()
+    .then(({ data }) => data.report)
+    .catch((error) => {
+      console.error('Failed to fetch popular posts:', error)
+      return []
+    })
+  const latestPostsPromise = getLatestPostsForAside()
+    .then(({ data }) => data.allPosts)
+    .catch((error) => {
+      console.error('Failed to fetch latest posts:', error)
+      return []
+    })
+  const [popularPostsResult, latestPostsResult] = await Promise.allSettled([
+    popularPostsPromise,
+    latestPostsPromise,
+  ])
+  initialPopularPosts =
+    popularPostsResult.status === 'fulfilled' ? popularPostsResult.value : []
+
+  initialLatestPosts =
+    latestPostsResult.status === 'fulfilled' ? latestPostsResult.value : []
 
   return (
     <html lang="zh-Hant" className={`${noto_sans.variable} `}>
