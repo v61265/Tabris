@@ -9,6 +9,7 @@ import { META_DESCRIPTION, SITE_TITLE } from '~/constants/constant'
 import {
   GLOBAL_CACHE_SETTING,
   GTM_ID,
+  HEADER_JSON_URL,
   SITE_URL,
 } from '~/constants/environment-variables'
 import '../styles/global.css'
@@ -18,6 +19,7 @@ import { fetchPopularPosts } from '~/app/_actions/popular-data'
 import { RawPopularPost } from '~/types/popular-post'
 import getLatestPostsForAside from './_actions/category/get-latest-posts'
 import { PostCardItem } from '~/graphql/query/posts'
+import type { HeaderData } from '~/types/header'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -46,6 +48,11 @@ export default async function RootLayout({
 }) {
   let initialPopularPosts: RawPopularPost[] = []
   let initialLatestPosts: PostCardItem[] = []
+  let initialHeaderData: HeaderData = {
+    allCategories: [],
+    allShows: [],
+    allSponsors: [],
+  }
 
   const popularPostsPromise = fetchPopularPosts()
     .then(({ data }) => data.report)
@@ -68,6 +75,18 @@ export default async function RootLayout({
 
   initialLatestPosts =
     latestPostsResult.status === 'fulfilled' ? latestPostsResult.value : []
+
+  try {
+    const data = await fetch(HEADER_JSON_URL, {
+      next: { revalidate: GLOBAL_CACHE_SETTING },
+    }).then((res) => {
+      // use type assertion to eliminate any
+      return res.json() as unknown as HeaderData
+    })
+    initialHeaderData = data
+  } catch (error) {
+    console.error('Failed to fetch popular posts:', error)
+  }
 
   return (
     <html lang="zh-Hant" className={`${noto_sans.variable} `}>
@@ -129,6 +148,7 @@ export default async function RootLayout({
         <DataProvider
           initialPopularPosts={initialPopularPosts}
           initialLatestPosts={initialLatestPosts}
+          initialHeaderData={initialHeaderData}
         >
           <MainHeader />
           <TagManagerWrapper />
