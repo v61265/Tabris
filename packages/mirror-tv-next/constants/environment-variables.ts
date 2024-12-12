@@ -10,6 +10,8 @@ let POPULAR_POSTS_URL: string
 let POPULAR_VIDEOS_JSON_URL: string
 let YOUTUBE_API_URL: string
 let FEATURE_POSTS_URL: string
+const HOMEPAGE_SON_URL: string =
+  'https://storage.googleapis.com/static-mnews-tw-dev/files/json/topic_video.json'
 
 switch (ENV) {
   case 'prod':
@@ -82,4 +84,5 @@ export {
   POPULAR_VIDEOS_JSON_URL,
   YOUTUBE_API_URL,
   FEATURE_POSTS_URL,
+  HOMEPAGE_SON_URL,
 }
