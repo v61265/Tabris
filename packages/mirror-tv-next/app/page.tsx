@@ -79,7 +79,7 @@ export default async function Home() {
       />
       <PromotionVideoList
         title="發燒單元"
-        allPromotionVideos={homepageJsonData.allPromotionVideos}
+        allPromotionVideos={homepageJsonData.allPromotionVideos?.slice(0, 4)}
       />
       <ShowList title="節目" />
       <GPTAd pageKey="home" adKey="PC_BT2" />
