@@ -10,7 +10,7 @@ type QueryType = {
 /**
  * Fetches the latest 5 posts to be displayed in the aside section in category page.
  */
-export default async function getLatestPostsForAside() {
+export async function getLatestPostsForAside() {
   const client = getClient()
   const firstNItems = 5
   const filteredSlugList: string[] = []
@@ -22,8 +22,7 @@ export default async function getLatestPostsForAside() {
     },
   }
 
-  const fetchLatestPosts = async () => client.query<QueryType>(queryArgs)
-  const responses = await fetchLatestPosts()
+  const responses = await client.query<QueryType>(queryArgs)
 
   return responses
 }
