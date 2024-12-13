@@ -1,5 +1,3 @@
-import React from 'react'
-
 type StoryPageTypes = {
   params: { slug: string }
 }

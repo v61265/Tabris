@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 
 import styles from './_styles/aside.module.scss'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
