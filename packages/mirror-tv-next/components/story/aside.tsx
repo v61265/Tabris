@@ -16,7 +16,7 @@ const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 // NOTE: for revalidate the data in <Aside>
 export const revalidate = GLOBAL_CACHE_SETTING
 
-const Aside = () => {
+const Aside: React.FC = () => {
   const asideCategory = 'story'
   const { popularPosts, latestPosts } = useData()
 
