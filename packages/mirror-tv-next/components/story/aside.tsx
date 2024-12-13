@@ -7,7 +7,7 @@ import { pipe } from '~/utils/fp'
 import UiListPostsAside from '../shared/ui-list-posts-aside'
 import { useData } from '~/context/data-context'
 import { formatArticleCard, type FormattedPostCard } from '~/utils'
-import { PostCardItem } from '~/graphql/query/posts'
+import { type PostCardItem } from '~/graphql/query/posts'
 import MicroAd from '../ads/micro-ad'
 import dynamic from 'next/dynamic'
 
