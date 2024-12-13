@@ -1,7 +1,7 @@
 'use server'
 
 import { getClient } from '~/apollo-client'
-import { getLatestPosts, PostCardItem } from '~/graphql/query/posts'
+import { getLatestPosts, type PostCardItem } from '~/graphql/query/posts'
 
 type QueryType = {
   allPosts: PostCardItem[]
