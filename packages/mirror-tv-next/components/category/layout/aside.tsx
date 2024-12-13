@@ -1,6 +1,6 @@
 'use client'
 import styles from './_styles/aside.module.scss'
-import { formatArticleCard, FormattedPostCard } from '~/utils'
+import { formatArticleCard, type FormattedPostCard } from '~/utils'
 import UiListPostsAside from '~/components/shared/ui-list-posts-aside'
 
 import dynamic from 'next/dynamic'
