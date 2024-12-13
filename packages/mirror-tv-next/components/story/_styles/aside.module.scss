@@ -1,4 +1,4 @@
-@import '/styles/theme/breakpoints';
+@import "/styles/theme/breakpoints";
 
 .aside {
   display: flex;
@@ -23,12 +23,6 @@
 .microAd {
   @include media-breakpoint-up(md) {
     margin: 48px 0;
-  }
-}
-
-.latestList {
-  @include media-breakpoint-up(md) {
-    margin-top: 24px;
   }
 }
 
