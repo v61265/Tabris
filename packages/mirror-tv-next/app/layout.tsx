@@ -17,7 +17,7 @@ import CompassFit from '~/components/ads/compass-fit'
 import TagManagerWrapper from './tag-manager'
 import { fetchPopularPosts } from '~/app/_actions/popular-data'
 import { RawPopularPost } from '~/types/popular-post'
-import getLatestPostsForAside from './_actions/category/get-latest-posts'
+import { getLatestPostsForAside } from './_actions/category/get-latest-posts'
 import { PostCardItem } from '~/graphql/query/posts'
 import type { HeaderData } from '~/types/header'
 
