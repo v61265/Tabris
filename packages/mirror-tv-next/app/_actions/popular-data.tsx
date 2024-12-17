@@ -21,7 +21,7 @@ async function fetchPopularPosts() {
     // Ensure data is parsed and not referencing the original object
     // https://github.com/vercel/next.js/issues/47447
 
-    return { data } as { data: RawPopularPost[] }
+    return { data: data.reprt } as { data: RawPopularPost[] }
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
