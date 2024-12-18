@@ -5,7 +5,7 @@ import {
   POPULAR_POSTS_URL,
 } from '~/constants/environment-variables'
 import { type RawPopularPost } from '~/types/popular-post'
-async function fetchPopularPosts() {
+async function fetchPopularPosts(): Promise<{ data: RawPopularPost[] }> {
   try {
     const res = await fetch(POPULAR_POSTS_URL, {
       next: { revalidate: GLOBAL_CACHE_SETTING },
@@ -21,7 +21,7 @@ async function fetchPopularPosts() {
     // Ensure data is parsed and not referencing the original object
     // https://github.com/vercel/next.js/issues/47447
 
-    return { data: data.reprt } as { data: RawPopularPost[] }
+    return { data: data.reprt }
   } catch (err) {
     const annotatingError = errors.helpers.wrap(
       err,
