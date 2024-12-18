@@ -24,8 +24,8 @@ export default async function StoryPageLayout({
             fetchStoryBySlugResponse,
           })}
           <section className={styles.socialAndRelatedWrapper}>
-            <ArticleSocilaList />
             <ArticleRelatedPosts relatedPosts={relatedPosts} />
+            <ArticleSocilaList />
           </section>
         </main>
         <Aside />
