@@ -1,47 +1,50 @@
 import Image from 'next/image'
 import styles from './_styles/article-social-list.module.scss'
 import Link from 'next/link'
+import { socialMediaConfig, socialMediaOrder } from '~/constants/social-medial'
 
-const listData = [
-  {
-    href: 'https://www.facebook.com/mnewstw',
-    image: '/images/social-media/fb-round.svg',
-    type: 'facebook',
-  },
-  {
-    href: 'https://www.instagram.com/mnewstw/',
-    image: '/images/social-media/ig-round.svg',
-    type: 'instagram',
-  },
-  {
-    href: 'https://www.youtube.com/channel/UC4LjkybVKXCDlneVXlKAbmw',
-    image: '/images/social-media/yt-round.svg',
-    type: 'youtube',
-  },
-  {
-    href: 'https://lin.ee/4XsO8xi',
-    image: '/images/social-media/line-round.svg',
-    type: 'line',
-  },
-  {
-    href: 'https://twitter.com/mnews_tw',
-    image: '/images/social-media/twitter-round.svg',
-    type: 'twitter',
-  },
-]
 const ArticleSocilaList = () => {
   return (
     <div className={styles.followUsWrapper}>
       <p className={styles.followUs}>追蹤我們</p>
       <br className={styles.desktopOnly} />
       <ul className={styles.socialMediaList}>
-        {listData.map((item) => (
-          <li key={item.type}>
-            <Link href={item.href}>
-              <Image alt={item.type} src={item.image} width={50} height={50} />
-            </Link>
-          </li>
-        ))}
+        {socialMediaOrder.map((socialMedia) => {
+          const socialMediaData = socialMediaConfig[socialMedia]
+          const imageSize = 50
+          const defaultImageSrc = '/images/image-default.jpg'
+
+          if (!socialMediaData) {
+            // 若無對應資料，使用預設圖片
+            const defaultImageConfig = {
+              alt: socialMedia,
+              src: defaultImageSrc,
+              width: imageSize,
+              height: imageSize,
+            }
+            return (
+              <li key={socialMedia}>
+                <Image {...defaultImageConfig} />
+              </li>
+            )
+          }
+
+          const { image, href } = socialMediaData
+          const imageConfig = {
+            alt: socialMedia,
+            src: image || defaultImageSrc,
+            width: imageSize,
+            height: imageSize,
+          }
+
+          return (
+            <li key={socialMedia}>
+              <Link href={href}>
+                <Image {...imageConfig} />
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )
