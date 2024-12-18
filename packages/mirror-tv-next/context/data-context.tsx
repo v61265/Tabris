@@ -1,6 +1,6 @@
 'use client'
 import { createContext, useContext, useState, ReactNode } from 'react'
-import { PostCardItem } from '~/graphql/query/posts'
+import { type PostCardItem } from '~/graphql/query/posts'
 import type { HeaderData } from '~/types/header'
 import type { RawPopularPost } from '~/types/popular-post'
 

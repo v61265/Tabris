@@ -1,5 +1,5 @@
 import errors from '@twreporter/errors'
-import { PostCardItem } from '~/graphql/query/posts'
+import { type PostCardItem } from '~/graphql/query/posts'
 import styles from '~/styles/pages/tag-page.module.scss'
 import {
   GLOBAL_CACHE_SETTING,
