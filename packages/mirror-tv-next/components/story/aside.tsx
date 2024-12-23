@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 
 import styles from './_styles/aside.module.scss'
 import { GLOBAL_CACHE_SETTING } from '~/constants/environment-variables'
@@ -7,7 +6,7 @@ import { pipe } from '~/utils/fp'
 import UiListPostsAside from '../shared/ui-list-posts-aside'
 import { useData } from '~/context/data-context'
 import { formatArticleCard, type FormattedPostCard } from '~/utils'
-import { PostCardItem } from '~/graphql/query/posts'
+import { type PostCardItem } from '~/graphql/query/posts'
 import MicroAd from '../ads/micro-ad'
 import dynamic from 'next/dynamic'
 
@@ -16,7 +15,7 @@ const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 // NOTE: for revalidate the data in <Aside>
 export const revalidate = GLOBAL_CACHE_SETTING
 
-const Aside = () => {
+const Aside: React.FC = () => {
   const asideCategory = 'story'
   const { popularPosts, latestPosts } = useData()
 

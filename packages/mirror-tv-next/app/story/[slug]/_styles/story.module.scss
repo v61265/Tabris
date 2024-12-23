@@ -3,14 +3,14 @@
 .wrapper {
   margin: 0 auto;
   @include media-breakpoint-up(md) {
-    max-width: 600px;
+    max-width: $story-wrapper-max-width-md;
   }
   @include media-breakpoint-up(xl) {
-    max-width: 1080px;
+    max-width: $header-max-width-xl;
     display: flex;
   }
   @include media-breakpoint-up(xxl) {
-    max-width: 1080px;
+    max-width: $header-max-width-xl;
   }
 }
 
@@ -21,15 +21,15 @@
 
   @include media-breakpoint-up(md) {
     min-height: calc(100dvh - 152px); // header height
-    max-width: 688px;
+    max-width: $header-max-width-md;
     padding: 28px 0 50px;
   }
   @include media-breakpoint-up(xl) {
-    max-width: 1120px;
+    max-width: $max-width-xl;
     display: flex;
   }
   @include media-breakpoint-up(xxl) {
-    max-width: 1200px;
+    max-width: $max-width-xxl;
   }
 }
 
@@ -43,11 +43,11 @@
     max-width: 600px;
   }
   @include media-breakpoint-up(xl) {
-    max-width: 1080px;
+    max-width: $max-width-xl;
     display: flex;
   }
   @include media-breakpoint-up(xxl) {
-    max-width: 1080px;
+    max-width: $max-width-xxl;
   }
 }
 
