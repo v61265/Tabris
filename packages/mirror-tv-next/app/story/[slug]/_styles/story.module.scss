@@ -21,7 +21,7 @@
 
   @include media-breakpoint-up(md) {
     min-height: calc(100dvh - 152px); // header height
-    max-width: $header-max-width-md;
+    max-width: $story-max-width-md;
     padding: 28px 0 50px;
   }
   @include media-breakpoint-up(xl) {
