@@ -23,7 +23,7 @@ export async function fetchStoryBySlug(
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching category data in category page'
+      'Error occurs while fetching slug data in story page'
     )
 
     console.error(
