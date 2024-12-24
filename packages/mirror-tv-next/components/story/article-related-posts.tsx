@@ -1,4 +1,3 @@
-import React from 'react'
 import UiHeadingBordered from '../shared/ui-heading-bordered'
 import { Post } from '~/graphql/query/story'
 

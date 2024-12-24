@@ -1,4 +1,3 @@
-import React from 'react'
 import ArticleRelatedPosts from '~/components/story/article-related-posts'
 import ArticleSocialList from '~/components/story/article-social-list'
 
