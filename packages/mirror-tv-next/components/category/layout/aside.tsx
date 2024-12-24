@@ -1,11 +1,11 @@
 'use client'
 import styles from './_styles/aside.module.scss'
-import { formatArticleCard, FormattedPostCard } from '~/utils'
+import { formatArticleCard, type FormattedPostCard } from '~/utils'
 import UiListPostsAside from '~/components/shared/ui-list-posts-aside'
 
 import dynamic from 'next/dynamic'
 import { useData } from '~/context/data-context'
-import { PostCardItem } from '~/graphql/query/posts'
+import { type PostCardItem } from '~/graphql/query/posts'
 import { pipe } from '~/utils/fp'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 const MicroAd = dynamic(() => import('~/components/ads/micro-ad'))

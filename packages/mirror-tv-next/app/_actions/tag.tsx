@@ -1,7 +1,7 @@
 'use server'
 import { FILTERED_SLUG } from '~/constants/constant'
 import errors from '@twreporter/errors'
-import { getPostsByTagName, PostCardItem } from '~/graphql/query/posts'
+import { getPostsByTagName, type PostCardItem } from '~/graphql/query/posts'
 import { getClient } from '~/apollo-client'
 
 type FetchMoreItemsType = {
