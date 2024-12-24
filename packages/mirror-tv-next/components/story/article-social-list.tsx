@@ -29,7 +29,7 @@ const listData = [
     type: 'twitter',
   },
 ]
-const ArticleSocilaList = () => {
+const ArticleSocialList = () => {
   return (
     <div className={styles.followUsWrapper}>
       <p className={styles.followUs}>追蹤我們</p>
@@ -46,4 +46,4 @@ const ArticleSocilaList = () => {
     </div>
   )
 }
-export default ArticleSocilaList
+export default ArticleSocialList
