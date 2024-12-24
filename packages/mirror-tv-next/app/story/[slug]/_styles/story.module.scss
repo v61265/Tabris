@@ -6,11 +6,11 @@
     max-width: $story-wrapper-max-width-md;
   }
   @include media-breakpoint-up(xl) {
-    max-width: $header-max-width-xl;
+    max-width: $story-max-width-xl;
     display: flex;
   }
   @include media-breakpoint-up(xxl) {
-    max-width: $header-max-width-xl;
+    max-width: $story-max-width-xl;
   }
 }
 
