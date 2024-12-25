@@ -5,7 +5,7 @@ interface SocialMediaConfig {
   }
 }
 
-const socialMediaConfig: SocialMediaConfig = {
+const socialMediaConfig = {
   facebook: {
     href: 'https://www.facebook.com/mnewstw',
     image: '/images/social-media/fb-round.svg',
