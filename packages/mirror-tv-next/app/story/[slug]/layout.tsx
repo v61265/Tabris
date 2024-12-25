@@ -2,7 +2,7 @@ import Aside from '~/components/story/aside'
 import styles from './_styles/story.module.scss'
 import { cloneElement } from 'react'
 
-export default async function StoryPageLayout({
+export default function StoryPageLayout({
   children,
 }: {
   children: React.ReactNode
