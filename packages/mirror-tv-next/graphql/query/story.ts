@@ -78,60 +78,6 @@ export interface FetchStoryBySlugResponse {
 const fetchStoryBySlug = gql`
   query fetchStoryBySlug($slug: String!) {
     allPosts(where: { slug: $slug, state_not_in: invisible }) {
-      style
-      state
-      title: name
-      brief
-      briefApiData
-      contentApiData
-      publishTime
-      updatedAt
-      source
-      isAdult
-      heroImage {
-        original: urlOriginal
-        tiny: urlTinySized
-        mobile: urlMobileSized
-        tablet: urlTabletSized
-        desktop: urlDesktopSized
-        urlOriginal
-      }
-      heroVideo {
-        youtubeUrl
-      }
-      heroCaption
-      categories {
-        slug
-        title: name
-      }
-      writers {
-        name
-        slug
-      }
-      photographers {
-        name
-        slug
-      }
-      cameraOperators {
-        name
-        slug
-      }
-      designers {
-        name
-        slug
-      }
-      engineers {
-        name
-        slug
-      }
-      vocals {
-        name
-        slug
-      }
-      otherbyline
-      tags {
-        name
-      }
       relatedPosts(where: { state: published }) {
         slug
         name
@@ -142,11 +88,6 @@ const fetchStoryBySlug = gql`
           desktop: urlDesktopSized
           urlOriginal
         }
-      }
-      download {
-        id
-        title: name
-        url
       }
     }
   }
