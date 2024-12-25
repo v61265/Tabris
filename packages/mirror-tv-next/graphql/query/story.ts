@@ -81,13 +81,6 @@ const fetchStoryBySlug = gql`
       relatedPosts(where: { state: published }) {
         slug
         name
-        heroImage {
-          tiny: urlTinySized
-          mobile: urlMobileSized
-          tablet: urlTabletSized
-          desktop: urlDesktopSized
-          urlOriginal
-        }
       }
     }
   }
