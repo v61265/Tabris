@@ -51,15 +51,6 @@
   }
 }
 
-.microAd {
-  margin: 40px 0;
-  @include media-breakpoint-up(md) {
-    margin: 0;
-  }
-  @include media-breakpoint-up(xl) {
-    margin: 48px 0;
-  }
-}
 .socialAndRelatedWrapper {
   display: flex;
   flex-direction: column;
