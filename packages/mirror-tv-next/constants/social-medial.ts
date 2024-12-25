@@ -26,8 +26,14 @@ const socialMediaConfig: SocialMediaConfig = {
     href: 'https://twitter.com/mnews_tw',
     image: '/images/social-media/twitter-round.svg',
   },
-}
+} as const satisfies SocialMediaConfig
 
-const socialMediaOrder = ['facebook', 'instagram', 'youtube', 'line', 'twitter']
+const socialMediaOrder = [
+  'facebook',
+  'instagram',
+  'youtube',
+  'line',
+  'twitter',
+] as const
 
 export { socialMediaConfig, socialMediaOrder }
