@@ -3,6 +3,7 @@ import { formateHeroImage } from './image-handler'
 import type { PostCardItem, PostWithCategory } from '~/graphql/query/posts'
 import { FeaturePost } from '~/types/api-data'
 import type { PostImage } from '~/utils/image-handler'
+import { HeroImage } from '~/types/common'
 
 export type FormattedPostCard = {
   href: string
@@ -15,6 +16,40 @@ export type FormattedPostCard = {
   __typeName?: string
 }
 
+type FormatArticleCardInput = {
+  slug: string
+  name: string
+  publishTime: string | Date
+  heroImage?: HeroImage | null
+  ogImage?: HeroImage | null
+  thumbnail?: string | null
+  style?: string
+  categories?: { name: string }[]
+  __typename?: string
+}
+
+function mapToFormatArticleCardInput(
+  post:
+    | PostCardItem
+    | FeaturePost
+    | PostWithCategory
+    | External
+    | FormattedPostCard
+): FormatArticleCardInput {
+  return {
+    slug: post.slug,
+    name: post.name,
+    publishTime: post.publishTime,
+    heroImage: 'heroImage' in post ? post.heroImage : null,
+    ogImage: 'ogImage' in post ? post.ogImage : null,
+    thumbnail: 'thumbnail' in post ? post.thumbnail : null,
+    style: 'style' in post ? post.style : undefined,
+    categories: 'categories' in post ? post.categories : undefined,
+    __typename:
+      '__typename' in post ? String(post['__typename'] ?? '') : undefined,
+  }
+}
+
 const formatArticleCard = (
   post:
     | PostCardItem
@@ -22,31 +57,28 @@ const formatArticleCard = (
     | PostWithCategory
     | External
     | FormattedPostCard,
-  options?: { label?: string | undefined }
+  options?: { label?: string }
 ): FormattedPostCard => {
+  const postFormatArticleCardInput: FormatArticleCardInput =
+    mapToFormatArticleCardInput(post)
   const imageObj =
-    'heroImage' in post
-      ? post.heroImage
-      : 'ogImage' in post
-      ? post.ogImage ?? {}
-      : (post as External).thumbnail
-      ? { urlOriginal: (post as External).thumbnail }
-      : {}
-  const typeName = '__typename' in post ? String(post['__typename'] ?? '') : ''
+    postFormatArticleCardInput.heroImage ??
+    postFormatArticleCardInput.ogImage ??
+    (postFormatArticleCardInput.thumbnail
+      ? { urlOriginal: postFormatArticleCardInput.thumbnail }
+      : {})
   return {
     href:
-      typeName === 'External'
+      postFormatArticleCardInput.__typename === 'External'
         ? `/external/${post.slug}`
         : `/story/${post.slug}`,
-    slug: post.slug,
-    style: 'style' in post ? post.style : 'article',
-    name: post.name,
-    images: formateHeroImage(imageObj ?? {}),
-    publishTime: new Date(post.publishTime),
-    label:
-      options?.label ||
-      (post as FeaturePost | PostWithCategory).categories?.[0]?.name,
-    __typeName: typeName,
+    slug: postFormatArticleCardInput.slug,
+    style: postFormatArticleCardInput.style ?? 'article',
+    name: postFormatArticleCardInput.name,
+    images: formateHeroImage(imageObj),
+    publishTime: new Date(postFormatArticleCardInput.publishTime),
+    label: options?.label || postFormatArticleCardInput.categories?.[0]?.name,
+    __typeName: postFormatArticleCardInput.__typename ?? '',
   }
 }
 
