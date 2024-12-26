@@ -1,39 +1,37 @@
 'use server'
 import { FILTERED_SLUG } from '~/constants/constant'
 import errors from '@twreporter/errors'
-import { getPostsByTagName, type PostCardItem } from '~/graphql/query/posts'
 import { getClient } from '~/apollo-client'
+import { getExternalsByTagName, type External } from '~/graphql/query/externals'
 
-type FetchMoreItemsType = {
+type FetchExternalsByTagNameType = {
   page: number
   tagName: string
   pageSize: number
   isWithCount: boolean
 }
 
-async function fetchPostsItems({
+async function fetchExternalsByTagName({
+  page,
   tagName,
   pageSize,
-  postPage,
-  postIsWithCount,
-  externalPage,
-  externalIsWithCount,
-}: FetchMoreItemsType): Promise<{
-  allPosts: PostCardItem[]
-  _allPostsMeta?: { count: number }
+  isWithCount,
+}: FetchExternalsByTagNameType): Promise<{
+  allExternals: External[]
+  _allExternalsMeta?: { count: number }
 }> {
   const client = getClient()
   try {
     const { data } = await client.query<{
-      allPosts: PostCardItem[]
-      _allPostsMeta?: { count: number }
+      allExternals: External[]
+      _allExternalsMeta?: { count: number }
     }>({
-      query: getPostsByTagName,
+      query: getExternalsByTagName,
       variables: {
         tagName,
         first: pageSize,
-        skip: postPage * pageSize,
-        withCount: postIsWithCount,
+        skip: page * pageSize,
+        withCount: isWithCount,
         filteredSlug: FILTERED_SLUG,
       },
     })
@@ -42,7 +40,7 @@ async function fetchPostsItems({
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching data for posts for tag page'
+      'Error occurs while fetching externals data on tag page.'
     )
 
     console.error(
@@ -54,8 +52,8 @@ async function fetchPostsItems({
         }),
       })
     )
-    throw new Error('Error occurs while fetching data.')
+    throw new Error('Error occurs while fetching externals data on tag page.')
   }
 }
 
-export { fetchPostsItems }
+export { fetchExternalsByTagName }
