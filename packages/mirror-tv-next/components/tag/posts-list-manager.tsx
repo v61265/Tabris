@@ -8,7 +8,7 @@ import { formatArticleCard, type FormattedPostCard } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { type External } from '~/graphql/query/externals'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
-import { fetchExternalsByTagName } from '~/app/_actions/tag/externals-by-tag'
+import { fetchExternalsByTagName } from '~/app/_actions/tag/posts-by-tag'
 
 type PostsListManagerProps = {
   tagName: string

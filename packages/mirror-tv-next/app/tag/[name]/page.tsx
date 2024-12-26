@@ -9,7 +9,7 @@ import { fetchPostsItems } from '~/app/_actions/tag/posts-by-tag'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { GPTPlaceholderDesktop } from '~/components/ads/gpt/gpt-placeholder'
-import { fetchExternalsByTagName } from '~/app/_actions/tag/externals-by-tag'
+import { fetchExternalsByTagName } from '~/app/_actions/tag/posts-by-tag'
 import { type External } from '~/graphql/query/externals'
 import { handleResponse } from '~/utils'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
