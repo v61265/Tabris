@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { fetchPostsItems } from '~/app/_actions/tag/posts-by-tag'
 import { type PostCardItem } from '~/graphql/query/posts'
@@ -44,16 +44,20 @@ export default function PostsListManager({
   ])
 
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initFetchList)
+  const renderedCountRef = useRef<{ posts: number; externals: number }>({
+    posts: 0,
+    externals: 0,
+  })
 
   const handleClickLoadMore = async (page: number) => {
     // 分別算出兩邊各自 rendered 和 fetched 了哪些篇數
     const renderedList = postsList.slice(0, (page - 1) * pageSize)
-    const renderedCount = {
-      posts: renderedList.filter((post) => post.__typeName !== 'External')
-        .length,
-      externals: renderedList.filter((post) => post.__typeName === 'External')
-        .length,
-    }
+    renderedCountRef.current.posts = renderedList.filter(
+      (post) => post.__typeName !== 'External'
+    ).length
+    renderedCountRef.current.externals = renderedList.filter(
+      (post) => post.__typeName === 'External'
+    ).length
     const fetchedCount = {
       posts: postsList.filter((post) => post.__typeName !== 'External').length,
       externals: postsList.filter((post) => post.__typeName === 'External')
@@ -61,9 +65,9 @@ export default function PostsListManager({
     }
     // 如果庫存（fetch 到但還沒 render 的）不夠，則 fetch
     const isNeedFetchPost: boolean =
-      fetchedCount.posts - renderedCount.posts <= pageSize
+      fetchedCount.posts - renderedCountRef.current.posts <= pageSize
     const isNeedFetchExternal: boolean =
-      fetchedCount.externals - renderedCount.externals <= pageSize
+      fetchedCount.externals - renderedCountRef.current.posts <= pageSize
 
     let newPosts: PostCardItem[] = []
     let newExternals: External[] = []

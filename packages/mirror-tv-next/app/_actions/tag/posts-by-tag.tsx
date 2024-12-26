@@ -12,10 +12,12 @@ type FetchMoreItemsType = {
 }
 
 async function fetchPostsItems({
-  page,
   tagName,
   pageSize,
-  isWithCount,
+  postPage,
+  postIsWithCount,
+  externalPage,
+  externalIsWithCount,
 }: FetchMoreItemsType): Promise<{
   allPosts: PostCardItem[]
   _allPostsMeta?: { count: number }
@@ -30,8 +32,8 @@ async function fetchPostsItems({
       variables: {
         tagName,
         first: pageSize,
-        skip: page * pageSize,
-        withCount: isWithCount,
+        skip: postPage * pageSize,
+        withCount: postIsWithCount,
         filteredSlug: FILTERED_SLUG,
       },
     })
