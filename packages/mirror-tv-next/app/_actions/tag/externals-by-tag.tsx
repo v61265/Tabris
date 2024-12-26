@@ -4,7 +4,7 @@ import errors from '@twreporter/errors'
 import { getClient } from '~/apollo-client'
 import { getExternalsByTagName, type External } from '~/graphql/query/externals'
 
-type fetchExternalsByTagNameType = {
+type FetchExternalsByTagNameType = {
   page: number
   tagName: string
   pageSize: number
@@ -16,7 +16,7 @@ async function fetchExternalsByTagName({
   tagName,
   pageSize,
   isWithCount,
-}: fetchExternalsByTagNameType): Promise<{
+}: FetchExternalsByTagNameType): Promise<{
   allExternals: External[]
   _allExternalsMeta?: { count: number }
 }> {

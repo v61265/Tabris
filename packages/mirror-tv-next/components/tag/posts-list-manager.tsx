@@ -4,7 +4,7 @@ import UiPostCard from '~/components/shared/ui-post-card'
 import { fetchPostsItems } from '~/app/_actions/tag/posts-by-tag'
 import { type PostCardItem } from '~/graphql/query/posts'
 import styles from './_styles/posts-list-manager.module.scss'
-import { formatArticleCard, FormattedPostCard } from '~/utils'
+import { formatArticleCard, type FormattedPostCard } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { type External } from '~/graphql/query/externals'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
@@ -59,7 +59,6 @@ export default function PostsListManager({
       externals: postsList.filter((post) => post.__typeName === 'External')
         .length,
     }
-    console.log(renderedList)
     // 如果庫存（fetch 到但還沒 render 的）不夠，則 fetch
     const isNeedFetchPost: boolean =
       fetchedCount.posts - renderedCount.posts <= pageSize
@@ -91,13 +90,6 @@ export default function PostsListManager({
       ...newExternals,
       ...newPosts,
     ])
-    console.log(fetchedCount, {
-      isNeedFetchExternal,
-      newExternals,
-      page,
-      postsList,
-      newPostList,
-    })
     setPostsList(newPostList)
     return newPostList.slice((page - 1) * pageSize, page * pageSize)
   }
