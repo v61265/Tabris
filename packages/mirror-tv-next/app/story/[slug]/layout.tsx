@@ -5,11 +5,14 @@ export default function StoryPageLayout({
   children,
 }: {
   children: React.ReactNode
+  params: { slug: string }
 }) {
   return (
-    <section className={styles.story}>
-      {children}
-      <Aside />
-    </section>
+    <div className={styles.wrapper}>
+      <section className={styles.story}>
+        <main className={styles.article}>{children}</main>
+        <Aside />
+      </section>
+    </div>
   )
 }
