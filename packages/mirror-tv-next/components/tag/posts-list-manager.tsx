@@ -8,7 +8,6 @@ import { formatArticleCard, type FormattedPostCard } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { type External } from '~/graphql/query/externals'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
-import { fetchExternalsByTagName } from '~/app/_actions/tag/externals-by-tag'
 
 type PostsListManagerProps = {
   tagName: string
@@ -71,23 +70,18 @@ export default function PostsListManager({
 
     let newPosts: PostCardItem[] = []
     let newExternals: External[] = []
-    if (isNeedFetchPost) {
-      const postRes = await fetchPostsItems({
-        page: fetchedCount.posts / pageSize,
+    if (isNeedFetchExternal || isNeedFetchPost) {
+      const response = await fetchPostsItems({
         tagName,
         pageSize,
         isWithCount: false,
+        isTakePost: isNeedFetchPost,
+        isTakeExternal: isNeedFetchPost,
+        postPage: fetchedCount.posts / pageSize,
+        externalPage: fetchedCount.externals / pageSize,
       })
-      newPosts = postRes.allPosts ?? []
-    }
-    if (isNeedFetchExternal) {
-      const externalRes = await fetchExternalsByTagName({
-        page: fetchedCount.externals / pageSize,
-        tagName,
-        pageSize,
-        isWithCount: false,
-      })
-      newExternals = externalRes.allExternals ?? []
+      newPosts = response.allPosts ?? []
+      newExternals = response.allExternals ?? []
     }
     const newPostList = combineAndSortedByPublishedTime([
       ...postsList,
