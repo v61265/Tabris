@@ -33,7 +33,7 @@ switch (ENV) {
     YOUTUBE_API_URL = 'https://staging.mnews.tw'
     GTM_ID = 'GTM-NFH6FDH'
     GLOBAL_CACHE_SETTING = 0
-    HEADER_JSON_URL = 'https://staging.mnews.tw/json/header_v2.json'
+    HEADER_JSON_URL = 'https://staging.mnews.tw/json/header_v2-1.json%20'
     FLASH_NEWS_JSON_URL = 'https://staging.mnews.tw/json/flash_news.json'
     SCHEDULE_JSON_URL = 'https://staging.mnews.tw/json/tv-schedule.json'
     POPULAR_POSTS_URL = 'https://mnews.tw/json/popularlist.json'
@@ -48,7 +48,7 @@ switch (ENV) {
     YOUTUBE_API_URL = 'https://dev.mnews.tw'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
-    HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
+    HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2-1.json%20'
     FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
     SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
     POPULAR_POSTS_URL = 'https://mnews.tw/json/popularlist.json'
@@ -62,7 +62,7 @@ switch (ENV) {
     YOUTUBE_API_URL = 'https://dev.mnews.tw'
     GTM_ID = 'GTM-TVZ26W8'
     GLOBAL_CACHE_SETTING = 0
-    HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2.json'
+    HEADER_JSON_URL = 'https://dev.mnews.tw/json/header_v2-1.json%20'
     FLASH_NEWS_JSON_URL = 'https://dev.mnews.tw/json/flash_news.json'
     SCHEDULE_JSON_URL = 'https://dev.mnews.tw/json/tv-schedule.json'
     POPULAR_POSTS_URL = 'https://mnews.tw/json/popularlist.json'
