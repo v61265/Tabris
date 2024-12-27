@@ -3,7 +3,7 @@ import { formateHeroImage } from './image-handler'
 import type { PostCardItem, PostWithCategory } from '~/graphql/query/posts'
 import { FeaturePost } from '~/types/api-data'
 import type { PostImage } from '~/utils/image-handler'
-import { HeroImage } from '~/types/common'
+import { type HeroImage } from '~/types/common'
 
 export type FormattedPostCard = {
   href: string

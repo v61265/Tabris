@@ -1,14 +1,16 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import UiPostCard from '~/components/shared/ui-post-card'
-import { fetchPostsItems } from '~/app/_actions/tag/posts-by-tag'
+import {
+  fetchPostsItems,
+  fetchExternalsByTagName,
+} from '~/app/_actions/tag/posts-by-tag'
 import { type PostCardItem } from '~/graphql/query/posts'
 import styles from './_styles/posts-list-manager.module.scss'
 import { formatArticleCard, type FormattedPostCard } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { type External } from '~/graphql/query/externals'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
-import { fetchExternalsByTagName } from '~/app/_actions/tag/posts-by-tag'
 
 type PostsListManagerProps = {
   tagName: string
