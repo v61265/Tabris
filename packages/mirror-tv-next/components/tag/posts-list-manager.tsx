@@ -46,52 +46,34 @@ export default function PostsListManager({
   ])
 
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initFetchList)
-  const listRef = useRef<HTMLOListElement | null>(null)
-
-  // 計算每個 li 直屬的 a 元素中 href 以 '/external' 開頭的數量
-  const countDirectLinksStartingWithExternal = (
-    element: HTMLElement
-  ): number => {
-    let count = 0
-    const listItems = element.getElementsByTagName('li')
-    for (let i = 0; i < listItems.length; i++) {
-      const anchor = listItems[i].querySelector('a')
-      if (
-        anchor &&
-        anchor.href.startsWith(window.location.origin + '/external')
-      ) {
-        count++
-      }
+  const [differentPostsCount, setDifferentPostsCount] = useState(() => {
+    const renderedList = postsList.slice(0, pageSize)
+    return {
+      rendered: {
+        posts: renderedList.filter((post) => post.__typeName !== 'External')
+          .length,
+        externals: renderedList.filter((post) => post.__typeName === 'External')
+          .length,
+      },
+      fetched: {
+        posts: initPostsList.length,
+        externals: initExternalsList.length,
+      },
     }
-    return count
-  }
+  })
 
   const handleClickLoadMore = async (page: number) => {
-    // 分別算出兩邊各自 rendered 和 fetched 了哪些篇數
-    const liCount = listRef.current?.children?.length || 0
-    const externalLinkCount = listRef.current
-      ? countDirectLinksStartingWithExternal(listRef.current)
-      : 0
-    const renderedCount = {
-      externals: externalLinkCount,
-      posts: liCount - externalLinkCount,
-    }
-    const fetchedCount = {
-      posts: postsList.filter((post) => post.__typeName !== 'External').length,
-      externals: postsList.filter((post) => post.__typeName === 'External')
-        .length,
-    }
     // 如果庫存（fetch 到但還沒 render 的）不夠，則 fetch
-    const isNeedFetchPost: boolean =
-      fetchedCount.posts - renderedCount.posts <= pageSize
+    const { rendered, fetched } = differentPostsCount
+    const isNeedFetchPost: boolean = fetched.posts - rendered.posts <= pageSize
     const isNeedFetchExternal: boolean =
-      fetchedCount.externals - renderedCount.posts <= pageSize
+      fetched.externals - rendered.posts <= pageSize
 
     let newPosts: PostCardItem[] = []
     let newExternals: External[] = []
     if (isNeedFetchPost) {
       const postRes = await fetchPostsItems({
-        page: fetchedCount.posts / pageSize,
+        page: fetched.posts / pageSize,
         tagName,
         pageSize,
         isWithCount: false,
@@ -100,7 +82,7 @@ export default function PostsListManager({
     }
     if (isNeedFetchExternal) {
       const externalRes = await fetchExternalsByTagName({
-        page: fetchedCount.externals / pageSize,
+        page: fetched.externals / pageSize,
         tagName,
         pageSize,
         isWithCount: false,
@@ -112,8 +94,30 @@ export default function PostsListManager({
       ...newExternals,
       ...newPosts,
     ])
+    const newListSlice = newPostList.slice(
+      (page - 1) * pageSize,
+      page * pageSize
+    )
+    setDifferentPostsCount((prev) => {
+      return {
+        rendered: {
+          posts:
+            prev.rendered.posts +
+            newListSlice.filter((post) => post.__typeName !== 'External')
+              .length,
+          externals:
+            prev.rendered.externals +
+            newListSlice.filter((post) => post.__typeName === 'External')
+              .length,
+        },
+        fetched: {
+          posts: prev.fetched.posts + newPosts.length,
+          externals: prev.fetched.externals + newExternals.length,
+        },
+      }
+    })
     setPostsList(newPostList)
-    return newPostList.slice((page - 1) * pageSize, page * pageSize)
+    return
   }
 
   return (
