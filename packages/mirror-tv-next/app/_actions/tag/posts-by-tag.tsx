@@ -48,7 +48,7 @@ async function fetchPostsItems({
     const annotatingError = errors.helpers.wrap(
       err,
       'UnhandledError',
-      'Error occurs while fetching data for posts for tag page'
+      'Error occurs while fetching posts data for tag page'
     )
 
     console.error(
@@ -60,7 +60,7 @@ async function fetchPostsItems({
         }),
       })
     )
-    throw new Error('Error occurs while fetching data.')
+    throw new Error('Error occurs while fetching externals data for tag page.')
   }
 }
 
