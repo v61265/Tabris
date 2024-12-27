@@ -28,15 +28,16 @@ type FormatArticleCardInput = {
   __typename?: string
 }
 
-function mapToFormatArticleCardInput(
+const formatArticleCard = (
   post:
     | PostCardItem
     | FeaturePost
     | PostWithCategory
     | External
-    | FormattedPostCard
-): FormatArticleCardInput {
-  return {
+    | FormattedPostCard,
+  options?: { label?: string }
+): FormattedPostCard => {
+  const postFormatArticleCardInput: FormatArticleCardInput = {
     slug: post.slug,
     name: post.name,
     publishTime: post.publishTime,
@@ -48,19 +49,6 @@ function mapToFormatArticleCardInput(
     __typename:
       '__typename' in post ? String(post['__typename'] ?? '') : undefined,
   }
-}
-
-const formatArticleCard = (
-  post:
-    | PostCardItem
-    | FeaturePost
-    | PostWithCategory
-    | External
-    | FormattedPostCard,
-  options?: { label?: string }
-): FormattedPostCard => {
-  const postFormatArticleCardInput: FormatArticleCardInput =
-    mapToFormatArticleCardInput(post)
   const imageObj =
     postFormatArticleCardInput.heroImage ??
     postFormatArticleCardInput.ogImage ??
