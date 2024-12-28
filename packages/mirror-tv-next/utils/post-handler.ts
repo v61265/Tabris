@@ -29,15 +29,10 @@ type FormatArticleCardInput = {
 }
 
 const formatArticleCard = (
-  post:
-    | PostCardItem
-    | FeaturePost
-    | PostWithCategory
-    | External
-    | FormattedPostCard,
+  post: FormatArticleCardInput,
   options?: { label?: string }
 ): FormattedPostCard => {
-  const postFormatArticleCardInput: FormatArticleCardInput = {
+  const postFormatArticleCardInput = {
     slug: post.slug,
     name: post.name,
     publishTime: post.publishTime,
