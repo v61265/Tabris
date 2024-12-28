@@ -117,7 +117,7 @@ export default function PostsListManager({
       }
     })
     setPostsList(newPostList)
-    return
+    return newPostList
   }
 
   return (
@@ -136,7 +136,7 @@ export default function PostsListManager({
           }
         >
           {(renderList) => (
-            <ol className={styles.posts} ref={listRef}>
+            <ol className={styles.posts}>
               {renderList.map((postItem) => (
                 <li key={postItem.slug} className="list-handler__item">
                   <UiPostCard
