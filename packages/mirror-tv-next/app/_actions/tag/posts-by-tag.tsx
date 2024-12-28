@@ -60,7 +60,7 @@ async function fetchPostsItems({
         }),
       })
     )
-    throw new Error('Error occurs while fetching externals data for tag page.')
+    throw new Error('Error occurs while fetching posts data for tag page.')
   }
 }
 
