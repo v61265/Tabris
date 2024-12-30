@@ -62,7 +62,9 @@
 
 .heroImageMobile {
   display: flex;
-  max-height: 168px;
+  img {
+    max-height: 168px;
+  }
 
   @include media-breakpoint-up(md) {
     display: none;
@@ -70,10 +72,15 @@
 }
 
 .heroImageDesktop {
-  display: none;
+  figure {
+    display: none;
 
-  @include media-breakpoint-up(md) {
-    display: flex;
-    max-height: 315px;
+    @include media-breakpoint-up(md) {
+      display: flex;
+      flex-direction: column;
+      img {
+        max-height: 315px;
+      }
+    }
   }
 }

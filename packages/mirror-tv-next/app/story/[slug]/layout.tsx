@@ -15,12 +15,20 @@ export default async function StoryPageLayout({
   return (
     <div className={styles.wrapper}>
       <span className={styles.heroImageMobile}>
-        <ArticleHeroImage heroImage={heroImage} title={heroCaption} />
+        <ArticleHeroImage
+          heroImage={heroImage}
+          title={heroCaption}
+          heroCaption={heroCaption}
+        />
       </span>
       <section className={styles.story}>
         <main className={styles.article}>
           <span className={styles.heroImageDesktop}>
-            <ArticleHeroImage heroImage={heroImage} title={heroCaption} />
+            <ArticleHeroImage
+              heroImage={heroImage}
+              title={heroCaption}
+              heroCaption={heroCaption}
+            />
           </span>
           {children}
         </main>

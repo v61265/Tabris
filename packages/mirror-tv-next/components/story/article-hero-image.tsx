@@ -9,6 +9,7 @@ type ArticleHeroImageProps = {
   title: string
   heroCaption?: string
 }
+
 const ArticleHeroImage: React.FC<ArticleHeroImageProps> = (props) => {
   const { heroImage, title, heroCaption } = props
   const formattedHeroImage = formateHeroImage(heroImage)
