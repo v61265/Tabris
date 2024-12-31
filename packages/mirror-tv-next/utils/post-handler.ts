@@ -1,7 +1,4 @@
-import { External } from '~/graphql/query/externals'
 import { formateHeroImage } from './image-handler'
-import type { PostCardItem, PostWithCategory } from '~/graphql/query/posts'
-import { FeaturePost } from '~/types/api-data'
 import type { PostImage } from '~/utils/image-handler'
 import { type HeroImage } from '~/types/common'
 

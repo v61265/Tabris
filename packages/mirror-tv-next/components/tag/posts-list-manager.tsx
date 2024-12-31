@@ -46,25 +46,22 @@ export default function PostsListManager({
   ])
 
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initFetchList)
-  const [differentPostsCount, setDifferentPostsCount] = useState(() => {
-    const renderedList = postsList.slice(0, pageSize)
-    return {
-      rendered: {
-        posts: renderedList.filter((post) => post.__typeName !== 'External')
-          .length,
-        externals: renderedList.filter((post) => post.__typeName === 'External')
-          .length,
-      },
-      fetched: {
-        posts: initPostsList.length,
-        externals: initExternalsList.length,
-      },
-    }
+  const differentPostsCount = useRef({
+    rendered: {
+      posts: 0,
+      externals: 0,
+    },
+    fetched: {
+      posts: initPostsList.length,
+      externals: initExternalsList.length,
+    },
   })
+
+  const isExternal = (post: FormattedPostCard) => post.__typeName === 'External'
 
   const handleClickLoadMore = async (page: number) => {
     // 如果庫存（fetch 到但還沒 render 的）不夠，則 fetch
-    const { rendered, fetched } = differentPostsCount
+    const { rendered, fetched } = differentPostsCount.current
     const isNeedFetchPost: boolean = fetched.posts - rendered.posts <= pageSize
     const isNeedFetchExternal: boolean =
       fetched.externals - rendered.posts <= pageSize
@@ -98,24 +95,18 @@ export default function PostsListManager({
       (page - 1) * pageSize,
       page * pageSize
     )
-    setDifferentPostsCount((prev) => {
-      return {
-        rendered: {
-          posts:
-            prev.rendered.posts +
-            newListSlice.filter((post) => post.__typeName !== 'External')
-              .length,
-          externals:
-            prev.rendered.externals +
-            newListSlice.filter((post) => post.__typeName === 'External')
-              .length,
-        },
-        fetched: {
-          posts: prev.fetched.posts + newPosts.length,
-          externals: prev.fetched.externals + newExternals.length,
-        },
-      }
-    })
+    differentPostsCount.current = {
+      rendered: {
+        posts:
+          rendered.posts +
+          newListSlice.filter((post) => !isExternal(post)).length,
+        externals: rendered.externals + newListSlice.filter(isExternal).length,
+      },
+      fetched: {
+        posts: fetched.posts + newPosts.length,
+        externals: fetched.externals + newExternals.length,
+      },
+    }
     setPostsList(newPostList)
     return newPostList
   }
