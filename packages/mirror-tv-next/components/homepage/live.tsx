@@ -13,7 +13,6 @@ export default async function Live({
     description: string
   }
 }) {
-  console.log({ liveData })
   if (!liveData?.url && !liveData?.youtubeUrl) {
     return null
   }
