@@ -1,13 +1,13 @@
 'use client'
-import { type HeroImage } from '~/graphql/query/story'
+import { type SinglePost } from '~/graphql/query/story'
 import styles from './_styles/article-hero-image.module.scss'
 import Image from '@readr-media/react-image'
 import { formateHeroImage } from '~/utils/image-handler'
 
 type ArticleHeroImageProps = {
-  heroImage: HeroImage['heroImage']
+  heroImage: SinglePost['heroImage']
   title: string
-  heroCaption?: string
+  heroCaption?: SinglePost['heroCaption']
 }
 
 const ArticleHeroImage: React.FC<ArticleHeroImageProps> = (props) => {

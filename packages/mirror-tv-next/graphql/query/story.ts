@@ -7,9 +7,6 @@ export interface SingleRelatedPost {
 
 export interface SinglePost {
   relatedPosts: SingleRelatedPost[]
-}
-
-export type HeroImage = {
   heroImage: {
     id: string
     name: string
@@ -25,22 +22,8 @@ export type HeroImage = {
 export interface FetchStoryBySlugResponse {
   allPosts: SinglePost[]
 }
-export interface FetchHeroImageBySlugResponse {
-  allPosts: HeroImage[]
-}
 
 const fetchStoryBySlug = gql`
-  query fetchStoryBySlug($slug: String!) {
-    allPosts(where: { slug: $slug, state_not_in: invisible }) {
-      relatedPosts(where: { state: published }) {
-        slug
-        name
-      }
-    }
-  }
-`
-
-const fetchHeroImageBySlug = gql`
   query fetchStoryBySlug($slug: String!) {
     allPosts(where: { slug: $slug, state_not_in: invisible }) {
       heroImage {
@@ -53,8 +36,12 @@ const fetchHeroImageBySlug = gql`
         urlTinySized
       }
       heroCaption
+      relatedPosts(where: { state: published }) {
+        slug
+        name
+      }
     }
   }
 `
 
-export { fetchStoryBySlug, fetchHeroImageBySlug }
+export { fetchStoryBySlug }
