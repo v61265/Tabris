@@ -1,11 +1,11 @@
-@import '/styles/theme/breakpoints';
+@import "/styles/theme/breakpoints";
 
 .aside {
   display: flex;
   flex-direction: column;
   @include media-breakpoint-up(md) {
     flex-direction: row;
-    width: 688px;
+    width: 100%;
     display: flex;
     align-items: stretch;
     justify-content: space-between;
@@ -17,6 +17,13 @@
     display: block;
     padding: 0;
     margin-top: 60px;
+  }
+  .asideWrapper {
+    margin: 0 auto;
+    @include media-breakpoint-up(md) {
+      display: flex;
+      flex: 1;
+    }
   }
 }
 

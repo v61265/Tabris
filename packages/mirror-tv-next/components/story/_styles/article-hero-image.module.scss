@@ -1,13 +1,11 @@
 @import "/styles/theme/breakpoints";
+@import "/styles/theme/variable";
+
 .heroImageWrapper {
   display: flex;
   flex: 1;
-
-  // position: absolute;
-  // left: 0;
-  // right: 0;
   width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  margin-left: $story-hero-image-full-screen;
   @include media-breakpoint-up(xxl) {
     margin: unset;
     width: 100%;
@@ -19,6 +17,9 @@
 
     @include media-breakpoint-up(md) {
       max-height: 365px;
+    }
+    figcaption {
+      padding: 0 16px;
     }
   }
 }

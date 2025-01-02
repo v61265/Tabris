@@ -8,7 +8,7 @@ export default function StoryPageLayout({
   children: React.ReactNode
 }) {
   return (
-    <div id="story-wrapper" className={styles.wrapper}>
+    <div className={styles.LayoutWrapper}>
       <section className={styles.story}>
         <main className={styles.article}>{children}</main>
         <Aside />

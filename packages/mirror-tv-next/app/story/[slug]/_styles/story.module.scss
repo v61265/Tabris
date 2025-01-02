@@ -1,10 +1,11 @@
 @import "/styles/theme/breakpoints";
 @import "/styles/theme/variable";
-.wrapper {
-  margin: 0 auto;
+
+.LayoutWrapper {
   display: flex;
   flex-direction: column;
   @include media-breakpoint-up(md) {
+    margin: 0 auto;
     max-width: $story-wrapper-max-width-md;
   }
   @include media-breakpoint-up(xl) {
@@ -23,6 +24,8 @@
     min-height: calc(100dvh - 152px); // header height
     max-width: $story-max-width-md;
     padding: 28px 0 50px;
+    display: flex;
+    flex-direction: column;
   }
   @include media-breakpoint-up(xl) {
     max-width: $max-width-xl;
@@ -31,6 +34,7 @@
   @include media-breakpoint-up(xxl) {
     max-width: $max-width-xxl;
     gap: 96px;
+    flex-direction: row;
   }
 }
 
@@ -42,6 +46,7 @@
 
   @include media-breakpoint-up(md) {
     max-width: 600px;
+    margin: 0;
   }
   @include media-breakpoint-up(xl) {
     max-width: $max-width-xl;
