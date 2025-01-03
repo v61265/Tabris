@@ -1,8 +1,9 @@
-@import "/styles/theme/breakpoints";
+@import '/styles/theme/breakpoints';
 
 .aside {
   display: flex;
   flex-direction: column;
+  background-color: unset;
   @include media-breakpoint-up(md) {
     flex-direction: row;
     width: 100%;
@@ -14,9 +15,11 @@
   @include media-breakpoint-up(xl) {
     flex-direction: column;
     width: 384px;
-    display: block;
     padding: 0;
     margin-top: 60px;
+  }
+  @include media-breakpoint-up(xxl) {
+    background-color: #f4f5f6;
   }
   .asideWrapper {
     margin: 0 auto;
@@ -24,12 +27,19 @@
       display: flex;
       flex: 1;
     }
+    @include media-breakpoint-up(xxl) {
+      flex-direction: column;
+    }
   }
 }
 
 .microAd {
   @include media-breakpoint-up(md) {
     margin: 48px 0;
+  }
+  @include media-breakpoint-up(md) {
+    margin: 0;
+    padding: 0 24px;
   }
 }
 
