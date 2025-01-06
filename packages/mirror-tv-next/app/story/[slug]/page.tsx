@@ -15,7 +15,7 @@ const StoryPage = async (props: StoryPageTypes) => {
   const { relatedPosts, heroImage, heroCaption } = storyData
 
   return (
-    <div className={styles.wrapper}>
+    <div>
       StoryPage slug is : {params.slug}
       <section className={styles.socialAndRelatedWrapper}>
         <ArticleHeroImage
