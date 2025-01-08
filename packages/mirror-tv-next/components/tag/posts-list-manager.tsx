@@ -7,10 +7,11 @@ import {
 } from '~/app/_actions/tag/posts-by-tag'
 import { type PostCardItem } from '~/graphql/query/posts'
 import styles from './_styles/posts-list-manager.module.scss'
-import { formatArticleCard, type FormattedPostCard } from '~/utils'
+import { type FormattedPostCard } from '~/utils'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { type External } from '~/graphql/query/externals'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
+import { combineAndSortedByPublishedTime } from '~/utils/post-handler'
 
 type PostsListManagerProps = {
   tagName: string
@@ -29,17 +30,6 @@ export default function PostsListManager({
   initExternalsList,
   externalsCount,
 }: PostsListManagerProps) {
-  const combineAndSortedByPublishedTime = (
-    list: (PostCardItem | External | FormattedPostCard)[]
-  ) => {
-    return list
-      .map((post) => formatArticleCard(post))
-      .sort((a, b) => {
-        const dateA = new Date(a.publishTime || 0).getTime()
-        const dateB = new Date(b.publishTime || 0).getTime()
-        return dateB - dateA
-      })
-  }
   const initFetchList = combineAndSortedByPublishedTime([
     ...initPostsList,
     ...initExternalsList,

@@ -62,4 +62,14 @@ const formatArticleCard = (
   }
 }
 
-export { formatArticleCard }
+const combineAndSortedByPublishedTime = (list: FormatArticleCardInput[]) => {
+  return list
+    .map((post) => formatArticleCard(post))
+    .sort((a, b) => {
+      const dateA = new Date(a.publishTime || 0).getTime()
+      const dateB = new Date(b.publishTime || 0).getTime()
+      return dateB - dateA
+    })
+}
+
+export { formatArticleCard, combineAndSortedByPublishedTime }

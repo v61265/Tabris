@@ -1,7 +1,10 @@
 'use client'
 import UiLoadMoreButton from '../shared/ui-load-more-button'
 import { type PostCardItem } from '~/graphql/query/posts'
-import { fetchPostsItems } from '~/app/_actions/category'
+import {
+  fetchExternalsByCategory,
+  fetchPostsByCategory,
+} from '~/app/_actions/category/posts-by-category'
 import styles from './_styles/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { formatArticleCard, FormattedPostCard } from '~/utils'
@@ -26,7 +29,7 @@ export default function PostsListManager({
     list.map((post) => formatArticleCard(post))
 
   const handleFetchLoadMore = async (page: number) => {
-    const { allPosts: newPosts } = await fetchPostsItems({
+    const { allPosts: newPosts } = await fetchPostsByCategory({
       page: page - 1,
       categorySlug,
       pageSize,

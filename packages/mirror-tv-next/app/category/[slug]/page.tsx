@@ -3,9 +3,11 @@ import axios from 'axios'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
-import { getClient } from '~/apollo-client'
 import GptPopup from '~/components/ads/gpt/gpt-popup'
-import { fetchPostsItems } from '~/app/_actions/category'
+import {
+  fetchExternalsByCategory,
+  fetchPostsByCategory,
+} from '~/app/_actions/category/posts-by-category'
 import PostsListManager from '~/components/category/posts-list-manager'
 import UiFeaturePost from '~/components/category/ui-feature-post'
 import UiHeadingBordered from '~/components/shared/ui-heading-bordered'
@@ -14,51 +16,22 @@ import {
   GLOBAL_CACHE_SETTING,
   SITE_URL,
 } from '~/constants/environment-variables'
-import { Category, fetchCategoryBySlug } from '~/graphql/query/category'
+import { type Category } from '~/graphql/query/category'
 import styles from '~/styles/pages/category.module.scss'
 import { FeaturePost } from '~/types/api-data'
 import {
   FormattedPostCard,
   formatArticleCard,
   formateDateAtTaipei,
+  handleResponse,
 } from '~/utils'
 import { fetchSales } from '~/app/_actions/share/sales'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 import { SALES_LABEL_NAME } from '~/constants/constant'
+import { fetchCategoryData } from '~/app/_actions/category/category-data'
+import { combineAndSortedByPublishedTime } from '~/utils/post-handler'
 
 export const revalidate = GLOBAL_CACHE_SETTING
-
-async function fetchCategoryData(slug: string): Promise<Category> {
-  const client = getClient()
-  try {
-    const { data } = await client.query<{
-      allCategories: Category[]
-    }>({
-      query: fetchCategoryBySlug,
-      variables: {
-        slug,
-      },
-    })
-    return data?.allCategories?.[0] ?? { name: '', slug: '' }
-  } catch (err) {
-    const annotatingError = errors.helpers.wrap(
-      err,
-      'UnhandledError',
-      'Error occurs while fetching category data in category page'
-    )
-
-    console.error(
-      JSON.stringify({
-        severity: 'ERROR',
-        message: errors.helpers.printAll(annotatingError, {
-          withStack: false,
-          withPayload: true,
-        }),
-      })
-    )
-    return { name: '', slug: '' }
-  }
-}
 
 export async function generateMetadata({
   params,
@@ -91,15 +64,11 @@ export default async function CategoryPage({
   let categoryPosts: FormattedPostCard[] = []
   let salePosts: FormattedPostCard[] = []
   let featurePost: FeaturePost | null = null
+  let externals: FormattedPostCard[] = []
+  let externalsCount: number = 0
 
   categoryData = await fetchCategoryData(params.slug)
   if (!categoryData.name) return notFound()
-
-  const response = await fetchSales({ take: 4, pageName: 'category' })
-  salePosts =
-    response?.data?.allSales?.map((sale) =>
-      formatArticleCard(sale?.adPost, { label: SALES_LABEL_NAME })
-    ) ?? []
 
   try {
     const {
@@ -126,38 +95,72 @@ export default async function CategoryPage({
     )
   }
 
-  try {
-    const { allPosts, _allPostsMeta } = await fetchPostsItems({
+  const fetchCategoryPosts = () =>
+    fetchPostsByCategory({
       page: 0,
       categorySlug: categoryData.slug,
       pageSize: PAGE_SIZE,
       isWithCount: true,
       filteredSlug: featurePost ? [featurePost.slug] : [],
     })
-    postsCount = _allPostsMeta?.count ?? 0
-    categoryPosts = allPosts.map((post) => formatArticleCard(post)) ?? []
-    if (featurePost) {
-      categoryPosts.unshift(formatArticleCard(featurePost))
-    }
-  } catch (err) {
-    const annotatingError = errors.helpers.wrap(
-      err,
-      'UnhandledError',
-      'Error occurs while fetching category data in category page'
-    )
+  const fetchCategoryExternals = () =>
+    fetchExternalsByCategory({
+      page: 0,
+      categorySlug: categoryData.slug,
+      pageSize: PAGE_SIZE,
+      isWithCount: true,
+      filteredSlug: featurePost ? [featurePost.slug] : [],
+    })
+  const fetchSalesPosts = () => fetchSales({ take: 4, pageName: 'category' })
 
-    console.error(
-      JSON.stringify({
-        severity: 'ERROR',
-        message: errors.helpers.printAll(annotatingError, {
-          withStack: false,
-          withPayload: true,
-        }),
-      })
-    )
-  }
+  const [postsResult, externalsResult, salesResult] = await Promise.allSettled([
+    fetchCategoryPosts(),
+    fetchCategoryExternals(),
+    fetchSalesPosts(),
+  ])
 
-  const postJsonData = categoryPosts?.slice(5).map((post, index) => {
+  categoryPosts = handleResponse(
+    postsResult,
+    (
+      postResponse: Awaited<ReturnType<typeof fetchCategoryPosts>> | undefined
+    ) => {
+      postsCount = postResponse?._allPostsMeta?.count ?? 0
+      return (
+        postResponse?.allPosts?.map((post) => formatArticleCard(post)) ?? []
+      )
+    },
+    'Error occurs while fetching category posts data in category page'
+  )
+
+  externals = handleResponse(
+    externalsResult,
+    (
+      response: Awaited<ReturnType<typeof fetchCategoryExternals>> | undefined
+    ) => {
+      externalsCount = response?._allExternalsMeta?.count ?? 0
+      return (
+        response?.allExternals?.map((post) => formatArticleCard(post)) ?? []
+      )
+    },
+    'Error occurs while fetching category externals data in category page'
+  )
+
+  salePosts = handleResponse(
+    salesResult,
+    (response: Awaited<ReturnType<typeof fetchSales>> | undefined) => {
+      return (
+        response?.data?.allSales?.map((sale) =>
+          formatArticleCard(sale?.adPost, { label: SALES_LABEL_NAME })
+        ) ?? []
+      )
+    },
+    'Error occurs while fetching category sales data in category page'
+  )
+
+  const renderedPostsListInit: FormattedPostCard[] =
+    combineAndSortedByPublishedTime([...categoryPosts, ...externals])
+
+  const postJsonData = renderedPostsListInit?.slice(5).map((post, index) => {
     return {
       '@type': 'ListItem',
       position: index + 1 + '',
@@ -177,8 +180,6 @@ export default async function CategoryPage({
 
   const salesLength = salePosts?.length || 0
   const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesLength)
-  const renderedPostsListInit: FormattedPostCard[] = [...categoryPosts.slice(1)]
-
   if (salesLength) {
     salesPostsInsertIndex.forEach((position, index) => {
       renderedPostsListInit.splice(
@@ -206,11 +207,11 @@ export default async function CategoryPage({
       <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
         <div className={`${styles.listWrapper} list-latest-wrapper`}>
-          <UiFeaturePost post={categoryPosts[0]} />
+          <UiFeaturePost post={renderedPostsListInit[0]} />
           <PostsListManager
             categorySlug={categoryData.slug}
             pageSize={PAGE_SIZE}
-            postsCount={postsCount}
+            postsCount={postsCount + externalsCount}
             initPostsList={renderedPostsListInit}
             filteredSlug={featurePost ? [featurePost.slug] : []}
           />
