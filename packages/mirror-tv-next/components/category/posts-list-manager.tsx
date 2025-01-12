@@ -7,8 +7,11 @@ import {
 } from '~/app/_actions/category/posts-by-category'
 import styles from './_styles/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
-import { formatArticleCard, FormattedPostCard } from '~/utils'
+import { type FormattedPostCard } from '~/utils'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
+import { useRef, useState } from 'react'
+import { combineAndSortedByPublishedTime } from '~/utils/post-handler'
+import { type External } from '~/graphql/query/externals'
 
 type PostsListManagerProps = {
   categorySlug: string
@@ -16,6 +19,8 @@ type PostsListManagerProps = {
   postsCount: number
   initPostsList: FormattedPostCard[]
   filteredSlug: string[]
+  externalsCount: number
+  salesCount: number
 }
 
 export default function PostsListManager({
@@ -24,28 +29,87 @@ export default function PostsListManager({
   postsCount,
   initPostsList,
   filteredSlug = [],
+  externalsCount,
+  salesCount,
 }: PostsListManagerProps) {
-  const formattedPostsList = (list: PostCardItem[]) =>
-    list.map((post) => formatArticleCard(post))
+  const isExternal = (post: FormattedPostCard) => post.__typeName === 'External'
+  const [postsList, setPostsList] = useState<FormattedPostCard[]>(initPostsList)
+  const differentPostsCount = useRef({
+    rendered: {
+      posts:
+        initPostsList.slice(0, pageSize).filter((post) => !isExternal(post))
+          .length - salesCount,
+      externals: initPostsList.slice(0, pageSize).filter(isExternal).length,
+    },
+    fetched: {
+      posts: pageSize,
+      externals: pageSize,
+    },
+  })
 
   const handleFetchLoadMore = async (page: number) => {
-    const { allPosts: newPosts } = await fetchPostsByCategory({
-      page: page - 1,
-      categorySlug,
-      pageSize,
-      isWithCount: false,
-      filteredSlug,
-    })
-    return formattedPostsList(newPosts)
+    const { rendered, fetched } = differentPostsCount.current
+    const isNeedFetchPost: boolean =
+      fetched.posts - rendered.posts <= pageSize && postsCount > fetched.posts
+    const isNeedFetchExternal: boolean =
+      fetched.externals - rendered.posts <= pageSize &&
+      externalsCount > fetched.posts
+
+    let newPosts: PostCardItem[] = []
+    let newExternals: External[] = []
+    if (isNeedFetchPost) {
+      const postRes = await fetchPostsByCategory({
+        skip: fetched.posts - salesCount,
+        categorySlug,
+        pageSize,
+        isWithCount: false,
+        filteredSlug,
+      })
+      newPosts = postRes.allPosts ?? []
+    }
+    if (isNeedFetchExternal) {
+      const externalRes = await fetchExternalsByCategory({
+        skip: fetched.externals,
+        categorySlug,
+        pageSize,
+        isWithCount: false,
+        filteredSlug,
+      })
+      newExternals = externalRes.allExternals ?? []
+    }
+
+    const newPostList = combineAndSortedByPublishedTime([
+      ...postsList,
+      ...newExternals,
+      ...newPosts,
+    ])
+    const newListSlice = newPostList.slice(
+      (page - 1) * pageSize - (page === 2 ? salesCount : 0),
+      page * pageSize - (page === 2 ? salesCount : 0)
+    )
+    differentPostsCount.current = {
+      rendered: {
+        posts:
+          rendered.posts +
+          newListSlice.filter((post) => !isExternal(post)).length,
+        externals: rendered.externals + newListSlice.filter(isExternal).length,
+      },
+      fetched: {
+        posts: fetched.posts + newPosts.length,
+        externals: fetched.externals + newExternals.length,
+      },
+    }
+    setPostsList(newPostList)
+    return newListSlice
   }
 
   return (
     <>
       <section className={styles.list}>
         <InfiniteScrollList
-          initialList={initPostsList}
+          initialList={initPostsList.slice(0, pageSize)}
           pageSize={pageSize}
-          amountOfElements={postsCount + 1}
+          amountOfElements={postsCount + externalsCount + salesCount - 1}
           fetchListInPage={handleFetchLoadMore}
           isAutoFetch={false}
           loader={<UiLoadMoreButton title="看更多" className={styles.more} />}

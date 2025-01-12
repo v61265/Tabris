@@ -12,7 +12,7 @@ import {
 } from '~/graphql/query/externals'
 
 type FetchMoreItemsType = {
-  page: number
+  skip: number
   categorySlug: string
   pageSize: number
   isWithCount: boolean
@@ -20,7 +20,7 @@ type FetchMoreItemsType = {
 }
 
 export async function fetchPostsByCategory({
-  page,
+  skip,
   categorySlug,
   pageSize,
   isWithCount,
@@ -39,7 +39,7 @@ export async function fetchPostsByCategory({
       variables: {
         categorySlug,
         first: pageSize,
-        skip: page * pageSize,
+        skip,
         withCount: isWithCount,
         filteredSlug: [...FILTERED_SLUG, ...filteredSlug],
       },
@@ -66,7 +66,7 @@ export async function fetchPostsByCategory({
 }
 
 export async function fetchExternalsByCategory({
-  page,
+  skip,
   categorySlug,
   pageSize,
   isWithCount,
@@ -85,7 +85,7 @@ export async function fetchExternalsByCategory({
       variables: {
         categorySlug,
         first: pageSize,
-        skip: page * pageSize,
+        skip,
         withCount: isWithCount,
         filteredSlug: [...FILTERED_SLUG, ...filteredSlug],
       },

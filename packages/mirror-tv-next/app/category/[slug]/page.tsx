@@ -1,5 +1,5 @@
 import errors from '@twreporter/errors'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
@@ -70,53 +70,71 @@ export default async function CategoryPage({
   categoryData = await fetchCategoryData(params.slug)
   if (!categoryData.name) return notFound()
 
-  try {
-    const {
-      data: { allPosts },
-    } = await axios.get(FEATURE_POSTS_URL)
-    featurePost = allPosts.find((post: FeaturePost) =>
-      post.categories.some((category) => category.name === categoryData.name)
-    )
-  } catch (err) {
-    const annotatingError = errors.helpers.wrap(
-      err,
-      'UnhandledError',
-      'Error occurs while fetching feature posts data in category page'
-    )
-
-    console.error(
-      JSON.stringify({
-        severity: 'ERROR',
-        message: errors.helpers.printAll(annotatingError, {
-          withStack: false,
-          withPayload: true,
-        }),
-      })
-    )
+  type FeaturePostsResponse = {
+    allPosts: FeaturePost[]
   }
+
+  const fetchFeaturePosts = (): Promise<FeaturePostsResponse> =>
+    fetch(FEATURE_POSTS_URL).then((res) => res.json())
+
+  const fetchSalesPosts = () => fetchSales({ take: 4, pageName: 'category' })
+  const [featurePostResult, salesResult] = await Promise.allSettled([
+    fetchFeaturePosts(),
+    fetchSalesPosts(),
+  ])
+
+  featurePost = handleResponse(
+    featurePostResult,
+    (response: Awaited<ReturnType<typeof fetchFeaturePosts>> | undefined) => {
+      if (!response?.allPosts) return []
+      return (
+        response?.allPosts?.find((post: FeaturePost) =>
+          post.categories.some(
+            (category) => category.name === categoryData.name
+          )
+        ) ?? []
+      )
+    },
+    'Error occurs while fetching category feature posts data in category page'
+  )
+
+  salePosts = handleResponse(
+    salesResult,
+    (response: Awaited<ReturnType<typeof fetchSales>> | undefined) => {
+      return (
+        response?.data?.allSales?.map((sale) =>
+          formatArticleCard(sale?.adPost, { label: SALES_LABEL_NAME })
+        ) ?? []
+      )
+    },
+    'Error occurs while fetching category sales data in category page'
+  )
+
+  const filteredSlug = [
+    featurePost ? featurePost.slug : '', // Ensure featurePost is defined
+    ...(salePosts ? salePosts.map((sale) => sale.slug) : []), // Ensure salePosts is defined
+  ].filter((item) => typeof item === 'string')
 
   const fetchCategoryPosts = () =>
     fetchPostsByCategory({
-      page: 0,
+      skip: 0,
       categorySlug: categoryData.slug,
       pageSize: PAGE_SIZE,
       isWithCount: true,
-      filteredSlug: featurePost ? [featurePost.slug] : [],
+      filteredSlug: filteredSlug,
     })
   const fetchCategoryExternals = () =>
     fetchExternalsByCategory({
-      page: 0,
+      skip: 0,
       categorySlug: categoryData.slug,
       pageSize: PAGE_SIZE,
       isWithCount: true,
-      filteredSlug: featurePost ? [featurePost.slug] : [],
+      filteredSlug: filteredSlug,
     })
-  const fetchSalesPosts = () => fetchSales({ take: 4, pageName: 'category' })
 
-  const [postsResult, externalsResult, salesResult] = await Promise.allSettled([
+  const [postsResult, externalsResult] = await Promise.allSettled([
     fetchCategoryPosts(),
     fetchCategoryExternals(),
-    fetchSalesPosts(),
   ])
 
   categoryPosts = handleResponse(
@@ -145,18 +163,6 @@ export default async function CategoryPage({
     'Error occurs while fetching category externals data in category page'
   )
 
-  salePosts = handleResponse(
-    salesResult,
-    (response: Awaited<ReturnType<typeof fetchSales>> | undefined) => {
-      return (
-        response?.data?.allSales?.map((sale) =>
-          formatArticleCard(sale?.adPost, { label: SALES_LABEL_NAME })
-        ) ?? []
-      )
-    },
-    'Error occurs while fetching category sales data in category page'
-  )
-
   const renderedPostsListInit: FormattedPostCard[] =
     combineAndSortedByPublishedTime([...categoryPosts, ...externals])
 
@@ -179,7 +185,7 @@ export default async function CategoryPage({
   })
 
   const salesLength = salePosts?.length || 0
-  const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesLength)
+  const salesPostsInsertIndex = [3, 5, 9, 11].slice(0, salesLength)
   if (salesLength) {
     salesPostsInsertIndex.forEach((position, index) => {
       renderedPostsListInit.splice(
@@ -211,9 +217,11 @@ export default async function CategoryPage({
           <PostsListManager
             categorySlug={categoryData.slug}
             pageSize={PAGE_SIZE}
-            postsCount={postsCount + externalsCount}
-            initPostsList={renderedPostsListInit}
-            filteredSlug={featurePost ? [featurePost.slug] : []}
+            postsCount={postsCount}
+            externalsCount={externalsCount}
+            initPostsList={renderedPostsListInit.slice(1)}
+            filteredSlug={filteredSlug}
+            salesCount={salesLength}
           />
         </div>
       )}

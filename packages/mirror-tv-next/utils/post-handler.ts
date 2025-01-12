@@ -20,6 +20,7 @@ type FormatArticleCardInput = {
   heroImage?: HeroImage | null
   ogImage?: HeroImage | null
   thumbnail?: string | null
+  images?: PostImage | null
   style?: string
   categories?: { name: string }[]
   __typename?: string
@@ -36,17 +37,28 @@ const formatArticleCard = (
     heroImage: 'heroImage' in post ? post.heroImage : null,
     ogImage: 'ogImage' in post ? post.ogImage : null,
     thumbnail: 'thumbnail' in post ? post.thumbnail : null,
+    images: 'images' in post ? post.images : null,
     style: 'style' in post ? post.style : undefined,
     categories: 'categories' in post ? post.categories : undefined,
     __typename:
-      '__typename' in post ? String(post['__typename'] ?? '') : undefined,
+      '__typename' in post
+        ? String(post['__typename'] ?? '')
+        : '__typeName' in post
+        ? String(post['__typeName'] ?? '')
+        : undefined,
   }
-  const imageObj =
-    postFormatArticleCardInput.heroImage ??
-    postFormatArticleCardInput.ogImage ??
+  const imageObj: PostImage =
+    postFormatArticleCardInput.images ??
+    formateHeroImage(postFormatArticleCardInput.heroImage ?? undefined) ??
+    formateHeroImage(postFormatArticleCardInput.ogImage ?? undefined) ??
     (postFormatArticleCardInput.thumbnail
-      ? { urlOriginal: postFormatArticleCardInput.thumbnail }
-      : {})
+      ? {
+          original: '/images/image-default.jpg',
+          w3200: postFormatArticleCardInput.thumbnail,
+        }
+      : {
+          original: '/images/image-default.jpg',
+        })
   return {
     href:
       postFormatArticleCardInput.__typename === 'External'
@@ -55,7 +67,7 @@ const formatArticleCard = (
     slug: postFormatArticleCardInput.slug,
     style: postFormatArticleCardInput.style ?? 'article',
     name: postFormatArticleCardInput.name,
-    images: formateHeroImage(imageObj),
+    images: imageObj,
     publishTime: new Date(postFormatArticleCardInput.publishTime),
     label: options?.label || postFormatArticleCardInput.categories?.[0]?.name,
     __typeName: postFormatArticleCardInput.__typename ?? '',
