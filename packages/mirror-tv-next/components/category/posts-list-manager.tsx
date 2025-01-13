@@ -79,14 +79,11 @@ export default function PostsListManager({
     }
 
     const newPostList = combineAndSortedByPublishedTime([
-      ...postsList,
+      ...postsList.slice((page - 1) * pageSize),
       ...newExternals,
       ...newPosts,
     ])
-    const newListSlice = newPostList.slice(
-      (page - 1) * pageSize - (page === 2 ? salesCount : 0),
-      page * pageSize - (page === 2 ? salesCount : 0)
-    )
+    const newListSlice = newPostList.slice(0, page * pageSize)
     differentPostsCount.current = {
       rendered: {
         posts:
