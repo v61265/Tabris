@@ -58,12 +58,8 @@ export default async function CategoryPage({
 }) {
   const PAGE_SIZE = 12
   let categoryData: Category = { name: '', slug: '' }
-  let postsCount: number = 0
-  let categoryPosts: FormattedPostCard[] = []
   let salePosts: FormattedPostCard[] = []
   let featurePost: FeaturePost | null = null
-  let externals: FormattedPostCard[] = []
-  let externalsCount: number = 0
 
   categoryData = await fetchCategoryData(params.slug)
   if (!categoryData.name) return notFound()
@@ -135,28 +131,29 @@ export default async function CategoryPage({
     fetchCategoryExternals(),
   ])
 
-  categoryPosts = handleResponse(
+  const { categoryPosts, postsCount } = handleResponse(
     postsResult,
     (
       postResponse: Awaited<ReturnType<typeof fetchCategoryPosts>> | undefined
     ) => {
-      postsCount = postResponse?._allPostsMeta?.count ?? 0
-      return (
+      const count = postResponse?._allPostsMeta?.count ?? 0
+      const posts =
         postResponse?.allPosts?.map((post) => formatArticleCard(post)) ?? []
-      )
+      return { categoryPosts: posts, postsCount: count }
     },
     'Error occurs while fetching category posts data in category page'
   )
 
-  externals = handleResponse(
+  const { externals, externalsCount } = handleResponse(
     externalsResult,
     (
       response: Awaited<ReturnType<typeof fetchCategoryExternals>> | undefined
     ) => {
-      externalsCount = response?._allExternalsMeta?.count ?? 0
-      return (
-        response?.allExternals?.map((post) => formatArticleCard(post)) ?? []
-      )
+      return {
+        externals:
+          response?.allExternals?.map((post) => formatArticleCard(post)) ?? [],
+        externalsCount: response?._allExternalsMeta?.count ?? 0,
+      }
     },
     'Error occurs while fetching category externals data in category page'
   )
