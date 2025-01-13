@@ -1,5 +1,3 @@
-import errors from '@twreporter/errors'
-import axios, { AxiosResponse } from 'axios'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
@@ -86,13 +84,13 @@ export default async function CategoryPage({
   featurePost = handleResponse(
     featurePostResult,
     (response: Awaited<ReturnType<typeof fetchFeaturePosts>> | undefined) => {
-      if (!response?.allPosts) return []
+      if (!response?.allPosts) return null
       return (
-        response?.allPosts?.find((post: FeaturePost) =>
+        response?.allPosts.find((post: FeaturePost) =>
           post.categories.some(
             (category) => category.name === categoryData.name
           )
-        ) ?? []
+        ) ?? null
       )
     },
     'Error occurs while fetching category feature posts data in category page'

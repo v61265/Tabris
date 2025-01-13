@@ -47,18 +47,20 @@ const formatArticleCard = (
         ? String(post['__typeName'] ?? '')
         : undefined,
   }
-  const imageObj: PostImage =
+  let imageObj: PostImage =
     postFormatArticleCardInput.images ??
-    formateHeroImage(postFormatArticleCardInput.heroImage ?? undefined) ??
-    formateHeroImage(postFormatArticleCardInput.ogImage ?? undefined) ??
-    (postFormatArticleCardInput.thumbnail
-      ? {
-          original: '/images/image-default.jpg',
-          w3200: postFormatArticleCardInput.thumbnail,
-        }
-      : {
-          original: '/images/image-default.jpg',
-        })
+    formateHeroImage(
+      postFormatArticleCardInput.heroImage ??
+        postFormatArticleCardInput.ogImage ??
+        undefined
+    )
+  if (postFormatArticleCardInput.thumbnail) {
+    imageObj = {
+      original: '/images/image-default.jpg',
+      w3200: postFormatArticleCardInput.thumbnail,
+    }
+  }
+
   return {
     href:
       postFormatArticleCardInput.__typename === 'External'

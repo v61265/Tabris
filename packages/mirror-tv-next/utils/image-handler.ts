@@ -40,7 +40,6 @@ function formatePostImage(post: Post | Topic): PostImage {
 }
 
 function formateHeroImage(heroImage: HeroImage | undefined) {
-  if (!heroImage) return null
   const images: PostImage = {
     original: '/images/image-default.jpg',
   }
