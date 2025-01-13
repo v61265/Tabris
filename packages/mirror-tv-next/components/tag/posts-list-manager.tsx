@@ -47,7 +47,7 @@ export default function PostsListManager({
     },
   })
 
-  const isExternal = (post: FormattedPostCard) => post.__typeName === 'External'
+  const isExternal = (post: FormattedPostCard) => post.__typename === 'External'
 
   const handleClickLoadMore = async (page: number) => {
     // 如果庫存（fetch 到但還沒 render 的）不夠，則 fetch

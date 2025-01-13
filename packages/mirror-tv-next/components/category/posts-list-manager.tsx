@@ -32,7 +32,7 @@ export default function PostsListManager({
   externalsCount,
   salesCount,
 }: PostsListManagerProps) {
-  const isExternal = (post: FormattedPostCard) => post.__typeName === 'External'
+  const isExternal = (post: FormattedPostCard) => post.__typename === 'External'
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initPostsList)
   const differentPostsCount = useRef({
     rendered: {
