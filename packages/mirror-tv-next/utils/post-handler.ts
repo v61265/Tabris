@@ -41,11 +41,7 @@ const formatArticleCard = (
     style: 'style' in post ? post.style : undefined,
     categories: 'categories' in post ? post.categories : undefined,
     __typename:
-      '__typename' in post
-        ? String(post['__typename'] ?? '')
-        : '__typeName' in post
-        ? String(post['__typeName'] ?? '')
-        : undefined,
+      '__typename' in post ? String(post['__typename'] ?? '') : undefined,
   }
   let imageObj: PostImage =
     postFormatArticleCardInput.images ??
