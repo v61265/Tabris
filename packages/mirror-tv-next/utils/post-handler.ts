@@ -10,7 +10,7 @@ export type FormattedPostCard = {
   images: PostImage
   publishTime: Date
   label?: string
-  __typeName?: string
+  __typename?: string
 }
 
 type FormatArticleCardInput = {
@@ -72,7 +72,7 @@ const formatArticleCard = (
     images: imageObj,
     publishTime: new Date(postFormatArticleCardInput.publishTime),
     label: options?.label || postFormatArticleCardInput.categories?.[0]?.name,
-    __typeName: postFormatArticleCardInput.__typename ?? '',
+    __typename: postFormatArticleCardInput.__typename ?? '',
   }
 }
 

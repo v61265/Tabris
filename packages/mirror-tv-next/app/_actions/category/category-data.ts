@@ -1,3 +1,4 @@
+'use server'
 import { getClient } from '~/apollo-client'
 import { type Category, fetchCategoryBySlug } from '~/graphql/query/category'
 import errors from '@twreporter/errors'

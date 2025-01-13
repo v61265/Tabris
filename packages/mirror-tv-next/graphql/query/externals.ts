@@ -1,11 +1,7 @@
 import gql from 'graphql-tag'
+import { listingExternal, ListingExternal } from '../fragments/listing-external'
 
-export type External = {
-  publishTime: string
-  slug: string
-  name: string
-  thumbnail: string | null
-}
+export type External = ListingExternal
 
 const getExternalsByTagName = gql`
   query fetchExternalsByTagName(
@@ -25,10 +21,7 @@ const getExternalsByTagName = gql`
       skip: $skip
       sortBy: publishTime_DESC
     ) {
-      publishTime
-      slug
-      name
-      thumbnail
+      ...listingExternalFragment
     }
     _allExternalsMeta(
       where: {
@@ -40,6 +33,7 @@ const getExternalsByTagName = gql`
       count
     }
   }
+  ${listingExternal}
 `
 
 const getExternalsByCategory = gql`
@@ -60,10 +54,7 @@ const getExternalsByCategory = gql`
       skip: $skip
       sortBy: publishTime_DESC
     ) {
-      publishTime
-      slug
-      name
-      thumbnail
+      ...listingExternalFragment
     }
     _allExternalsMeta(
       where: {
@@ -75,6 +66,7 @@ const getExternalsByCategory = gql`
       count
     }
   }
+  ${listingExternal}
 `
 
 export { getExternalsByTagName, getExternalsByCategory }

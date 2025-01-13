@@ -86,9 +86,9 @@ export default async function CategoryPage({
     (response: Awaited<ReturnType<typeof fetchFeaturePosts>> | undefined) => {
       if (!response?.allPosts) return null
       return (
-        response?.allPosts.find((post: FeaturePost) =>
+        response.allPosts.find((post: FeaturePost) =>
           post.categories.some(
-            (category) => category.name === categoryData.name
+            (category) => category.slug === categoryData.slug
           )
         ) ?? null
       )
@@ -109,9 +109,9 @@ export default async function CategoryPage({
   )
 
   const filteredSlug = [
-    featurePost ? featurePost.slug : '', // Ensure featurePost is defined
-    ...(salePosts ? salePosts.map((sale) => sale.slug) : []), // Ensure salePosts is defined
-  ].filter((item) => typeof item === 'string')
+    featurePost ? featurePost.slug : '',
+    ...(salePosts ? salePosts.map((sale) => sale.slug) : []),
+  ]
 
   const fetchCategoryPosts = () =>
     fetchPostsByCategory({
