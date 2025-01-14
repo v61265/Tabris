@@ -59,7 +59,7 @@ export default function PostsListManager({
     let newExternals: External[] = []
     if (isNeedFetchPost) {
       const postRes = await fetchPostsByCategory({
-        skip: fetched.posts - salesCount,
+        skip: fetched.posts,
         categorySlug,
         pageSize,
         isWithCount: false,

@@ -1,5 +1,8 @@
 import gql from 'graphql-tag'
-import { listingExternal, ListingExternal } from '../fragments/listing-external'
+import {
+  listingExternal,
+  type ListingExternal,
+} from '../fragments/listing-external'
 
 export type External = ListingExternal
 
