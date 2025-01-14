@@ -81,13 +81,10 @@ export default async function CategoryPage({
     featurePostResult,
     (response: Awaited<ReturnType<typeof fetchFeaturePosts>> | undefined) => {
       if (!response?.allPosts) return null
-      return (
-        response.allPosts.find((post: FeaturePost) =>
-          post.categories.some(
-            (category) => category.slug === categoryData.slug
-          )
-        ) ?? null
+      const post = response.allPosts.find((post: FeaturePost) =>
+        post.categories.some((category) => category.id === categoryData.id)
       )
+      return post ? formatArticleCard(post) : null
     },
     'Error occurs while fetching category feature posts data in category page'
   )
@@ -161,9 +158,11 @@ export default async function CategoryPage({
   let renderedPostsListInit: FormattedPostCard[] =
     combineAndSortedByPublishedTime([...categoryPosts, ...externals])
 
+  let hasFeaturePostInJson = true
   if (!featurePost?.slug) {
     featurePost = renderedPostsListInit[0]
     renderedPostsListInit = renderedPostsListInit.slice(1)
+    hasFeaturePostInJson = false
   }
 
   const salesLength = salePosts?.length || 0
@@ -218,6 +217,7 @@ export default async function CategoryPage({
             initPostsList={renderedPostsListInit}
             filteredSlug={filteredSlug}
             salesCount={salesLength}
+            hasFeaturePostInJson={hasFeaturePostInJson}
           />
         </div>
       )}

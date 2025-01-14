@@ -21,6 +21,7 @@ type PostsListManagerProps = {
   filteredSlug: string[]
   externalsCount: number
   salesCount: number
+  hasFeaturePostInJson: boolean
 }
 
 export default function PostsListManager({
@@ -31,6 +32,7 @@ export default function PostsListManager({
   filteredSlug = [],
   externalsCount,
   salesCount,
+  hasFeaturePostInJson,
 }: PostsListManagerProps) {
   const isExternal = (post: FormattedPostCard) => post.__typename === 'External'
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initPostsList)
@@ -78,6 +80,8 @@ export default function PostsListManager({
       newExternals = externalRes.allExternals ?? []
     }
 
+    const postHasRendered = postsList.slice(0, (page - 1) * pageSize)
+
     const newPostList = combineAndSortedByPublishedTime([
       ...postsList.slice((page - 1) * pageSize),
       ...newExternals,
@@ -96,7 +100,7 @@ export default function PostsListManager({
         externals: fetched.externals + newExternals.length,
       },
     }
-    setPostsList(newPostList)
+    setPostsList([...postHasRendered, ...newPostList])
     return newListSlice
   }
 
@@ -106,7 +110,12 @@ export default function PostsListManager({
         <InfiniteScrollList
           initialList={initPostsList.slice(0, pageSize)}
           pageSize={pageSize}
-          amountOfElements={postsCount + externalsCount + salesCount - 1}
+          amountOfElements={
+            postsCount +
+            externalsCount +
+            salesCount -
+            (hasFeaturePostInJson ? 1 : 0)
+          }
           fetchListInPage={handleFetchLoadMore}
           isAutoFetch={false}
           loader={<UiLoadMoreButton title="看更多" className={styles.more} />}
