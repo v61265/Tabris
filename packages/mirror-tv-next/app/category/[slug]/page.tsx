@@ -167,14 +167,10 @@ export default async function CategoryPage({
   }
 
   const salesLength = salePosts?.length || 0
-  const salesPostsInsertIndex = [3, 5, 9, 11].slice(0, salesLength)
+  const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesLength)
   if (salesLength) {
     salesPostsInsertIndex.forEach((position, index) => {
-      renderedPostsListInit.splice(
-        position,
-        0,
-        salePosts[salesLength - 1 - index]
-      )
+      renderedPostsListInit.splice(position, 0, salePosts[index])
     })
   }
 
