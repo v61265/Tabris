@@ -161,7 +161,7 @@ export default async function CategoryPage({
   const renderedPostsListInit: FormattedPostCard[] =
     combineAndSortedByPublishedTime([...categoryPosts, ...externals])
 
-  const postJsonData = renderedPostsListInit?.slice(5).map((post, index) => {
+  const postJsonData = categoryPosts?.slice(5).map((post, index) => {
     return {
       '@type': 'ListItem',
       position: index + 1 + '',
