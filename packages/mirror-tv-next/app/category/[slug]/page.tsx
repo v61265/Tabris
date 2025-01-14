@@ -59,7 +59,7 @@ export default async function CategoryPage({
   const PAGE_SIZE = 12
   let categoryData: Category = { name: '', slug: '' }
   let salePosts: FormattedPostCard[] = []
-  let featurePost: FeaturePost | null = null
+  let featurePost: FormattedPostCard | null = null
 
   categoryData = await fetchCategoryData(params.slug)
   if (!categoryData.name) return notFound()
@@ -158,8 +158,25 @@ export default async function CategoryPage({
     'Error occurs while fetching category externals data in category page'
   )
 
-  const renderedPostsListInit: FormattedPostCard[] =
+  let renderedPostsListInit: FormattedPostCard[] =
     combineAndSortedByPublishedTime([...categoryPosts, ...externals])
+
+  if (!featurePost?.slug) {
+    featurePost = renderedPostsListInit[0]
+    renderedPostsListInit = renderedPostsListInit.slice(1)
+  }
+
+  const salesLength = salePosts?.length || 0
+  const salesPostsInsertIndex = [3, 5, 9, 11].slice(0, salesLength)
+  if (salesLength) {
+    salesPostsInsertIndex.forEach((position, index) => {
+      renderedPostsListInit.splice(
+        position,
+        0,
+        salePosts[salesLength - 1 - index]
+      )
+    })
+  }
 
   const postJsonData = categoryPosts?.slice(5).map((post, index) => {
     return {
@@ -179,18 +196,6 @@ export default async function CategoryPage({
     }
   })
 
-  const salesLength = salePosts?.length || 0
-  const salesPostsInsertIndex = [3, 5, 9, 11].slice(0, salesLength)
-  if (salesLength) {
-    salesPostsInsertIndex.forEach((position, index) => {
-      renderedPostsListInit.splice(
-        position,
-        0,
-        salePosts[salesLength - 1 - index]
-      )
-    })
-  }
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -208,13 +213,13 @@ export default async function CategoryPage({
       <UiHeadingBordered title={categoryData.name} />
       {postsCount !== 0 && (
         <div className={`${styles.listWrapper} list-latest-wrapper`}>
-          <UiFeaturePost post={renderedPostsListInit[0]} />
+          <UiFeaturePost post={featurePost} />
           <PostsListManager
             categorySlug={categoryData.slug}
             pageSize={PAGE_SIZE}
             postsCount={postsCount}
             externalsCount={externalsCount}
-            initPostsList={renderedPostsListInit.slice(1)}
+            initPostsList={renderedPostsListInit}
             filteredSlug={filteredSlug}
             salesCount={salesLength}
           />
