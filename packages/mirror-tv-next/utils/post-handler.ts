@@ -43,19 +43,17 @@ const formatArticleCard = (
     __typename:
       '__typename' in post ? String(post['__typename'] ?? '') : undefined,
   }
-  let imageObj: PostImage =
+  const imageObj: PostImage =
     postFormatArticleCardInput.images ??
     formateHeroImage(
       postFormatArticleCardInput.heroImage ??
         postFormatArticleCardInput.ogImage ??
-        undefined
+        postFormatArticleCardInput.thumbnail
+        ? {
+            urlOriginal: postFormatArticleCardInput.thumbnail ?? undefined,
+          }
+        : undefined
     )
-  if (postFormatArticleCardInput.thumbnail) {
-    imageObj = {
-      original: '/images/image-default.jpg',
-      w3200: postFormatArticleCardInput.thumbnail,
-    }
-  }
 
   return {
     href:
