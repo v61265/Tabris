@@ -127,7 +127,7 @@ export default function PostsListManager({
             postsCount +
             externalsCount +
             salesCount -
-            (hasFeaturePostInJson ? 1 : 0)
+            (hasFeaturePostInJson ? 0 : 1)
           }
           fetchListInPage={handleFetchLoadMore}
           isAutoFetch={false}
