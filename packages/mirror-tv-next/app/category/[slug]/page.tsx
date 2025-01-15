@@ -165,14 +165,6 @@ export default async function CategoryPage({
     hasFeaturePostInJson = false
   }
 
-  const salesLength = salePosts?.length || 0
-  const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesLength)
-  if (salesLength) {
-    salesPostsInsertIndex.forEach((position, index) => {
-      renderedPostsListInit.splice(position, 0, salePosts[index])
-    })
-  }
-
   const postJsonData = categoryPosts?.slice(5).map((post, index) => {
     return {
       '@type': 'ListItem',
@@ -216,7 +208,7 @@ export default async function CategoryPage({
             externalsCount={externalsCount}
             initPostsList={renderedPostsListInit}
             filteredSlug={filteredSlug}
-            salesCount={salesLength}
+            salePosts={salePosts}
             hasFeaturePostInJson={hasFeaturePostInJson}
           />
         </div>

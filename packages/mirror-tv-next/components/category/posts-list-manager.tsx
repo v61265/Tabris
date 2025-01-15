@@ -9,7 +9,7 @@ import styles from './_styles/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { type FormattedPostCard } from '~/utils'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { combineAndSortedByPublishedTime } from '~/utils/post-handler'
 import { type External } from '~/graphql/query/externals'
 
@@ -20,7 +20,7 @@ type PostsListManagerProps = {
   initPostsList: FormattedPostCard[]
   filteredSlug: string[]
   externalsCount: number
-  salesCount: number
+  salePosts: FormattedPostCard[]
   hasFeaturePostInJson: boolean
 }
 
@@ -31,11 +31,22 @@ export default function PostsListManager({
   initPostsList,
   filteredSlug = [],
   externalsCount,
-  salesCount,
+  salePosts,
   hasFeaturePostInJson,
 }: PostsListManagerProps) {
   const isExternal = (post: FormattedPostCard) => post.__typename === 'External'
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initPostsList)
+  const salesCount = salePosts?.length ?? 0
+  const postsListWithSales = useMemo(() => {
+    const postsListWithSales = [...postsList]
+    const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesCount)
+    if (salesCount) {
+      salesPostsInsertIndex.forEach((position, index) => {
+        postsListWithSales.splice(position, 0, salePosts[index])
+      })
+    }
+    return postsListWithSales
+  }, [postsList])
   const differentPostsCount = useRef({
     rendered: {
       posts:
@@ -54,8 +65,8 @@ export default function PostsListManager({
     const isNeedFetchPost: boolean =
       fetched.posts - rendered.posts <= pageSize && postsCount > fetched.posts
     const isNeedFetchExternal: boolean =
-      fetched.externals - rendered.posts <= pageSize &&
-      externalsCount > fetched.posts
+      fetched.externals - rendered.externals <= pageSize &&
+      externalsCount > fetched.externals
 
     let newPosts: PostCardItem[] = []
     let newExternals: External[] = []
@@ -80,14 +91,16 @@ export default function PostsListManager({
       newExternals = externalRes.allExternals ?? []
     }
 
-    const postHasRendered = postsList.slice(0, (page - 1) * pageSize)
-
     const newPostList = combineAndSortedByPublishedTime([
-      ...postsList.slice((page - 1) * pageSize),
+      ...postsList,
       ...newExternals,
       ...newPosts,
     ])
-    const newListSlice = newPostList.slice(0, page * pageSize)
+    const newListSlice = newPostList.slice(
+      (page - 1) * pageSize - salesCount,
+      page * pageSize - salesCount
+    )
+
     differentPostsCount.current = {
       rendered: {
         posts:
@@ -100,7 +113,7 @@ export default function PostsListManager({
         externals: fetched.externals + newExternals.length,
       },
     }
-    setPostsList([...postHasRendered, ...newPostList])
+    setPostsList(newPostList)
     return newListSlice
   }
 
@@ -108,7 +121,7 @@ export default function PostsListManager({
     <>
       <section className={styles.list}>
         <InfiniteScrollList
-          initialList={initPostsList.slice(0, pageSize)}
+          initialList={postsListWithSales.slice(0, pageSize)}
           pageSize={pageSize}
           amountOfElements={
             postsCount +
