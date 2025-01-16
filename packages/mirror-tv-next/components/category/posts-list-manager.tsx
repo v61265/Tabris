@@ -9,7 +9,7 @@ import styles from './_styles/posts-list-manager.module.scss'
 import UiPostCard from '~/components/shared/ui-post-card'
 import { type FormattedPostCard } from '~/utils'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
-import { useMemo, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { combineAndSortedByPublishedTime } from '~/utils/post-handler'
 import { type External } from '~/graphql/query/externals'
 
