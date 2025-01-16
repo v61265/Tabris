@@ -36,17 +36,16 @@ export default function PostsListManager({
 }: PostsListManagerProps) {
   const isExternal = (post: FormattedPostCard) => post.__typename === 'External'
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initPostsList)
-  const salesCount = salePosts?.length ?? 0
-  const postsListWithSales = useMemo(() => {
-    const postsListWithSales = [...postsList]
-    const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesCount)
-    if (salesCount) {
-      salesPostsInsertIndex.forEach((position, index) => {
-        postsListWithSales.splice(position, 0, salePosts[index])
-      })
-    }
-    return postsListWithSales
-  }, [postsList])
+  const salesCount = salePosts.length ?? 0
+
+  const postsListWithSales = [...postsList]
+  const salesPostsInsertIndex = [2, 4, 8, 10].slice(0, salesCount)
+  if (salesCount) {
+    salesPostsInsertIndex.forEach((position, index) => {
+      postsListWithSales.splice(position, 0, salePosts[index])
+    })
+  }
+
   const differentPostsCount = useRef({
     rendered: {
       posts:
