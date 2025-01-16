@@ -59,11 +59,9 @@ export default function EditorChoicesSwiper({
               disableOnInteraction: false,
             }}
             pagination={pagination}
-            onBeforeInit={(swiper) => {
-              // @ts-expect-error - Swiper types don't properly recognize navigation params assignment
-              swiper.params.navigation.prevEl = prevButtonRef.current
-              // @ts-expect-error - Swiper types don't properly recognize navigation params assignment
-              swiper.params.navigation.nextEl = nextButtonRef.current
+            navigation={{
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
             }}
             mousewheel={true}
             keyboard={true}
@@ -110,18 +108,14 @@ export default function EditorChoicesSwiper({
             })}
           </Swiper>
           <button
-            className={`${styles.nav} ${styles.prev}`}
+            className={`${styles.nav} ${styles.prev} swiper-button-prev`}
             ref={prevButtonRef}
-          >
-            <span />
-          </button>
+          ></button>
           <button
-            className={`${styles.nav} ${styles.next} `}
+            className={`${styles.nav} ${styles.next} swiper-button-next`}
             ref={nextButtonRef}
-          >
-            <span />
-          </button>
-          <div className={`swiper-pagination ${styles.pagination} nav-next`} />
+          ></button>
+          <div className={`swiper-pagination ${styles.pagination}  `} />
         </div>
       </div>
     </section>
