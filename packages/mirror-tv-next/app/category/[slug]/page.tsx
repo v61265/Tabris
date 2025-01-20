@@ -182,11 +182,11 @@ export default async function CategoryPage({
   let hasFeaturePostInJson = true
   if (!featurePost?.slug) {
     const newestPostIsExternal =
-      externals.length > 0 &&
-      categoryPosts.length > 0 &&
+      externalsCount &&
+      postsCount &&
       new Date(externals[0].publishTime) >
         new Date(categoryPosts[0].publishTime)
-    if (newestPostIsExternal) {
+    if (newestPostIsExternal || !postsCount) {
       featurePost = externals[0]
       externals.splice(0, 1)
     } else {
