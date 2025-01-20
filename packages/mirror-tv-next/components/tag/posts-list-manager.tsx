@@ -38,8 +38,12 @@ export default function PostsListManager({
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initFetchList)
   const differentPostsCount = useRef({
     rendered: {
-      posts: 0,
-      externals: 0,
+      posts: initFetchList
+        .slice(0, pageSize)
+        .filter((post) => !isExternal(post)).length,
+      externals: initFetchList
+        .slice(0, pageSize)
+        .filter((post) => isExternal(post)).length,
     },
     fetched: {
       posts: initPostsList.length,
@@ -98,7 +102,7 @@ export default function PostsListManager({
       },
     }
     setPostsList(newPostList)
-    return newPostList
+    return newListSlice
   }
 
   return (

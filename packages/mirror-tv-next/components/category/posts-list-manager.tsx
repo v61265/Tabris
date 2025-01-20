@@ -17,24 +17,30 @@ type PostsListManagerProps = {
   categorySlug: string
   pageSize: number
   postsCount: number
-  initPostsList: FormattedPostCard[]
   filteredSlug: string[]
   externalsCount: number
   salePosts: FormattedPostCard[]
   hasFeaturePostInJson: boolean
+  externals: FormattedPostCard[]
+  categoryPosts: FormattedPostCard[]
 }
 
 export default function PostsListManager({
   categorySlug,
   pageSize,
   postsCount,
-  initPostsList,
   filteredSlug = [],
   externalsCount,
   salePosts,
   hasFeaturePostInJson,
+  externals,
+  categoryPosts,
 }: PostsListManagerProps) {
   const isExternal = (post: FormattedPostCard) => post.__typename === 'External'
+  const initPostsList = combineAndSortedByPublishedTime([
+    ...categoryPosts,
+    ...externals,
+  ])
   const [postsList, setPostsList] = useState<FormattedPostCard[]>(initPostsList)
   const salesCount = salePosts.length ?? 0
 

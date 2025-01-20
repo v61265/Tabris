@@ -27,7 +27,6 @@ import { fetchSales } from '~/app/_actions/share/sales'
 const GPTAd = dynamic(() => import('~/components/ads/gpt/gpt-ad'))
 import { SALES_LABEL_NAME } from '~/constants/constant'
 import { fetchCategoryData } from '~/app/_actions/category/category-data'
-import { combineAndSortedByPublishedTime } from '~/utils/post-handler'
 
 export const revalidate = GLOBAL_CACHE_SETTING
 
@@ -155,16 +154,6 @@ export default async function CategoryPage({
     'Error occurs while fetching category externals data in category page'
   )
 
-  let renderedPostsListInit: FormattedPostCard[] =
-    combineAndSortedByPublishedTime([...categoryPosts, ...externals])
-
-  let hasFeaturePostInJson = true
-  if (!featurePost?.slug) {
-    featurePost = renderedPostsListInit[0]
-    renderedPostsListInit = renderedPostsListInit.slice(1)
-    hasFeaturePostInJson = false
-  }
-
   const postJsonData = categoryPosts?.slice(5).map((post, index) => {
     return {
       '@type': 'ListItem',
@@ -190,6 +179,23 @@ export default async function CategoryPage({
     itemListElement: postJsonData,
   }
 
+  let hasFeaturePostInJson = true
+  if (!featurePost?.slug) {
+    const newestPostIsExternal =
+      externals.length > 0 &&
+      categoryPosts.length > 0 &&
+      new Date(externals[0].publishTime) >
+        new Date(categoryPosts[0].publishTime)
+    if (newestPostIsExternal) {
+      featurePost = externals[0]
+      externals.splice(0, 1)
+    } else {
+      featurePost = categoryPosts[0]
+      categoryPosts.splice(0, 1)
+    }
+    hasFeaturePostInJson = false
+  }
+
   return (
     <section className={styles.postsList}>
       <script
@@ -206,10 +212,11 @@ export default async function CategoryPage({
             pageSize={PAGE_SIZE}
             postsCount={postsCount}
             externalsCount={externalsCount}
-            initPostsList={renderedPostsListInit}
             filteredSlug={filteredSlug}
             salePosts={salePosts}
             hasFeaturePostInJson={hasFeaturePostInJson}
+            categoryPosts={categoryPosts}
+            externals={externals}
           />
         </div>
       )}
