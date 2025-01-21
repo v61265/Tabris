@@ -182,11 +182,12 @@ export default async function CategoryPage({
   let hasFeaturePostInJson = true
   if (!featurePost?.slug) {
     const newestPostIsExternal =
-      externalsCount &&
-      postsCount &&
-      new Date(externals[0].publishTime) >
-        new Date(categoryPosts[0].publishTime)
-    if (newestPostIsExternal || !postsCount) {
+      (externalsCount &&
+        postsCount &&
+        new Date(externals[0].publishTime) >
+          new Date(categoryPosts[0].publishTime)) ||
+      !postsCount
+    if (newestPostIsExternal) {
       featurePost = externals[0]
       externals.splice(0, 1)
     } else {
@@ -204,7 +205,7 @@ export default async function CategoryPage({
       />
       <GptPopup adKey="MB_CATEGORY" />
       <UiHeadingBordered title={categoryData.name} />
-      {postsCount !== 0 && (
+      {featurePost && (
         <div className={`${styles.listWrapper} list-latest-wrapper`}>
           <UiFeaturePost post={featurePost} />
           <PostsListManager
