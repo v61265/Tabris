@@ -9,6 +9,7 @@
   position: relative;
   @include media-breakpoint-up(md) {
     max-width: 676px;
+    min-width: 676px;
   }
 }
 

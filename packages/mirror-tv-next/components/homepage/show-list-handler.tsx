@@ -42,7 +42,7 @@ export default function ShowListHandler({
       key={pageSize}
     >
       {(renderList) => (
-        <ol className={`${styles.showList} show-list`}>
+        <ol className={`${styles.showList} show-list show-card__img`}>
           {renderList.map((item) => (
             <Link
               id={item.id}

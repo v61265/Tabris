@@ -107,14 +107,18 @@ export default function EditorChoicesSwiper({
               )
             })}
           </Swiper>
-          <button
-            className={`${styles.nav} ${styles.prev} swiper-button-prev`}
-            ref={prevButtonRef}
-          ></button>
-          <button
-            className={`${styles.nav} ${styles.next} swiper-button-next`}
-            ref={nextButtonRef}
-          ></button>
+          {editorChoices?.[1] && (
+            <>
+              <button
+                className={`${styles.nav} ${styles.prev} swiper-button-prev`}
+                ref={prevButtonRef}
+              ></button>
+              <button
+                className={`${styles.nav} ${styles.next} swiper-button-next`}
+                ref={nextButtonRef}
+              ></button>
+            </>
+          )}
           <div className={`swiper-pagination ${styles.pagination}  `} />
         </div>
       </div>
