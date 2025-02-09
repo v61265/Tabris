@@ -35,28 +35,30 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
           src="https://cdn.ampproject.org/v0/amp-img-0.1.js"
         ></script>
       </Head>
-
-      <amp-body className={styles.body}>
-        <amp-analytics
-          type="googleanalytics"
-          config="https://amp.analytics-debugger.com/ga4.json"
-          data-credentials="include"
-        >
-          <script type="application/json">
-            {JSON.stringify(googleAnalytics4Json)}
-          </script>
-        </amp-analytics>
-        <header className={styles.header}>
-          <amp-img
-            width="183"
-            height="34"
-            src="/icons/mnews-logo-white.svg"
-            alt="mnews homepage"
-            layout="intrinsic"
-          />
-        </header>
-        {children}
-      </amp-body>
+      <body>
+        <amp-body className={styles.body}>
+          <amp-analytics
+            type="googleanalytics"
+            config="https://amp.analytics-debugger.com/ga4.json"
+            data-credentials="include"
+          >
+            <script
+              type="application/json"
+              dangerouslySetInnerHTML={{ __html: googleAnalytics4Json }}
+            ></script>
+          </amp-analytics>
+          <header className={styles.header}>
+            <amp-img
+              width="183"
+              height="34"
+              src="/icons/mnews-logo-white.svg"
+              alt="mnews homepage"
+              layout="intrinsic"
+            />
+          </header>
+          {children}
+        </amp-body>
+      </body>
     </html>
   )
 }
