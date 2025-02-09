@@ -3,7 +3,9 @@ import styles from '~/components/story/amp/_styles/layout.module.scss'
 import { Noto_Sans } from 'next/font/google'
 import Head from 'next/head'
 
-export const config = { amp: true }
+export const runtime = 'edge'
+export const dynamic = 'force-static'
+
 const noto_sans = Noto_Sans({
   weight: ['400', '500', '600'],
   subsets: ['latin'],
