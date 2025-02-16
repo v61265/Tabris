@@ -19,7 +19,8 @@ declare namespace JSX {
       React.VideoHTMLAttributes<HTMLVideoElement>,
       HTMLVideoElement
     >
-    'amp-body': React.DetailedHTMLProps<
+
+    'amp-script': React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLElement>,
       HTMLElement
     >

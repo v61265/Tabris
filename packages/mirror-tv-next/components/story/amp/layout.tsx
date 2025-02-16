@@ -26,29 +26,45 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
       ENHANCED_MEASUREMENT_SCROLL: false,
     },
   })
+
+  const ampCustomStyles: string = `
+  .layout-wrapper {
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
+  .layout-header {
+    background-color: #036;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+}
+  `
+
   return (
-    <html lang="zh-Hant" className={`${noto_sans.variable} ${styles.wrapper}`}>
+    <html lang="zh-Hant" className={`${noto_sans.variable} layout-wrapper`}>
       <Head>
         <script async src="https://cdn.ampproject.org/v0.js"></script>
-        <script
-          async
-          custom-element="amp-img"
-          src="https://cdn.ampproject.org/v0/amp-img-0.1.js"
-        ></script>
+        <style
+          amp-custom
+          dangerouslySetInnerHTML={{ __html: ampCustomStyles }}
+        />
       </Head>
       <body>
-        <amp-body className={styles.body}>
-          <amp-analytics
-            type="googleanalytics"
-            config="https://amp.analytics-debugger.com/ga4.json"
-            data-credentials="include"
-          >
-            <script
-              type="application/json"
-              dangerouslySetInnerHTML={{ __html: googleAnalytics4Json }}
-            ></script>
-          </amp-analytics>
-          <header className={styles.header}>
+        <amp-analytics
+          type="googleanalytics"
+          config="https://amp.analytics-debugger.com/ga4.json"
+          data-credentials="include"
+        >
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{ __html: googleAnalytics4Json }}
+          ></script>
+        </amp-analytics>
+        <header className="layout-header">
+          <a href="/">
             <amp-img
               width="183"
               height="34"
@@ -56,9 +72,9 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
               alt="mnews homepage"
               layout="intrinsic"
             />
-          </header>
-          {children}
-        </amp-body>
+          </a>
+        </header>
+        {children}
       </body>
     </html>
   )

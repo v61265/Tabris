@@ -1,5 +1,7 @@
+import AMPLayout from '~/components/story/amp/layout'
+
 export const config = { amp: true }
 
 export default function AmpPage() {
-  return <div>amp page</div>
+  return <AMPLayout>amp page</AMPLayout>
 }
