@@ -1,17 +1,46 @@
 import AMPLayout from '~/components/story/amp/layout'
 import { ENV } from '~/constants/environment-variables'
 import { fetchStoryBySlug } from '~/app/_actions/story/fetch-story-post-by-slug'
-import { type FetchStoryBySlugResponse } from '~/graphql/query/story'
+import {
+  type SinglePost,
+  type FetchStoryBySlugResponse,
+} from '~/graphql/query/story'
 import { ServerResponse } from 'http'
 
 export const config = { amp: true }
 
 type AmpPageProps = {
-  storyData: FetchStoryBySlugResponse['allPosts']
+  storyData: SinglePost
 }
 
 export default function AmpPage({ storyData }: AmpPageProps) {
-  return <AMPLayout>amp page</AMPLayout>
+  const {
+    heroImage: {
+      urlOriginal,
+      urlDesktopSized,
+      urlTabletSized,
+      urlMobileSized,
+      urlTinySized,
+    },
+    heroCaption,
+  } = storyData
+  const heroImage =
+    urlMobileSized ??
+    urlTabletSized ??
+    urlDesktopSized ??
+    urlOriginal ??
+    urlTinySized ??
+    '/images/default-og-img.jpg'
+  return (
+    <AMPLayout>
+      <figure className="amp-hero-image">
+        <amp-img src={heroImage} layout="fill" />
+      </figure>
+      {heroCaption && (
+        <figcaption className="amp-hero-caption">{heroCaption}</figcaption>
+      )}
+    </AMPLayout>
+  )
 }
 
 export async function getServerSideProps({
@@ -37,7 +66,7 @@ export async function getServerSideProps({
   }
 
   const props = {
-    storyData: [],
+    storyData,
   }
 
   return { props }

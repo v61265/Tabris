@@ -1,5 +1,5 @@
 import { GA4_ID } from '~/constants/environment-variables'
-import styles from '~/components/story/amp/_styles/layout.module.scss'
+// import styles from '~/components/story/amp/_styles/layout.module.scss'
 import { Noto_Sans } from 'next/font/google'
 import Head from 'next/head'
 
@@ -40,7 +40,31 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
     padding: 12px;
     display: flex;
     justify-content: center;
-}
+  }
+
+  .amp-main {
+    margin: 0;
+    padding: 0;
+  }
+
+  .amp-hero-image {
+    width: 100vw;
+    height: content-fit;
+    position: relative;
+    margin: 0;
+    height: calc((100vw - 32px) * 0.66);
+    amp-img {
+      object-fit: cover;
+    }
+  }
+
+  .amp-hero-caption {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #000;
+    padding: 0 16px;
+    margin: 8px 0 0;
+  }
   `
 
   return (
@@ -74,7 +98,7 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
             />
           </a>
         </header>
-        {children}
+        <main className="amp-main">{children}</main>
       </body>
     </html>
   )
