@@ -61,7 +61,7 @@ export async function getServerSideProps({
   const [storyData]: FetchStoryBySlugResponse['allPosts'] =
     await fetchStoryBySlug(slug)
 
-  if (!Object.keys(storyData).length) {
+  if (!storyData) {
     return { notFound: true }
   }
 
