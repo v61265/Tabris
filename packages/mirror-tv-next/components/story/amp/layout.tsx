@@ -3,8 +3,6 @@ import { GA4_ID } from '~/constants/environment-variables'
 import { Noto_Sans } from 'next/font/google'
 import Head from 'next/head'
 
-export const config = { amp: true }
-
 const noto_sans = Noto_Sans({
   weight: ['400', '500', '600'],
   subsets: ['latin'],

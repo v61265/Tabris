@@ -6,14 +6,17 @@ import {
   type FetchStoryBySlugResponse,
 } from '~/graphql/query/story'
 import { ServerResponse } from 'http'
+import type {
+  InferGetServerSidePropsType,
+  GetServerSideProps,
+  GetServerSidePropsContext,
+} from 'next'
 
 export const config = { amp: true }
 
-type AmpPageProps = {
-  storyData: SinglePost
-}
-
-export default function AmpPage({ storyData }: AmpPageProps) {
+export default function AmpPage({
+  storyData,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {
     heroImage: {
       urlOriginal,
@@ -43,20 +46,21 @@ export default function AmpPage({ storyData }: AmpPageProps) {
   )
 }
 
-export async function getServerSideProps({
-  params,
-  res,
-}: {
-  params: { slug: string }
-  res: ServerResponse
-}) {
+type GetServerSidePropsReturn = {
+  storyData: SinglePost
+}
+
+export const getServerSideProps: GetServerSideProps<{
+  storyData: SinglePost
+}> = async (context: GetServerSidePropsContext) => {
+  const { params, res } = context
   if (ENV === 'prod') {
     res.setHeader('Cache-Control', 'public, max-age=300')
   } else {
     res.setHeader('Cache-Control', 'no-store')
   }
 
-  const { slug } = params
+  const { slug = '' } = params as { slug: string }
 
   const [storyData]: FetchStoryBySlugResponse['allPosts'] =
     await fetchStoryBySlug(slug)
