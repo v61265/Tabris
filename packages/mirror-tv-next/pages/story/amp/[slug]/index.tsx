@@ -27,6 +27,8 @@ export default function AmpPage({
     },
     heroCaption,
   } = storyData
+
+  // TODO: 整理成 function 重復使用
   const heroImage =
     urlMobileSized ??
     urlTabletSized ??
@@ -44,10 +46,6 @@ export default function AmpPage({
       )}
     </AMPLayout>
   )
-}
-
-type GetServerSidePropsReturn = {
-  storyData: SinglePost
 }
 
 export const getServerSideProps: GetServerSideProps<{
