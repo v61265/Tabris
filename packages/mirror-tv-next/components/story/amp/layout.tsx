@@ -60,6 +60,7 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
           data-credentials="include"
         >
           <Script
+            id="amp"
             type="application/json"
             dangerouslySetInnerHTML={{ __html: googleAnalytics4Json }}
           ></Script>

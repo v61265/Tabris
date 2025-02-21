@@ -105,7 +105,7 @@ const nextConfig = {
     return config
   },
   compiler: {
-    styledComponents: true,
+    styledComponents: { displayName: true, ssr: true },
   },
 }
 
