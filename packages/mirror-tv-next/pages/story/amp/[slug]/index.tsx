@@ -5,14 +5,33 @@ import {
   type SinglePost,
   type FetchStoryBySlugResponse,
 } from '~/graphql/query/story'
-import { ServerResponse } from 'http'
 import type {
   InferGetServerSidePropsType,
   GetServerSideProps,
   GetServerSidePropsContext,
 } from 'next'
+import { styled } from 'styled-components'
 
 export const config = { amp: true }
+
+const ImageWrapper = styled.figure`
+  width: 100vw;
+  height: content-fit;
+  position: relative;
+  margin: 0;
+  height: calc((100vw - 32px) * 0.66);
+  amp-img {
+    object-fit: cover;
+  }
+`
+
+const HeroImhCaption = styled.figcaption`
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000;
+  padding: 0 16px;
+  margin: 8px 0 0;
+`
 
 export default function AmpPage({
   storyData,
@@ -38,12 +57,10 @@ export default function AmpPage({
     '/images/default-og-img.jpg'
   return (
     <AMPLayout>
-      <figure className="amp-hero-image">
+      <ImageWrapper>
         <amp-img src={heroImage} layout="fill" />
-      </figure>
-      {heroCaption && (
-        <figcaption className="amp-hero-caption">{heroCaption}</figcaption>
-      )}
+      </ImageWrapper>
+      {heroCaption && <HeroImhCaption>{heroCaption}</HeroImhCaption>}
     </AMPLayout>
   )
 }

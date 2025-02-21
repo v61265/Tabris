@@ -1,7 +1,9 @@
 import { GA4_ID } from '~/constants/environment-variables'
-// import styles from '~/components/story/amp/_styles/layout.module.scss'
+// import styles from '~/components/story/amp/_styles/amp.css'
 import { Noto_Sans } from 'next/font/google'
 import Head from 'next/head'
+import styled from 'styled-components'
+import Script from 'next/script'
 
 const noto_sans = Noto_Sans({
   weight: ['400', '500', '600'],
@@ -9,6 +11,26 @@ const noto_sans = Noto_Sans({
   display: 'swap',
   variable: '--font-noto-sans',
 })
+
+const StyledBody = styled.body`
+  body {
+    margin: 0;
+    padding: 0;
+    border: 1px solid red;
+  }
+`
+
+const StyledHeader = styled.header`
+  background-color: #036;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+`
+
+const StyledMain = styled.main`
+  margin: 0;
+  padding: 0;
+`
 
 export default function AMPLayout({ children }: { children: React.ReactNode }) {
   const googleAnalytics4Json = JSON.stringify({
@@ -25,67 +47,24 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
     },
   })
 
-  const ampCustomStyles: string = `
-  .layout-wrapper {
-    body {
-      margin: 0;
-      padding: 0;
-    }
-  }
-  
-  .layout-header {
-    background-color: #036;
-    padding: 12px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .amp-main {
-    margin: 0;
-    padding: 0;
-  }
-
-  .amp-hero-image {
-    width: 100vw;
-    height: content-fit;
-    position: relative;
-    margin: 0;
-    height: calc((100vw - 32px) * 0.66);
-    amp-img {
-      object-fit: cover;
-    }
-  }
-
-  .amp-hero-caption {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #000;
-    padding: 0 16px;
-    margin: 8px 0 0;
-  }
-  `
-
   return (
     <html lang="zh-Hant" className={`${noto_sans.variable} layout-wrapper`}>
       <Head>
         <script async src="https://cdn.ampproject.org/v0.js"></script>
-        <style
-          amp-custom
-          dangerouslySetInnerHTML={{ __html: ampCustomStyles }}
-        />
+        {/* <style amp-custom dangerouslySetInnerHTML={{ __html: styles }} /> */}
       </Head>
-      <body>
+      <StyledBody>
         <amp-analytics
           type="googleanalytics"
           config="https://amp.analytics-debugger.com/ga4.json"
           data-credentials="include"
         >
-          <script
+          <Script
             type="application/json"
             dangerouslySetInnerHTML={{ __html: googleAnalytics4Json }}
-          ></script>
+          ></Script>
         </amp-analytics>
-        <header className="layout-header">
+        <StyledHeader>
           <a href="/">
             <amp-img
               width="183"
@@ -95,9 +74,9 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
               layout="intrinsic"
             />
           </a>
-        </header>
-        <main className="amp-main">{children}</main>
-      </body>
+        </StyledHeader>
+        <StyledMain>{children}</StyledMain>
+      </StyledBody>
     </html>
   )
 }
