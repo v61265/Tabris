@@ -1,5 +1,4 @@
 import { GA4_ID } from '~/constants/environment-variables'
-// import styles from '~/components/story/amp/_styles/amp.css'
 import { Noto_Sans } from 'next/font/google'
 import Head from 'next/head'
 import styled from 'styled-components'
@@ -51,7 +50,6 @@ export default function AMPLayout({ children }: { children: React.ReactNode }) {
     <html lang="zh-Hant" className={`${noto_sans.variable} layout-wrapper`}>
       <Head>
         <script async src="https://cdn.ampproject.org/v0.js"></script>
-        {/* <style amp-custom dangerouslySetInnerHTML={{ __html: styles }} /> */}
       </Head>
       <StyledBody>
         <amp-analytics
