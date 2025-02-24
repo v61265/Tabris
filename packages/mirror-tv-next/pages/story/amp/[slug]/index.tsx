@@ -18,9 +18,15 @@ const ImageWrapper = styled.figure`
   width: 100vw;
   position: relative;
   margin: 0;
-  height: calc((100vw - 32px) * 0.66);
+  height: calc(100vw * 0.66);
+  overflow: hidden;
   amp-img {
+    width: 100%;
+    height: 100%;
+  }
+  img {
     object-fit: cover;
+    object-position: center;
   }
 `
 
