@@ -12,11 +12,8 @@ const noto_sans = Noto_Sans({
 })
 
 const StyledBody = styled.body`
-  body {
-    margin: 0;
-    padding: 0;
-    border: 1px solid red;
-  }
+  margin: 0;
+  padding: 0;
 `
 
 const StyledHeader = styled.header`

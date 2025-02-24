@@ -16,7 +16,6 @@ export const config = { amp: true }
 
 const ImageWrapper = styled.figure`
   width: 100vw;
-  height: content-fit;
   position: relative;
   margin: 0;
   height: calc((100vw - 32px) * 0.66);
