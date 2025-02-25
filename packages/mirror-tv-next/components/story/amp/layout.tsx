@@ -21,6 +21,9 @@ const StyledHeader = styled.header`
   padding: 12px;
   display: flex;
   justify-content: center;
+  amp-img {
+    object-position: bottom;
+  }
 `
 
 const StyledMain = styled.main`

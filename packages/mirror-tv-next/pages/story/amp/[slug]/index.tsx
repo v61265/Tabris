@@ -20,10 +20,6 @@ const ImageWrapper = styled.figure`
   margin: 0;
   height: calc(100vw * 0.66);
   overflow: hidden;
-  amp-img {
-    width: 100%;
-    height: 100%;
-  }
   img {
     object-fit: cover;
     object-position: center;
@@ -60,6 +56,7 @@ export default function AmpPage({
     urlOriginal ??
     urlTinySized ??
     '/images/default-og-img.jpg'
+
   return (
     <AMPLayout>
       <ImageWrapper>
